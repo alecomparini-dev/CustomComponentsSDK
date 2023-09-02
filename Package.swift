@@ -12,12 +12,18 @@ let package = Package(
     ],
     
     products: [
-        .library(name: "CustomComponentsSDK", targets: ["Components"]),
+        .library(name: "CustomComponentsSDK", targets: ["CustomComponents"]),
     ],
     
     dependencies: [],
 
     targets: [
-        .target(name: "Components", dependencies: [ ]),
+        
+        .target(name: "CustomComponents", dependencies: []),
+        
     ]
+    
+    
+    
+    
 )

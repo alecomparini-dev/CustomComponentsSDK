@@ -4,21 +4,17 @@
 
 import UIKit
 
-public class LabelBuilder: LabelProtocol {
+public class LabelBuilder: BaseBuilder, Label {
     public typealias T = UILabel
     
     public var label: UILabel
     
     
 //  MARK: - INITIALIZERS
-    
-    public init(frame: CGRect) {
-        label = UILabel(frame: frame)
-        label.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    public convenience init() {
-        self.init(frame: .zero)
+        
+    public init() {
+        label = UILabel(frame: .zero)
+        super.init(label)
     }
     
     public convenience init(_ text: String) {
@@ -31,9 +27,13 @@ public class LabelBuilder: LabelProtocol {
         setColor(hexColor)
     }
     
-    public convenience init(_ text: String, _ hexColor: String, _ aligment: LabelTextAlignment) {
+    public convenience init(_ text: String, _ hexColor: String, _ aligment: Constants.TextAlignment) {
         self.init(text, hexColor)
         setTextAlignment(aligment)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -51,9 +51,14 @@ public class LabelBuilder: LabelProtocol {
         return self
     }
     
+    @discardableResult
+    public func setBackgroundColor(_ hexColor: String) -> Self {
+        label.backgroundColor = UIColor.HEX(hexColor)
+        return self
+    }
     
     @discardableResult
-    public func setTextAlignment(_ textAlignment: LabelTextAlignment) -> Self {
+    public func setTextAlignment(_ textAlignment: Constants.TextAlignment) -> Self {
         label.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .natural
         return self
     }
@@ -71,15 +76,17 @@ public class LabelBuilder: LabelProtocol {
     }
     
     @discardableResult
-    public func setStyle(_ style: LabelStyleWeight) -> Self {
-        label.font = UIFont.systemFont(ofSize: label.font.pointSize, weight: style.toFontWeight() )
+    public func setWeight(_ weight: Constants.Weight) -> Self {
+        label.font = UIFont.systemFont(ofSize: label.font.pointSize, weight: weight.toFontWeight() )
         return self
     }
     
         
 }
 
-extension LabelStyleWeight {
+
+//  MARK: - EXTENSION WEIGHT
+extension Constants.Weight {
     
     func toFontWeight() -> UIFont.Weight {
         switch self {
