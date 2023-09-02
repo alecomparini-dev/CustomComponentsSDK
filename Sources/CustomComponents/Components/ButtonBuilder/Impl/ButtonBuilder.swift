@@ -3,7 +3,7 @@
 
 import UIKit
 
-public class ButtonBuilder: BaseBuilder, Button {
+open class ButtonBuilder: BaseBuilder, Button {
     public typealias T = UIButton
     
     public var button: UIButton
@@ -18,7 +18,7 @@ public class ButtonBuilder: BaseBuilder, Button {
         self.setTitle(title)
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
