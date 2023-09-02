@@ -3,10 +3,10 @@
 
 import UIKit
 
-class ButtonBuilder: BaseBuilder, Button {
-    typealias T = UIButton
+public class ButtonBuilder: BaseBuilder, Button {
+    public typealias T = UIButton
     
-    var button: UIButton
+    public var button: UIButton
     
     public init() {
         self.button = UIButton(type: .system)
