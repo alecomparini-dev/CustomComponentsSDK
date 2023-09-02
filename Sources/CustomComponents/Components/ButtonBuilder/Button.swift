@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Button {
+public protocol Button {
     associatedtype T
     var button: T { get }
     
