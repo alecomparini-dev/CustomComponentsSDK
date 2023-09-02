@@ -4,7 +4,7 @@
 import UIKit
 
 
-public class BaseBuilder: NSObject {
+open class BaseBuilder: NSObject {
     
 //    public override init(frame: CGRect) {
 //        super.init(frame: frame)

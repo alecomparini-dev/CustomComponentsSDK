@@ -4,7 +4,7 @@
 
 import UIKit
 
-public class LabelBuilder: BaseBuilder, Label {
+open class LabelBuilder: BaseBuilder, Label {
     public typealias T = UILabel
     
     public var label: UILabel
@@ -32,7 +32,7 @@ public class LabelBuilder: BaseBuilder, Label {
         setTextAlignment(aligment)
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
