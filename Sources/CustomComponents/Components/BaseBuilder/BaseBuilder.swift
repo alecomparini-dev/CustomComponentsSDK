@@ -5,15 +5,7 @@ import UIKit
 
 
 open class BaseBuilder: NSObject {
-    
-//    public override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        self.translatesAutoresizingMaskIntoConstraints = false
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    private(set) var border: BorderBuilder?
     
     private let view: UIView
     
@@ -25,6 +17,12 @@ open class BaseBuilder: NSObject {
     @discardableResult
     public func setFrame(_ frame: CGRect) -> Self {
         view.frame = frame
+        return self
+    }
+    
+    @discardableResult
+    func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
+        self.border = build(BorderBuilder(view))
         return self
     }
     

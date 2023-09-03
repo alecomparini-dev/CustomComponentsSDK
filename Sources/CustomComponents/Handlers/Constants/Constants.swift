@@ -28,5 +28,18 @@ public struct Constants {
         case justified = 3
         case natural = 4
     }
+    
+    public enum Corner {
+        case leftTop
+        case rightTop
+        case leftBottom
+        case rightBottom
+        case top
+        case bottom
+        case left
+        case right
+        case diagonalUp
+        case diagonalDown
+    }
 
 }
