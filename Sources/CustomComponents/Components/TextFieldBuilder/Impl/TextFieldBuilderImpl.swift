@@ -17,6 +17,7 @@ open class TextFieldBuilderImpl: BaseBuilder, TextField {
     public init() {
         self.textField = UITextField()
         super.init(textField)
+        configure()
     }
     
     convenience init(_ placeHolder: String) {
@@ -123,6 +124,10 @@ open class TextFieldBuilderImpl: BaseBuilder, TextField {
     
     
 //  MARK: - PRIVATE Area
+    
+    private func configure() {
+        setPadding(10)
+    }
     
     private func addPaddingToTextField(_ paddingView: UIView, _ position: K.Padding.Horizontal ) {
         switch position {
