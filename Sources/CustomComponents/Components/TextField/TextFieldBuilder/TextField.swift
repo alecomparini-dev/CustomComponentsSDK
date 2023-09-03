@@ -29,9 +29,9 @@ public protocol TextField {
 
     func setTintColor(hexColor: String) -> Self
     
-    func setPadding(_ padding: CGFloat, _ position: K.Padding.Horizontal?) -> Self
+    func setPadding(_ padding: CGFloat, _ position: K.Position.Horizontal?) -> Self
     
-    func setPadding(_ paddingView: ViewBuilder, _ position: K.Padding.Horizontal?) -> Self 
+    func setPadding(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal?) -> Self 
     
 
 }

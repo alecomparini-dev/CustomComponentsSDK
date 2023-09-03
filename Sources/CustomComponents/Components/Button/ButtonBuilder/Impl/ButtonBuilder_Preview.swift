@@ -31,13 +31,12 @@ final class ButtonBuilderPreview: UIView {
     lazy var buttonCustomize: ButtonBuilder = {
         let btn = ButtonBuilder("Button Customize")
             .setTitleColor(hexColor: "#FFFFFF")
-            .setBackgroundColor(color: "blue")
             .setBackgroundColor(hexColor: "#007bfc")
             .setTitleSize(20)
             .setTitleWeight(.semibold)
             .setBorder { build in
                 build
-                    .setCornerRadius(15)
+                    .setCornerRadius(12)
             }
         return btn
     }()
