@@ -6,10 +6,3 @@
 //
 
 import Foundation
-
-public struct TextFieldK {
-    
-    
-
-}
-

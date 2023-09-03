@@ -15,6 +15,18 @@ public struct K {
         case light = 2
     }
     
+    public enum Weight: Int {
+        case bold = 0
+        case semibold = 1
+        case regular = 2
+        case ultraLight = 3
+        case thin = 4
+        case light = 5
+        case medium = 6
+        case heavy = 7
+        case black = 8
+    }
+    
     public struct Padding {
         public enum Vertical {
             case top
@@ -33,17 +45,6 @@ public struct K {
     }
     
     public struct Text {
-        public enum Weight: Int {
-            case bold = 0
-            case semibold = 1
-            case regular = 2
-            case ultraLight = 3
-            case thin = 4
-            case light = 5
-            case medium = 6
-            case heavy = 7
-            case black = 8
-        }
         
         public enum Alignment: Int {
             case left = 0

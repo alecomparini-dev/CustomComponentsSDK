@@ -5,7 +5,6 @@ import Foundation
 
 public protocol TextField {
     associatedtype T
-    
     var get: T { get }
     
     func setPlaceHolder(_ placeholder: String) -> Self
@@ -31,6 +30,8 @@ public protocol TextField {
     func setTintColor(hexColor: String) -> Self
     
     func setPadding(_ padding: CGFloat, _ position: K.Padding.Horizontal?) -> Self
-
     
+    func setPadding(_ paddingView: ViewBuilder, _ position: K.Padding.Horizontal?) -> Self 
+    
+
 }

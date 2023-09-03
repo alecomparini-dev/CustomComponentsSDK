@@ -18,8 +18,8 @@ final class TextFieldBuilderPreview: UIView {
     
     
 //  MARK: - LAZY AREA
-    lazy var buttonPrimary: TextFieldBuilderImpl = {
-        let btn = TextFieldBuilderImpl("Place Holder")
+    lazy var buttonPrimary: TextFieldBuilder = {
+        let btn = TextFieldBuilder("Place Holder")
             .setBackgroundColor(hexColor: "#ffffff")
         return btn
     }()

@@ -63,7 +63,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setTitleWeight(_ weight: K.Text.Weight) -> Self {
+    public func setTitleWeight(_ weight: K.Weight) -> Self {
         if let titleLabelFont = button.titleLabel?.font {
             button.titleLabel?.font = UIFont.systemFont(ofSize: titleLabelFont.pointSize, weight: weight.toFontWeight() )
         }
