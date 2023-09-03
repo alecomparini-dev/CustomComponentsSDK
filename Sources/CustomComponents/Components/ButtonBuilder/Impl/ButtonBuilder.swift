@@ -32,20 +32,20 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setTitleColor(_ hexColor: String) -> Self {
+    public func setTitleColor(hexColor: String) -> Self {
         button.setTitleColor(UIColor.HEX(hexColor), for: .normal)
         button.setTitleColor(UIColor.HEX(hexColor).withAlphaComponent(0.7), for: .disabled)
         return self
     }
     
     @discardableResult
-    public func setTintColor(_ hexColor: String) -> Self {
+    public func setTintColor(hexColor: String) -> Self {
         button.tintColor = UIColor.HEX(hexColor)
         return self
     }
     
     @discardableResult
-    public func setTextAlignment(_ textAlignment: Constants.TextAlignment) -> Self {
+    public func setTextAlignment(_ textAlignment: K.Text.Alignment) -> Self {
         button.titleLabel?.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .center
         return self
     }
@@ -63,7 +63,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setTitleWeight(_ weight: Constants.Weight) -> Self {
+    public func setTitleWeight(_ weight: K.Text.Weight) -> Self {
         if let titleLabelFont = button.titleLabel?.font {
             button.titleLabel?.font = UIFont.systemFont(ofSize: titleLabelFont.pointSize, weight: weight.toFontWeight() )
         }

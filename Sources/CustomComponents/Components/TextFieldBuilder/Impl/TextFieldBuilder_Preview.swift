@@ -1,10 +1,10 @@
-//  Created by Alessandro Comparini on 29/08/23.
+//  Created by Alessandro Comparini on 03/09/23.
 //
 
 import UIKit
 import SwiftUI
 
-final class ButtonBuilderPreview: UIView {
+final class TextFieldBuilderPreview: UIView {
 
     init() {
         super.init(frame: .zero)
@@ -18,13 +18,9 @@ final class ButtonBuilderPreview: UIView {
     
     
 //  MARK: - LAZY AREA
-    lazy var buttonPrimary: ButtonBuilder = {
-        let btn = ButtonBuilder("Button Primary")
-            .setTitleColor(hexColor: "#FFFFFF")
-            .setBackgroundColor(hexColor: "#4682A9")
-            .setTitleSize(24)
-            .setTitleWeight(.regular)
-            .setFontFamily("Roboto", 24)
+    lazy var buttonPrimary: TextFieldBuilderImpl = {
+        let btn = TextFieldBuilderImpl("Place Holder")
+            .setBackgroundColor(hexColor: "#ffffff")
         return btn
     }()
     
@@ -74,9 +70,9 @@ final class ButtonBuilderPreview: UIView {
 //  MARK: - PREVIEW AREA
 
 #if DEBUG
-struct ButtonBuilderPreview_SwiftUI: PreviewProvider {
+struct TextFieldBuilderPreview_SwiftUI: PreviewProvider {
     static var previews: some View {
-        ButtonBuilderPreview()
+        TextFieldBuilderPreview()
         .asSwiftUIView
         .frame(width: 400, height: 400)
         .padding(15)

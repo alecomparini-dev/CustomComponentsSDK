@@ -25,10 +25,10 @@ open class LabelBuilder: BaseBuilder, Label {
     
     public convenience init(_ text: String, _ hexColor: String ) {
         self.init(text)
-        setColor(hexColor)
+        setColor(hexColor: hexColor)
     }
     
-    public convenience init(_ text: String, _ hexColor: String, _ aligment: Constants.TextAlignment) {
+    public convenience init(_ text: String, _ hexColor: String, _ aligment: K.Text.Alignment) {
         self.init(text, hexColor)
         setTextAlignment(aligment)
     }
@@ -47,19 +47,13 @@ open class LabelBuilder: BaseBuilder, Label {
     }
     
     @discardableResult
-    public func setColor(_ hexColor: String) -> Self {
+    public func setColor(hexColor: String) -> Self {
         label.textColor = UIColor.HEX(hexColor)
         return self
     }
     
     @discardableResult
-    public func setBackgroundColor(_ hexColor: String) -> Self {
-        label.backgroundColor = UIColor.HEX(hexColor)
-        return self
-    }
-    
-    @discardableResult
-    public func setTextAlignment(_ textAlignment: Constants.TextAlignment) -> Self {
+    public func setTextAlignment(_ textAlignment: K.Text.Alignment) -> Self {
         label.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .natural
         return self
     }
@@ -77,7 +71,7 @@ open class LabelBuilder: BaseBuilder, Label {
     }
     
     @discardableResult
-    public func setWeight(_ weight: Constants.Weight) -> Self {
+    public func setWeight(_ weight: K.Text.Weight) -> Self {
         label.font = UIFont.systemFont(ofSize: label.font.pointSize, weight: weight.toFontWeight() )
         return self
     }
@@ -87,28 +81,28 @@ open class LabelBuilder: BaseBuilder, Label {
 
 
 //  MARK: - EXTENSION WEIGHT
-extension Constants.Weight {
+extension K.Text.Weight {
     
     func toFontWeight() -> UIFont.Weight {
         switch self {
-        case .bold:
-            return .bold
-        case .semibold:
-            return .semibold
-        case .regular:
-            return .regular
-        case .ultraLight:
-            return .ultraLight
-        case .thin:
-            return .thin
-        case .light:
-            return .light
-        case .medium:
-            return .medium
-        case .heavy:
-            return .heavy
-        case .black:
-            return .black
+            case .bold:
+                return .bold
+            case .semibold:
+                return .semibold
+            case .regular:
+                return .regular
+            case .ultraLight:
+                return .ultraLight
+            case .thin:
+                return .thin
+            case .light:
+                return .light
+            case .medium:
+                return .medium
+            case .heavy:
+                return .heavy
+            case .black:
+                return .black
         }
     }
 }

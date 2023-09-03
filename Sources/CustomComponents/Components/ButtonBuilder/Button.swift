@@ -11,13 +11,13 @@ public protocol Button {
     func setTitle(_ title: String) -> Self
 
     @discardableResult
-    func setTitleColor(_ hexColor: String) -> Self
+    func setTitleColor(hexColor: String) -> Self
     
     @discardableResult
-    func setTintColor(_ hexColor: String) -> Self
+    func setTintColor(hexColor: String) -> Self
     
     @discardableResult
-    func setTextAlignment(_ textAlignment: Constants.TextAlignment) -> Self
+    func setTextAlignment(_ textAlignment: K.Text.Alignment) -> Self
     
     @discardableResult
     func setFontFamily(_ fontFamily: String, _ fontSize: CGFloat ) -> Self
@@ -26,6 +26,6 @@ public protocol Button {
     func setTitleSize(_ fontSize: CGFloat ) -> Self
     
     @discardableResult
-    func setTitleWeight(_ weight: Constants.Weight ) -> Self
+    func setTitleWeight(_ weight: K.Text.Weight ) -> Self
     
 }

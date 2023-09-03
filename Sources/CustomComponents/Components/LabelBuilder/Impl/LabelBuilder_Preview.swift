@@ -21,7 +21,7 @@ final class LabelBuilderPreview: UIView {
     
     lazy var label: LabelBuilder = {
         let label = LabelBuilder("Teste Label Builder")
-            .setColor("#FFFFFF")
+            .setColor(hexColor: "#FFFFFF")
             .setWeight(.thin)
             .setSize(50)
         return label
