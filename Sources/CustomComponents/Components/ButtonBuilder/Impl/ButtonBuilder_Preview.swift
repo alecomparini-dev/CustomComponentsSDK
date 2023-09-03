@@ -36,6 +36,9 @@ final class ButtonBuilderPreview: UIView {
             .setBackgroundColor(hexColor: "#007bfc")
             .setTitleSize(20)
             .setTitleWeight(.semibold)
+            .setBorder { build in
+                build.setCornerRadius(15)
+            }
         return btn
     }()
     
