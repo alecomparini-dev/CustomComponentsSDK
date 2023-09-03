@@ -5,8 +5,9 @@ import UIKit
 
 open class ButtonBuilder: BaseBuilder, Button {
     public typealias T = UIButton
+    public var get: UIButton {self.button}
     
-    public var button: UIButton
+    private var button: UIButton
     
     public init() {
         self.button = UIButton(type: .system)
@@ -33,7 +34,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     @discardableResult
     public func setTitleColor(_ hexColor: String) -> Self {
         button.setTitleColor(UIColor.HEX(hexColor), for: .normal)
-        button.setTitleColor(UIColor.HEX(hexColor).withAlphaComponent(0.5), for: .disabled)
+        button.setTitleColor(UIColor.HEX(hexColor).withAlphaComponent(0.7), for: .disabled)
         return self
     }
     

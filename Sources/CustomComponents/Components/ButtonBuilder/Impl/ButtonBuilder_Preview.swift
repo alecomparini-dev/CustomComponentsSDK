@@ -19,6 +19,9 @@ final class ButtonBuilderPreview: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
+//  MARK: - LAZY AREA
     lazy var buttonPrimary: ButtonBuilder = {
         let btn = ButtonBuilder("Button Primary")
             .setTitleColor("#FFFFFF")
@@ -43,30 +46,36 @@ final class ButtonBuilderPreview: UIView {
         return btn
     }()
     
+    
+//  MARK: - PRIVATE AREA
+    
     private func configure() {
         backgroundColor = .red
         
-        addSubview(buttonPrimary.button)
-        addSubview(buttonCustomize.button)
+        addSubview(buttonPrimary.get)
+        addSubview(buttonCustomize.get)
         
         NSLayoutConstraint.activate([
-            buttonPrimary.button.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            buttonPrimary.button.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            buttonPrimary.button.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
-            buttonPrimary.button.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
-            buttonPrimary.button.heightAnchor.constraint(equalToConstant: 55),
+            buttonPrimary.get.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            buttonPrimary.get.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            buttonPrimary.get.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            buttonPrimary.get.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            buttonPrimary.get.heightAnchor.constraint(equalToConstant: 55),
             
             
-            buttonCustomize.button.topAnchor.constraint(equalTo: buttonPrimary.button.bottomAnchor, constant: 10),
-            buttonCustomize.button.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
-            buttonCustomize.button.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
-            buttonCustomize.button.heightAnchor.constraint(equalToConstant: 55)
+            buttonCustomize.get.topAnchor.constraint(equalTo: buttonPrimary.get.bottomAnchor, constant: 10),
+            buttonCustomize.get.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            buttonCustomize.get.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            buttonCustomize.get.heightAnchor.constraint(equalToConstant: 55)
         ])
         
     }
     
 }
 
+
+
+//  MARK: - PREVIEW AREA
 
 #if DEBUG
 struct ButtonBuilderPreview_SwiftUI: PreviewProvider {

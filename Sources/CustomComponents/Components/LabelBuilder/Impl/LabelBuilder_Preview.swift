@@ -30,13 +30,13 @@ final class LabelBuilderPreview: UIView {
     private func configure() {
         backgroundColor = .red
         
-        addSubview(label.label)
+        addSubview(label.get)
         
-        print(label.label)
+        print(label.get)
         
         NSLayoutConstraint.activate([
-            label.label.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-            label.label.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            label.get.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+            label.get.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
         ])
         
     }

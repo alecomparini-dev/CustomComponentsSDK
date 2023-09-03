@@ -6,8 +6,9 @@ import UIKit
 
 open class LabelBuilder: BaseBuilder, Label {
     public typealias T = UILabel
+    public var get: UILabel {self.label}
     
-    public var label: UILabel
+    private var label: UILabel
     
     
 //  MARK: - INITIALIZERS

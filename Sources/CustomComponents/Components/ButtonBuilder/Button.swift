@@ -1,7 +1,3 @@
-//
-//  File.swift
-//  
-//
 //  Created by Alessandro Comparini on 02/09/23.
 //
 
@@ -9,7 +5,7 @@ import Foundation
 
 public protocol Button {
     associatedtype T
-    var button: T { get }
+    var get: T { get }
     
     @discardableResult
     func setTitle(_ title: String) -> Self

@@ -5,7 +5,7 @@ import Foundation
 
 public protocol Label: AnyObject {
     associatedtype T
-    var label: T { get }
+    var get: T { get }
     
     @discardableResult
     func setText(_ text: String) -> Self
