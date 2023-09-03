@@ -4,7 +4,7 @@
 import UIKit
 import SwiftUI
 
-final class TextFieldBuilderPreview: UIView {
+final class TextFieldImageBuilderPreview: UIView {
 
     init() {
         super.init(frame: .zero)
@@ -23,7 +23,7 @@ final class TextFieldBuilderPreview: UIView {
             .setBackgroundColor(hexColor: "#ffffff")
             .setBorder { build in
                 build
-                    .setCornerRadius(8)
+                    .setCornerRadius(12)
             }
         return component
     }()
@@ -40,7 +40,7 @@ final class TextFieldBuilderPreview: UIView {
             .setPlaceHolder("Type here ...")
             .setBorder { build in
                 build
-                    .setCornerRadius(8)
+                    .setCornerRadius(12)
             }
         return component
     }()
@@ -76,9 +76,9 @@ final class TextFieldBuilderPreview: UIView {
 //  MARK: - PREVIEW AREA
 
 #if DEBUG
-struct TextFieldBuilderPreview_SwiftUI: PreviewProvider {
+struct TextFieldImageBuilderPreview_SwiftUI: PreviewProvider {
     static var previews: some View {
-        TextFieldBuilderPreview()
+        TextFieldImageBuilderPreview()
         .asSwiftUIView
         .frame(width: 400, height: 400)
         .padding(15)

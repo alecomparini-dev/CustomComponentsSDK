@@ -12,7 +12,7 @@ open class ViewBuilder: BaseBuilder, ViewProtocol {
 
 //  MARK: - INITIALIZERS
     public init(frame: CGRect) {
-        self.view = UIView(frame: .zero)
+        self.view = UIView(frame: frame)
         super.init(view)
     }
     

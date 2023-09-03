@@ -8,14 +8,13 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     public var get: UITextField { self.textField }
     
     private var attributesPlaceholder: [NSAttributedString.Key: Any] = [:]
-    
     private var textField: UITextField
     
 
 //  MARK: - INITIALIZERS
     
     public init() {
-        self.textField = UITextField()
+        self.textField = UITextField(frame: .zero)
         super.init(textField)
         configure()
     }
@@ -105,14 +104,14 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 
     // MARK: - PADDING
     @discardableResult
-    public func setPadding(_ padding: CGFloat, _ position: K.Padding.Horizontal? = nil) -> Self {
-        let paddingView = ViewBuilder(frame: CGRect(x: 0, y: 0, width: padding, height: 0))
+    public func setPadding(_ padding: CGFloat, _ position: K.Position.Horizontal? = nil) -> Self {
+        let paddingView = ViewBuilder(frame: CGRect(x: .zero, y: .zero, width: padding, height: .zero))
         setPadding(paddingView, position)
         return self
     }
     
     @discardableResult
-    public func setPadding(_ paddingView: ViewBuilder, _ position: K.Padding.Horizontal? = nil) -> Self {
+    public func setPadding(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal? = nil) -> Self {
         if let position {
             addPaddingToTextField(paddingView, position)
             return self
@@ -126,17 +125,17 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 //  MARK: - PRIVATE Area
     
     private func configure() {
-        setPadding(8)
+        setPadding(K.Default.padding)
     }
     
-    private func addPaddingToTextField(_ paddingView: ViewBuilder, _ position: K.Padding.Horizontal ) {
+    private func addPaddingToTextField(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal ) {
         switch position {
             case .left:
-            textField.leftView = paddingView.get
+                textField.leftView = paddingView.baseView
                 textField.leftViewMode = .always
             
             case .right:
-            textField.rightView = paddingView.get
+                textField.rightView = paddingView.baseView
                 textField.rightViewMode = .always
         }
     }

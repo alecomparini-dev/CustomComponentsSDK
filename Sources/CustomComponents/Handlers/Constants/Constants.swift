@@ -5,8 +5,14 @@ import Foundation
 
 public struct K {
 
-    struct String {
-        static let empty = ""
+    public struct Default {
+        public static let padding: CGFloat = 8
+        public static let paddingWithImage: CGFloat = 12
+        public static let weight: K.Weight = .regular
+    }
+    
+    public struct String {
+        public static let empty = ""
     }
     
     public enum Appearance: Int {
@@ -27,7 +33,23 @@ public struct K {
         case black = 8
     }
     
-    public struct Padding {
+    public enum ContentMode: Int {
+        case scaleToFill = 0
+        case scaleAspectFit = 1
+        case scaleAspectFill = 2
+        case redraw = 3
+        case center = 4
+        case top = 5
+        case bottom = 6
+        case left = 7
+        case right = 8
+        case topLeft = 9
+        case topRight = 10
+        case bottomLeft = 11
+        case bottomRight = 12
+    }
+    
+    public struct Position {
         public enum Vertical {
             case top
             case bottom
@@ -45,7 +67,6 @@ public struct K {
     }
     
     public struct Text {
-        
         public enum Alignment: Int {
             case left = 0
             case center = 1

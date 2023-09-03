@@ -1,19 +1,17 @@
-//
-//  File.swift
-//  
-//
 //  Created by Alessandro Comparini on 03/09/23.
 //
 
 import Foundation
 
 public protocol ImageView {
+    associatedtype T
+    var get: T { get }
     
     func setImage(systemName: String) -> Self
     
     func setImage(named: String) -> Self
     
-    func setContentMode(_ contentMode: UIView.ContentMode) -> Self
+    func setContentMode(_ contentMode: K.ContentMode) -> Self
     
     func setTintColor(hexColor: String) -> Self
     

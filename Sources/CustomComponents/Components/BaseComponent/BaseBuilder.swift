@@ -6,59 +6,75 @@ import UIKit
 open class BaseBuilder: NSObject {
     private(set) var border: BorderBuilder?
     
-    private let view: UIView
+    private weak var _baseView: UIView?
+    
+    //  MARK: - GET Properties
+        
+    var baseView: UIView {
+        get { self._baseView ?? UIView() }
+        set { self._baseView = newValue }
+    }
     
     public init(_ view: UIView) {
-        self.view = view
-        self.view.translatesAutoresizingMaskIntoConstraints = false
+        self._baseView = view
+        super.init()
+        self.setTranslatesAutoresizingMaskIntoConstraints(false)
+    }
+    
+    
+//  MARK: - SET PROPERTIES
+    @discardableResult
+    public func setTranslatesAutoresizingMaskIntoConstraints(_ flag: Bool) -> Self {
+        baseView.translatesAutoresizingMaskIntoConstraints = flag
+        return self
     }
     
     @discardableResult
     public func setFrame(_ frame: CGRect) -> Self {
-        view.frame = frame
+        baseView.frame = frame
         return self
     }
     
     @discardableResult
     public func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
-        self.border = build(BorderBuilder(view))
+        self.border = build(BorderBuilder(baseView))
         return self
     }
     
     @discardableResult
     public func setBackgroundColor(hexColor: String) -> Self {
-        view.backgroundColor = UIColor.HEX(hexColor)
+        baseView.backgroundColor = UIColor.HEX(hexColor)
         return self
     }
     
     @discardableResult
     public func setBackgroundColor(color: String) -> Self {
-        view.backgroundColor = UIColor(named: color)
+        baseView.backgroundColor = UIColor(named: color)
         return self
     }
     
     
     @discardableResult
     func setIsUserInteractionEnabled(_ interactionEnabled: Bool) -> Self {
-        view.isUserInteractionEnabled = interactionEnabled
+        baseView.isUserInteractionEnabled = interactionEnabled
         return self
     }
     
     @discardableResult
     public func setOpacity(_ opacity: Float) -> Self {
-        view.layer.opacity = opacity
+        baseView.layer.opacity = opacity
         return self
     }
     
     @discardableResult
     public func setAlpha(_ alpha: CGFloat) -> Self {
-        view.alpha = alpha
+        baseView.alpha = alpha
         return self
     }
    
     @discardableResult
     public func setHidden(_ hide: Bool) -> Self {
-        view.isHidden = hide
+        baseView.isHidden = hide
         return self
     }
     
