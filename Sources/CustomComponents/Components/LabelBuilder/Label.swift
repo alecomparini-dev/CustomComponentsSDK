@@ -5,16 +5,16 @@ import Foundation
 
 public protocol Label: AnyObject {
     associatedtype T
-    var label: T { get }
+    var get: T { get }
     
     @discardableResult
     func setText(_ text: String) -> Self
     
     @discardableResult
-    func setColor(_ hexColor: String) -> Self
+    func setColor(hexColor: String) -> Self
 
     @discardableResult
-    func setTextAlignment(_ textAlignment: Constants.TextAlignment) -> Self
+    func setTextAlignment(_ textAlignment: K.Text.Alignment) -> Self
     
     @discardableResult
     func setFontFamily(_ fontFamily: String, _ fontSize: CGFloat ) -> Self
@@ -23,5 +23,5 @@ public protocol Label: AnyObject {
     func setSize(_ fontSize: CGFloat ) -> Self
     
     @discardableResult
-    func setWeight(_ weight: Constants.Weight ) -> Self
+    func setWeight(_ weight: K.Text.Weight ) -> Self
 }
