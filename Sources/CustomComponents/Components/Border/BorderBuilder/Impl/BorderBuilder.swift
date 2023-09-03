@@ -41,7 +41,7 @@ open class BorderBuilder {
     }
     
     
-//  MARK: -      Area
+//  MARK: - PRIVATE AREA
     
     private func selectCorners(_ cornes: [K.Corner]) -> CACornerMask {
         var selection: CACornerMask = []

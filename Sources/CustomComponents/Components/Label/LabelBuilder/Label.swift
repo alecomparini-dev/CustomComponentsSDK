@@ -23,5 +23,5 @@ public protocol Label: AnyObject {
     func setSize(_ fontSize: CGFloat ) -> Self
     
     @discardableResult
-    func setWeight(_ weight: K.Text.Weight ) -> Self
+    func setWeight(_ weight: K.Weight ) -> Self
 }

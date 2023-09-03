@@ -71,7 +71,7 @@ open class LabelBuilder: BaseBuilder, Label {
     }
     
     @discardableResult
-    public func setWeight(_ weight: K.Text.Weight) -> Self {
+    public func setWeight(_ weight: K.Weight) -> Self {
         label.font = UIFont.systemFont(ofSize: label.font.pointSize, weight: weight.toFontWeight() )
         return self
     }
@@ -81,7 +81,7 @@ open class LabelBuilder: BaseBuilder, Label {
 
 
 //  MARK: - EXTENSION WEIGHT
-extension K.Text.Weight {
+extension K.Weight {
     
     func toFontWeight() -> UIFont.Weight {
         switch self {

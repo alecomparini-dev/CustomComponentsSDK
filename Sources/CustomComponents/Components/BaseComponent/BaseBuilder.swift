@@ -37,11 +37,6 @@ open class BaseBuilder: NSObject {
         return self
     }
     
-    @discardableResult
-    public func setBackgroundColor(color: UIColor) -> Self {
-        view.backgroundColor = color
-        return self
-    }
     
     @discardableResult
     func setIsUserInteractionEnabled(_ interactionEnabled: Bool) -> Self {

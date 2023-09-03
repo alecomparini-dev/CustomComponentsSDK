@@ -3,7 +3,7 @@
 
 import UIKit
 
-open class TextFieldBuilderImpl: BaseBuilder, TextField {
+open class TextFieldBuilder: BaseBuilder, TextField {
     public typealias T = UITextField
     public var get: UITextField { self.textField }
     
@@ -17,6 +17,7 @@ open class TextFieldBuilderImpl: BaseBuilder, TextField {
     public init() {
         self.textField = UITextField()
         super.init(textField)
+        configure()
     }
     
     convenience init(_ placeHolder: String) {
@@ -105,13 +106,13 @@ open class TextFieldBuilderImpl: BaseBuilder, TextField {
     // MARK: - PADDING
     @discardableResult
     public func setPadding(_ padding: CGFloat, _ position: K.Padding.Horizontal? = nil) -> Self {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: 0))
+        let paddingView = ViewBuilder(frame: CGRect(x: 0, y: 0, width: padding, height: 0))
         setPadding(paddingView, position)
         return self
     }
     
     @discardableResult
-    public func setPadding(_ paddingView: UIView, _ position: K.Padding.Horizontal? = nil) -> Self {
+    public func setPadding(_ paddingView: ViewBuilder, _ position: K.Padding.Horizontal? = nil) -> Self {
         if let position {
             addPaddingToTextField(paddingView, position)
             return self
@@ -124,14 +125,18 @@ open class TextFieldBuilderImpl: BaseBuilder, TextField {
     
 //  MARK: - PRIVATE Area
     
-    private func addPaddingToTextField(_ paddingView: UIView, _ position: K.Padding.Horizontal ) {
+    private func configure() {
+        setPadding(8)
+    }
+    
+    private func addPaddingToTextField(_ paddingView: ViewBuilder, _ position: K.Padding.Horizontal ) {
         switch position {
             case .left:
-                textField.leftView = paddingView
+            textField.leftView = paddingView.get
                 textField.leftViewMode = .always
             
             case .right:
-                textField.rightView = paddingView
+            textField.rightView = paddingView.get
                 textField.rightViewMode = .always
         }
     }

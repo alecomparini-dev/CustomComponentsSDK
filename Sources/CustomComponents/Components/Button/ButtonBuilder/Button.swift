@@ -26,6 +26,6 @@ public protocol Button {
     func setTitleSize(_ fontSize: CGFloat ) -> Self
     
     @discardableResult
-    func setTitleWeight(_ weight: K.Text.Weight ) -> Self
+    func setTitleWeight(_ weight: K.Weight ) -> Self
     
 }
