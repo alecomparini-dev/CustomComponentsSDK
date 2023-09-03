@@ -37,7 +37,8 @@ final class ButtonBuilderPreview: UIView {
             .setTitleSize(20)
             .setTitleWeight(.semibold)
             .setBorder { build in
-                build.setCornerRadius(15)
+                build
+                    .setCornerRadius(15)
             }
         return btn
     }()
