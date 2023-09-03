@@ -3,7 +3,6 @@
 
 import UIKit
 
-
 open class BaseBuilder: NSObject {
     private(set) var border: BorderBuilder?
     
@@ -21,7 +20,7 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
+    public func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
         self.border = build(BorderBuilder(view))
         return self
     }

@@ -3,32 +3,32 @@
 
 import UIKit
 
-class BorderBuilder {
+open class BorderBuilder {
 
     private weak var component: UIView!
     
     
 //  MARK: - Initializers
-    init(_ component: UIView) {
+    public init(_ component: UIView) {
         self.component = component
     }
     
 
 //  MARK: - SET Properties
     @discardableResult
-    func setWidth(_ width: CGFloat) -> Self {
+    public func setWidth(_ width: CGFloat) -> Self {
         component.layer.borderWidth = width
         return self
     }
     
     @discardableResult
-    func setColor(_ color: UIColor) -> Self {
+    public func setColor(_ color: UIColor) -> Self {
         component.layer.borderColor = color.cgColor
         return self
     }
     
     @discardableResult
-    func setCornerRadius(_ radius: CGFloat) -> Self {
+    public func setCornerRadius(_ radius: CGFloat) -> Self {
         self.removeBorderStyleOfTextField()
 //        if !component.hasShadow() {
 //            component.layer.masksToBounds = true
@@ -38,7 +38,7 @@ class BorderBuilder {
     }
     
     @discardableResult
-    func setWhichCornersWillBeRounded(_ cornes: [Constants.Corner]) -> Self {
+    public func setWhichCornersWillBeRounded(_ cornes: [Constants.Corner]) -> Self {
         component?.layer.maskedCorners = selectCorners(cornes)
         return self
     }
