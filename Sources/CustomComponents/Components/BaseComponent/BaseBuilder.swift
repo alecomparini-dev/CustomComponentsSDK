@@ -4,7 +4,9 @@
 import UIKit
 
 open class BaseBuilder: NSObject {
+    
     private(set) var border: BorderBuilder?
+    private(set) var constraintsFlow: StartOfConstraintsFlow?
     
     private weak var _baseView: UIView?
     
@@ -78,6 +80,30 @@ open class BaseBuilder: NSObject {
         return self
     }
     
+    
+    
+//  MARK: - CONSTRAINTS AREA
+    
+    @discardableResult
+    func setConstraints(_ builderConstraint: (_ build: StartOfConstraintsFlow) -> StartOfConstraintsFlow) -> Self {
+        self.constraintsFlow = builderConstraint(StartOfConstraintsFlow(baseView))
+        return self
+    }
+    
+    @discardableResult
+    func applyConstraint() -> Self {
+        self.constraintsFlow?.apply()
+        return self
+    }
+
+    func add(insideTo element: UIView) {
+        if element.isKind(of: UIStackView.self) {
+            let element = element as! UIStackView
+            element.addArrangedSubview(baseView)
+            return
+        }
+        element.addSubview(baseView)
+    }
     
 }
 
