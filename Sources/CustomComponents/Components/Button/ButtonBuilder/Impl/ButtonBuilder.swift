@@ -18,11 +18,7 @@ open class ButtonBuilder: BaseBuilder, Button {
         self.init()
         self.setTitle(title)
     }
-    
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+        
     
 //  MARK: - SET PROPERTIES
     @discardableResult
