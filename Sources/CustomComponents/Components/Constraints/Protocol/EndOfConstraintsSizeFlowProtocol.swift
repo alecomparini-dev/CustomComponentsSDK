@@ -4,7 +4,7 @@
 
 import UIKit
 
-protocol EndOfConstraintsSizeFlowProtocol  {
+public protocol EndOfConstraintsSizeFlowProtocol  {
     var setTop: EndOfConstraintsSizeFlowProtocol { get }
     var setBottom: EndOfConstraintsSizeFlowProtocol { get }
     var setLeading: EndOfConstraintsSizeFlowProtocol { get }

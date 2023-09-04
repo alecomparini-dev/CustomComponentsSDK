@@ -7,45 +7,45 @@
 
 import UIKit
 
-class EndOfConstraintsSizeFlow: EndOfConstraintsSizeFlowProtocol {
+open class EndOfConstraintsSizeFlow: EndOfConstraintsSizeFlowProtocol {
     private let constraintVM: ConstraintsViewModel
     private let constraintsFlow: StartOfConstraintsFlow
 
-    init(_ constraintsFlow: StartOfConstraintsFlow) {
+    public init(_ constraintsFlow: StartOfConstraintsFlow) {
         self.constraintsFlow = constraintsFlow
         self.constraintVM = self.constraintsFlow.constraintVM
     }
 
     
 //  MARK: - CONSTRAINTS POSITION FLOW
-    var setTop: EndOfConstraintsSizeFlowProtocol {
+    public var setTop: EndOfConstraintsSizeFlowProtocol {
         constraintVM.mainAttribute(.top)
         return self
     }
     
-    var setBottom: EndOfConstraintsSizeFlowProtocol {
+    public var setBottom: EndOfConstraintsSizeFlowProtocol {
         constraintVM.mainAttribute(.bottom)
         return self
     }
     
-    var setLeading: EndOfConstraintsSizeFlowProtocol {
+    public var setLeading: EndOfConstraintsSizeFlowProtocol {
         constraintVM.mainAttribute(.leading)
         return self
     }
     
-    var setTrailing: EndOfConstraintsSizeFlowProtocol {
+    public var setTrailing: EndOfConstraintsSizeFlowProtocol {
         constraintVM.mainAttribute(.trailing)
         return self
     }
     
     
 //  MARK: - CONSTRAINTS SIZE FLOW
-    var setWidth: EndOfConstraintsSizeFlowProtocol {
+    public var setWidth: EndOfConstraintsSizeFlowProtocol {
         constraintVM.mainAttribute(.width)
         return self
     }
     
-    var setHeight: EndOfConstraintsSizeFlowProtocol {
+    public var setHeight: EndOfConstraintsSizeFlowProtocol {
         constraintVM.mainAttribute(.height)
         return self
     }
@@ -53,17 +53,17 @@ class EndOfConstraintsSizeFlow: EndOfConstraintsSizeFlowProtocol {
     
 //  MARK: - CONSTRAINTS RELATIONS
     
-    func equalTo(_ element: UIView) -> StartOfConstraintsFlow {
+    public func equalTo(_ element: UIView) -> StartOfConstraintsFlow {
         constraintVM.equalTo(element)
         return constraintsFlow
     }
     
-    var equalToSafeArea: StartOfConstraintsFlow {
+    public var equalToSafeArea: StartOfConstraintsFlow {
         constraintVM.equalToSafeArea()
         return constraintsFlow
     }
     
-    var equalToSuperView: StartOfConstraintsFlow {
+    public var equalToSuperView: StartOfConstraintsFlow {
         constraintVM.equalToSuperView()
         return constraintsFlow
     }

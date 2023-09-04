@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol StartOfConstraintsAlignmentFlowProtocol {
+public protocol StartOfConstraintsAlignmentFlowProtocol {
     var setHorizontalAlignmentX: EndOfConstraintsAlignmentFlowProtocol { get }
     var setVerticalAlignmentY: EndOfConstraintsAlignmentFlowProtocol { get }
     func equalTo(_ element: UIView, _ constant: CGFloat) -> StartOfConstraintsFlow

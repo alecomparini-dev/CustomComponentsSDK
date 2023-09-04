@@ -7,64 +7,65 @@
 
 import UIKit
 
-class ConstraintsViewModel {
+open class ConstraintsViewModel {
     
     private var model: ConstraintsModel
     
-    init() {
+    public init() {
         self.model = ConstraintsModel()
     }
 
-    var getConstraint: ConstraintsModel {
+    public var getConstraint: ConstraintsModel {
         return model
     }
 
-    var mainElement: UIView {
+    public var mainElement: UIView {
         get { model.mainElement }
         set { model.mainElement = newValue}
     }
     
-    var mainAttribute: [ConstraintsAttribute] { model.mainAttribute }
+    public var mainAttribute: [ConstraintsAttribute] { model.mainAttribute }
     
-    func mainAttribute(_ value: ConstraintsAttribute) {
+    public func mainAttribute(_ value: ConstraintsAttribute) {
         model.mainAttribute.append(value)
     }
     
-    var typeElement: ConstraintsTypeElement { model.typeElement }
+    public var typeElement: ConstraintsTypeElement { model.typeElement }
     
-    var relation: ConstraintsRelations { model.relation }
+    public var relation: ConstraintsRelations { model.relation }
     
     
     
-    func equalTo(_ element: UIView, _ attribute: ConstraintsAttribute? = nil, _ constant: CGFloat? = nil) {
+    public func equalTo(_ element: UIView, _ attribute: ConstraintsAttribute? = nil, _ constant: CGFloat? = nil) {
         updateRelations(.equalTo, element, attribute, constant)
     }
-    func equalTo(_ element: UIView, _ constant: CGFloat? = nil) {
+    
+    public func equalTo(_ element: UIView, _ constant: CGFloat? = nil) {
         updateRelations(.equalTo, element, nil, constant)
     }
     
-    func greaterThanOrEqualTo(_ element: UIView, _ attribute: ConstraintsAttribute? = nil, _ constant: CGFloat? = nil) {
+    public func greaterThanOrEqualTo(_ element: UIView, _ attribute: ConstraintsAttribute? = nil, _ constant: CGFloat? = nil) {
         updateRelations(.greaterThanOrEqualTo, element, attribute, constant)
     }
     
-    func lessThanOrEqualTo(_ element: UIView, _ attribute: ConstraintsAttribute? = nil, _ constant: CGFloat? = nil) {
+    public func lessThanOrEqualTo(_ element: UIView, _ attribute: ConstraintsAttribute? = nil, _ constant: CGFloat? = nil) {
         updateRelations(.lessThanOrEqualTo, element, attribute, constant)
     }
     
 
     
 //  MARK: - SAFE AREA
-    func equalToSafeArea(_ constant: CGFloat = 0) {
+    public func equalToSafeArea(_ constant: CGFloat = 0) {
         model.typeElement = .safeArea
         updateRelations(.equalTo, constant)
     }
     
-    func lessThanOrEqualToSafearea(_ constant: CGFloat = 0) {
+    public func lessThanOrEqualToSafearea(_ constant: CGFloat = 0) {
         model.typeElement = .safeArea
         updateRelations(.lessThanOrEqualTo, constant)
     }
     
-    func greaterThanOrEqualToSafearea(_ constant: CGFloat = 0) {
+    public func greaterThanOrEqualToSafearea(_ constant: CGFloat = 0) {
         model.typeElement = .safeArea
         updateRelations(.greaterThanOrEqualTo, constant)
     }
@@ -72,49 +73,51 @@ class ConstraintsViewModel {
     
 
 //  MARK: - SUPERVIEW
-    func equalToSuperView(_ constant: CGFloat = 0) {
+    public func equalToSuperView(_ constant: CGFloat = 0) {
         model.typeElement = .superView
         updateRelations(.equalTo, constant)
     }
     
-    func lessThanOrEqualToSuperView(_ constant: CGFloat = 0) {
+    public func lessThanOrEqualToSuperView(_ constant: CGFloat = 0) {
         model.typeElement = .superView
         updateRelations(.lessThanOrEqualTo, constant)
     }
     
-    func greaterThanOrEqualToSuperView(_ constant: CGFloat = 0) {
+    public func greaterThanOrEqualToSuperView(_ constant: CGFloat = 0) {
         model.typeElement = .superView
         updateRelations(.greaterThanOrEqualTo, constant)
     }
     
     
 //  MARK: - Constant
-    func equalToConstant(_ constant: CGFloat) {
+    public func equalToConstant(_ constant: CGFloat) {
         updateRelations(.equalTo, constant)
     }
-    func lessThanOrEqualToConstant(_ constant: CGFloat) {
+    
+    public func lessThanOrEqualToConstant(_ constant: CGFloat) {
         updateRelations(.lessThanOrEqualTo, constant)
     }
-    func greaterThanOrEqualToConstant(_ constant: CGFloat) {
+    
+    public func greaterThanOrEqualToConstant(_ constant: CGFloat) {
         updateRelations(.greaterThanOrEqualTo, constant)
     }
     
-    var toItem: UIView? {
+    public var toItem: UIView? {
         get { model.toItem }
         set { model.toItem = newValue}
     }
     
-    var toAttribute: ConstraintsAttribute? {
+    public var toAttribute: ConstraintsAttribute? {
         get { model.toAttribute }
         set { model.toAttribute = newValue}
     }
     
-    var constant: CGFloat? {
+    public var constant: CGFloat? {
         get { model.constant }
         set { model.constant = newValue ?? 0}
     }
     
-    var multiplier: CGFloat{
+    public var multiplier: CGFloat{
         get { model.multiplier }
         set { model.multiplier = newValue}
     }
