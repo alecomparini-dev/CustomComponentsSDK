@@ -85,18 +85,18 @@ open class BaseBuilder: NSObject {
 //  MARK: - CONSTRAINTS AREA
     
     @discardableResult
-    func setConstraints(_ builderConstraint: (_ build: StartOfConstraintsFlow) -> StartOfConstraintsFlow) -> Self {
+    public func setConstraints(_ builderConstraint: (_ build: StartOfConstraintsFlow) -> StartOfConstraintsFlow) -> Self {
         self.constraintsFlow = builderConstraint(StartOfConstraintsFlow(baseView))
         return self
     }
     
     @discardableResult
-    func applyConstraint() -> Self {
+    public func applyConstraint() -> Self {
         self.constraintsFlow?.apply()
         return self
     }
 
-    func add(insideTo element: UIView) {
+    public func add(insideTo element: UIView) {
         if element.isKind(of: UIStackView.self) {
             let element = element as! UIStackView
             element.addArrangedSubview(baseView)
