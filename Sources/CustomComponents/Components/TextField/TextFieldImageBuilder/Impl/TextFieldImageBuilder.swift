@@ -33,7 +33,8 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     }
     
     @discardableResult
-    public override func setPadding(_ padding: CGFloat, _ position: K.Position.Horizontal? = nil) -> Self {
+    public override func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal? = nil) -> Self {
+        guard let padding else {return self}
         if isSamePositionImage(position) {
             return self
         }
@@ -43,7 +44,8 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     }
     
     @discardableResult
-    public func setImageSize(_ size: CGFloat, _ weight: K.Weight? = nil) -> Self {
+    public func setImageSize(_ size: CGFloat?, _ weight: K.Weight? = nil) -> Self {
+        guard let size else {return self}
         imageView.get.image = imageView.get.image?
             .withConfiguration( UIImage.SymbolConfiguration(pointSize: size,
                                                             weight: UIImage.SymbolWeight.init(
@@ -58,7 +60,8 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     }
     
     @discardableResult
-    public func setImageColor(hexColor: String) -> Self {
+    public func setImageColor(hexColor: String?) -> Self {
+        guard let hexColor else {return self}
         self.imageView.get.tintColor = UIColor.HEX(hexColor)
         return self
     }

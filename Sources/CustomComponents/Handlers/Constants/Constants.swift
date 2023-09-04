@@ -9,6 +9,7 @@ public struct K {
         public static let padding: CGFloat = 8
         public static let paddingWithImage: CGFloat = 12
         public static let weight: K.Weight = .regular
+        public static let fontSize: CGFloat = 14
     }
     
     public struct String {
