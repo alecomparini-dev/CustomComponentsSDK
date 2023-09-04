@@ -7,14 +7,14 @@
 
 import UIKit
 
-class StartOfConstraintsPositionFlow<C>: StartOfConstraintsPositionFlowProtocol {
-    typealias T = C
+open class StartOfConstraintsPositionFlow<C>: StartOfConstraintsPositionFlowProtocol {
+    public typealias T = C
     
     
     private let constraintVM: ConstraintsViewModel
     private let constraintsFlow: StartOfConstraintsFlow
 
-    init(_ constraintsFlow: StartOfConstraintsFlow) {
+    public init(_ constraintsFlow: StartOfConstraintsFlow) {
         self.constraintsFlow = constraintsFlow
         self.constraintVM = self.constraintsFlow.constraintVM
     }
@@ -22,22 +22,22 @@ class StartOfConstraintsPositionFlow<C>: StartOfConstraintsPositionFlowProtocol 
     
 //  MARK: - CONSTRAINTS POSITION FLOW
     
-    var setTop: EndOfConstraintsPositionFlowProtocol {
+    public var setTop: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.top)
         return EndOfConstraintsPositionFlow(constraintsFlow)
     }
     
-    var setBottom: EndOfConstraintsPositionFlowProtocol {
+    public var setBottom: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.bottom)
         return EndOfConstraintsPositionFlow(constraintsFlow)
     }
     
-    var setLeading: EndOfConstraintsPositionFlowProtocol {
+    public var setLeading: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.leading)
         return EndOfConstraintsPositionFlow(constraintsFlow)
     }
     
-    var setTrailing: EndOfConstraintsPositionFlowProtocol {
+    public var setTrailing: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.trailing)
         return EndOfConstraintsPositionFlow(constraintsFlow)
     }
@@ -45,12 +45,12 @@ class StartOfConstraintsPositionFlow<C>: StartOfConstraintsPositionFlowProtocol 
     
 //  MARK: - CONSTRAINTS SIZE FLOW
     
-    var setWidth: EndOfConstraintsPositionFlowProtocol {
+    public var setWidth: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.width)
         return EndOfConstraintsPositionFlow(constraintsFlow)
     }
     
-    var setHeight: EndOfConstraintsPositionFlowProtocol {
+    public var setHeight: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.height)
         return EndOfConstraintsPositionFlow(constraintsFlow)
     }
@@ -58,28 +58,28 @@ class StartOfConstraintsPositionFlow<C>: StartOfConstraintsPositionFlowProtocol 
     
 //  MARK: - CONSTRAINTS RELATIONS CONSTANT
     
-    func equalTo(_ element: UIView, _ attribute: T , _ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func equalTo(_ element: UIView, _ attribute: T , _ constant: CGFloat) -> StartOfConstraintsFlow {
         if let attribute = attribute as? ConstraintsAttributeProtocol {
             constraintVM.equalTo(element, attribute.toConstraintsAttribute() , constant)
         }
         return constraintsFlow
     }
     
-    func equalTo(_ element: UIView, _ attribute: T) -> StartOfConstraintsFlow {
+    public func equalTo(_ element: UIView, _ attribute: T) -> StartOfConstraintsFlow {
         if let attribute = attribute as? ConstraintsAttributeProtocol {
             constraintVM.equalTo(element, attribute.toConstraintsAttribute())
         }
         return constraintsFlow
     }
     
-    func lessThanOrEqualTo(_ element: UIView, _ attribute: T, _ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func lessThanOrEqualTo(_ element: UIView, _ attribute: T, _ constant: CGFloat) -> StartOfConstraintsFlow {
         if let attribute = attribute as? ConstraintsAttributeProtocol {
             constraintVM.lessThanOrEqualTo(element, attribute.toConstraintsAttribute() , constant)
         }
         return constraintsFlow
     }
     
-    func lessThanOrEqualTo(_ element: UIView, _ attribute: T) -> StartOfConstraintsFlow {
+    public func lessThanOrEqualTo(_ element: UIView, _ attribute: T) -> StartOfConstraintsFlow {
         if let attribute = attribute as? ConstraintsAttributeProtocol {
             constraintVM.lessThanOrEqualTo(element, attribute.toConstraintsAttribute())
         }
@@ -87,14 +87,14 @@ class StartOfConstraintsPositionFlow<C>: StartOfConstraintsPositionFlowProtocol 
     }
     
     
-    func greaterThanOrEqualTo(_ element: UIView, _ attribute: T, _ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func greaterThanOrEqualTo(_ element: UIView, _ attribute: T, _ constant: CGFloat) -> StartOfConstraintsFlow {
         if let attribute = attribute as? ConstraintsAttributeProtocol {
             constraintVM.greaterThanOrEqualTo(element, attribute.toConstraintsAttribute() , constant)
         }
         return constraintsFlow
     }
     
-    func greaterThanOrEqualTo(_ element: UIView, _ attribute: T) -> StartOfConstraintsFlow {
+    public func greaterThanOrEqualTo(_ element: UIView, _ attribute: T) -> StartOfConstraintsFlow {
         if let attribute = attribute as? ConstraintsAttributeProtocol {
             constraintVM.greaterThanOrEqualTo(element, attribute.toConstraintsAttribute())
         }
@@ -102,66 +102,66 @@ class StartOfConstraintsPositionFlow<C>: StartOfConstraintsPositionFlowProtocol 
     }
     
     
-    var equalToSafeArea: StartOfConstraintsFlow {
+    public var equalToSafeArea: StartOfConstraintsFlow {
         constraintVM.equalToSafeArea()
         return constraintsFlow
     }
     
-    func equalToSafeArea(_ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func equalToSafeArea(_ constant: CGFloat) -> StartOfConstraintsFlow {
         constraintVM.equalToSafeArea(constant)
         return constraintsFlow
     }
     
-    var greaterThanOrEqualToSafeArea: StartOfConstraintsFlow {
+    public var greaterThanOrEqualToSafeArea: StartOfConstraintsFlow {
         constraintVM.greaterThanOrEqualToSafearea()
         return constraintsFlow
     }
     
-    func greaterThanOrEqualToSafeArea(_ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func greaterThanOrEqualToSafeArea(_ constant: CGFloat) -> StartOfConstraintsFlow {
         constraintVM.greaterThanOrEqualToSafearea(constant)
         return constraintsFlow
     }
     
-    var lessThanOrEqualToSafeArea: StartOfConstraintsFlow {
+    public var lessThanOrEqualToSafeArea: StartOfConstraintsFlow {
         constraintVM.lessThanOrEqualToSafearea()
         return constraintsFlow
     }
     
-    func lessThanOrEqualToSafeArea(_ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func lessThanOrEqualToSafeArea(_ constant: CGFloat) -> StartOfConstraintsFlow {
         constraintVM.lessThanOrEqualToSafearea(constant)
         return constraintsFlow
     }
     
     
 //  MARK: - SUPER VIEW AREA
-    var equalToSuperView: StartOfConstraintsFlow {
+    public var equalToSuperView: StartOfConstraintsFlow {
         constraintVM.equalToSuperView()
         return constraintsFlow
     }
     
-    func equalToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func equalToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
         constraintVM.equalToSuperView(constant)
         return constraintsFlow
     }
     
     
-    var greaterThanOrEqualToSuperView: StartOfConstraintsFlow {
+    public var greaterThanOrEqualToSuperView: StartOfConstraintsFlow {
         constraintVM.greaterThanOrEqualToSuperView()
         return constraintsFlow
     }
     
-    func greaterThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func greaterThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
         constraintVM.greaterThanOrEqualToSuperView(constant)
         return constraintsFlow
     }
     
     
-    var lessThanOrEqualToSuperView: StartOfConstraintsFlow{
+    public var lessThanOrEqualToSuperView: StartOfConstraintsFlow{
         constraintVM.lessThanOrEqualToSuperView()
         return constraintsFlow
     }
     
-    func lessThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func lessThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
         constraintVM.lessThanOrEqualToSuperView(constant)
         return constraintsFlow
     }

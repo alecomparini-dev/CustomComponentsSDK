@@ -7,16 +7,16 @@
 
 import UIKit
 
-class StartOfConstraintsFlow: StartOfConstraintsFlowProtocol {
+open class StartOfConstraintsFlow: StartOfConstraintsFlowProtocol {
     private let mainElement: UIView
     private var _constraintVM: ConstraintsViewModel?
     private var listConstraints: [ConstraintsViewModel] = []
 
-    init(_ mainElement: UIView) {
+    public init(_ mainElement: UIView) {
         self.mainElement = mainElement
     }
     
-    var constraintVM: ConstraintsViewModel {
+    public var constraintVM: ConstraintsViewModel {
         get { self._constraintVM ?? ConstraintsViewModel()   }
         set { self._constraintVM = newValue }
     }
@@ -24,55 +24,55 @@ class StartOfConstraintsFlow: StartOfConstraintsFlowProtocol {
     
 //  MARK: - CONSTRAINTS POSITION FLOW
     
-    var setTop: StartOfConstraintsPositionFlow<ConstraintsPositionY> {
+    public var setTop: StartOfConstraintsPositionFlow<ConstraintsPositionY> {
         configStartFlow()
         constraintVM.mainAttribute(.top)
         return StartOfConstraintsPositionFlow<ConstraintsPositionY>(self)
     }
     
-    var setBottom: StartOfConstraintsPositionFlow<ConstraintsPositionY> {
+    public var setBottom: StartOfConstraintsPositionFlow<ConstraintsPositionY> {
         configStartFlow()
         constraintVM.mainAttribute(.bottom)
         return StartOfConstraintsPositionFlow<ConstraintsPositionY>(self)
     }
     
-    var setLeading: StartOfConstraintsPositionFlow<ConstraintsPositionX> {
+    public var setLeading: StartOfConstraintsPositionFlow<ConstraintsPositionX> {
         configStartFlow()
         constraintVM.mainAttribute(.leading)
         return StartOfConstraintsPositionFlow<ConstraintsPositionX>(self)
     }
     
-    var setTrailing: StartOfConstraintsPositionFlow<ConstraintsPositionX> {
+    public var setTrailing: StartOfConstraintsPositionFlow<ConstraintsPositionX> {
         configStartFlow()
         constraintVM.mainAttribute(.trailing)
         return StartOfConstraintsPositionFlow<ConstraintsPositionX>(self)
     }
     
-    var setPin: EndOfConstraintsPositionFlow  {
+    public var setPin: EndOfConstraintsPositionFlow  {
         configStartFlow()
         _ = setTop.setBottom.setLeading.setTrailing
         return EndOfConstraintsPositionFlow(self)
     }
     
-    var setPinBottom: EndOfConstraintsPositionFlow  {
+    public var setPinBottom: EndOfConstraintsPositionFlow  {
         configStartFlow()
         _ = setBottom.setLeading.setTrailing
         return EndOfConstraintsPositionFlow(self)
     }
     
-    var setPinTop: EndOfConstraintsPositionFlow  {
+    public var setPinTop: EndOfConstraintsPositionFlow  {
         configStartFlow()
         _ = setTop.setLeading.setTrailing
         return EndOfConstraintsPositionFlow(self)
     }
     
-    var setPinLeft: EndOfConstraintsPositionFlow  {
+    public var setPinLeft: EndOfConstraintsPositionFlow  {
         configStartFlow()
         _ = setTop.setBottom.setLeading
         return EndOfConstraintsPositionFlow(self)
     }
     
-    var setPinRight: EndOfConstraintsPositionFlow  {
+    public var setPinRight: EndOfConstraintsPositionFlow  {
         configStartFlow()
         _ = setTop.setBottom.setTrailing
         return EndOfConstraintsPositionFlow(self)
@@ -80,19 +80,19 @@ class StartOfConstraintsFlow: StartOfConstraintsFlowProtocol {
     
 //  MARK: - CONSTRAINTS SIZE FLOW
     
-    var setWidth: StartOfConstraintsSizeFlowProtocol {
+    public var setWidth: StartOfConstraintsSizeFlowProtocol {
         configStartFlow()
         constraintVM.mainAttribute(.width)
         return StartOfConstraintsSizeFlow(self)
     }
     
-    var setHeight: StartOfConstraintsSizeFlowProtocol {
+    public var setHeight: StartOfConstraintsSizeFlowProtocol {
         configStartFlow()
         constraintVM.mainAttribute(.height)
         return StartOfConstraintsSizeFlow(self)
     }
     
-    var setSize: StartOfConstraintsSizeFlowProtocol {
+    public var setSize: StartOfConstraintsSizeFlowProtocol {
         configStartFlow()
         _ = setHeight.setWidth
         return StartOfConstraintsSizeFlow(self)
@@ -101,19 +101,19 @@ class StartOfConstraintsFlow: StartOfConstraintsFlowProtocol {
     
 //  MARK: - CONSTRAINTS ALIGNMENTS
     
-    var setHorizontalAlignmentX: StartOfConstraintsAlignmentFlowProtocol {
+    public var setHorizontalAlignmentX: StartOfConstraintsAlignmentFlowProtocol {
         configStartFlow()
         constraintVM.mainAttribute(.horizontalX)
         return StartOfConstraintsAlignmentFlow(self)
     }
     
-    var setVerticalAlignmentY: StartOfConstraintsAlignmentFlowProtocol {
+    public var setVerticalAlignmentY: StartOfConstraintsAlignmentFlowProtocol {
         configStartFlow()
         constraintVM.mainAttribute(.verticalY)
         return StartOfConstraintsAlignmentFlow(self)
     }
     
-    var setAlignmentCenterXY: StartOfConstraintsAlignmentFlowProtocol {
+    public var setAlignmentCenterXY: StartOfConstraintsAlignmentFlowProtocol {
         configStartFlow()
         _ = setHorizontalAlignmentX.setVerticalAlignmentY
         return StartOfConstraintsAlignmentFlow(self)
@@ -141,7 +141,7 @@ class StartOfConstraintsFlow: StartOfConstraintsFlowProtocol {
     }
     
     @discardableResult
-    func apply() -> Self {
+    public func apply() -> Self {
         let applyConstraint = ApplyConstraints(constraints: listConstraints)
         applyConstraint.apply()
         listConstraints.removeAll()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol StartOfConstraintsSizeFlowProtocol {
+public protocol StartOfConstraintsSizeFlowProtocol {
     var setTop: EndOfConstraintsSizeFlowProtocol { get }
     var setBottom: EndOfConstraintsSizeFlowProtocol { get }
     var setLeading: EndOfConstraintsSizeFlowProtocol { get }

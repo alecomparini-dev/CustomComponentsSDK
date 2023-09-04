@@ -3,7 +3,7 @@
 
 import UIKit
 
-protocol StartOfConstraintsPositionFlowProtocol {
+public protocol StartOfConstraintsPositionFlowProtocol {
     associatedtype T
     var setTop: EndOfConstraintsPositionFlowProtocol { get }
     var setBottom: EndOfConstraintsPositionFlowProtocol { get }

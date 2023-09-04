@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol EndOfConstraintsPositionFlowProtocol {
+public protocol EndOfConstraintsPositionFlowProtocol {
     var setTop: EndOfConstraintsPositionFlowProtocol{ get }
     var setBottom: EndOfConstraintsPositionFlowProtocol{ get }
     var setLeading: EndOfConstraintsPositionFlowProtocol{ get }

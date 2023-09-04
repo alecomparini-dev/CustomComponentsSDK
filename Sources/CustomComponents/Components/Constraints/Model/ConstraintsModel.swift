@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ConstraintsModel {
+public struct ConstraintsModel {
     var typeElement: ConstraintsTypeElement = .element
     var mainElement: UIView = UIView()
     var mainAttribute: [ConstraintsAttribute] = []

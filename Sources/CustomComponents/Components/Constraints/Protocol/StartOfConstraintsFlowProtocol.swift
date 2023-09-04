@@ -3,7 +3,7 @@
 
 import Foundation
 
-protocol StartOfConstraintsFlowProtocol {
+public protocol StartOfConstraintsFlowProtocol {
     var setTop: StartOfConstraintsPositionFlow<ConstraintsPositionY> { get }
     var setBottom: StartOfConstraintsPositionFlow<ConstraintsPositionY> { get }
     var setLeading: StartOfConstraintsPositionFlow<ConstraintsPositionX> { get }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum ConstraintsRelations {
+public enum ConstraintsRelations {
     case equalTo
     case lessThanOrEqualTo
     case greaterThanOrEqualTo
@@ -26,13 +26,13 @@ enum ConstraintsRelations {
     
 }
 
-enum ConstraintsTypeElement {
+public enum ConstraintsTypeElement {
     case element
     case safeArea
     case superView
 }
 
-enum ConstraintsAttribute {
+public enum ConstraintsAttribute {
     case top
     case bottom
     case leading
@@ -43,7 +43,7 @@ enum ConstraintsAttribute {
     case verticalY
     case notAnAttribute
 
-    func toNSLayoutConstraintAttribute() -> NSLayoutConstraint.Attribute {
+    public func toNSLayoutConstraintAttribute() -> NSLayoutConstraint.Attribute {
         switch self {
         case .top:
             return .top
@@ -72,7 +72,7 @@ protocol ConstraintsAttributeProtocol {
     func toConstraintsAttribute() -> ConstraintsAttribute
 }
 
-enum ConstraintsNotAnAttribute {
+public enum ConstraintsNotAnAttribute {
     case notAnAttribute
     
     func toConstraintsAttribute() -> ConstraintsAttribute {
@@ -83,7 +83,7 @@ enum ConstraintsNotAnAttribute {
     }
 }
 
-enum ConstraintsPositionX: ConstraintsAttributeProtocol{
+public enum ConstraintsPositionX: ConstraintsAttributeProtocol{
     case leading
     case trailing
     
@@ -97,7 +97,7 @@ enum ConstraintsPositionX: ConstraintsAttributeProtocol{
     }
 }
 
-enum ConstraintsPositionY: ConstraintsAttributeProtocol {
+public enum ConstraintsPositionY: ConstraintsAttributeProtocol {
     case top
     case bottom
     
@@ -111,7 +111,7 @@ enum ConstraintsPositionY: ConstraintsAttributeProtocol {
     }
 }
 
-enum ConstraintsAlignment: ConstraintsAttributeProtocol {
+public enum ConstraintsAlignment: ConstraintsAttributeProtocol {
     case horizontalX
     case verticalY
     
@@ -125,7 +125,7 @@ enum ConstraintsAlignment: ConstraintsAttributeProtocol {
     }
 }
 
-enum ConstraintsSize: ConstraintsAttributeProtocol{
+public enum ConstraintsSize: ConstraintsAttributeProtocol{
     case height
     case width
     

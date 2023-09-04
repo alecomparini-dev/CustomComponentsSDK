@@ -7,43 +7,43 @@
 
 import UIKit
 
-class EndOfConstraintsPositionFlow: EndOfConstraintsPositionFlowProtocol {
+open class EndOfConstraintsPositionFlow: EndOfConstraintsPositionFlowProtocol {
     private let constraintVM: ConstraintsViewModel
     private let constraintsFlow: StartOfConstraintsFlow
 
-    init(_ constraintsFlow: StartOfConstraintsFlow) {
+    public init(_ constraintsFlow: StartOfConstraintsFlow) {
         self.constraintsFlow = constraintsFlow
         self.constraintVM = self.constraintsFlow.constraintVM
     }
     
-    var setTop: EndOfConstraintsPositionFlowProtocol {
+    public var setTop: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.top)
         return self
     }
     
-    var setBottom: EndOfConstraintsPositionFlowProtocol {
+    public var setBottom: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.bottom)
         return self
     }
     
-    var setLeading: EndOfConstraintsPositionFlowProtocol {
+    public var setLeading: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.leading)
         return self
     }
     
-    var setTrailing: EndOfConstraintsPositionFlowProtocol {
+    public var setTrailing: EndOfConstraintsPositionFlowProtocol {
         constraintVM.mainAttribute(.trailing)
         return self
     }
     
     
 //  MARK: - CONSTRAINTS SIZE FLOW
-    var setWidth: EndOfConstraintsSizeFlowProtocol {
+    public var setWidth: EndOfConstraintsSizeFlowProtocol {
         constraintVM.mainAttribute(.width)
         return EndOfConstraintsSizeFlow(constraintsFlow)
     }
     
-    var setHeight: EndOfConstraintsSizeFlowProtocol {
+    public var setHeight: EndOfConstraintsSizeFlowProtocol {
         constraintVM.mainAttribute(.height)
         return EndOfConstraintsSizeFlow(constraintsFlow)
     }
@@ -51,31 +51,32 @@ class EndOfConstraintsPositionFlow: EndOfConstraintsPositionFlowProtocol {
     
 //  MARK: - CONSTRAINTS RELATIONS
 
-    func equalTo(_ element: UIView, _ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func equalTo(_ element: UIView, _ constant: CGFloat) -> StartOfConstraintsFlow {
         constraintVM.equalTo(element, constant)
         return constraintsFlow
     }
     
-    func equalTo(_ element: UIView) -> StartOfConstraintsFlow {
+    public func equalTo(_ element: UIView) -> StartOfConstraintsFlow {
         constraintVM.equalTo(element)
         return constraintsFlow
     }
 
-    var equalToSafeArea: StartOfConstraintsFlow {
+    public var equalToSafeArea: StartOfConstraintsFlow {
         constraintVM.equalToSafeArea()
         return constraintsFlow
     }
-    func equalToSafeArea(_ constant: CGFloat) -> StartOfConstraintsFlow {
+    
+    public func equalToSafeArea(_ constant: CGFloat) -> StartOfConstraintsFlow {
         constraintVM.equalToSafeArea(constant)
         return constraintsFlow
     }
     
-    var equalToSuperView: StartOfConstraintsFlow {
+    public var equalToSuperView: StartOfConstraintsFlow {
         constraintVM.equalToSuperView()
         return constraintsFlow
     }
     
-    func equalToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
+    public func equalToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
         constraintVM.equalToSuperView(constant)
         return constraintsFlow
     }
