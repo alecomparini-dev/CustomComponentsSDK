@@ -8,20 +8,20 @@ public protocol Label: AnyObject {
     var get: T { get }
     
     @discardableResult
-    func setText(_ text: String) -> Self
+    func setText(_ text: String?) -> Self
     
     @discardableResult
-    func setColor(hexColor: String) -> Self
+    func setColor(hexColor: String?) -> Self
 
     @discardableResult
-    func setTextAlignment(_ textAlignment: K.Text.Alignment) -> Self
+    func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
     
     @discardableResult
-    func setFontFamily(_ fontFamily: String, _ fontSize: CGFloat ) -> Self
+    func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self
     
     @discardableResult
-    func setSize(_ fontSize: CGFloat ) -> Self
+    func setSize(_ fontSize: CGFloat? ) -> Self
     
     @discardableResult
-    func setWeight(_ weight: K.Weight ) -> Self
+    func setWeight(_ weight: K.Weight? ) -> Self
 }

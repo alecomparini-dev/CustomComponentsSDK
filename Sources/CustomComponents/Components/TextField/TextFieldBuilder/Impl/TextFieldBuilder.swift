@@ -28,7 +28,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setPlaceHolder(_ placeholder: String) -> Self {
+    public func setPlaceHolder(_ placeholder: String?) -> Self {
+        guard let placeholder else {return self}
         textField.attributedPlaceholder = NSAttributedString (
             string: placeholder,
             attributes: self.attributesPlaceholder)
@@ -36,7 +37,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setPlaceHolderColor(hexColor: String) -> Self {
+    public func setPlaceHolderColor(hexColor: String?) -> Self {
+        guard let hexColor else {return self}
         self.attributesPlaceholder.updateValue(UIColor.HEX(hexColor), forKey: .foregroundColor)
         textField.attributedPlaceholder = NSAttributedString (
             string: textField.placeholder ?? K.String.empty ,
@@ -45,7 +47,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setPlaceHolderSize(_ size: CGFloat) -> Self {
+    public func setPlaceHolderSize(_ size: CGFloat?) -> Self {
+        guard let size else {return self}
         self.attributesPlaceholder.updateValue(UIFont.systemFont(ofSize: size), forKey: .font)
         textField.attributedPlaceholder = NSAttributedString (
             string: textField.placeholder ?? K.String.empty ,
@@ -54,25 +57,29 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setAttributedPlaceHolder(_ attributes: NSMutableAttributedString) -> Self {
+    public func setAttributedPlaceHolder(_ attributes: NSMutableAttributedString?) -> Self {
+        guard let attributes else {return self}
         textField.attributedPlaceholder = attributes
         return self
     }
 
     @discardableResult
-    public func setTextColor(hexColor: String) -> Self {
+    public func setTextColor(hexColor: String?) -> Self {
+        guard let hexColor else {return self}
         textField.textColor = UIColor.HEX(hexColor)
         return self
     }
 
     @discardableResult
-    public func setText(_ text: String) -> Self {
+    public func setText(_ text: String?) -> Self {
+        guard let text else {return self}
         textField.text = text
         return self
     }
 
     @discardableResult
-    public func setTextAlignment(_ textAlignment: K.Text.Alignment) -> Self {
+    public func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self {
+        guard let textAlignment else {return self}
         textField.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .left
         return self
     }
@@ -84,19 +91,22 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType) -> Self {
+    public func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType?) -> Self {
+        guard let autoCapitalizationType else {return self}
         textField.autocapitalizationType = UITextAutocapitalizationType.init(rawValue: autoCapitalizationType.rawValue) ?? .none
         return self
     }
 
     @discardableResult
-    public func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType) -> Self {
+    public func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType?) -> Self {
+        guard let autoCorrectionType else {return self}
         textField.autocorrectionType = UITextAutocorrectionType.init(rawValue: autoCorrectionType.rawValue) ?? .default
         return self
     }
 
     @discardableResult
-    public func setTintColor(hexColor: String) -> Self {
+    public func setTintColor(hexColor: String?) -> Self {
+        guard let hexColor else {return self}
         textField.tintColor = UIColor.HEX(hexColor)
         return self
     }
@@ -104,14 +114,16 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 
     // MARK: - PADDING
     @discardableResult
-    public func setPadding(_ padding: CGFloat, _ position: K.Position.Horizontal? = nil) -> Self {
+    public func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal? = nil) -> Self {
+        guard let padding else {return self}
         let paddingView = ViewBuilder(frame: CGRect(x: .zero, y: .zero, width: padding, height: .zero))
         setPadding(paddingView, position)
         return self
     }
     
     @discardableResult
-    public func setPadding(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal? = nil) -> Self {
+    public func setPadding(_ paddingView: BaseBuilder?, _ position: K.Position.Horizontal? = nil) -> Self {
+        guard let paddingView else {return self}
         if let position {
             addPaddingToTextField(paddingView, position)
             return self

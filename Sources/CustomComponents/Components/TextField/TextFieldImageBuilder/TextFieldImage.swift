@@ -9,10 +9,10 @@ public protocol TextFieldImage {
     
     func setImage(_ image: ImageViewBuilder, _ position: K.Position.Horizontal, _ margin: CGFloat) -> Self
     
-    func setImageSize(_ size: CGFloat, _ weight: K.Weight?) -> Self
+    func setImageSize(_ size: CGFloat?, _ weight: K.Weight?) -> Self
     
     func setIsHideImage(_ hide: Bool) -> Self
     
-    func setImageColor(hexColor: String) -> Self
+    func setImageColor(hexColor: String?) -> Self
     
 }
