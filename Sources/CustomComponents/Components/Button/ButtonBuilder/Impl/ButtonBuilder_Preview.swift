@@ -25,6 +25,13 @@ final class ButtonBuilderPreview: UIView {
             .setTitleSize(24)
             .setTitleWeight(.regular)
             .setFontFamily("Roboto", 24)
+            .setConstraints { build in
+                build
+                    .setTop.equalToSafeArea(20)
+                    .setLeading.setTrailing.equalToSafeArea(24)
+                    .setHeight.equalToConstant(55)
+                    .setHorizontalAlignmentX.equalToSafeArea
+            }
         return btn
     }()
     
@@ -38,6 +45,12 @@ final class ButtonBuilderPreview: UIView {
                 build
                     .setCornerRadius(12)
             }
+            .setConstraints { build in
+                build
+                    .setTop.equalTo(buttonPrimary.get, .bottom, 10)
+                    .setLeading.setTrailing.equalToSafeArea(24)
+                    .setHeight.equalToConstant(55)
+            }
         return btn
     }()
     
@@ -48,21 +61,10 @@ final class ButtonBuilderPreview: UIView {
         backgroundColor = .red
         
         addSubview(buttonPrimary.get)
-        addSubview(buttonCustomize.get)
+        buttonPrimary.applyConstraint()
         
-        NSLayoutConstraint.activate([
-            buttonPrimary.get.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            buttonPrimary.get.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            buttonPrimary.get.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
-            buttonPrimary.get.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
-            buttonPrimary.get.heightAnchor.constraint(equalToConstant: 55),
-            
-            
-            buttonCustomize.get.topAnchor.constraint(equalTo: buttonPrimary.get.bottomAnchor, constant: 10),
-            buttonCustomize.get.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
-            buttonCustomize.get.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
-            buttonCustomize.get.heightAnchor.constraint(equalToConstant: 55)
-        ])
+        addSubview(buttonCustomize.get)
+        buttonCustomize.applyConstraint()
         
     }
     

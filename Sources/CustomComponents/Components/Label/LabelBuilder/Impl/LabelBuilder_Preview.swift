@@ -24,21 +24,18 @@ final class LabelBuilderPreview: UIView {
             .setColor(hexColor: "#FFFFFF")
             .setWeight(.thin)
             .setSize(50)
+            .setConstraints { build in
+                build
+                    .setAlignmentCenterXY.equalToSafeArea
+            }
         return label
     }()
     
     private func configure() {
-        backgroundColor = .red
-        
+        backgroundColor = .red       
         addSubview(label.get)
-        
-        print(label.get)
-        
-        NSLayoutConstraint.activate([
-            label.get.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-            label.get.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-        ])
-        
+        label.applyConstraint()
+                
     }
     
 }

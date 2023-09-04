@@ -25,6 +25,13 @@ final class TextFieldImageBuilderPreview: UIView {
                 build
                     .setCornerRadius(12)
             }
+            .setConstraints { build in
+                build
+                    .setTop.equalToSafeArea(20)
+                    .setLeading.setTrailing.equalToSafeArea(24)
+                    .setHeight.equalToConstant(45)
+                    .setHorizontalAlignmentX.equalToSafeArea
+            }
         return component
     }()
 
@@ -42,6 +49,12 @@ final class TextFieldImageBuilderPreview: UIView {
                 build
                     .setCornerRadius(12)
             }
+            .setConstraints { build in
+                build
+                    .setTop.equalTo(textField.get, .bottom, 20)
+                    .setLeading.setTrailing.equalToSafeArea(24)
+                    .setHeight.equalToConstant(55)
+            }
         return component
     }()
     
@@ -52,21 +65,11 @@ final class TextFieldImageBuilderPreview: UIView {
         backgroundColor = .red
         
         addSubview(textField.get)
+        textField.applyConstraint()
+        
         addSubview(textFieldImage.get)
-        
-        NSLayoutConstraint.activate([
-            textField.get.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            textField.get.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            textField.get.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
-            textField.get.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
-            textField.get.heightAnchor.constraint(equalToConstant: 45),
-            
-            textFieldImage.get.topAnchor.constraint(equalTo: textField.get.bottomAnchor, constant: 10),
-            textFieldImage.get.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 24),
-            textFieldImage.get.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
-            textFieldImage.get.heightAnchor.constraint(equalToConstant: 45)
-        ])
-        
+        textFieldImage.applyConstraint()
+                
     }
     
 }
