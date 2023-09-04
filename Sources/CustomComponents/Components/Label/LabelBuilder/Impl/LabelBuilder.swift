@@ -59,7 +59,9 @@ open class LabelBuilder: BaseBuilder, Label {
     @discardableResult
     public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
         guard let fontFamily else {return self}
-        label.font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize)
+        if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
+            label.font = font
+        }
         return self
     }
     
