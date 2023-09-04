@@ -4,7 +4,7 @@
 
 import UIKit
 
-open class LabelBuilder: BaseBuilder, Label {
+open class LabelBuilder: BaseBuilder {
     public typealias T = UILabel
     public var get: UILabel {self.label}
     
@@ -33,15 +33,12 @@ open class LabelBuilder: BaseBuilder, Label {
         setTextAlignment(aligment)
     }
     
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     
 //  MARK: - SET Properties
     
     @discardableResult
     public func setText(_ text: String?) -> Self {
+        guard let text else {return self}
         label.text = text
         return self
     }
