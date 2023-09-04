@@ -37,43 +37,37 @@ open class LabelBuilder: BaseBuilder {
 //  MARK: - SET Properties
     
     @discardableResult
-    public func setText(_ text: String?) -> Self {
-        guard let text else {return self}
+    public func setText(_ text: String) -> Self {
         label.text = text
         return self
     }
     
     @discardableResult
-    public func setColor(hexColor: String?) -> Self {
-        guard let hexColor else {return self}
+    public func setColor(hexColor: String) -> Self {
         label.textColor = UIColor.HEX(hexColor)
         return self
     }
     
     @discardableResult
-    public func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self {
-        guard let textAlignment else {return self}
+    public func setTextAlignment(_ textAlignment: K.Text.Alignment) -> Self {
         label.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .natural
         return self
     }
         
     @discardableResult
-    public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
-        guard let fontFamily else {return self}
+    public func setFontFamily(_ fontFamily: String, _ fontSize: CGFloat?) -> Self {
         label.font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize)
         return self
     }
     
     @discardableResult
-    public func setSize(_ fontSize: CGFloat?) -> Self {
-        guard let fontSize else {return self}
+    public func setSize(_ fontSize: CGFloat) -> Self {
         label.font = label.font.withSize(fontSize)
         return self
     }
     
     @discardableResult
-    public func setWeight(_ weight: K.Weight?) -> Self {
-        guard let weight else {return self}
+    public func setWeight(_ weight: K.Weight) -> Self {
         label.font = UIFont.systemFont(ofSize: label.font.pointSize, weight: weight.toFontWeight() )
         return self
     }
