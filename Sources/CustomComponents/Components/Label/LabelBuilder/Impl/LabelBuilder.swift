@@ -4,7 +4,7 @@
 
 import UIKit
 
-open class LabelBuilder: BaseBuilder {
+open class LabelBuilder: BaseBuilder, Label {
     public typealias T = UILabel
     public var get: UILabel {self.label}
     
@@ -37,7 +37,7 @@ open class LabelBuilder: BaseBuilder {
 //  MARK: - SET Properties
     
     @discardableResult
-    public func setText(_ text: String) -> Self {
+    public func setText(_ text: String?) -> Self {
         label.text = text
         return self
     }
