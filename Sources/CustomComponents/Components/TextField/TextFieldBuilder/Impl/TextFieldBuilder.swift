@@ -126,6 +126,11 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
     private func configure() {
         setPadding(K.Default.padding)
+        configDelegate()
+    }
+    
+    private func configDelegate() {
+        textField.delegate = self
     }
     
     private func addPaddingToTextField(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal ) {
@@ -140,4 +145,13 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         }
     }
 
+}
+
+
+
+//  MARK: - EXTENSION - UITextFieldDelegate
+extension TextFieldBuilder: UITextFieldDelegate {
+    
+    
+    
 }
