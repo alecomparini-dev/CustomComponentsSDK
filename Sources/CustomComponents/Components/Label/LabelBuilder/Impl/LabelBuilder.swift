@@ -86,7 +86,7 @@ open class LabelBuilder: BaseBuilder, Label {
 
 
 //  MARK: - EXTENSION WEIGHT
-extension K.Weight {
+public extension K.Weight {
     
     func toFontWeight() -> UIFont.Weight {
         switch self {
