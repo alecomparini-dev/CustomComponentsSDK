@@ -48,15 +48,15 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     @discardableResult
-    public func setPlaceHolderColor(hexColor: String?) -> Self {
-        guard let hexColor, hexColor.isHexColor() else {return self}
-        setPlaceHolderColor(color: UIColor.HEX(hexColor))
+    public func setPlaceHolderColor(hexColor color: String?) -> Self {
+        guard let color, color.isHexColor() else {return self}
+        setPlaceHolderColor(color: UIColor.HEX(color))
         return self
     }
     
     @discardableResult
-    public func setPlaceHolderColor(named: String?) -> Self {
-        guard let named, let namedColor = UIColor(named: named) else {return self}
+    public func setPlaceHolderColor(named color: String?) -> Self {
+        guard let color, let namedColor = UIColor(named: color) else {return self}
         setPlaceHolderColor(color: namedColor)
         return self
     }
@@ -86,15 +86,15 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     @discardableResult
-    public func setTextColor(hexColor: String?) -> Self {
-        guard let hexColor, hexColor.isHexColor() else {return self}
-        setTextColor(color: UIColor.HEX(hexColor))
+    public func setTextColor(hexColor color: String?) -> Self {
+        guard let color, color.isHexColor() else {return self}
+        setTextColor(color: UIColor.HEX(color))
         return self
     }
     
     @discardableResult
-    public func setTextColor(named: String?) -> Self {
-        guard let named, let namedColor = UIColor(named: named) else {return self}
+    public func setTextColor(named color: String?) -> Self {
+        guard let color, let namedColor = UIColor(named: color) else {return self}
         setTextColor(color: namedColor )
         return self
     }
@@ -142,15 +142,15 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     @discardableResult
-    public func setTintColor(hexColor: String?) -> Self {
-        guard let hexColor, hexColor.isHexColor() else {return self}
-        setTintColor(color: UIColor.HEX(hexColor))
+    public func setTintColor(hexColor color: String?) -> Self {
+        guard let color, color.isHexColor() else {return self}
+        setTintColor(color: UIColor.HEX(color))
         return self
     }
     
     @discardableResult
-    public func setTintColor(named: String?) -> Self {
-        guard let named, let namedColor = UIColor(named: named) else {return self}
+    public func setTintColor(named color: String?) -> Self {
+        guard let color, let namedColor = UIColor(named: color) else {return self}
         setTintColor(color: namedColor)
         return self
     }

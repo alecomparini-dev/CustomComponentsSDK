@@ -9,13 +9,13 @@ public protocol Button {
     
     func setTitle(_ title: String?) -> Self
 
-    func setTitleColor(hexColor: String?) -> Self
+    func setTitleColor(hexColor color: String?) -> Self
     
-    func setTitleColor(named: String?) -> Self
+    func setTitleColor(named color: String?) -> Self
     
-    func setTintColor(hexColor: String?) -> Self
+    func setTintColor(hexColor color: String?) -> Self
     
-    func setTintColor(named: String?) -> Self
+    func setTintColor(named color: String?) -> Self
     
     func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
     
