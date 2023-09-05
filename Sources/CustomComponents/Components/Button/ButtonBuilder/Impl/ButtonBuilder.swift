@@ -81,14 +81,18 @@ open class ButtonBuilder: BaseBuilder, Button {
     @discardableResult
     public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
         guard let fontFamily else {return self}
-        button.titleLabel?.font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize)
+        if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
+            button.titleLabel?.font = font
+        }
         return self
     }
     
     @discardableResult
     public func setTitleSize(_ fontSize: CGFloat?) -> Self {
         guard let fontSize else {return self}
-        button.titleLabel?.font = button.titleLabel?.font.withSize(fontSize)
+        if let font = button.titleLabel?.font.withSize(fontSize) {
+            button.titleLabel?.font = font
+        }
         return self
     }
     
