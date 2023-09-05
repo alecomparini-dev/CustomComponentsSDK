@@ -44,8 +44,15 @@ open class LabelBuilder: BaseBuilder, Label {
     
     @discardableResult
     public func setColor(hexColor: String?) -> Self {
-        guard let hexColor else {return self}
+        guard let hexColor, hexColor.isHexColor() else {return self}
         label.textColor = UIColor.HEX(hexColor)
+        return self
+    }
+    
+    @discardableResult
+    public func setColor(named: String?) -> Self {
+        guard let named, let namedColor = UIColor(named: named) else {return self}
+        label.textColor = namedColor
         return self
     }
     

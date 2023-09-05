@@ -10,6 +10,8 @@ public protocol Label: AnyObject {
     func setText(_ text: String?) -> Self
     
     func setColor(hexColor: String?) -> Self
+    
+    func setColor(named: String?) -> Self
 
     func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
     
