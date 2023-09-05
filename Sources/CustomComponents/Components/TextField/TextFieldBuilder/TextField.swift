@@ -10,6 +10,8 @@ public protocol TextField {
     func setPlaceHolder(_ placeholder: String?) -> Self
     
     func setPlaceHolderColor(hexColor: String?) -> Self
+    
+    func setPlaceHolderColor(named: String?) -> Self
 
     func setPlaceHolderSize(_ size: CGFloat?) -> Self
     
@@ -18,6 +20,8 @@ public protocol TextField {
     func setText(_ text: String?) -> Self
 
     func setTextColor(hexColor: String?) -> Self
+    
+    func setTextColor(named: String?) -> Self
 
     func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
 
@@ -28,6 +32,8 @@ public protocol TextField {
     func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType?) -> Self
 
     func setTintColor(hexColor: String?) -> Self
+    
+    func setTintColor(named: String?) -> Self
     
     func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal?) -> Self
     

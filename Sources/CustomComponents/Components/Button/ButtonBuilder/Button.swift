@@ -11,7 +11,11 @@ public protocol Button {
 
     func setTitleColor(hexColor: String?) -> Self
     
+    func setTitleColor(named: String?) -> Self
+    
     func setTintColor(hexColor: String?) -> Self
+    
+    func setTintColor(named: String?) -> Self
     
     func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
     

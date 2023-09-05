@@ -52,9 +52,9 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    public func setBackgroundColor(color: String?) -> Self {
-        guard let color else {return self}
-        baseView.backgroundColor = UIColor(named: color)
+    public func setBackgroundColor(named: String?) -> Self {
+        guard let named else {return self}
+        baseView.backgroundColor = UIColor(named: named)
         return self
     }
     

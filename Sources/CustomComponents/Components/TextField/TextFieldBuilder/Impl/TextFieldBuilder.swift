@@ -36,16 +36,31 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         return self
     }
 
+    
     @discardableResult
-    public func setPlaceHolderColor(hexColor: String?) -> Self {
-        guard let hexColor else {return self}
-        self.attributesPlaceholder.updateValue(UIColor.HEX(hexColor), forKey: .foregroundColor)
+    public func setPlaceHolderColor(color: UIColor?) -> Self {
+        guard let color else {return self}
+        self.attributesPlaceholder.updateValue(color, forKey: .foregroundColor)
         textField.attributedPlaceholder = NSAttributedString (
             string: textField.placeholder ?? K.String.empty ,
             attributes: self.attributesPlaceholder)
         return self
     }
-
+    
+    @discardableResult
+    public func setPlaceHolderColor(hexColor: String?) -> Self {
+        guard let hexColor, hexColor.isHexColor() else {return self}
+        setPlaceHolderColor(color: UIColor.HEX(hexColor))
+        return self
+    }
+    
+    @discardableResult
+    public func setPlaceHolderColor(named: String?) -> Self {
+        guard let named, let namedColor = UIColor(named: named) else {return self}
+        setPlaceHolderColor(color: namedColor)
+        return self
+    }
+    
     @discardableResult
     public func setPlaceHolderSize(_ size: CGFloat?) -> Self {
         guard let size else {return self}
@@ -64,9 +79,23 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
+    public func setTextColor(color: UIColor?) -> Self {
+        guard let color else {return self}
+        textField.textColor = color
+        return self
+    }
+    
+    @discardableResult
     public func setTextColor(hexColor: String?) -> Self {
-        guard let hexColor else {return self}
-        textField.textColor = UIColor.HEX(hexColor)
+        guard let hexColor, hexColor.isHexColor() else {return self}
+        setTextColor(color: UIColor.HEX(hexColor))
+        return self
+    }
+    
+    @discardableResult
+    public func setTextColor(named: String?) -> Self {
+        guard let named, let namedColor = UIColor(named: named) else {return self}
+        setTextColor(color: namedColor )
         return self
     }
 
@@ -104,10 +133,25 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         return self
     }
 
+    
+    @discardableResult
+    public func setTintColor(color: UIColor?) -> Self {
+        guard let color else {return self}
+        textField.tintColor = color
+        return self
+    }
+    
     @discardableResult
     public func setTintColor(hexColor: String?) -> Self {
-        guard let hexColor else {return self}
-        textField.tintColor = UIColor.HEX(hexColor)
+        guard let hexColor, hexColor.isHexColor() else {return self}
+        setTintColor(color: UIColor.HEX(hexColor))
+        return self
+    }
+    
+    @discardableResult
+    public func setTintColor(named: String?) -> Self {
+        guard let named, let namedColor = UIColor(named: named) else {return self}
+        setTintColor(color: namedColor)
         return self
     }
 

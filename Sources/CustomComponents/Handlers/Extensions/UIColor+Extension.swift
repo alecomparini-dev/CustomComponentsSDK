@@ -20,7 +20,7 @@ public extension UIColor {
     @nonobjc class func HEXA(_ hexColor: String, _ alpha: Float) -> UIColor {
         if !hexColor.isHexColor() {
             debugPrint("\(hexColor) not a valid hex color !")
-            return HEX("#FFFFFF")
+            return HEX("#FFFFFF", 1)
         }
         
         var hexString = hexColor.trimmingCharacters(in: .whitespacesAndNewlines)

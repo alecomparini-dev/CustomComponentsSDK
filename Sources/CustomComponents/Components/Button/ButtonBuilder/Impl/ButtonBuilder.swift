@@ -29,17 +29,45 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
+    public func setTitleColor(color: UIColor?) -> Self {
+        guard let color else {return self}
+        button.setTitleColor(color, for: .normal)
+        button.setTitleColor(color.withAlphaComponent(0.7), for: .disabled)
+        return self
+    }
+    
+    @discardableResult
     public func setTitleColor(hexColor: String?) -> Self {
-        guard let hexColor else {return self}
-        button.setTitleColor(UIColor.HEX(hexColor), for: .normal)
-        button.setTitleColor(UIColor.HEX(hexColor).withAlphaComponent(0.7), for: .disabled)
+        guard let hexColor, hexColor.isHexColor() else {return self}
+        setTitleColor(color: UIColor.HEX(hexColor))
+        return self
+    }
+    
+    @discardableResult
+    public func setTitleColor(named: String?) -> Self {
+        guard let named, let namedColor = UIColor(named: named) else {return self}
+        setTitleColor(color: namedColor)
+        return self
+    }
+    
+    @discardableResult
+    public func setTintColor(color: UIColor?) -> Self {
+        guard let color else {return self}
+        button.tintColor = color
         return self
     }
     
     @discardableResult
     public func setTintColor(hexColor: String?) -> Self {
-        guard let hexColor else {return self}
-        button.tintColor = UIColor.HEX(hexColor)
+        guard let hexColor, hexColor.isHexColor() else {return self}
+        setTintColor(color: UIColor.HEX(hexColor))
+        return self
+    }
+    
+    @discardableResult
+    public func setTintColor(named: String?) -> Self {
+        guard let named else {return self}
+        setTintColor(color: UIColor(named: named))
         return self
     }
     
