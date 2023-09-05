@@ -8,7 +8,7 @@
 import UIKit
 
 open class StartOfConstraintsFlow: StartOfConstraintsFlowProtocol {
-    private let mainElement: UIView
+    private weak var mainElement: UIView?
     private var _constraintVM: ConstraintsViewModel?
     private var listConstraints: [ConstraintsViewModel] = []
 
@@ -137,7 +137,10 @@ open class StartOfConstraintsFlow: StartOfConstraintsFlowProtocol {
     }
     
     private func setMainElement() {
-        self.constraintVM.mainElement = self.mainElement
+        if let mainElement {
+            self.constraintVM.mainElement = mainElement
+        }
+        
     }
     
     @discardableResult
