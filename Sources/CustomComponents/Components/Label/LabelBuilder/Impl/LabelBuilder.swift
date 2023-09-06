@@ -74,7 +74,22 @@ open class LabelBuilder: BaseBuilder, Label {
     
     @discardableResult
     public func setItalicFont() -> Self {
-        label.font = UIFont.italicSystemFont(ofSize: label.font.pointSize)
+        
+        if let currentFont = label.font {
+            // Crie uma descrição da fonte atual
+            let fontDescriptor = currentFont.fontDescriptor
+
+            // Crie uma nova descrição da fonte com negrito e itálico
+            let fontDescriptorWithTraits = fontDescriptor.withSymbolicTraits([.traitBold, .traitItalic])!
+            
+
+            // Crie uma nova fonte com base na descrição modificada
+            label.font = UIFont(descriptor: fontDescriptorWithTraits, size: label.font.pointSize)
+            
+        }
+
+        
+        
         return self
     }
     
