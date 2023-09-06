@@ -73,6 +73,12 @@ open class LabelBuilder: BaseBuilder, Label {
     }
     
     @discardableResult
+    public func setItalicFont() -> Self {
+        label.font = UIFont.italicSystemFont(ofSize: label.font.pointSize)
+        return self
+    }
+    
+    @discardableResult
     public func setSize(_ fontSize: CGFloat?) -> Self {
         guard let fontSize else {return self}
         label.font = label.font.withSize(fontSize)

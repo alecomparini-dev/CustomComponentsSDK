@@ -17,6 +17,8 @@ public protocol Label: AnyObject {
     
     func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self
     
+    func setItalicFont() -> Self
+    
     func setSize(_ fontSize: CGFloat? ) -> Self
     
     func setWeight(_ weight: K.Weight? ) -> Self
