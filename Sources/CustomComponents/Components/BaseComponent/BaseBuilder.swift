@@ -5,9 +5,7 @@ import UIKit
 
 open class BaseBuilder: NSObject {
     
-//    private(set) var border: BorderBuilder?
     private(set) var constraintsFlow: StartOfConstraintsFlow?
-    
     private weak var _baseView: UIView?
     
     //  MARK: - GET Properties
