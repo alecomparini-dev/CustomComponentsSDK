@@ -88,6 +88,16 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
+    public func setItalicFont() -> Self {
+        if let currentFont = button.titleLabel?.font {
+            let descriptor = currentFont.fontDescriptor
+            let descriptorWithTraits = descriptor.withSymbolicTraits([.traitBold, .traitItalic])!
+            button.titleLabel?.font = UIFont(descriptor: descriptorWithTraits, size: button.titleLabel?.font.pointSize ?? K.Default.fontSize)
+        }
+        return self
+    }
+    
+    @discardableResult
     public func setTitleSize(_ fontSize: CGFloat?) -> Self {
         guard let fontSize else {return self}
         if let font = button.titleLabel?.font.withSize(fontSize) {
