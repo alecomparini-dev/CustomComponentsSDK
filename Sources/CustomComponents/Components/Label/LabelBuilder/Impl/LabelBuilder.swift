@@ -76,7 +76,7 @@ open class LabelBuilder: BaseBuilder, Label {
     public func setItalicFont() -> Self {
         if let currentFont = label.font {
             let descriptor = currentFont.fontDescriptor
-            let descriptorWithTraits = descriptor.withSymbolicTraits([.traitItalic])!
+            let descriptorWithTraits = descriptor.withSymbolicTraits([.traitBold, .traitItalic])!
             label.font = UIFont(descriptor: descriptorWithTraits, size: label.font.pointSize)
         }
         return self
