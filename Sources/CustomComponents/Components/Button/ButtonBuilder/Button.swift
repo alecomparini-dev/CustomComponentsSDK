@@ -21,6 +21,8 @@ public protocol Button {
     
     func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat? ) -> Self
     
+    func setItalicFont() -> Self
+    
     func setTitleSize(_ fontSize: CGFloat? ) -> Self
     
     func setTitleWeight(_ weight: K.Weight? ) -> Self
