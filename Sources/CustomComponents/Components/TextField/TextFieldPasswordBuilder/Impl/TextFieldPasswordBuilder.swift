@@ -5,13 +5,14 @@ import UIKit
 
 open class TextFieldPasswordBuilder: TextFieldImageBuilder {
     
+    private let paddingRightImage: CGFloat
     
 //  MARK: - Initializers
 
     public init(paddingRightImage: CGFloat = K.Default.paddingWithImage) {
+        self.paddingRightImage = paddingRightImage
         super.init("")
-        self.setIsSecureText(true)
-            .setImage(ImageViewBuilder(systemName: "eye.slash"), .right, paddingRightImage)
+        configure()
     }
     
     public convenience override init(_ placeHolder: String) {
@@ -24,8 +25,13 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
     }
     
     
-//  MARK: - ACTIONS THIS COMPONENT
+//  MARK: - PRIVATE AREA
 
+    private func configure() {
+        self.setIsSecureText(true)
+            .setImage(ImageViewBuilder(systemName: "eye.slash"), .right, paddingRightImage)
+    }
+    
     private func openCloseEyes(_ imageView: UIImageView) {
         var systemName = "eye.slash"
         if super.get.isSecureTextEntry {

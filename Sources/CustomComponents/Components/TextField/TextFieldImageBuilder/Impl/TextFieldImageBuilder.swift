@@ -34,6 +34,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         imageView.setTranslatesAutoresizingMaskIntoConstraints(true)
         paddingView.get.addSubview(imageView.get)
         setPadding(paddingView, position)
+        setTintColor(color: super.get.textColor)
         return self
     }
     
