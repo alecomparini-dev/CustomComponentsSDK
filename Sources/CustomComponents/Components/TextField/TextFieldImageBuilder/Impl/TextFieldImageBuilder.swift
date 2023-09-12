@@ -11,10 +11,15 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     
 //  MARK: - INITIALIZERS
     
-    public override init() {
+    public init(_ placeHolder: String) {
         imageView = ImageViewBuilder()
         super.init()
+        super.setPlaceHolder(placeHolder)
         configure()
+    }
+    
+    public convenience override init() {
+        self.init("")
     }
     
     
