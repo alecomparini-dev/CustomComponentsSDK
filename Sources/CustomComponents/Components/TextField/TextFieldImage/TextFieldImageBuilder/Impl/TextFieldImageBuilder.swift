@@ -6,7 +6,7 @@ import UIKit
 open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     
     private var imagePosition: K.Position.Horizontal!
-    private var margin: CGFloat =
+    private var margin: CGFloat = K.Default.paddingWithImage
     
     public var imageView: ImageViewBuilder
     
@@ -31,7 +31,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         imageView = image
         imageView.setContentMode(.scaleAspectFit)
         imagePosition = position
-        margin = margin
+        self.margin = margin
         let paddingView = ViewBuilder(frame: createFrame(margin))
         imageView.setFrame(createFrame(margin))
         imageView.setTranslatesAutoresizingMaskIntoConstraints(true)
