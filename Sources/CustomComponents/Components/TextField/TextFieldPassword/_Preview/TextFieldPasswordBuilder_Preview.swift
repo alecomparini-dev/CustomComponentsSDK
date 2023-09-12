@@ -33,6 +33,29 @@ final class TextFieldPasswordBuilderPreview: UIView {
             }        
         return component
     }()
+    
+    lazy var textFieldImg: TextFieldImageBuilder = {
+        let component = TextFieldImageBuilder("ImageBuilder")
+            .setBackgroundColor(hexColor: "#ffffff")
+            .setImage(ImageViewBuilder(systemName: "mic"), .right, 8)
+            .setBorder { build in
+                build
+                    .setCornerRadius(8)
+            }
+            .setConstraints { build in
+                build
+                    .setTop.equalTo(textField.get, .bottom, 10)
+                    .setLeading.setTrailing.equalToSafeArea(24)
+                    .setHeight.equalToConstant(45)
+            }
+            .setActions { build in
+                build
+                    .setTap { component, tapGesture in
+                        print(tapGesture?.getTouchPosition(.component) ?? "")
+                    }
+            }
+        return component
+    }()
 
 
     
@@ -43,7 +66,9 @@ final class TextFieldPasswordBuilderPreview: UIView {
         backgroundColor = .red
         
         addSubview(textField.get)
+        addSubview(textFieldImg.get)
         textField.applyConstraint()
+        textFieldImg.applyConstraint()
 
         
     }

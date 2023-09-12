@@ -39,14 +39,14 @@ final class TextFieldImageBuilderPreview: UIView {
     lazy var textFieldImage: TextFieldImageBuilder = {
         let img = ImageViewBuilder(systemName: "mic")
         let component = TextFieldImageBuilder()
-            .setImage(img, .left)
+            .setImage(img, .right, 8)
             .setImageSize(22, .bold)
             .setImageColor(hexColor: "#000000")
             .setBackgroundColor(hexColor: "#ffffff")
             .setPlaceHolder("Type here ...")
             .setBorder { build in
                 build
-                    .setCornerRadius(12)
+                    .setCornerRadius(8)
             }
             .setConstraints { build in
                 build

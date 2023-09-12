@@ -3,11 +3,7 @@
 
 import UIKit
 
-public class TapGestureBuilder: NSObject, TapGesture {
-    public typealias T = UITapGestureRecognizer
-    
-    public var get: UITapGestureRecognizer { self.tapGesture }
-    private let tapGesture: UITapGestureRecognizer
+public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     
     public enum GestureRelativeTo {
         case window
@@ -23,22 +19,18 @@ public class TapGestureBuilder: NSObject, TapGesture {
     private var touchMoved: [touchGestureAlias] = []
     private var touchCancelled: [touchGestureAlias] = []
     
-//    private weak var component: BaseBuilder?
-    private let component: BaseBuilder
+    private weak var component: BaseBuilder?
     
     public init(_ component: BaseBuilder ) {
-        self.tapGesture = UITapGestureRecognizer(target: nil, action: nil)
         self.component = component
-        super.init()
+        super.init(target: nil, action: nil)
         self.initialization()
     }
     
     private func initialization() {
         enableUserInteractionComponent()
-        addTapGestureOnComponent()
-        
+        addTargetOnComponent()
     }
-    
     
     
 //  MARK: - GET PROPERTIES
@@ -58,19 +50,19 @@ public class TapGestureBuilder: NSObject, TapGesture {
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setNumberOfTapsRequired(_ numberOfTaps: Int) -> Self {
-        tapGesture.numberOfTapsRequired = numberOfTaps
+        self.numberOfTapsRequired = numberOfTaps
         return self
     }
     
     @discardableResult
     public func setNumberOfTouchesRequired(_ numberOfTouches: Int) -> Self {
-        tapGesture.numberOfTouchesRequired = numberOfTouches
+        self.numberOfTouchesRequired = numberOfTouches
         return self
     }
     
     @discardableResult
     public func setCancelsTouchesInView(_ cancel: Bool) -> Self {
-        tapGesture.cancelsTouchesInView = cancel
+        self.cancelsTouchesInView = cancel
         return self
     }
     
@@ -94,24 +86,23 @@ public class TapGestureBuilder: NSObject, TapGesture {
     
     @discardableResult
     public func setIsEnabled(_ enabled: Bool) -> Self {
-        tapGesture.isEnabled = enabled
+        self.isEnabled = enabled
         return self
     }
     
     public func removeTapGesture() {
-        component.baseView.removeGestureRecognizer(tapGesture)
+        component?.baseView.removeGestureRecognizer(self)
     }
-    
     
     
 //  MARK: - PRIVATE AREA
     private func enableUserInteractionComponent() {
-        component.baseView.isUserInteractionEnabled = true
+        component?.baseView.isUserInteractionEnabled = true
     }
     
-    private func addTapGestureOnComponent() {
-        tapGesture.addTarget(self, action: #selector(objcTapGesture(_:)))
-        component.baseView.addGestureRecognizer(tapGesture)
+    private func addTargetOnComponent() {
+        self.addTarget(self, action: #selector(objcTapGesture))
+        component?.baseView.addGestureRecognizer(self)
     }
     
     private func performTap(_ completion: [touchGestureAlias]) {
@@ -123,15 +114,15 @@ public class TapGestureBuilder: NSObject, TapGesture {
     }
     
     private func setTouchPositions() {
-        _touchPositionWindow = tapGesture.location(in: nil)
-        _touchPositionSuperView = tapGesture.location(in: self.component.baseView.superview)
-        _touchPositionComponent = tapGesture.location(in: self.component.baseView)
+        _touchPositionWindow = self.location(in: nil)
+        _touchPositionSuperView = self.location(in: component?.baseView.superview)
+        _touchPositionComponent = self.location(in: component?.baseView)
     }
     
     
 //  MARK: - @OBJC GESTURE
-    @objc
-    private func objcTapGesture(_ gesture: UITapGestureRecognizer) {
+    @objc private func objcTapGesture(_ gesture: UITapGestureRecognizer) {
+        
         switch gesture.state {
             case .ended:
                 performTap(tap)

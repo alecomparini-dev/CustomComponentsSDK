@@ -6,8 +6,6 @@ import Foundation
 
 public class TextFieldImageActionBuilder: BaseActionBuilder {
     
-//    private weak var component: BaseBuilder?
-    private var component: BaseBuilder?
     
     public override init(component: BaseBuilder) {
         super.init(component: component)

@@ -1,12 +1,9 @@
-
 //  Created by Alessandro Comparini on 12/09/23.
 //
 
 import Foundation
 
 public protocol TapGesture {
-    associatedtype T
-    var get: T { get }
     
     typealias touchGestureAlias = (_ tapGesture: TapGestureBuilder) -> Void
 

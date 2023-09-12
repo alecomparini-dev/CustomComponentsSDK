@@ -8,6 +8,6 @@ public protocol BaseAction {
     typealias touchBaseActionAlias = (_ component: BaseBuilder, _ tapGesture: TapGestureBuilder?) -> Void
     
     @discardableResult
-    func setTouch(_ closure: @escaping touchBaseActionAlias, _ cancelsTouchesInView: Bool) -> Self
+    func setTap(_ closure: @escaping touchBaseActionAlias, _ cancelsTouchesInView: Bool) -> Self
     
 }

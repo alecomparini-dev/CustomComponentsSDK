@@ -7,7 +7,8 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
     
     private let paddingRightImage: CGFloat
     
-//  MARK: - Initializers
+    
+//  MARK: - INITIALIZERS
 
     public init(paddingRightImage: CGFloat = K.Default.paddingWithImage) {
         self.paddingRightImage = paddingRightImage
@@ -35,9 +36,9 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
         
             .setActions { build in
                 build
-                    .setTouch { [weak self] component, tapGesture in
+                    .setTap { [weak self] component, tapGesture in
                         guard let self else {return}
-                        openCloseEyes(component as! ImageViewBuilder )
+                        self.openCloseEyes(component as! ImageViewBuilder )
                     }
             }
     }
@@ -48,7 +49,7 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
             systemName = "eye"
         }
         imageView.get.image = UIImage(systemName: systemName)
-        self.setIsSecureText(!super.get.isSecureTextEntry)
+        setIsSecureText(!super.get.isSecureTextEntry)
     }
     
 }

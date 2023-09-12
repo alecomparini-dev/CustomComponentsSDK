@@ -5,8 +5,6 @@ import UIKit
 
 open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     
-    private var action: TextFieldImageActionBuilder?
-    
     private var imagePosition: K.Position.Horizontal!
     
     public var imageView: ImageViewBuilder
@@ -80,7 +78,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     
     @discardableResult
     public func setActions(_ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
-        action = builder(TextFieldImageActionBuilder(component: imageView ))
+        _ = builder(TextFieldImageActionBuilder(component: imageView ))
         return self
     }
     
