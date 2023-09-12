@@ -16,11 +16,11 @@ final class TextFieldPasswordBuilderPreview: UIView {
     }
     
     
-    
 //  MARK: - LAZY AREA
     lazy var textField: TextFieldPasswordBuilder = {
         let component = TextFieldPasswordBuilder(paddingRightImage: 8)
             .setBackgroundColor(hexColor: "#ffffff")
+            .setImageSize(22)
             .setBorder { build in
                 build
                     .setCornerRadius(8)
@@ -58,7 +58,6 @@ final class TextFieldPasswordBuilderPreview: UIView {
     }()
 
 
-    
     
 //  MARK: - PRIVATE AREA
     
