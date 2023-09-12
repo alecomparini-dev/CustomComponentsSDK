@@ -6,6 +6,7 @@ import UIKit
 open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     
     private var imagePosition: K.Position.Horizontal!
+    
     public var imageView: ImageViewBuilder
     
     
@@ -34,6 +35,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         imageView.setTranslatesAutoresizingMaskIntoConstraints(true)
         paddingView.get.addSubview(imageView.get)
         setPadding(paddingView, position)
+        setTintColor(color: super.get.textColor)
         return self
     }
     
@@ -71,6 +73,14 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         return self
     }
     
+    
+//  MARK: - SET ACTIONS
+    
+    @discardableResult
+    public func setActions(_ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
+        _ = builder(TextFieldImageActionBuilder(component: imageView ))
+        return self
+    }
     
     
 //  MARK: - PRIVATE AREA

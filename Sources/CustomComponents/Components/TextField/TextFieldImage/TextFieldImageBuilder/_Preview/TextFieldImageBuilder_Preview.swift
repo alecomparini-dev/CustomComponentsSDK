@@ -4,7 +4,7 @@
 import UIKit
 import SwiftUI
 
-final class TextFieldBuilderPreview: UIView {
+final class TextFieldImageBuilderPreview: UIView {
 
     init() {
         super.init(frame: .zero)
@@ -23,7 +23,7 @@ final class TextFieldBuilderPreview: UIView {
             .setBackgroundColor(hexColor: "#ffffff")
             .setBorder { build in
                 build
-                    .setCornerRadius(8)
+                    .setCornerRadius(12)
             }
             .setConstraints { build in
                 build
@@ -39,7 +39,7 @@ final class TextFieldBuilderPreview: UIView {
     lazy var textFieldImage: TextFieldImageBuilder = {
         let img = ImageViewBuilder(systemName: "mic")
         let component = TextFieldImageBuilder()
-            .setImage(img, .left)
+            .setImage(img, .right, 8)
             .setImageSize(22, .bold)
             .setImageColor(hexColor: "#000000")
             .setBackgroundColor(hexColor: "#ffffff")
@@ -58,25 +58,6 @@ final class TextFieldBuilderPreview: UIView {
     }()
     
     
-    lazy var textFieldPassword: TextFieldPasswordBuilder = {
-        let component = TextFieldPasswordBuilder()
-            .setImageColor(hexColor: "#000000")
-            .setBackgroundColor(hexColor: "#ffffff")
-            .setPlaceHolder("Password")
-            .setBorder { build in
-                build
-                    .setCornerRadius(8)
-            }
-            .setConstraints { build in
-                build
-                    .setTop.equalTo(textFieldImage.get, .bottom, 20)
-                    .setLeading.setTrailing.equalToSafeArea(24)
-                    .setHeight.equalToConstant(55)
-            }
-        return component
-    }()
-    
-    
 //  MARK: - PRIVATE AREA
     
     private func configure() {
@@ -87,10 +68,7 @@ final class TextFieldBuilderPreview: UIView {
         
         addSubview(textFieldImage.get)
         textFieldImage.applyConstraint()
-
-        addSubview(textFieldPassword.get)
-        textFieldPassword.applyConstraint()
-        
+                
     }
     
 }
@@ -100,9 +78,9 @@ final class TextFieldBuilderPreview: UIView {
 //  MARK: - PREVIEW AREA
 
 #if DEBUG
-struct TextFieldBuilderPreview_SwiftUI: PreviewProvider {
+struct TextFieldImageBuilderPreview_SwiftUI: PreviewProvider {
     static var previews: some View {
-        TextFieldBuilderPreview()
+        TextFieldImageBuilderPreview()
         .asSwiftUIView
         .frame(width: 400, height: 400)
         .padding(15)

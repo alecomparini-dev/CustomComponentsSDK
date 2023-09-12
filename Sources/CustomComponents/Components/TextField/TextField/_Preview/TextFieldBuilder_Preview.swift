@@ -4,7 +4,7 @@
 import UIKit
 import SwiftUI
 
-final class TextFieldImageBuilderPreview: UIView {
+final class TextFieldBuilderPreview: UIView {
 
     init() {
         super.init(frame: .zero)
@@ -16,14 +16,13 @@ final class TextFieldImageBuilderPreview: UIView {
     }
     
     
-    
 //  MARK: - LAZY AREA
     lazy var textField: TextFieldBuilder = {
         let component = TextFieldBuilder("Place Holder")
             .setBackgroundColor(hexColor: "#ffffff")
             .setBorder { build in
                 build
-                    .setCornerRadius(12)
+                    .setCornerRadius(8)
             }
             .setConstraints { build in
                 build
@@ -39,7 +38,6 @@ final class TextFieldImageBuilderPreview: UIView {
     lazy var textFieldImage: TextFieldImageBuilder = {
         let img = ImageViewBuilder(systemName: "mic")
         let component = TextFieldImageBuilder()
-//            .setImage(img, .right, 16)
             .setImage(img, .left)
             .setImageSize(22, .bold)
             .setImageColor(hexColor: "#000000")
@@ -47,11 +45,30 @@ final class TextFieldImageBuilderPreview: UIView {
             .setPlaceHolder("Type here ...")
             .setBorder { build in
                 build
-                    .setCornerRadius(12)
+                    .setCornerRadius(8)
             }
             .setConstraints { build in
                 build
                     .setTop.equalTo(textField.get, .bottom, 20)
+                    .setLeading.setTrailing.equalToSafeArea(24)
+                    .setHeight.equalToConstant(55)
+            }
+        return component
+    }()
+    
+    
+    lazy var textFieldPassword: TextFieldPasswordBuilder = {
+        let component = TextFieldPasswordBuilder()
+            .setImageColor(hexColor: "#000000")
+            .setBackgroundColor(hexColor: "#ffffff")
+            .setPlaceHolder("Password")
+            .setBorder { build in
+                build
+                    .setCornerRadius(8)
+            }
+            .setConstraints { build in
+                build
+                    .setTop.equalTo(textFieldImage.get, .bottom, 20)
                     .setLeading.setTrailing.equalToSafeArea(24)
                     .setHeight.equalToConstant(55)
             }
@@ -69,7 +86,10 @@ final class TextFieldImageBuilderPreview: UIView {
         
         addSubview(textFieldImage.get)
         textFieldImage.applyConstraint()
-                
+
+        addSubview(textFieldPassword.get)
+        textFieldPassword.applyConstraint()
+        
     }
     
 }
@@ -79,9 +99,9 @@ final class TextFieldImageBuilderPreview: UIView {
 //  MARK: - PREVIEW AREA
 
 #if DEBUG
-struct TextFieldImageBuilderPreview_SwiftUI: PreviewProvider {
+struct TextFieldBuilderPreview_SwiftUI: PreviewProvider {
     static var previews: some View {
-        TextFieldImageBuilderPreview()
+        TextFieldBuilderPreview()
         .asSwiftUIView
         .frame(width: 400, height: 400)
         .padding(15)
