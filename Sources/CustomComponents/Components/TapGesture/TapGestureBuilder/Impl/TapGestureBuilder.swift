@@ -34,10 +34,11 @@ public class TapGestureBuilder: NSObject, TapGesture {
     }
     
     private func initialization() {
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(objcTapGesture(_:)))
-        tapGesture.addTarget(self, action: #selector(objcTapGesture(_:)))
-        component.baseView.addGestureRecognizer(tapGesture)
+        enableUserInteractionComponent()
+        addTapGestureOnComponent()
+        
     }
+    
     
     
 //  MARK: - GET PROPERTIES
@@ -104,6 +105,15 @@ public class TapGestureBuilder: NSObject, TapGesture {
     
     
 //  MARK: - PRIVATE AREA
+    private func enableUserInteractionComponent() {
+        component.baseView.isUserInteractionEnabled = true
+    }
+    
+    private func addTapGestureOnComponent() {
+        tapGesture.addTarget(self, action: #selector(objcTapGesture(_:)))
+        component.baseView.addGestureRecognizer(tapGesture)
+    }
+    
     private func performTap(_ completion: [touchGestureAlias]) {
         setTouchPositions()
         completion.forEach({ [weak self] closure in
