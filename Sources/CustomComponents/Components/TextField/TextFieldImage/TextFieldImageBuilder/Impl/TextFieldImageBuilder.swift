@@ -6,6 +6,7 @@ import UIKit
 open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     
     private var imagePosition: K.Position.Horizontal!
+    private var margin: CGFloat =
     
     public var imageView: ImageViewBuilder
     
@@ -28,8 +29,9 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     @discardableResult
     public func setImage(_ image: ImageViewBuilder, _ position: K.Position.Horizontal = .left, _ margin: CGFloat = K.Default.paddingWithImage) -> Self {
         imageView = image
-        imageView.setContentMode(.center)
+        imageView.setContentMode(.scaleAspectFit)
         imagePosition = position
+        margin = margin
         let paddingView = ViewBuilder(frame: createFrame(margin))
         imageView.setFrame(createFrame(margin))
         imageView.setTranslatesAutoresizingMaskIntoConstraints(true)
@@ -53,12 +55,14 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     @discardableResult
     public func setImageSize(_ size: CGFloat?, _ weight: K.Weight? = nil) -> Self {
         guard let size else {return self}
+//        imageView.get.image = imageView.get.image?
         let img = imageView.get.image?
             .withConfiguration( UIImage.SymbolConfiguration(pointSize: size,
                                                             weight: UIImage.SymbolWeight.init(
-                                                                rawValue: weight?.rawValue ?? K.Default.weight.rawValue) ?? .regular ))
-        self.imageView.get.image = img
-        setImage(imageView)
+                                                                rawValue: weight?.rawValue ?? K.Default.weight.rawValue) ?? .medium ))
+        let imgBuilder = ImageViewBuilder()
+        imgBuilder.get.image = img
+        setImage(imgBuilder, imagePosition, margin)
         return self
     }
     

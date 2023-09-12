@@ -31,9 +31,7 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
     private func configure() {
         self
             .setIsSecureText(true)
-        
             .setImage(ImageViewBuilder(systemName: "eye.slash"), .right, paddingRightImage)
-        
             .setActions { build in
                 build
                     .setTap { [weak self] component, tapGesture in
