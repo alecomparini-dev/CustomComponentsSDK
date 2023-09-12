@@ -39,7 +39,6 @@ final class TextFieldImageBuilderPreview: UIView {
     lazy var textFieldImage: TextFieldImageBuilder = {
         let img = ImageViewBuilder(systemName: "mic")
         let component = TextFieldImageBuilder()
-//            .setImage(img, .right, 16)
             .setImage(img, .left)
             .setImageSize(22, .bold)
             .setImageColor(hexColor: "#000000")

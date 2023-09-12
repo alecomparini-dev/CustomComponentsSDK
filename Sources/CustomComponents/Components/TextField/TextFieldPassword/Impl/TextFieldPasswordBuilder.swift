@@ -28,16 +28,28 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
 //  MARK: - PRIVATE AREA
 
     private func configure() {
-        self.setIsSecureText(true)
+        self
+            .setIsSecureText(true)
+        
             .setImage(ImageViewBuilder(systemName: "eye.slash"), .right, paddingRightImage)
+        
+            .setActions { build in
+                build
+                    .setTouch { [weak self] component, tapGesture in
+                        guard let self else {return}
+                        openCloseEyes(component as! ImageViewBuilder )
+                    }
+            }
     }
     
-    private func openCloseEyes(_ imageView: UIImageView) {
+    private func openCloseEyes(_ imageView: ImageViewBuilder) {
+        print("chamouuuuu")
+        
         var systemName = "eye.slash"
         if super.get.isSecureTextEntry {
             systemName = "eye"
         }
-        imageView.image = UIImage(systemName: systemName)
+        imageView.get.image = UIImage(systemName: systemName)
         self.setIsSecureText(!super.get.isSecureTextEntry)
     }
     

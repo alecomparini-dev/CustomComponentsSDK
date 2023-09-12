@@ -16,7 +16,6 @@ final class TextFieldBuilderPreview: UIView {
     }
     
     
-    
 //  MARK: - LAZY AREA
     lazy var textField: TextFieldBuilder = {
         let component = TextFieldBuilder("Place Holder")

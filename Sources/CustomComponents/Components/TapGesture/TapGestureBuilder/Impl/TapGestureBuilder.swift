@@ -23,9 +23,10 @@ public class TapGestureBuilder: NSObject, TapGesture {
     private var touchMoved: [touchGestureAlias] = []
     private var touchCancelled: [touchGestureAlias] = []
     
-    private weak var component: ViewBuilder?
+//    private weak var component: BaseBuilder?
+    private let component: BaseBuilder
     
-    public init(_ component: ViewBuilder ) {
+    public init(_ component: BaseBuilder ) {
         self.tapGesture = UITapGestureRecognizer(target: nil, action: nil)
         self.component = component
         super.init()
@@ -33,8 +34,10 @@ public class TapGestureBuilder: NSObject, TapGesture {
     }
     
     private func initialization() {
-        tapGesture.addTarget(self, action: #selector(objcTapGesture(_:)))
-        component?.get.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(objcTapGesture(_:)))
+//        tapGesture.addTarget(self, action: #selector(objcTapGesture(_:)))
+        print(component.baseView)
+        component.baseView.addGestureRecognizer(tapGesture)
     }
     
     
@@ -96,7 +99,7 @@ public class TapGestureBuilder: NSObject, TapGesture {
     }
     
     public func removeTapGesture() {
-        component?.get.removeGestureRecognizer(tapGesture)
+        component.baseView.removeGestureRecognizer(tapGesture)
     }
     
     
@@ -112,14 +115,15 @@ public class TapGestureBuilder: NSObject, TapGesture {
     
     private func setTouchPositions() {
         _touchPositionWindow = tapGesture.location(in: nil)
-        _touchPositionSuperView = tapGesture.location(in: self.component?.get.superview)
-        _touchPositionComponent = tapGesture.location(in: self.component?.get)
+        _touchPositionSuperView = tapGesture.location(in: self.component.baseView.superview)
+        _touchPositionComponent = tapGesture.location(in: self.component.baseView)
     }
     
     
 //  MARK: - @OBJC GESTURE
     @objc
     private func objcTapGesture(_ gesture: UITapGestureRecognizer) {
+        print("chamando o tap gesture !!!!!")
         switch gesture.state {
             case .ended:
                 performTap(tap)

@@ -5,7 +5,7 @@
 import Foundation
 
 public protocol BaseAction {
-    typealias touchBaseActionAlias = (_ component: ViewBuilder, _ tapGesture: TapGestureBuilder?) -> Void
+    typealias touchBaseActionAlias = (_ component: BaseBuilder, _ tapGesture: TapGestureBuilder?) -> Void
     
     @discardableResult
     func setTouch(_ closure: @escaping touchBaseActionAlias, _ cancelsTouchesInView: Bool) -> Self

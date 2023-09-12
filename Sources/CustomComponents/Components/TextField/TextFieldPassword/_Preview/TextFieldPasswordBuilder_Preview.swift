@@ -30,7 +30,7 @@ final class TextFieldPasswordBuilderPreview: UIView {
                     .setAlignmentCenterXY.equalToSafeArea
                     .setLeading.setTrailing.equalToSafeArea(24)
                     .setHeight.equalToConstant(45)
-            }
+            }        
         return component
     }()
 
