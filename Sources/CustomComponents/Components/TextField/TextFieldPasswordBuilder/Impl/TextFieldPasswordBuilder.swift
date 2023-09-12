@@ -9,12 +9,12 @@ class TextFieldPasswordBuilder: TextFieldImageBuilder {
 //  MARK: - Initializers
 
     init(paddingRightImage: CGFloat = K.Default.paddingWithImage) {
-        super.init()
+        super.init("")
         self.setIsSecureText(true)
             .setImage(ImageViewBuilder(systemName: "eye.slash"), .right, paddingRightImage)
     }
     
-    convenience init(_ placeHolder: String) {
+    convenience override init(_ placeHolder: String) {
         self.init()
         super.setPlaceHolder(placeHolder)
     }
@@ -27,11 +27,11 @@ class TextFieldPasswordBuilder: TextFieldImageBuilder {
 //  MARK: - ACTIONS THIS COMPONENT
 
     private func openCloseEyes(_ imageView: UIImageView) {
+        var systemName = "eye.slash"
         if super.get.isSecureTextEntry {
-            imageView.image = UIImage(systemName: "eye")
-        } else {
-            imageView.image = UIImage(systemName: "eye.slash")
+            systemName = "eye"
         }
+        imageView.image = UIImage(systemName: systemName)
         self.setIsSecureText(!super.get.isSecureTextEntry)
     }
     
