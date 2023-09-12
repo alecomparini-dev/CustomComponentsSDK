@@ -46,7 +46,7 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
         if super.get.isSecureTextEntry {
             systemName = "eye"
         }
-        imageView.get.image = UIImage(systemName: systemName)
+        setImage(ImageViewBuilder(systemName: systemName), .right, paddingRightImage)
         setIsSecureText(!super.get.isSecureTextEntry)
     }
     
