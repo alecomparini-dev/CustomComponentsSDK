@@ -80,7 +80,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     
     @discardableResult
     public func setActions(_ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
-        action = builder(TextFieldImageActionBuilder(component: super.self ))
+        action = builder(TextFieldImageActionBuilder(component: imageView ))
         return self
     }
     
