@@ -3,23 +3,23 @@
 
 import UIKit
 
-class TextFieldPasswordBuilder: TextFieldImageBuilder {
+open class TextFieldPasswordBuilder: TextFieldImageBuilder {
     
     
 //  MARK: - Initializers
 
-    init(paddingRightImage: CGFloat = K.Default.paddingWithImage) {
+    public init(paddingRightImage: CGFloat = K.Default.paddingWithImage) {
         super.init("")
         self.setIsSecureText(true)
             .setImage(ImageViewBuilder(systemName: "eye.slash"), .right, paddingRightImage)
     }
     
-    convenience override init(_ placeHolder: String) {
+    public convenience override init(_ placeHolder: String) {
         self.init()
         super.setPlaceHolder(placeHolder)
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
