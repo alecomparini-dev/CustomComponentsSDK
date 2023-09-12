@@ -50,8 +50,6 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         imageView.setTranslatesAutoresizingMaskIntoConstraints(true)
         paddingView.get.addSubview(imageView.get)
         setPadding(paddingView, self.imagePosition)
-        
-        paddingView.setBackgroundColor(color: UIColor.cyan)
     }
     
     
