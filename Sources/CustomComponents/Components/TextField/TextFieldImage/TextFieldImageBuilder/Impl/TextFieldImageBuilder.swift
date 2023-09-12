@@ -60,9 +60,8 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
             .withConfiguration( UIImage.SymbolConfiguration(pointSize: size,
                                                             weight: UIImage.SymbolWeight.init(
                                                                 rawValue: weight?.rawValue ?? K.Default.weight.rawValue) ?? .medium ))
-        let imgBuilder = ImageViewBuilder()
-        imgBuilder.get.image = img
-        setImage(imgBuilder, imagePosition, margin)
+        imageView.get.image = img
+        setImage(imageView, imagePosition, margin)
         return self
     }
     
