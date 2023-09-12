@@ -53,10 +53,12 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     @discardableResult
     public func setImageSize(_ size: CGFloat?, _ weight: K.Weight? = nil) -> Self {
         guard let size else {return self}
-        imageView.get.image = imageView.get.image?
+        let img = imageView.get.image?
             .withConfiguration( UIImage.SymbolConfiguration(pointSize: size,
                                                             weight: UIImage.SymbolWeight.init(
                                                                 rawValue: weight?.rawValue ?? K.Default.weight.rawValue) ?? .regular ))
+        self.imageView.get.image = img
+        setImage(imageView)
         return self
     }
     
