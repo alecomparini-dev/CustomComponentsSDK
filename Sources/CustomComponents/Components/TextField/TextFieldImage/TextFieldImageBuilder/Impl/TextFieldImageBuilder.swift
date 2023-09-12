@@ -50,6 +50,8 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         imageView.setTranslatesAutoresizingMaskIntoConstraints(true)
         paddingView.get.addSubview(imageView.get)
         setPadding(paddingView, self.imagePosition)
+        
+        paddingView.setBackgroundColor(color: UIColor.cyan)
     }
     
     
@@ -112,11 +114,12 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         super.setPadding(K.Default.padding)
     }
     
-    private func createFrame(_ margin: CGFloat, _ height: CGFloat = .zero) -> CGRect {
+    private func createFrame(_ margin: CGFloat) -> CGRect {
+        let doubleMargin = margin * 2
         return CGRect(x: .zero,
                       y: .zero,
-                      width: (imageView.get.image?.size.width ?? .zero) + margin,
-                      height: (imageView.get.image?.size.width ?? .zero) + margin)
+                      width: (imageView.get.image?.size.width ?? .zero) + doubleMargin ,
+                      height: (imageView.get.image?.size.width ?? .zero) + doubleMargin)
     }
     
     private func isSamePositionImage(_ position: K.Position.Horizontal? = nil) -> Bool {

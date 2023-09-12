@@ -20,10 +20,10 @@ final class TextFieldPasswordBuilderPreview: UIView {
     lazy var textField: TextFieldPasswordBuilder = {
         let component = TextFieldPasswordBuilder(paddingRightImage: 8)
             .setBackgroundColor(hexColor: "#ffffff")
-            .setImageSize(22)
+            .setImageSize(30)
             .setBorder { build in
                 build
-                    .setCornerRadius(8)
+                    .setCornerRadius(0)
             }
             .setConstraints { build in
                 build
@@ -38,6 +38,7 @@ final class TextFieldPasswordBuilderPreview: UIView {
         let component = TextFieldImageBuilder("ImageBuilder")
             .setBackgroundColor(hexColor: "#ffffff")
             .setImage(ImageViewBuilder(systemName: "mic"), .right, 8)
+//            .setImageSize(22)
             .setBorder { build in
                 build
                     .setCornerRadius(8)
