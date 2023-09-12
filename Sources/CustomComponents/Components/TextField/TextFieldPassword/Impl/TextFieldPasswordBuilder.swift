@@ -43,8 +43,6 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
     }
     
     private func openCloseEyes(_ imageView: ImageViewBuilder) {
-        print("chamouuuuu")
-        
         var systemName = "eye.slash"
         if super.get.isSecureTextEntry {
             systemName = "eye"

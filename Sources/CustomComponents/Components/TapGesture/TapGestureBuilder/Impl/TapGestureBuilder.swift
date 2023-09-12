@@ -34,9 +34,8 @@ public class TapGestureBuilder: NSObject, TapGesture {
     }
     
     private func initialization() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(objcTapGesture(_:)))
-//        tapGesture.addTarget(self, action: #selector(objcTapGesture(_:)))
-        print(component.baseView)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(objcTapGesture(_:)))
+        tapGesture.addTarget(self, action: #selector(objcTapGesture(_:)))
         component.baseView.addGestureRecognizer(tapGesture)
     }
     
@@ -123,7 +122,6 @@ public class TapGestureBuilder: NSObject, TapGesture {
 //  MARK: - @OBJC GESTURE
     @objc
     private func objcTapGesture(_ gesture: UITapGestureRecognizer) {
-        print("chamando o tap gesture !!!!!")
         switch gesture.state {
             case .ended:
                 performTap(tap)
