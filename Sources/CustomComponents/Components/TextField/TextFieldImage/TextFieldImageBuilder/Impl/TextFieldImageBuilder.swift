@@ -59,7 +59,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         let img = imageView.get.image?
             .withConfiguration( UIImage.SymbolConfiguration(pointSize: size,
                                                             weight: UIImage.SymbolWeight.init(
-                                                                rawValue: weight?.rawValue ?? K.Default.weight.rawValue) ?? .medium ))
+                                                                rawValue: weight?.rawValue ?? K.Default.weight.rawValue) ?? .regular ))
         imageView.get.image = img
         setImage(imageView, imagePosition, margin)
         return self
