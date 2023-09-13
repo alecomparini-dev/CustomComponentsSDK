@@ -243,7 +243,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
 //  MARK: - @OBJC FUNCTION AREA
     @objc public func textFieldEditingDidEndOnExit(_ textField: UITextField) {
-        textField.inputAccessoryView = nil
         textField.resignFirstResponder()
     }
 }
