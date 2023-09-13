@@ -30,9 +30,9 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setKeyboardType(_ keyboardType: K.Keyboard.Types) -> Self {
         textField?.get.keyboardType = UIKeyboardType.init(rawValue: keyboardType.rawValue ) ?? .default
-        if completionDoneKeyboard == nil {
-            addAutomaticButtonOk()
-        }
+//        if completionDoneKeyboard == nil {
+//            addAutomaticButtonOk()
+//        }
         return self
     }
     
