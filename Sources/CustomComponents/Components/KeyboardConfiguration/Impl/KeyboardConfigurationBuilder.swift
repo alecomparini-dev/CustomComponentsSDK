@@ -7,12 +7,13 @@ import UIKit
 public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     static private let keyboardTypeWithOutReturn: [UIKeyboardType] = [.decimalPad, .asciiCapableNumberPad, .numberPad, .twitter, .phonePad]
+    static private var toolbar: UIToolbar?
     
     private var completionDoneKeyboard: completionKeyboardAlias?
     private var callBackListTextFields: callBackListTextFieldsAlias?
     
     private var isDoneButtonAlreadyIncluded = false
-    private var toolbar: UIToolbar?
+//    private var toolbar: UIToolbar?
     
     private weak var textField: TextFieldBuilder?
     
@@ -22,7 +23,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     deinit {
         removeToolbarToTextField()
-        toolbar = nil
+        KeyboardConfigurationBuilder.toolbar = nil
     }
     
     
@@ -104,35 +105,35 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     private func addButtonItemToToolbar(_ barButtonItem: UIBarButtonItem) {
-        guard let toolbar else {return}
-        toolbar.items?.append(barButtonItem)
+//        guard let toolbar else {return}
+        KeyboardConfigurationBuilder.toolbar?.items?.append(barButtonItem)
         repositionDoneButtonToFirstPosition()
     }
     
     private func repositionDoneButtonToFirstPosition() {
-        if let indexDone = toolbar?.items?.firstIndex(where: { $0.style == .done }) {
-            let itemDone = toolbar?.items?[indexDone]
-            toolbar?.items?.remove(at: indexDone)
-            if let itemDone {toolbar?.items?.append(itemDone)}
+        if let indexDone = KeyboardConfigurationBuilder.toolbar?.items?.firstIndex(where: { $0.style == .done }) {
+            let itemDone = KeyboardConfigurationBuilder.toolbar?.items?[indexDone]
+            KeyboardConfigurationBuilder.toolbar?.items?.remove(at: indexDone)
+            if let itemDone {KeyboardConfigurationBuilder.toolbar?.items?.append(itemDone)}
         }
     }
     
     private func createToolbar() {
-        if toolbar != nil {return}
-        toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        if KeyboardConfigurationBuilder.toolbar != nil {return}
+        KeyboardConfigurationBuilder.toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         configToolbar()
         addToolbarToTextField()
         addButtonItemToToolbar(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
     }
     
     private func configToolbar() {
-        toolbar?.items = []
-        toolbar?.barStyle = .default
-        toolbar?.sizeToFit()
+        KeyboardConfigurationBuilder.toolbar?.items = []
+        KeyboardConfigurationBuilder.toolbar?.barStyle = .default
+        KeyboardConfigurationBuilder.toolbar?.sizeToFit()
     }
     
     private func addToolbarToTextField() {
-        self.textField?.get.inputAccessoryView = toolbar
+        self.textField?.get.inputAccessoryView = KeyboardConfigurationBuilder.toolbar
     }
     
     private func removeToolbarToTextField() {
