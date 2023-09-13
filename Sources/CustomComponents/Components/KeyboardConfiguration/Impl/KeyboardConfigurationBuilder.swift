@@ -21,7 +21,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     deinit {
-        removeToolbarToTextField()
+        removeToolbar()
         toolbar = nil
     }
     
@@ -121,7 +121,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         if toolbar != nil {return}
         toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         configToolbar()
-        addToolbarToTextField()
+        addToolbarOfTextField()
         addButtonItemToToolbar(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
     }
     
@@ -130,16 +130,14 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
         toolbar?.tintColor = self.textField?.get.textColor
-        toolbar?.autoresizesSubviews = true
-        toolbar?.autoresizingMask = [.flexibleHeight, .flexibleTopMargin, .flexibleWidth]
         toolbar?.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func addToolbarToTextField() {
+    private func addToolbarOfTextField() {
         self.textField?.get.inputAccessoryView = toolbar
     }
     
-    private func removeToolbarToTextField() {
+    private func removeToolbar() {
         self.textField?.get.inputAccessoryView = nil
     }
     
