@@ -57,24 +57,6 @@ final class TextFieldBuilderPreview: UIView {
     }()
     
     
-    lazy var textFieldPassword: TextFieldPasswordBuilder = {
-        let component = TextFieldPasswordBuilder()
-            .setImageColor(hexColor: "#000000")
-            .setBackgroundColor(hexColor: "#ffffff")
-            .setPlaceHolder("Password")
-            .setBorder { build in
-                build
-                    .setCornerRadius(8)
-            }
-            .setConstraints { build in
-                build
-                    .setTop.equalTo(textFieldImage.get, .bottom, 20)
-                    .setLeading.setTrailing.equalToSafeArea(24)
-                    .setHeight.equalToConstant(55)
-            }
-        return component
-    }()
-    
     
 //  MARK: - PRIVATE AREA
     
@@ -83,12 +65,9 @@ final class TextFieldBuilderPreview: UIView {
         
         addSubview(textField.get)
         textField.applyConstraint()
-        
+
         addSubview(textFieldImage.get)
         textFieldImage.applyConstraint()
-
-        addSubview(textFieldPassword.get)
-        textFieldPassword.applyConstraint()
         
     }
     
