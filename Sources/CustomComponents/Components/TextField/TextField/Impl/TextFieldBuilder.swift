@@ -175,8 +175,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setKeyboard(_ configKeyboard: (_ buid: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self {
-        keyboardConfiguration = configKeyboard(KeyboardConfigurationBuilder(textField: self))
+    public func setKeyboard(_ configKeyboard: (_ build: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self {
+        keyboardConfiguration = configKeyboard(KeyboardConfigurationBuilder(textFieldBuilder: self))
         return self
     }
     
