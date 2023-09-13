@@ -25,6 +25,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setKeyboardType(_ keyboardType: K.Keyboard.Types) -> Self {
         textFieldBuilder?.get.keyboardType = UIKeyboardType.init(rawValue: keyboardType.rawValue ) ?? .default
+        createToolbar()
         if completionDoneKeyboard == nil {
             addAutomaticButtonOk()
         }
