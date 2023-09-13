@@ -3,6 +3,21 @@
 
 import Foundation
 
-protocol Border {
+public protocol Border {
+    
+    @discardableResult
+    func setWidth(_ width: CGFloat) -> Self
+    
+    @discardableResult
+    func setColor(hexColor color: String?) -> Self
+    
+    @discardableResult
+    func setColor(named color: String?) -> Self
+    
+    @discardableResult
+    func setCornerRadius(_ radius: CGFloat) -> Self 
+    
+    @discardableResult
+    func setWhichCornersWillBeRounded(_ cornes: [K.Corner]) -> Self
     
 }
