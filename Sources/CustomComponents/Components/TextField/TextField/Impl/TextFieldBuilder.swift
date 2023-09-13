@@ -16,6 +16,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         currentMainWindow = mainWindow
     }
 
+    private var keyboardConfiguration: KeyboardConfigurationBuilder?
+    
     private var attributesPlaceholder: [NSAttributedString.Key: Any] = [:]
     private var textField: UITextField
     
@@ -165,7 +167,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 
     @discardableResult
     public func setKeyboard(_ configKeyboard: (_ buid: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self {
-        _ = configKeyboard(KeyboardConfigurationBuilder(textField: self))
+        keyboardConfiguration = configKeyboard(KeyboardConfigurationBuilder(textField: self))
         return self
     }
     
