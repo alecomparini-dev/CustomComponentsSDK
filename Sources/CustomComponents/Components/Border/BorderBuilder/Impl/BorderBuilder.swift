@@ -3,8 +3,7 @@
 
 import UIKit
 
-open class BorderBuilder {
-
+open class BorderBuilder: Border {
     private weak var component: UIView!
     
     
@@ -22,8 +21,23 @@ open class BorderBuilder {
     }
     
     @discardableResult
-    public func setColor(_ color: UIColor) -> Self {
+    public func setColor(color: UIColor?) -> Self {
+        guard let color else {return self}
         component.layer.borderColor = color.cgColor
+        return self
+    }
+    
+    @discardableResult
+    public func setColor(hexColor color: String?) -> Self {
+        guard let color, color.isHexColor() else {return self}
+        setColor(color: UIColor.HEX(color))
+        return self
+    }
+    
+    @discardableResult
+    public func setColor(named color: String?) -> Self {
+        guard let color, let namedColor = UIColor(named: color) else {return self}
+        setColor(color: namedColor)
         return self
     }
     
