@@ -11,14 +11,15 @@ open class SwitchBuilder: BaseBuilder, Switch {
     
     
 //  MARK: - INITIALIZERS
-    public init(isOn: Bool) {
+    
+    public init() {
         self.switchView = UISwitch()
         super.init(switchView)
-        setIsOn(isOn)
     }
-    
-    public convenience init() {
-        self.init(isOn: false)
+
+    public convenience init(isOn: Bool) {
+        self.init()
+        self.setIsOn(isOn)
     }
     
     
