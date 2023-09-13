@@ -25,9 +25,26 @@ open class SwitchBuilder: BaseBuilder, Switch {
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setIsOn(_ isOn: Bool) -> Self {
-        switchView.isOn = isOn
+        switchView.setOn(isOn, animated: true)
         return self
     }
     
+    @discardableResult
+    public func setOnTintColor(hexColor: String) -> Self {
+        switchView.onTintColor = UIColor.HEX(hexColor)
+        return self
+    }
+    
+    @discardableResult
+    public func setTintColor(hexColor: String) -> Self {
+        switchView.tintColor = UIColor.HEX(hexColor)
+        return self
+    }
+    
+    @discardableResult
+    public func setThumbTintColor(hexColor: String) -> Self {
+        switchView.thumbTintColor = UIColor.HEX(hexColor)
+        return self
+    }
     
 }

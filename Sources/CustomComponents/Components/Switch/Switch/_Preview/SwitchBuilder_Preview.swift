@@ -20,6 +20,8 @@ final class SwitchBuilderPreview: UIView {
 //  MARK: - LAZY AREA
     lazy var switchView: SwitchBuilder = {
         let component = SwitchBuilder()
+            .setThumbTintColor(hexColor: "#335522")
+            .setOnTintColor(hexColor: "#000000")
             .setConstraints { build in
                 build
                     .setAlignmentCenterXY.equalToSafeArea
