@@ -13,7 +13,7 @@ public struct K {
         public static let imageSize: CGFloat = 14
     }
     
-    public struct String {
+    public struct Strings {
         public static let empty = ""
         public static let done = "Done"
         public static let dot = "."
@@ -125,7 +125,7 @@ public struct K {
             case `continue` = 11
         }
         
-        public enum SystemItem : Int {
+        public enum SystemItem: Int {
             case done = 0
             case cancel = 1
             case edit = 2
@@ -150,6 +150,37 @@ public struct K {
             case undo = 21
             case redo = 22
             case close = 24
+        }
+        
+        public enum ContentType: String {
+            case name = "name"
+            case namePrefix = "namePrefix"
+            case givenName = "givenName"
+            case middleName = "middleName"
+            case familyName = "familyName"
+            case nameSuffix = "nameSuffix"
+            case nickname = "nickname"
+            case jobTitle = "jobTitle"
+            case organizationName = "organizationName"
+            case location = "location"
+            case fullStreetAddress = "fullStreetAddress"
+            case streetAddressLine1 = "streetAddressLine1"
+            case streetAddressLine2 = "streetAddressLine2"
+            case addressCity = "addressCity"
+            case addressState = "addressState"
+            case addressCityAndState = "addressCityAndState"
+            case sublocality = "sublocality"
+            case countryName = "countryName"
+            case postalCode = "postalCode"
+            case telephoneNumber = "telephoneNumber"
+            case emailAddress = "emailAddress"
+            case URL = "URL"
+            case creditCardNumber = "creditCardNumber"
+            case username = "username"
+            case password = "password"
+            case newPassword = "newPassword"
+            case oneTimeCode = "oneTimeCode"
+            case empty = ""
         }
     }
     

@@ -4,6 +4,7 @@
 import UIKit
 
 open class TextFieldBuilder: BaseBuilder, TextField {
+    
     public typealias T = UITextField
     public var get: UITextField { self.textField }
 
@@ -53,7 +54,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         guard let color else {return self}
         self.attributesPlaceholder.updateValue(color, forKey: .foregroundColor)
         textField.attributedPlaceholder = NSAttributedString (
-            string: textField.placeholder ?? K.String.empty ,
+            string: textField.placeholder ?? K.Strings.empty ,
             attributes: self.attributesPlaceholder)
         return self
     }
@@ -77,7 +78,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         guard let size else {return self}
         self.attributesPlaceholder.updateValue(UIFont.systemFont(ofSize: size), forKey: .font)
         textField.attributedPlaceholder = NSAttributedString (
-            string: textField.placeholder ?? K.String.empty ,
+            string: textField.placeholder ?? K.Strings.empty ,
             attributes: self.attributesPlaceholder)
         return self
     }
@@ -86,6 +87,12 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     public func setAttributedPlaceHolder(_ attributes: NSMutableAttributedString?) -> Self {
         guard let attributes else {return self}
         textField.attributedPlaceholder = attributes
+        return self
+    }
+    
+    @discardableResult
+    public func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self {
+        textField.textContentType = .init(rawValue: textContentType.rawValue)
         return self
     }
 
@@ -206,6 +213,13 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         setPadding(K.Default.padding)
         configDelegate()
         addHideKeyboardWhenTouchReturn()
+        removeInputAccessoryView()
+        setAutoCorrectionType(.no)
+        setTextContentType(.empty)
+    }
+    
+    private func removeInputAccessoryView() {
+        textField.inputAccessoryView = nil
     }
     
     private func configDelegate() {
@@ -226,7 +240,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 
     private func validateKeyboardDecimal(_ character: String) -> Bool {
         guard let text = textField.text else { return true}
-        let separators: [String] = [K.String.dot, K.String.comma]
+        let separators: [String] = [K.Strings.dot, K.Strings.comma]
         if separators.contains(character) {
             return !separators.contains { separator in
                 return text.contains(separator)

@@ -23,6 +23,9 @@ public protocol TextField {
     func setAttributedPlaceHolder(_ attributes: NSMutableAttributedString?) -> Self
 
     @discardableResult
+    func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self
+    
+    @discardableResult
     func setText(_ text: String?) -> Self
 
     @discardableResult
