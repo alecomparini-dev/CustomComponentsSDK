@@ -164,6 +164,12 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
+    public func setKeyboard(_ configKeyboard: (_ buid: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self {
+        _ = configKeyboard(KeyboardConfigurationBuilder(textField: self))
+        return self
+    }
+    
+    @discardableResult
     public func setFocus() -> Self {
         textField.becomeFirstResponder()
         return self

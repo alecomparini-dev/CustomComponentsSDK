@@ -55,8 +55,8 @@ public protocol TextField {
     @discardableResult
     func setPadding(_ paddingView: BaseBuilder?, _ position: K.Position.Horizontal?) -> Self
     
-//    @discardableResult
-//    func setKeyboard(_ configKeyboard: (_ buid: TextFieldConfigKeyboard) -> TextFieldConfigKeyboard ) -> Self
+    @discardableResult
+    func setKeyboard(_ configKeyboard: (_ buid: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self
     
     @discardableResult
     func setFocus() -> Self
