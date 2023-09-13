@@ -10,10 +10,14 @@ public struct K {
         public static let paddingWithImage: CGFloat = 8
         public static let weight: K.Weight = .medium
         public static let fontSize: CGFloat = 14
+        public static let imageSize: CGFloat = 14
     }
     
     public struct String {
         public static let empty = ""
+        public static let done = "Done"
+        public static let dot = "."
+        public static let comma = ","
     }
     
     public enum Appearance: Int {
@@ -91,7 +95,7 @@ public struct K {
     }
     
     public struct Keyboard {
-        public enum `Type`: Int {
+        public enum `Types`: Int {
             case `default` = 0
             case asciiCapable = 1
             case numbersAndPunctuation = 2
@@ -121,7 +125,32 @@ public struct K {
             case `continue` = 11
         }
         
-        
+        public enum SystemItem : Int {
+            case done = 0
+            case cancel = 1
+            case edit = 2
+            case save = 3
+            case add = 4
+            case flexibleSpace = 5
+            case fixedSpace = 6
+            case compose = 7
+            case reply = 8
+            case action = 9
+            case organize = 10
+            case bookmarks = 11
+            case search = 12
+            case refresh = 13
+            case stop = 14
+            case camera = 15
+            case trash = 16
+            case play = 17
+            case pause = 18
+            case rewind = 19
+            case fastForward = 20
+            case undo = 21
+            case redo = 22
+            case close = 24
+        }
     }
     
     public enum Corner {
@@ -135,6 +164,14 @@ public struct K {
         case right
         case diagonalUp
         case diagonalDown
+    }
+    
+    public struct Images {
+        static let eye = "eye"
+        static let eyeSlash = "eye.slash"
+        static let eraserLineDashed = "eraser.line.dashed"
+        static let chevronBackward = "chevron.backward"
+        static let chevronForward = "chevron.forward"
     }
 
 }

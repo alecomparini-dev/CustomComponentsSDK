@@ -20,5 +20,11 @@ public extension UIView {
     var asSwiftUIView: some View {
         SwiftUIViewWrapper(view: self)
     }
+    
+    func hideKeyboardWhenViewTapped() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.addGestureRecognizer(tap)
+    }
 }
 

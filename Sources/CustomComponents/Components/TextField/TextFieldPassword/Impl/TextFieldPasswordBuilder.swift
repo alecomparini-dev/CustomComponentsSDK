@@ -31,7 +31,7 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
     private func configure() {
         self
             .setIsSecureText(true)
-            .setImage(ImageViewBuilder(systemName: "eye.slash"), .right, paddingRightImage)
+            .setImage(ImageViewBuilder(systemName: K.Images.eyeSlash), .right, paddingRightImage)
             .setActions { build in
                 build
                     .setTap { [weak self] component, tapGesture in
@@ -42,9 +42,9 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
     }
     
     private func openCloseEyes(_ imageView: ImageViewBuilder) {
-        var systemName = "eye.slash"
+        var systemName = K.Images.eyeSlash
         if super.get.isSecureTextEntry {
-            systemName = "eye"
+            systemName = K.Images.eye
         }
         setImage(ImageViewBuilder(systemName: systemName), .right, paddingRightImage)
         setIsSecureText(!super.get.isSecureTextEntry)
