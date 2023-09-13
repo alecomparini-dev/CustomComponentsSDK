@@ -6,7 +6,16 @@ import UIKit
 open class TextFieldBuilder: BaseBuilder, TextField {
     public typealias T = UITextField
     public var get: UITextField { self.textField }
-    
+
+    static private var currentMainWindow: UIWindow?
+    static private func hideKeyboardWhenViewTapped() {
+        let mainWindow = CurrentWindow.get
+        if (mainWindow == currentMainWindow) { return }
+        mainWindow?.hideKeyboardWhenViewTapped()
+        RootView.get?.hideKeyboardWhenViewTapped()
+        currentMainWindow = mainWindow
+    }
+
     private var attributesPlaceholder: [NSAttributedString.Key: Any] = [:]
     private var textField: UITextField
     
@@ -132,7 +141,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         textField.autocorrectionType = UITextAutocorrectionType.init(rawValue: autoCorrectionType.rawValue) ?? .default
         return self
     }
-
     
     @discardableResult
     public func setTintColor(color: UIColor?) -> Self {
@@ -155,6 +163,12 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         return self
     }
 
+    @discardableResult
+    public func setFocus() -> Self {
+        textField.becomeFirstResponder()
+        return self
+    }
+    
 
     // MARK: - PADDING
     @discardableResult
@@ -201,6 +215,27 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         }
     }
 
+    private func validateKeyboardDecimal(_ character: String) -> Bool {
+        guard let text = textField.text else { return true}
+        let separators: [String] = [K.String.dot, K.String.comma]
+        if separators.contains(character) {
+            return !separators.contains { separator in
+                return text.contains(separator)
+            }
+        }
+        return true
+    }
+    
+    private func addHideKeyboardWhenTouchReturn(){
+        textField.addTarget(self, action: #selector(textFieldEditingDidEndOnExit), for: .editingDidEndOnExit)
+        TextFieldBuilder.hideKeyboardWhenViewTapped()
+    }
+
+    
+//  MARK: - @OBJC FUNCTION AREA
+    @objc public func textFieldEditingDidEndOnExit(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
 }
 
 
