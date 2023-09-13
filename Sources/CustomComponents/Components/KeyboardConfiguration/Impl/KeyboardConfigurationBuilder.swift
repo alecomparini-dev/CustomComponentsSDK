@@ -25,7 +25,6 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setKeyboardType(_ keyboardType: K.Keyboard.Types) -> Self {
         textField?.get.keyboardType = UIKeyboardType.init(rawValue: keyboardType.rawValue ) ?? .default
-        createToolbar()
         if completionDoneKeyboard == nil {
             addAutomaticButtonOk()
         }
@@ -133,9 +132,9 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     private func addAutomaticButtonOk() {
         if isDoneButtonAlreadyIncluded {return}
+        createToolbar()
         guard let keyboardType = textField?.get.keyboardType else {return}
         if KeyboardConfigurationBuilder.keyboardTypeWithOutReturn.contains(keyboardType) {
-            
             self.setDoneButton { [weak self] textField in
                 guard let self else {return}
                 self.textField?.textFieldEditingDidEndOnExit(textField.get)
