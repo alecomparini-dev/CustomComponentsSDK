@@ -124,7 +124,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     private func configToolbar() {
         toolbar?.items = []
         toolbar?.barStyle = .default
-//        toolbar?.sizeToFit()
+        toolbar?.sizeToFit()
         toolbar?.tintColor = self.textFieldBuilder?.get.textColor
         toolbar?.translatesAutoresizingMaskIntoConstraints = false
     }
