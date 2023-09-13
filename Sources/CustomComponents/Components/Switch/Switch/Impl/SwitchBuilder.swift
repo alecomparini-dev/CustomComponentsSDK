@@ -30,20 +30,44 @@ open class SwitchBuilder: BaseBuilder, Switch {
     }
     
     @discardableResult
-    public func setOnTintColor(hexColor: String) -> Self {
-        switchView.onTintColor = UIColor.HEX(hexColor)
+    public func setOnTintColor(color: UIColor?) -> Self {
+        guard let color else {return self}
+        switchView.onTintColor = color
         return self
     }
     
     @discardableResult
-    public func setTintColor(hexColor: String) -> Self {
-        switchView.tintColor = UIColor.HEX(hexColor)
+    public func setOnTintColor(hexColor color: String?) -> Self {
+        guard let color, color.isHexColor() else {return self}
+        setOnTintColor(color: UIColor.HEX(color))
         return self
     }
     
     @discardableResult
-    public func setThumbTintColor(hexColor: String) -> Self {
-        switchView.thumbTintColor = UIColor.HEX(hexColor)
+    public func setOnTintColor(named color: String?) -> Self {
+        guard let color, let namedColor = UIColor(named: color) else {return self}
+        setOnTintColor(color: namedColor)
+        return self
+    }
+    
+    @discardableResult
+    public func setThumbTintColor(color: UIColor?) -> Self {
+        guard let color else {return self}
+        switchView.thumbTintColor = color
+        return self
+    }
+    
+    @discardableResult
+    public func setThumbTintColor(hexColor color: String?) -> Self {
+        guard let color, color.isHexColor() else {return self}
+        setThumbTintColor(color: UIColor.HEX(color))
+        return self
+    }
+    
+    @discardableResult
+    public func setThumbTintColor(named color: String?) -> Self {
+        guard let color, let namedColor = UIColor(named: color) else {return self}
+        setThumbTintColor(color: namedColor)
         return self
     }
     
