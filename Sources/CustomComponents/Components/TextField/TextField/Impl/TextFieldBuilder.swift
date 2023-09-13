@@ -92,10 +92,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
     @discardableResult
     public func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self {
-//        textField.textContentType = UITextContentType(rawValue: textContentType.rawValue)
-        
-        textField.textContentType = UITextContentType(rawValue: ".oneTimeCode")
-//        textField.textContentType = .oneTimeCode
+        textField.textContentType = textContentType.toUITextContextType()
         return self
     }
 
@@ -270,5 +267,71 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 extension TextFieldBuilder: UITextFieldDelegate {
     
     
+    
+}
+
+//  MARK: - EXTENSION 
+extension K.Keyboard.ContentType {
+    
+    func toUITextContextType() -> UITextContentType {
+        switch self {
+        case .name:
+            return .name
+        case .namePrefix:
+            return .namePrefix
+        case .givenName:
+            return .givenName
+        case .middleName:
+            return .middleName
+        case .familyName:
+            return .familyName
+        case .nameSuffix:
+            return .nameSuffix
+        case .nickname:
+            return .nickname
+        case .jobTitle:
+            return .jobTitle
+        case .organizationName:
+            return .organizationName
+        case .location:
+            return .location
+        case .fullStreetAddress:
+            return .fullStreetAddress
+        case .streetAddressLine1:
+            return .streetAddressLine1
+        case .streetAddressLine2:
+            return .streetAddressLine2
+        case .addressCity:
+            return .addressCity
+        case .addressState:
+            return .addressState
+        case .addressCityAndState:
+            return .addressCityAndState
+        case .sublocality:
+            return .sublocality
+        case .countryName:
+            return .countryName
+        case .postalCode:
+            return .postalCode
+        case .telephoneNumber:
+            return .telephoneNumber
+        case .emailAddress:
+            return .emailAddress
+        case .URL:
+            return .URL
+        case .creditCardNumber:
+            return .creditCardNumber
+        case .username:
+            return .username
+        case .password:
+            return .password
+        case .newPassword:
+            return .newPassword
+        case .oneTimeCode:
+            return .oneTimeCode
+        case .empty:
+            return .oneTimeCode
+        }
+    }
     
 }
