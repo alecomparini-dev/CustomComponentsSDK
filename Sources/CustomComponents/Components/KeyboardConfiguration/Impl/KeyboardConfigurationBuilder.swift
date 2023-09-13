@@ -132,7 +132,6 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.tintColor = self.textField?.get.textColor
         toolbar?.autoresizesSubviews = true
         toolbar?.autoresizingMask = [.flexibleHeight, .flexibleTopMargin, .flexibleWidth]
-
         toolbar?.translatesAutoresizingMaskIntoConstraints = false
     }
     
