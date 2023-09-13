@@ -16,7 +16,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     private weak var textField: TextFieldBuilder?
     
-    public init(textField: TextFieldBuilder? = nil) {
+    public init(textField: TextFieldBuilder) {
         self.textField = textField
     }
     
