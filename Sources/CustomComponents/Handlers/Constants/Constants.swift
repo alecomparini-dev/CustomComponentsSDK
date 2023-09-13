@@ -3,8 +3,8 @@
 
 import Foundation
 
-public struct K {
 
+public struct K {
     public struct Default {
         public static let padding: CGFloat = 8
         public static let paddingWithImage: CGFloat = 8
@@ -12,20 +12,45 @@ public struct K {
         public static let fontSize: CGFloat = 14
         public static let imageSize: CGFloat = 14
     }
-    
+
+}
+
+
+//  MARK: - EXTENSION - Images
+extension K {
+    public struct Images {
+        static let eye = "eye"
+        static let eyeSlash = "eye.slash"
+        static let eraserLineDashed = "eraser.line.dashed"
+        static let chevronBackward = "chevron.backward"
+        static let chevronForward = "chevron.forward"
+    }
+}
+
+
+//  MARK: - EXTENSION - Strings
+extension K {
     public struct Strings {
         public static let empty = ""
         public static let done = "Done"
         public static let dot = "."
         public static let comma = ","
     }
-    
+}
+
+
+//  MARK: - EXTENSION - Appearance
+extension K {
     public enum Appearance: Int {
         case `default` = 0
         case dark = 1
         case light = 2
     }
-    
+}
+
+
+//  MARK: - EXTENSION - Weight
+extension K {
     public enum Weight: Int {
         case bold = 0
         case semibold = 1
@@ -37,7 +62,11 @@ public struct K {
         case heavy = 7
         case black = 8
     }
-    
+}
+
+
+//  MARK: - EXTENSION - ContentMode
+extension K {
     public enum ContentMode: Int {
         case scaleToFill = 0
         case scaleAspectFit = 1
@@ -53,7 +82,11 @@ public struct K {
         case bottomLeft = 11
         case bottomRight = 12
     }
-    
+}
+
+
+//  MARK: - EXTENSION - Position
+extension K {
     public struct Position {
         public enum Vertical {
             case top
@@ -70,7 +103,11 @@ public struct K {
             case right
         }
     }
-    
+}
+
+
+//  MARK: - EXTENSION - Text
+extension K {
     public struct Text {
         public enum Alignment: Int {
             case left = 0
@@ -93,7 +130,28 @@ public struct K {
             case yes = 2
         }
     }
-    
+}
+
+
+//  MARK: - EXTENSION - Corner
+extension K {
+    public enum Corner {
+        case leftTop
+        case rightTop
+        case leftBottom
+        case rightBottom
+        case top
+        case bottom
+        case left
+        case right
+        case diagonalUp
+        case diagonalDown
+    }
+}
+
+
+//  MARK: - EXTENSION - Keyboard
+extension K {
     public struct Keyboard {
         public enum `Types`: Int {
             case `default` = 0
@@ -183,26 +241,4 @@ public struct K {
             case empty = ""
         }
     }
-    
-    public enum Corner {
-        case leftTop
-        case rightTop
-        case leftBottom
-        case rightBottom
-        case top
-        case bottom
-        case left
-        case right
-        case diagonalUp
-        case diagonalDown
-    }
-    
-    public struct Images {
-        static let eye = "eye"
-        static let eyeSlash = "eye.slash"
-        static let eraserLineDashed = "eraser.line.dashed"
-        static let chevronBackward = "chevron.backward"
-        static let chevronForward = "chevron.forward"
-    }
-
 }
