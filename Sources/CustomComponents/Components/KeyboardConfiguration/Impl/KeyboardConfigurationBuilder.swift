@@ -20,6 +20,11 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         self.textField = textField
     }
     
+    deinit {
+        removeToolbarToTextField()
+        toolbar = nil
+    }
+    
     
 //  MARK: - SET PROPERTIES
     @discardableResult
@@ -128,6 +133,10 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     private func addToolbarToTextField() {
         self.textField?.get.inputAccessoryView = toolbar
+    }
+    
+    private func removeToolbarToTextField() {
+        self.textField?.get.inputAccessoryView = nil
     }
     
     private func addAutomaticButtonOk() {
