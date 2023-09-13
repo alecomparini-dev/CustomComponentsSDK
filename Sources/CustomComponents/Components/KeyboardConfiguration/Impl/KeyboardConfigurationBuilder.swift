@@ -42,7 +42,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         if isDoneButtonAlreadyIncluded {return self}
         isDoneButtonAlreadyIncluded = true
         createToolbar()
-        addButtonItemToToolbar(UIBarButtonItem(title: K.String.done, style: .done, target: self, action: #selector(doneButtonTapped)))
+        addButtonItemToToolbar(UIBarButtonItem(title: K.Strings.done, style: .done, target: self, action: #selector(doneButtonTapped)))
         return self
     }
     
