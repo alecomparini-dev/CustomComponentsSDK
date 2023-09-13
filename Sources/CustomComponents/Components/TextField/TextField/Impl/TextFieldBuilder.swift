@@ -93,6 +93,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     @discardableResult
     public func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self {
         textField.textContentType = .init(rawValue: textContentType.rawValue)
+        textField.textContentType = UITextContentType(rawValue: "unspecified")
         return self
     }
 
