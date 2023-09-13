@@ -92,8 +92,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
     @discardableResult
     public func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self {
-//        textField.textContentType = .init(rawValue: textContentType.rawValue)
-        textField.textContentType = .oneTimeCode
+        textField.textContentType = .init(rawValue: textContentType.rawValue)
         return self
     }
 
@@ -216,7 +215,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         addHideKeyboardWhenTouchReturn()
         removeInputAccessoryView()
         setAutoCorrectionType(.no)
-        setTextContentType(.empty)
+        setTextContentType(.oneTimeCode)
     }
     
     private func removeInputAccessoryView() {
