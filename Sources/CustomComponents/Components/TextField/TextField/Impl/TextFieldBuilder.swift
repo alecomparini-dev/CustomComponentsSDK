@@ -92,8 +92,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
     @discardableResult
     public func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self {
-//        textField.textContentType = textContentType.toUITextContextType()
-        textField.textContentType = .none
+        textField.textContentType = textContentType.toUITextContextType()
         return self
     }
 
@@ -175,8 +174,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setKeyboard(_ configKeyboard: (_ buid: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self {
-        keyboardConfiguration = configKeyboard(KeyboardConfigurationBuilder(textField: self))
+    public func setKeyboard(_ configKeyboard: (_ build: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self {
+        keyboardConfiguration = configKeyboard(KeyboardConfigurationBuilder(textFieldBuilder: self))
         return self
     }
     
@@ -216,7 +215,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         configDelegate()
         addHideKeyboardWhenTouchReturn()
         setAutoCorrectionType(.no)
-//        setTextContentType(.oneTimeCode)
+        setTextContentType(.oneTimeCode)
     }
     
     

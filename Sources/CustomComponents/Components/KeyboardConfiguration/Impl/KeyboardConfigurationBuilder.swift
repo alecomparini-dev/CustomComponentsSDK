@@ -5,7 +5,6 @@
 import UIKit
 
 public class KeyboardConfigurationBuilder: KeyboardConfiguration {
-    
     static private let keyboardTypeWithOutReturn: [UIKeyboardType] = [.decimalPad, .asciiCapableNumberPad, .numberPad, .twitter, .phonePad]
     
     private var completionDoneKeyboard: completionKeyboardAlias?
@@ -14,21 +13,20 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     private var isDoneButtonAlreadyIncluded = false
     private var toolbar: UIToolbar?
     
-    private weak var textField: TextFieldBuilder?
+    private weak var textFieldBuilder: TextFieldBuilder?
     
-    public init(textField: TextFieldBuilder) {
-        self.textField = textField
+    public init(textFieldBuilder: TextFieldBuilder) {
+        self.textFieldBuilder = textFieldBuilder
     }
-    
     
     
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setKeyboardType(_ keyboardType: K.Keyboard.Types) -> Self {
-        textField?.get.keyboardType = UIKeyboardType.init(rawValue: keyboardType.rawValue ) ?? .default
-//        if completionDoneKeyboard == nil {
-//            addAutomaticButtonOk()
-//        }
+        textFieldBuilder?.get.keyboardType = UIKeyboardType.init(rawValue: keyboardType.rawValue ) ?? .default
+        if completionDoneKeyboard == nil {
+            addAutomaticButtonOk()
+        }
         return self
     }
     
@@ -60,17 +58,23 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     @discardableResult
     public func setKeyboardAppearance(_ appearance: K.Appearance) -> Self {
-        textField?.get.keyboardAppearance = UIKeyboardAppearance.init(rawValue: appearance.rawValue) ?? .default
+        textFieldBuilder?.get.keyboardAppearance = UIKeyboardAppearance.init(rawValue: appearance.rawValue) ?? .default
         return self
     }
     
     @discardableResult
     public func setHideKeyboard(_ hide: Bool) -> Self {
         if hide {
-            textField?.get.resignFirstResponder()
+            textFieldBuilder?.get.resignFirstResponder()
             return self
         }
-        textField?.get.becomeFirstResponder()
+        textFieldBuilder?.get.becomeFirstResponder()
+        return self
+    }
+    
+    @discardableResult
+    public func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType) -> Self {
+        textFieldBuilder?.get.returnKeyType = UIReturnKeyType.init(rawValue: returnKey.rawValue) ?? .default
         return self
     }
     
@@ -125,27 +129,22 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.items = []
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
-        toolbar?.tintColor = self.textField?.get.textColor
-        toolbar?.translatesAutoresizingMaskIntoConstraints = false
+        toolbar?.tintColor = self.textFieldBuilder?.get.textColor
     }
     
     private func addToolbarOfTextField() {
-        self.textField?.get.inputAccessoryView = toolbar
-    }
-    
-    private func removeToolbar() {
-        self.textField?.get.inputAccessoryView = nil
+        self.textFieldBuilder?.get.inputAccessoryView = toolbar
     }
     
     private func addAutomaticButtonOk() {
         if isDoneButtonAlreadyIncluded {return}
         
-        guard let keyboardType = textField?.get.keyboardType else {return}
+        guard let keyboardType = textFieldBuilder?.get.keyboardType else {return}
         
         if KeyboardConfigurationBuilder.keyboardTypeWithOutReturn.contains(keyboardType) {
             self.setDoneButton { [weak self] textField in
                 guard let self else {return}
-                self.textField?.textFieldEditingDidEndOnExit(textField.get)
+                self.textFieldBuilder?.textFieldEditingDidEndOnExit(textField.get)
             }
         }
     }
@@ -182,24 +181,24 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         
 //  MARK: - OBJC Area
     @objc private func doneButtonTapped() {
-        guard let textField else {return}
-        textField.textFieldEditingDidEndOnExit(textField.get)
-        completionDoneKeyboard?(textField)
+        guard let textFieldBuilder else {return}
+        textFieldBuilder.textFieldEditingDidEndOnExit(textFieldBuilder.get)
+        completionDoneKeyboard?(textFieldBuilder)
     }
     
     @objc private func navigationNextButtonTapped() {
-        guard let textField else {return}
-        moveNextTextField(textField)
+        guard let textFieldBuilder else {return}
+        moveNextTextField(textFieldBuilder)
     }
     
     @objc private func navigationPreviousButtonTapped() {
-        guard let textField else {return}
-        movePreviousTextField(textField)
+        guard let textFieldBuilder else {return}
+        movePreviousTextField(textFieldBuilder)
     }
     
     @objc private func clearButtonTapped() {
-        guard let textField else {return}
-        textField.get.text = ""
+        guard let textFieldBuilder else {return}
+        textFieldBuilder.get.text = ""
     }
 
 }
