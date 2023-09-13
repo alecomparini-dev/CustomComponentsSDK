@@ -139,7 +139,9 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     private func addAutomaticButtonOk() {
         if isDoneButtonAlreadyIncluded {return}
+        
         guard let keyboardType = textField?.get.keyboardType else {return}
+        
         if KeyboardConfigurationBuilder.keyboardTypeWithOutReturn.contains(keyboardType) {
             self.setDoneButton { [weak self] textField in
                 guard let self else {return}
