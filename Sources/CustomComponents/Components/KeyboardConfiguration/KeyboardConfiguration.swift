@@ -25,4 +25,7 @@ public protocol KeyboardConfiguration {
     @discardableResult
     func setHideKeyboard(_ hide: Bool) -> Self
     
+    @discardableResult
+    func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType) -> Self
+    
 }

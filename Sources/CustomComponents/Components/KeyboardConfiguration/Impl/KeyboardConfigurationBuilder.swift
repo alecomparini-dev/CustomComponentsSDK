@@ -5,7 +5,6 @@
 import UIKit
 
 public class KeyboardConfigurationBuilder: KeyboardConfiguration {
-    
     static private let keyboardTypeWithOutReturn: [UIKeyboardType] = [.decimalPad, .asciiCapableNumberPad, .numberPad, .twitter, .phonePad]
     
     private var completionDoneKeyboard: completionKeyboardAlias?
@@ -73,6 +72,12 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         return self
     }
     
+    @discardableResult
+    public func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType) -> Self {
+        textFieldBuilder?.get.returnKeyType = UIReturnKeyType.init(rawValue: returnKey.rawValue) ?? .default
+        return self
+    }
+    
     
 //  MARK: - PRIVATE AREA
     
@@ -129,10 +134,6 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     private func addToolbarOfTextField() {
         self.textFieldBuilder?.get.inputAccessoryView = toolbar
-    }
-    
-    private func removeToolbar() {
-        self.textFieldBuilder?.get.inputAccessoryView = nil
     }
     
     private func addAutomaticButtonOk() {
