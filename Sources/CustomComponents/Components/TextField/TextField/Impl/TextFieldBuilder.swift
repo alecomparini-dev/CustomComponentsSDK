@@ -148,6 +148,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     public func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType?) -> Self {
         guard let autoCorrectionType else {return self}
         textField.autocorrectionType = UITextAutocorrectionType.init(rawValue: autoCorrectionType.rawValue) ?? .default
+        textField.spellCheckingType = .no
         return self
     }
     
