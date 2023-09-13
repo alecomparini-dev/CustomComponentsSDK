@@ -13,4 +13,11 @@ public protocol Switch {
     
     func setIsOn(_ flag: Bool) -> Self
     
+    func setOnTintColor(hexColor: String) -> Self
+    
+    func setTintColor(hexColor: String) -> Self
+    
+    func setThumbTintColor(hexColor: String) -> Self
+    
+    
 }
