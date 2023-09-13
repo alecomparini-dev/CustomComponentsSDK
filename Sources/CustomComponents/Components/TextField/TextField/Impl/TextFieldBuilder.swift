@@ -93,7 +93,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     @discardableResult
     public func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self {
 //        textField.textContentType = UITextContentType(rawValue: textContentType.rawValue)
-        textField.textContentType = UITextContentType(rawValue: "oneTimeCode")
+        textField.textContentType = UITextContentType(rawValue: ".oneTimeCode")
 //        textField.textContentType = .oneTimeCode
         return self
     }
