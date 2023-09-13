@@ -216,7 +216,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         configDelegate()
         addHideKeyboardWhenTouchReturn()
         setAutoCorrectionType(.no)
-//        setTextContentType(.oneTimeCode)
+        setTextContentType(.oneTimeCode)
     }
     
     
