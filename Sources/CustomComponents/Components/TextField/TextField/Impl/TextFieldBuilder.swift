@@ -213,14 +213,10 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         setPadding(K.Default.padding)
         configDelegate()
         addHideKeyboardWhenTouchReturn()
-        removeInputAccessoryView()
         setAutoCorrectionType(.no)
-        setTextContentType(.oneTimeCode)
+//        setTextContentType(.oneTimeCode)
     }
     
-    private func removeInputAccessoryView() {
-        textField.inputAccessoryView = nil
-    }
     
     private func configDelegate() {
         textField.delegate = self

@@ -20,10 +20,6 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         self.textField = textField
     }
     
-    deinit {
-        removeToolbar()
-        toolbar = nil
-    }
     
     
 //  MARK: - SET PROPERTIES
