@@ -331,7 +331,10 @@ extension K.Keyboard.ContentType {
 extension TextFieldBuilder: UITextFieldDelegate {
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        keyboardConfiguration?.completionReturnType?(self)
+        if let completion = keyboardConfiguration?.completionReturnType {
+            completion(self)
+            return true
+        }
         textField.resignFirstResponder()
         return true
     }
