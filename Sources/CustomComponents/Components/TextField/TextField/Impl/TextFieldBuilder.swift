@@ -245,14 +245,10 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         return true
     }
     
-    private func addHideKeyboardWhenTouchReturn(){
-//        textField.addTarget(self, action: #selector(textFieldEditingDidEndOnExit), for: .editingDidEndOnExit)
-        
-    }
 
     
 //  MARK: - @OBJC FUNCTION AREA
-    @objc public func textFieldEditingDidEndOnExit(_ textField: UITextField) {
+    public func textFieldEditingDidEndOnExit(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
 }
