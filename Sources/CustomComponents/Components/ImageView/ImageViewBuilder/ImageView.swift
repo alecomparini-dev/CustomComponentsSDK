@@ -13,7 +13,9 @@ public protocol ImageView {
     
     func setContentMode(_ contentMode: K.ContentMode) -> Self
     
-    func setTintColor(hexColor: String) -> Self
+    func setTintColor(hexColor color: String?) -> Self
+    
+    func setTintColor(named color: String?) -> Self
     
     func setSize(_ size: CGFloat) -> Self
     
