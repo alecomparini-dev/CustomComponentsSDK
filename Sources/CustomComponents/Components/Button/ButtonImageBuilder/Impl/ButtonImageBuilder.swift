@@ -20,35 +20,24 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
 
     @discardableResult
     public func setImageColor(color: UIColor?) -> Self {
-        super.get.imageView?.tintColor = color
+        super.get.tintColor = color
         return self
     }
     
     @discardableResult
     public func setImageColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        super.get.imageView?.tintColor = UIColor.HEX(color)
-        super.get.tintColor = UIColor.HEX(color)
+        setImageColor(color: UIColor.HEX(color))
         return self
     }
     
     @discardableResult
     public func setImageColor(named color: String?) -> Self {
-        let img = ImageViewBuilder()
-        img.get.image = imageView.get.image
-        img.setTintColor(named: color )
-        setImageButton(img)
+        guard let color, let namedColor = UIColor(named: color) else {return self}
+        setImageColor(color: namedColor)
         return self
     }
     
-    @discardableResult
-    public func setImageSize(_ size: CGFloat) -> Self {
-        let img = ImageViewBuilder()
-        img.get.image = imageView.get.image
-        img.setSize(size)
-        setImageButton(img)
-        return self
-    }
 
     @discardableResult
     public func setImageWeight(_ weight: K.Weight) -> Self {
