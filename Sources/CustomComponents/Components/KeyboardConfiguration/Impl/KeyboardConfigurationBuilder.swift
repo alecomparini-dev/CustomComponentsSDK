@@ -5,10 +5,13 @@
 import UIKit
 
 public class KeyboardConfigurationBuilder: KeyboardConfiguration {
+
+    
     static private let keyboardTypeWithOutReturn: [UIKeyboardType] = [.decimalPad, .asciiCapableNumberPad, .numberPad, .twitter, .phonePad]
     
-    private var completionDoneKeyboard: completionKeyboardAlias?
-    private var callBackListTextFields: callBackListTextFieldsAlias?
+    private(set) var completionReturnType: CompletionKeyboardAlias?
+    private var completionDoneKeyboard: CompletionKeyboardAlias?
+    private var callBackListTextFields: CallBackListTextFieldsAlias?
     
     private var isDoneButtonAlreadyIncluded = false
     private var toolbar: UIToolbar?
@@ -31,7 +34,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setDoneButton(_ completion: @escaping completionKeyboardAlias) -> Self {
+    public func setDoneButton(_ completion: @escaping CompletionKeyboardAlias) -> Self {
         completionDoneKeyboard = completion
         if isDoneButtonAlreadyIncluded {return self}
         isDoneButtonAlreadyIncluded = true
@@ -49,7 +52,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setNavigationButtonTextField(_ callBackListTextFields: @escaping callBackListTextFieldsAlias) -> Self {
+    public func setNavigationButtonTextField(_ callBackListTextFields: @escaping CallBackListTextFieldsAlias) -> Self {
         createToolbar()
         addNavigationsButtons()
         self.callBackListTextFields = callBackListTextFields
@@ -73,14 +76,17 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType) -> Self {
+    public func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias?) -> Self {
+        if let completion {
+            completionReturnType = completion
+        }
         textFieldBuilder?.get.returnKeyType = UIReturnKeyType.init(rawValue: returnKey.rawValue) ?? .default
         return self
     }
+
     
     
 //  MARK: - PRIVATE AREA
-    
     private func createFixedSpace(_ space: CGFloat) -> UIBarButtonItem {
         let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         fixedSpace.width = space
