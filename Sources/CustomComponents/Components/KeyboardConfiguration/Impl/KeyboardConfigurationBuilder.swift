@@ -76,7 +76,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias?) -> Self {
+    public func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias? = nil) -> Self {
         if let completion {
             completionReturnType = completion
         }
