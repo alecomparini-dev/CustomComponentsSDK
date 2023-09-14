@@ -213,11 +213,10 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     private func configure() {
         setPadding(K.Default.padding)
         configDelegate()
-        addHideKeyboardWhenTouchReturn()
+//        addHideKeyboardWhenTouchReturn()
+        TextFieldBuilder.hideKeyboardWhenViewTapped()
         setAutoCorrectionType(.no)
-//        setTextContentType(.oneTimeCode)
     }
-    
     
     private func configDelegate() {
         textField.delegate = self
@@ -247,8 +246,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     private func addHideKeyboardWhenTouchReturn(){
-        textField.addTarget(self, action: #selector(textFieldEditingDidEndOnExit), for: .editingDidEndOnExit)
-        TextFieldBuilder.hideKeyboardWhenViewTapped()
+//        textField.addTarget(self, action: #selector(textFieldEditingDidEndOnExit), for: .editingDidEndOnExit)
+        
     }
 
     
@@ -259,13 +258,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 }
 
 
-
-//  MARK: - EXTENSION - UITextFieldDelegate
-extension TextFieldBuilder: UITextFieldDelegate {
-    
-    
-    
-}
 
 //  MARK: - EXTENSION
 extension K.Keyboard.ContentType {
@@ -329,6 +321,18 @@ extension K.Keyboard.ContentType {
         case .empty:
             return .oneTimeCode
         }
+    }
+    
+}
+
+
+
+//  MARK: - EXTENSION - UITextFieldDelegate
+extension TextFieldBuilder: UITextFieldDelegate {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
 }

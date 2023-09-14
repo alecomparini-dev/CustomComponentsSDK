@@ -4,20 +4,20 @@
 import Foundation
 
 public protocol KeyboardConfiguration {
-    typealias callBackListTextFieldsAlias = () -> [TextFieldBuilder]
-    typealias completionKeyboardAlias = (_ textField: TextFieldBuilder) -> Void
+    typealias CallBackListTextFieldsAlias = () -> [TextFieldBuilder]
+    typealias CompletionKeyboardAlias = (_ textField: TextFieldBuilder) -> Void
     
     @discardableResult
     func setKeyboardType(_ keyboardType: K.Keyboard.Types) -> Self
     
     @discardableResult
-    func setDoneButton(_ completion: @escaping completionKeyboardAlias) -> Self
+    func setDoneButton(_ completion: @escaping CompletionKeyboardAlias) -> Self
     
     @discardableResult
     func setClearButton() -> Self
     
     @discardableResult
-    func setNavigationButtonTextField(_ callBackListTextFields: @escaping callBackListTextFieldsAlias ) -> Self
+    func setNavigationButtonTextField(_ callBackListTextFields: @escaping CallBackListTextFieldsAlias ) -> Self
 
     @discardableResult
     func setKeyboardAppearance(_ appearance: K.Appearance) -> Self
@@ -26,6 +26,6 @@ public protocol KeyboardConfiguration {
     func setHideKeyboard(_ hide: Bool) -> Self
     
     @discardableResult
-    func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType) -> Self
+    func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias?) -> Self
     
 }
