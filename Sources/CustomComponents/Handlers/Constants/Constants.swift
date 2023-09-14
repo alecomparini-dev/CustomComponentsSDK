@@ -87,18 +87,18 @@ extension K {
 
 //  MARK: - EXTENSION - Position
 extension K {
-    public struct Position {
+    public enum Position {
+        case top
+        case bottom
+        case left
+        case right
+        case all
+
         public enum Vertical {
             case top
             case bottom
         }
         public enum Horizontal {
-            case left
-            case right
-        }
-        public enum All {
-            case top
-            case bottom
             case left
             case right
         }

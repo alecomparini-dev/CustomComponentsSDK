@@ -43,14 +43,28 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
     }
     
     @discardableResult
-    public func setTintColor(hexColor: String) -> Self {
-        let color = UIColor.HEX(hexColor)
+    public func setTintColor(color: UIColor?) -> Self {
+        guard let color else {return self}
         self.imageView.image = self.imageView.image?.withRenderingMode(.alwaysTemplate)
         self.imageView.image?.withTintColor(color)
         self.imageView.tintColor = color
         return self
     }
     
+    @discardableResult
+    public func setTintColor(hexColor color: String?) -> Self {
+        guard let color, color.isHexColor() else {return self}
+        setTintColor(color: UIColor.HEX(color))
+        return self
+    }
+    
+    @discardableResult
+    public func setTintColor(named color: String?) -> Self {
+        guard let color, let namedColor = UIColor(named: color) else {return self}
+        setTintColor(color: namedColor)
+        return self
+    }
+        
     @discardableResult
     public func setSize(_ size: CGFloat) -> Self {
         self.imageView.image = self.imageView.image?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: size))
