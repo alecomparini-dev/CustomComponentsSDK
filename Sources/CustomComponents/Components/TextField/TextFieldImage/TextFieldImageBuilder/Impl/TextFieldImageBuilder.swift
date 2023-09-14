@@ -110,6 +110,10 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
 //  MARK: - PRIVATE AREA
     private func configure() {
         super.setPadding(K.Default.padding)
+        self
+            .setPlaceHolderColor(color: UIColor.systemGray)
+            .setTextColor(color: .black)
+            .setTintColor(color: .black)
     }
     
     private func createFrame(_ margin: CGFloat) -> CGRect {
