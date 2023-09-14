@@ -213,7 +213,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     private func configure() {
         setPadding(K.Default.padding)
         configDelegate()
-//        addHideKeyboardWhenTouchReturn()
         TextFieldBuilder.hideKeyboardWhenViewTapped()
         setAutoCorrectionType(.no)
     }
