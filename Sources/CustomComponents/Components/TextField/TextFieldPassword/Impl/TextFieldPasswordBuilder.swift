@@ -32,6 +32,9 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
         self
             .setIsSecureText(true)
             .setImage(ImageViewBuilder(systemName: K.Images.eyeSlash), .right, paddingRightImage)
+            .setPlaceHolderColor(color: UIColor.systemGray)
+            .setTextColor(color: .black)
+            .setTintColor(color: .black)
             .setActions { build in
                 build
                     .setTap { [weak self] component, tapGesture in
