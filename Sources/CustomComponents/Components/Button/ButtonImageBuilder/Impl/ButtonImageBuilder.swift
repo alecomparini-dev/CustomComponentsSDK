@@ -28,6 +28,7 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     public func setImageColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
         super.get.imageView?.tintColor = UIColor.HEX(color)
+        super.get.tintColor = UIColor.HEX(color)
         return self
     }
     
