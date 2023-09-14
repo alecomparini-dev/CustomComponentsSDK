@@ -3,7 +3,7 @@
 
 import UIKit
 
-open class ButtonImageBuilderImpl: ButtonBuilder, ButtonImageBuilder {
+open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     public var imageView: ImageViewBuilder
 
     public override init() {

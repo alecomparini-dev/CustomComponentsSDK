@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol ButtonImageBuilder {
+public protocol ButtonImage {
     var imageView: ImageViewBuilder { get }
     
     @discardableResult
