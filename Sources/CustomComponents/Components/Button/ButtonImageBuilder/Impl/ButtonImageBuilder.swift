@@ -12,6 +12,7 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     
     @discardableResult
     public func setImageButton(_ image: ImageViewBuilder) -> Self {
+        self.imageView = image
         guard let image = image.get.image else {return self}
         super.get.setImage(image, for: .normal)
         super.get.imageView?.contentMode = .scaleAspectFit
