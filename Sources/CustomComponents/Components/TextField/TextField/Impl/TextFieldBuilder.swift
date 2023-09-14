@@ -332,6 +332,7 @@ extension TextFieldBuilder: UITextFieldDelegate {
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        keyboardConfiguration?.completionReturnType?(self)
         return true
     }
     
