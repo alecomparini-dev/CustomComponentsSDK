@@ -138,17 +138,14 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType?) -> Self {
-        guard let autoCapitalizationType else {return self}
+    public func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType) -> Self {
         textField.autocapitalizationType = UITextAutocapitalizationType.init(rawValue: autoCapitalizationType.rawValue) ?? .none
         return self
     }
 
     @discardableResult
-    public func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType?) -> Self {
-        guard let autoCorrectionType else {return self}
+    public func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType) -> Self {
         textField.autocorrectionType = UITextAutocorrectionType.init(rawValue: autoCorrectionType.rawValue) ?? .default
-        textField.spellCheckingType = .no
         return self
     }
     

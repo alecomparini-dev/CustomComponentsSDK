@@ -41,10 +41,10 @@ public protocol TextField {
     func setIsSecureText(_ flag: Bool) -> Self
 
     @discardableResult
-    func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType?) -> Self
+    func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType) -> Self
 
     @discardableResult
-    func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType?) -> Self
+    func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType) -> Self
 
     @discardableResult
     func setTintColor(hexColor color: String?) -> Self
