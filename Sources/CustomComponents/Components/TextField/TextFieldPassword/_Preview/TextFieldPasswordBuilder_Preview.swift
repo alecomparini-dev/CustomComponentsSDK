@@ -49,7 +49,7 @@ final class TextFieldPasswordBuilderPreview: UIView {
                     .setLeading.setTrailing.equalToSafeArea(24)
                     .setHeight.equalToConstant(45)
             }
-            .setActions { build in
+            .setActions(imagePosition: .right) { build in
                 build
                     .setTap { component, tapGesture in
                         print(tapGesture?.getTouchPosition(.component) ?? "")
