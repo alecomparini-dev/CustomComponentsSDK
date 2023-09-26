@@ -42,14 +42,15 @@ public class TabBarBuilder: TabBar {
     @discardableResult
     public func setItem(items: TabBarItems) -> Self {
         self.itemsBar.append(items)
-        tabBar.tabBar.items?[self.itemsBar.count - 1].title = items.title
-        tabBar.tabBar.items?[self.itemsBar.count - 1].image = items.image.get.image
         tabBar.viewControllers = nil
         tabBar.setViewControllers(
             self.itemsBar.map({
                 UINavigationController(rootViewController: $0.viewController)
             }),
-            animated: true)
+            animated: true
+        )
+        tabBar.tabBar.items?[self.itemsBar.count - 1].title = items.title
+        tabBar.tabBar.items?[self.itemsBar.count - 1].image = items.image.get.image
         return self
     }
     
