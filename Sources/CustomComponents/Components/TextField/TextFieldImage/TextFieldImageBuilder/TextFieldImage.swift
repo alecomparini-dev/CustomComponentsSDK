@@ -5,14 +5,15 @@
 import Foundation
 
 public protocol TextFieldImage {
-    var imageView: ImageViewBuilder { get }
+    var imageViewLeft: ImageViewBuilder? { get }
+    var imageViewRight: ImageViewBuilder? { get }
     
     func setImage(_ image: ImageViewBuilder, _ position: K.Position.Horizontal, _ margin: CGFloat) -> Self
     
     func setImageSize(_ size: CGFloat?, _ weight: K.Weight?) -> Self
     
-    func setIsHideImage(_ hide: Bool) -> Self
+    func setIsHideImage(_ hide: Bool, position: K.Position.Horizontal?) -> Self
     
-    func setImageColor(hexColor: String?) -> Self
+    func setImageColor(hexColor: String?, position: K.Position.Horizontal?) -> Self
     
 }

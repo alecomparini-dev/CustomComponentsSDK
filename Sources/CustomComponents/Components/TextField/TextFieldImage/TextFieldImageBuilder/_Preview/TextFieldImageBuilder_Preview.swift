@@ -18,12 +18,16 @@ final class TextFieldImageBuilderPreview: UIView {
     
     
 //  MARK: - LAZY AREA
-    lazy var textField: TextFieldBuilder = {
-        let component = TextFieldBuilder("Place Holder")
+    lazy var textField: TextFieldImageBuilder = {
+        let img = ImageViewBuilder(systemName: "person")
+        let component = TextFieldImageBuilder()
+            .setImage(img, .left, 8)
+            .setImageSize(22, .bold)
+            .setImageColor(hexColor: "#000000")
             .setBackgroundColor(hexColor: "#ffffff")
             .setBorder { build in
                 build
-                    .setCornerRadius(12)
+                    .setCornerRadius(8)
             }
             .setConstraints { build in
                 build
@@ -41,6 +45,7 @@ final class TextFieldImageBuilderPreview: UIView {
         let component = TextFieldImageBuilder()
             .setImage(img, .right, 8)
             .setImageSize(22, .bold)
+            .setTintColor(hexColor: "#000000")
             .setImageColor(hexColor: "#000000")
             .setBackgroundColor(hexColor: "#ffffff")
             .setPlaceHolder("Type here ...")
@@ -63,10 +68,10 @@ final class TextFieldImageBuilderPreview: UIView {
     private func configure() {
         backgroundColor = .red
         
-        addSubview(textField.get)
+        textField.add(insideTo: self)
         textField.applyConstraint()
         
-        addSubview(textFieldImage.get)
+        textFieldImage.add(insideTo: self)
         textFieldImage.applyConstraint()
                 
     }
