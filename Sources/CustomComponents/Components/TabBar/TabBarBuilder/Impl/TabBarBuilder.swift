@@ -4,11 +4,11 @@
 import UIKit
 
 public struct TabBarItems {
-    public let viewController: ViewControllerBuilder
+    public let viewController: UIViewController
     public let image: ImageViewBuilder
     public let title: String?
     
-    public init(viewController: ViewControllerBuilder, image: ImageViewBuilder, title: String? = nil) {
+    public init(viewController: UIViewController, image: ImageViewBuilder, title: String? = nil) {
         self.viewController = viewController
         self.image = image
         self.title = title
@@ -47,7 +47,7 @@ public class TabBarBuilder: TabBar {
         tabBar.viewControllers = nil
         tabBar.setViewControllers(
             self.itemsBar.map({
-                UINavigationController(rootViewController: $0.viewController.get)
+                UINavigationController(rootViewController: $0.viewController)
             }),
             animated: true)
         return self
