@@ -39,16 +39,14 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         return self
     }
     
-    private func setImageLeft(_ image: ImageViewBuilder, _ margin: CGFloat = K.Default.paddingWithImage) {
-        imageViewLeft = ImageViewBuilder()
-        updateImageView(image, position: .left)
+    private func setImageLeft(_ newImage: ImageViewBuilder, _ margin: CGFloat = K.Default.paddingWithImage) {
+        updateImageView(newImage, .left)
         imageViewLeft?.setContentMode(.center)
         createPaddingView(.left)
     }
 
-    private func setImageRight(_ image: ImageViewBuilder, _ margin: CGFloat = K.Default.paddingWithImage) {
-        imageViewRight = ImageViewBuilder()
-        updateImageView(image, position: .right)
+    private func setImageRight(_ newImage: ImageViewBuilder, _ margin: CGFloat = K.Default.paddingWithImage) {
+        updateImageView(newImage, .right)
         imageViewRight?.setContentMode(.center)
         createPaddingView(.right)
     }
@@ -114,8 +112,8 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     
     @discardableResult
     public func setActions(_ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
-        if let imageViewLeft {
-            _ = builder(TextFieldImageActionBuilder(component: imageViewLeft ))
+        if let imageViewRight {
+            _ = builder(TextFieldImageActionBuilder(component: imageViewRight ))
         }
         return self
     }
@@ -130,11 +128,6 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
             .setTintColor(color: .black)
     }
     
-    private func saveData(_ position: K.Position.Horizontal, _ margin: CGFloat) {
-        self.imagePosition = position
-        self.margin = margin
-    }
-    
     private func getImageView(_ position: K.Position.Horizontal) -> ImageViewBuilder? {
         switch position {
             case .left:
@@ -144,37 +137,28 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         }
     }
     
-    private func updateImageView(_ image: ImageViewBuilder, position: K.Position.Horizontal) {
-        guard var imgView = getImageView(position) else {return}
-        
+    private func updateImageView( _ newImage: ImageViewBuilder, _ position: K.Position.Horizontal) {
+        let imgView: ImageViewBuilder? = getImageView(position)
+        if imgView?.get.image != nil {
+            imgView?.get.image = newImage.get.image
+        }
         switch position {
         case .left:
-            if imageViewLeft?.get.image != nil {
-                imageViewLeft?.get.image = image.get.image
-            } else {
-                imageViewLeft = image
-            }
-            
+            imageViewLeft = ImageViewBuilder()
+            imageViewLeft = newImage
             if let sizeImage {
                 imageViewLeft?.get.image = imageViewLeft?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
             }
         case .right:
-            if imageViewRight?.get.image != nil {
-                imageViewRight?.get.image = image.get.image
-            } else {
-                imageViewRight = image
-            }
-            
+            imageViewRight = ImageViewBuilder()
+            imageViewRight = newImage
             if let sizeImage {
                 imageViewRight?.get.image = imageViewRight?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
             }
-            
         }
         
-        
-        
-        
     }
+    
     
     private func createPaddingView(_ position: K.Position.Horizontal) {
         guard let imgView: ImageViewBuilder = getImageView(position) else {return}
