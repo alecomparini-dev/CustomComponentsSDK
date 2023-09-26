@@ -32,6 +32,14 @@ public class TabBarBuilder: TabBar {
     
 //  MARK: - SET PROPERTIES
     @discardableResult
+    public func setItems(items: [TabBarItems]) -> Self {
+        items.forEach { item in
+            setItem(items: item)
+        }
+        return self
+    }
+
+    @discardableResult
     public func setItem(items: TabBarItems) -> Self {
         self.itemsBar.append(items)
         tabBar.tabBar.items?[self.itemsBar.count - 1].title = items.title

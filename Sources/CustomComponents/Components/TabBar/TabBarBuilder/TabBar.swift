@@ -7,6 +7,10 @@ public protocol TabBar {
     associatedtype T
     var get: T { get }
     
+    @discardableResult
+    func setItems(items: [TabBarItems]) -> Self
+    
+    @discardableResult
     func setItem(items: TabBarItems) -> Self
     
     @discardableResult
