@@ -139,10 +139,15 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     private func getImageView(_ position: K.Position.Horizontal) -> ImageViewBuilder? {
         switch position {
             case .left:
-                if imageViewLeft == nil { imageViewLeft = ImageViewBuilder()}
+                if imageViewLeft == nil {
+                    imageViewLeft = ImageViewBuilder()
+                }
                 return imageViewLeft
+            
             case .right:
-                if imageViewRight == nil { imageViewRight = ImageViewBuilder()}
+                if imageViewRight == nil {
+                    imageViewRight = ImageViewBuilder()
+                }
                 return imageViewRight
         }
     }
@@ -178,7 +183,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         let paddingView = ViewBuilder(frame: frame)
         imgView.setFrame(frame)
         imgView.setTranslatesAutoresizingMaskIntoConstraints(true)
-        paddingView.get.addSubview(imgView.get)
+        imgView.add(insideTo: paddingView.get)
         setPadding(paddingView, position)
     }
     
