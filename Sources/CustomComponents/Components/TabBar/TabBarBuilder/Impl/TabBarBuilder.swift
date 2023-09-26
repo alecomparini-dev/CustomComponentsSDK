@@ -15,7 +15,7 @@ public struct TabBarItems {
     }
 }
 
-public class TabBarBuilder: TabBar {
+public class TabBarBuilder: BaseBuilder, TabBar {
     public typealias T = UITabBarController
     
     private var itemsBar: [TabBarItems] = []
@@ -27,6 +27,7 @@ public class TabBarBuilder: TabBar {
 //  MARK: - INITIALIZERS
     public init() {
         self.tabBar = UITabBarController(nibName: nil, bundle: nil)
+        super.init(tabBar.tabBar)
     }
                                          
     
@@ -85,6 +86,12 @@ public class TabBarBuilder: TabBar {
     public func setUnselectedItemTintColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
         setUnselectedItemTintColor(color: UIColor.HEX(color))
+        return self
+    }
+    
+    @discardableResult
+    public func setIsNavigationBarHidden(_ flag: Bool) -> Self {
+        tabBar.navigationController?.isNavigationBarHidden = flag
         return self
     }
     

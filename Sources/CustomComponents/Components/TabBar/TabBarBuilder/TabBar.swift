@@ -22,4 +22,7 @@ public protocol TabBar {
     @discardableResult
     func setUnselectedItemTintColor(hexColor color: String?) -> Self
     
+    @discardableResult
+    func setIsNavigationBarHidden(_ flag: Bool) -> Self
+    
 }
