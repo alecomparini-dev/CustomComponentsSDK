@@ -4,7 +4,6 @@
 import UIKit
 
 open class TextFieldBuilder: BaseBuilder, TextField {
-    
     public typealias T = UITextField
     public var get: UITextField { self.textField }
 
@@ -47,7 +46,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
             attributes: self.attributesPlaceholder)
         return self
     }
-
     
     @discardableResult
     public func setPlaceHolderColor(color: UIColor?) -> Self {
