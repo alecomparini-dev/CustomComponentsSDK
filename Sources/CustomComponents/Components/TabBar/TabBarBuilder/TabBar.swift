@@ -15,6 +15,9 @@ public protocol TabBar {
     
     @discardableResult
     func setTintColor(hexColor color: String?) -> Self
+    
+    @discardableResult
+    func setBackGroundColor(hexColor color: String?) -> Self
 
     @discardableResult
     func setUnselectedItemTintColor(hexColor color: String?) -> Self
