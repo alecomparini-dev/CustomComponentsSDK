@@ -27,36 +27,25 @@ public class TabBarBuilder: TabBar {
 //  MARK: - INITIALIZERS
     public init() {
         self.tabBar = UITabBarController(nibName: nil, bundle: nil)
-        self.tabBar.navigationController?.isNavigationBarHidden = true
-        self.tabBar.moreNavigationController.isNavigationBarHidden = true
-        self.tabBar.navigationController?.navigationBar.isHidden = true
     }
                                          
     
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setItems(items: [TabBarItems]) -> Self {
+        var controllers: [UIViewController] = []
         items.forEach { item in
-            setItem(items: item)
+            controllers.append(item.viewController)
+        }
+        tabBar.setViewControllers(controllers, animated: true)
+        
+        items.enumerated().forEach { (index,item) in
+            tabBar.tabBar.items?[index].title = item.title
+            tabBar.tabBar.items?[index].image = item.image.get.image
         }
         return self
     }
 
-    @discardableResult
-    public func setItem(items: TabBarItems) -> Self {
-        self.itemsBar.append(items)
-        tabBar.viewControllers = nil
-        tabBar.setViewControllers(
-            self.itemsBar.map({
-                UINavigationController(rootViewController: $0.viewController)
-            }),
-            animated: true
-        )
-        tabBar.tabBar.items?[self.itemsBar.count - 1].title = items.title
-        tabBar.tabBar.items?[self.itemsBar.count - 1].image = items.image.get.image
-        return self
-    }
-    
     @discardableResult
     public func setTranslucent(_ flag: Bool) -> Self {
         tabBar.tabBar.isTranslucent = flag
