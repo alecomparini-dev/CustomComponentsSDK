@@ -27,6 +27,9 @@ public class TabBarBuilder: TabBar {
 //  MARK: - INITIALIZERS
     public init() {
         self.tabBar = UITabBarController(nibName: nil, bundle: nil)
+        self.tabBar.navigationController?.isNavigationBarHidden = true
+        self.tabBar.moreNavigationController.isNavigationBarHidden = true
+        self.tabBar.navigationController?.navigationBar.isHidden = true
     }
                                          
     
