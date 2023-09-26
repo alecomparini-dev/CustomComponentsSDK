@@ -67,6 +67,20 @@ public class TabBarBuilder: TabBar {
     }
     
     @discardableResult
+    public func setBackGroundColor(color: UIColor?) -> Self {
+        guard let color else {return self}
+        tabBar.tabBar.backgroundColor = color
+        return self
+    }
+    
+    @discardableResult
+    public func setBackGroundColor(hexColor color: String?) -> Self {
+        guard let color, color.isHexColor() else {return self}
+        setBackGroundColor(color: UIColor.HEX(color))
+        return self
+    }
+    
+    @discardableResult
     public func setUnselectedItemTintColor(color: UIColor?) -> Self {
         guard let color else {return self}
         tabBar.tabBar.unselectedItemTintColor = color
