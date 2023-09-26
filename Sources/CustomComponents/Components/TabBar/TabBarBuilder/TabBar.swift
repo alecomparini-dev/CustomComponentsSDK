@@ -11,9 +11,6 @@ public protocol TabBar {
     func setItems(items: [TabBarItems]) -> Self
     
     @discardableResult
-    func setItem(items: TabBarItems) -> Self
-    
-    @discardableResult
     func setTranslucent( _ flag: Bool) -> Self
     
     @discardableResult
