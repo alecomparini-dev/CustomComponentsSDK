@@ -156,9 +156,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
                 imageViewRight?.get.image = imageViewRight?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
             }
         }
-        
     }
-    
     
     private func createPaddingView(_ position: K.Position.Horizontal) {
         guard let imgView: ImageViewBuilder = getImageView(position) else {return}

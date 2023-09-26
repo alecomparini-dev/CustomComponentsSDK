@@ -6,7 +6,6 @@ import Foundation
 
 public class TextFieldImageActionBuilder: BaseActionBuilder {
     
-    
     public override init(component: BaseBuilder) {
         super.init(component: component)
     }
