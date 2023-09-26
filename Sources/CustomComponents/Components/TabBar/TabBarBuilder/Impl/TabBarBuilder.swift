@@ -15,7 +15,7 @@ public struct TabBarItems {
     }
 }
 
-public class TabBarBuilder: BaseBuilder, TabBar {
+public class TabBarBuilder: TabBar {
     public typealias T = UITabBarController
     
     private var itemsBar: [TabBarItems] = []
@@ -27,7 +27,6 @@ public class TabBarBuilder: BaseBuilder, TabBar {
 //  MARK: - INITIALIZERS
     public init() {
         self.tabBar = UITabBarController(nibName: nil, bundle: nil)
-        super.init(tabBar.tabBar)
     }
                                          
     
@@ -94,6 +93,4 @@ public class TabBarBuilder: BaseBuilder, TabBar {
         tabBar.navigationController?.isNavigationBarHidden = flag
         return self
     }
-    
-    
 }
