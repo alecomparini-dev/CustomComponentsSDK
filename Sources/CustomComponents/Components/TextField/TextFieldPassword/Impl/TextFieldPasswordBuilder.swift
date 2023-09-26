@@ -35,7 +35,7 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
             .setPlaceHolderColor(color: UIColor.systemGray)
             .setTextColor(color: .black)
             .setTintColor(color: .black)
-            .setActions(imagePosition: .left) { build in
+            .setActions(imagePosition: .right) { build in
                 build
                     .setTap { [weak self] component, tapGesture in
                         guard let self else {return}
