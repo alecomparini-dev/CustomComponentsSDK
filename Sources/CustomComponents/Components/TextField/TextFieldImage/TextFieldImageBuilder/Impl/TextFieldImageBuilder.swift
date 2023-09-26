@@ -147,15 +147,33 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     private func updateImageView(_ image: ImageViewBuilder, position: K.Position.Horizontal) {
         guard var imgView = getImageView(position) else {return}
         
-        if imgView.get.image != nil {
-            imgView.get.image = image.get.image
-        } else {
-            imgView = image
+        switch position {
+        case .left:
+            if imageViewLeft?.get.image != nil {
+                imageViewLeft?.get.image = image.get.image
+            } else {
+                imageViewLeft = image
+            }
+            
+            if let sizeImage {
+                imageViewLeft?.get.image = imageViewLeft?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
+            }
+        case .right:
+            if imageViewRight?.get.image != nil {
+                imageViewRight?.get.image = image.get.image
+            } else {
+                imageViewRight = image
+            }
+            
+            if let sizeImage {
+                imageViewRight?.get.image = imageViewRight?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
+            }
+            
         }
         
-        if let sizeImage {
-            imgView.get.image = imgView.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
-        }
+        
+        
+        
     }
     
     private func createPaddingView(_ position: K.Position.Horizontal) {
