@@ -139,27 +139,33 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     private func getImageView(_ position: K.Position.Horizontal) -> ImageViewBuilder? {
         switch position {
             case .left:
+                if imageViewLeft == nil { imageViewLeft = ImageViewBuilder()}
                 return imageViewLeft
             case .right:
+                if imageViewRight == nil { imageViewRight = ImageViewBuilder()}
                 return imageViewRight
         }
     }
     
     private func updateImageView( _ newImage: ImageViewBuilder, _ position: K.Position.Horizontal) {
-        let imgView: ImageViewBuilder? = getImageView(position)
-        if imgView?.get.image != nil {
-            imgView?.get.image = newImage.get.image
-        }
         switch position {
         case .left:
-            imageViewLeft = ImageViewBuilder()
-            imageViewLeft = newImage
+            if imageViewLeft?.get.image != nil {
+                imageViewLeft?.get.image = newImage.get.image
+            } else {
+                imageViewLeft = ImageViewBuilder()
+                imageViewLeft = newImage
+            }
             if let sizeImage {
                 imageViewLeft?.get.image = imageViewLeft?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
             }
         case .right:
-            imageViewRight = ImageViewBuilder()
-            imageViewRight = newImage
+            if imageViewRight?.get.image != nil {
+                imageViewRight?.get.image = newImage.get.image
+            } else {
+                imageViewRight = ImageViewBuilder()
+                imageViewRight = newImage
+            }
             if let sizeImage {
                 imageViewRight?.get.image = imageViewRight?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
             }
