@@ -34,6 +34,7 @@ final class TextFieldPasswordBuilderPreview: UIView {
         return component
     }()
     
+    
     lazy var textFieldImg: TextFieldImageBuilder = {
         let component = TextFieldImageBuilder("ImageBuilder")
             .setBackgroundColor(hexColor: "#ffffff")
