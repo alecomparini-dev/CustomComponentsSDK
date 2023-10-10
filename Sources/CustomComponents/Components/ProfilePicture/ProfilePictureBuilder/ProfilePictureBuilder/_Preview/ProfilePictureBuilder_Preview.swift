@@ -35,7 +35,8 @@ final class ProfilePictureBuilderPreview: UIView {
             })
             .setConstraints { build in
                 build
-                    .setAlignmentCenterXY.equalToSafeArea
+//                    .setAlignmentCenterXY.equalToSafeArea
+                    .setPin.equalToSafeArea
             }
         return comp
     }()

@@ -34,15 +34,18 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 //  MARK: - LAZY AREA
     
     lazy var backgroundView: ViewBuilder = {
-        guard let size else { return ViewBuilder()}
-        let comp = ViewBuilder(frame: CGRect(origin: .zero, size: CGSize(width: size, height: size)))
+        guard let size else { return ViewBuilder() }
+        let comp = ViewBuilder()
             .setConstraints { build in
                 build
                     .setAlignmentCenterXY.equalToSafeArea
                     .setSize.equalToConstant(size)
             }
-        comp.get.clipsToBounds = true
-        comp.get.layer.masksToBounds = true
+
+        TapGestureBuilder(comp)
+            .setTap { [weak self] tapGesture in
+                print("dale")
+            }
         return comp
     }()
 
@@ -122,22 +125,14 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         configCircleProfilePicture()
         setPlaceHolderImage(image)
         configTapGesture()
-        
-        placeHolderImage.get.clipsToBounds = true
     }
     
     private func addElements() {
         backgroundView.add(insideTo: profilePicture.get)
         placeHolderImage.add(insideTo: backgroundView.get)
-        backgroundView.get.bringSubviewToFront(placeHolderImage.get)
     }
     
     private func configConstraints() {
-        profilePicture
-            .setConstraints { build in
-                build
-                    .setPin.equalToSafeArea
-            }
         backgroundView.applyConstraint()
         placeHolderImage.applyConstraint()
     }
@@ -147,9 +142,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func configTapGesture() {
-        TapGestureBuilder(placeHolderImage)
+        TapGestureBuilder(backgroundView)
             .setTap { [weak self] tapGesture in
                 self?.chooseSource?.show()
+                print("dale")
             }
     }
 
