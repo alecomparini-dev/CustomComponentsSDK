@@ -133,6 +133,11 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func configConstraints() {
+        profilePicture
+            .setConstraints { build in
+                build
+                    .setPin.equalToSafeArea
+            }
         backgroundView.applyConstraint()
         placeHolderImage.applyConstraint()
     }
