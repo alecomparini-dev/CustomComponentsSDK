@@ -145,7 +145,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         TapGestureBuilder(backgroundView)
             .setTap { [weak self] tapGesture in
                 self?.chooseSource?.show()
-                print("dale")
             }
     }
 
