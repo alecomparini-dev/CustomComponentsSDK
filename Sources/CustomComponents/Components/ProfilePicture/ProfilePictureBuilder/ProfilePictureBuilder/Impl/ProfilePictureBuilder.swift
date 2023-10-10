@@ -129,6 +129,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     private func addElements() {
         backgroundView.add(insideTo: profilePicture.get)
         placeHolderImage.add(insideTo: backgroundView.get)
+        backgroundView.get.bringSubviewToFront(placeHolderImage.get)
     }
     
     private func configConstraints() {
