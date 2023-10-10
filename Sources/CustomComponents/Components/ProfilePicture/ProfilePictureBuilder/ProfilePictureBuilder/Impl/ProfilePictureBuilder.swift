@@ -43,7 +43,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         return comp
     }()
     
-    lazy var placeHolderImage: ImageViewBuilder = {
+    lazy var picture: ImageViewBuilder = {
         let comp = ImageViewBuilder()
             .setContentMode(.center)
             .setConstraints { build in
@@ -60,7 +60,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setPlaceHolderImage(_ image: ImageViewBuilder) -> Self {
-        placeHolderImage.get.image = image.get.image
+        picture.get.image = image.get.image
         return self
     }
 
@@ -77,14 +77,14 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     @discardableResult
     public func setSizePlaceHolderImage(_ size: CGFloat) -> Self {
-        let img = placeHolderImage.setSize(size)
-        placeHolderImage.get.image = img.get.image
+        let img = picture.setSize(size)
+        picture.get.image = img.get.image
         return self
     }
     
     @discardableResult
     public func setTintColor(color: UIColor) -> Self {
-        placeHolderImage.setTintColor(color: color)
+        picture.setTintColor(color: color)
         return self
     }
     
@@ -113,31 +113,25 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         configCircleProfilePicture()
         
         
-        _ = ProfilePictureActionBuilder(component: placeHolderImage)
+        _ = ProfilePictureActionBuilder(component: picture)
             .setTap({ component, tapGesture in
                 print("DALE TAP")
             })
-        
-//        TapGestureBuilder(placeHolderImage)
-//            .setTap { tapGesture in
-//                print("DALE ATRAS DE DALE")
-//            }
     }
     
     private func configPlaceHolderImage() {
         guard let image else {return}
-       
         setPlaceHolderImage(image)
     }
     
     private func addElements() {
         backgroundView.add(insideTo: profilePicture.get)
-        placeHolderImage.add(insideTo: backgroundView.get)
+        picture.add(insideTo: backgroundView.get)
     }
     
     private func configConstraints() {
         backgroundView.applyConstraint()
-        placeHolderImage.applyConstraint()
+        picture.applyConstraint()
     }
     
     private func configCircleProfilePicture() {
