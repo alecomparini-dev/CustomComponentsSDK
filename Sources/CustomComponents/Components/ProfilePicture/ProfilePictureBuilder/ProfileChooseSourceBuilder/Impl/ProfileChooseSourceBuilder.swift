@@ -12,7 +12,6 @@ public class ProfileChooseSourceBuilder: ProfileChooseSource {
     
     public init(viewController: UIViewController) {
         self.viewController = viewController
-        self.alert = UIAlertController(title: "Choose source", message:"", preferredStyle: .actionSheet)
         configure()
     }
     
@@ -48,7 +47,9 @@ public class ProfileChooseSourceBuilder: ProfileChooseSource {
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-        
+        self.alert = UIAlertController(title: "Choose source", message:"", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
     }
     
     private func openCamera() {
