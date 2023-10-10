@@ -19,7 +19,7 @@ public class ProfileChooseSourceBuilder: ProfileChooseSource {
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setTitle(title: String) -> Self {
-        alert = UIAlertController(title: title, message:"", preferredStyle: .alert)
+        alert.title = title
         return self
     }
     

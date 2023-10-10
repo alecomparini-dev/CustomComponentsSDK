@@ -59,7 +59,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setPlaceHolderImage(_ image: ImageViewBuilder) -> Self {
+    public func setPlaceHolderImage(_ image: ImageViewBuilder?) -> Self {
+        guard let image else {return self}
         placeHolderImage.get.image = image.get.image
         return self
     }
@@ -116,17 +117,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         addElements()
         configConstraints()
         configCircleProfilePicture()
-        if let image {
-            setPlaceHolderImage(image)
-        }
-        
-        
-        TapGestureBuilder(profilePicture)
-            .setTap { [weak self] tapGesture in
-                print(self?.chooseSource ?? "")
-                self?.chooseSource?.show()
-            }
-        
+        setPlaceHolderImage(image)
+        configTapGesture()
     }
     
     private func addElements() {
@@ -142,4 +134,13 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     private func configCircleProfilePicture() {
         setCornerRadius((self.size ?? 0) / 2)
     }
+    
+    private func configTapGesture() {
+        TapGestureBuilder(profilePicture)
+            .setTap { [weak self] tapGesture in
+                print(self?.chooseSource ?? "")
+                self?.chooseSource?.show()
+            }
+    }
+
 }
