@@ -17,15 +17,15 @@ final class ProfilePictureBuilderPreview: UIView {
     }
     
     lazy var profilePicture: ProfilePictureBuilder = {
-        let img = ImageViewBuilder(systemName: "camera.viewfinder")
+        let img = ImageViewBuilder(systemName: "person")
             .setContentMode(.center)
-            .setSize(40)
+            .setSize(35)
             .setWeight(.ultraLight)
 //        let comp = ProfilePictureBuilder(size: 100, image: img )
         let comp = ProfilePictureBuilder(size: 100 )
             .setBackgroundColor(hexColor: "#ffffff")
             .setTintColor("#000000")
-            .setSizePlaceHolderImage(40)
+//            .setSizePlaceHolderImage(40)
 //            .setCornerRadius(30)
             .setConstraints { build in
                 build
