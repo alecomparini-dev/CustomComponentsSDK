@@ -46,11 +46,13 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     lazy var placeHolderImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
-            .setContentMode(.scaleAspectFit)
+            .setContentMode(.scaleAspectFill)
             .setConstraints { build in
                 build
                     .setPin.equalToSafeArea
             }
+        comp.get.clipsToBounds = true
+        comp.get.layer.masksToBounds = true
         return comp
     }()
 
@@ -119,7 +121,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         setPlaceHolderImage(image)
         configTapGesture()
         
-//        placeHolderImage.get.clipsToBounds = true
+        placeHolderImage.get.clipsToBounds = true
     }
     
     private func addElements() {
