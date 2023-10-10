@@ -29,7 +29,7 @@ public class BaseActionBuilder: BaseAction {
 
     
     @discardableResult
-    func setTapGesture(_ build: (_ build: TapGestureBuilder) -> TapGestureBuilder) -> Self {
+    public func setTapGesture(_ build: (_ build: TapGestureBuilder) -> TapGestureBuilder) -> Self {
         guard let component else {return self}
         _ = build(TapGestureBuilder(component))
         return self

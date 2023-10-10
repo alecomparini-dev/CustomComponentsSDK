@@ -109,18 +109,15 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     
     
 //  MARK: - SET ACTIONS
-    
+
     @discardableResult
     public func setActions(imagePosition: K.Position.Horizontal, _ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
         switch imagePosition {
         case .left:
-            if let imageViewLeft {
-                _ = builder(TextFieldImageActionBuilder(component: imageViewLeft ))
-            }
+            setActionImage(component:imageViewLeft, builder)
+            
         case .right:
-            if let imageViewRight {
-                _ = builder(TextFieldImageActionBuilder(component: imageViewRight ))
-            }
+            setActionImage(component:imageViewRight, builder)
         }
         
         return self
@@ -216,5 +213,10 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         }
     }
     
+    private func setActionImage(component: ImageViewBuilder?, _ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) {
+        if let component {
+            _ = builder(TextFieldImageActionBuilder(component: component ))
+        }
+    }
     
 }
