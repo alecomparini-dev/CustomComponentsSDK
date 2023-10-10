@@ -21,39 +21,11 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         self.placeHolderImage = image
         super.init(profilePicture.get)
         configure()
-        
-        if let placeHolderImage {
-//            _ = ProfilePictureActionBuilder(component: placeHolderImage)
-//                .setTap({ component, tapGesture in
-//                    print("DALEEEEEEEEEEE")
-//                })
-//
-            
-            TapGestureBuilder(placeHolderImage)
-                .setCancelsTouchesInView(false)
-                .setTap { tapGesture in
-                    print("asdfasdfasdfasdf")
-                }
-        }
-        
     }
     
     public convenience init(size: CGFloat) {
         self.init(size: size, image: nil)
         setSizePlaceHolderImage(size/2)
-        if let placeHolderImage {
-//            _ = ProfilePictureActionBuilder(component: placeHolderImage)
-//                .setTap({ component, tapGesture in
-//                    print("DALEEEEEEEEEEE")
-//                })
-//
-            
-            TapGestureBuilder(placeHolderImage)
-                .setCancelsTouchesInView(false)
-                .setTap { tapGesture in
-                    print("asdfasdfasdfasdf")
-                }
-        }
     }
     
     
@@ -142,6 +114,12 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         configCircleProfilePicture()
         
         
+        TapGestureBuilder(profilePicture)
+            .setCancelsTouchesInView(false)
+            .setTap { tapGesture in
+                print("asdfasdfasdfasdf")
+            }
+        
     }
     
     private func configPlaceHolderImage() {
@@ -157,6 +135,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
                         .setPin.equalToSuperView
                 }
         }
+        
     }
     
     private func addElements() {
