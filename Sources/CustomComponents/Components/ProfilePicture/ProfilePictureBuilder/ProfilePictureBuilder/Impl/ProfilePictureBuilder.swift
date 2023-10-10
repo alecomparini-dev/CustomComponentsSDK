@@ -46,7 +46,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     lazy var placeHolderImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
-            .setContentMode(.center)
+            .setContentMode(.scaleAspectFit)
             .setConstraints { build in
                 build
                     .setPin.equalToSuperView
