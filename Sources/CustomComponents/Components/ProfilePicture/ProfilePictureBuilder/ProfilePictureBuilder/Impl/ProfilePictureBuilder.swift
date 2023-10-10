@@ -9,7 +9,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     private var size: CGFloat?
     
-    private var image: ImageViewBuilder?
+    private var placeHolderImage: ImageViewBuilder?
     private var profilePicture: ViewBuilder
     
     
@@ -18,16 +18,14 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public init(size: CGFloat, image: ImageViewBuilder? = nil) {
         self.profilePicture = ViewBuilder()
         self.size = size
-        self.image = image
+        self.placeHolderImage = image
         super.init(profilePicture.get)
         configure()
     }
     
     public convenience init(size: CGFloat) {
         self.init(size: size, image: nil)
-        setPlaceHolderImage( ImageViewBuilder(systemName: "camera.viewfinder") )
         setSizePlaceHolderImage(size/2)
-        
     }
     
     
@@ -43,7 +41,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             }
         return comp
     }()
-    
+
+/*
     lazy var placeHolderImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
             .setContentMode(.center)
@@ -53,7 +52,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             }
         return comp
     }()
-        
+*/
     
     
     
@@ -61,7 +60,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setPlaceHolderImage(_ image: ImageViewBuilder) -> Self {
-        placeHolderImage.get.image = image.get.image
+        placeHolderImage?.get.image = image.get.image
         return self
     }
 
@@ -78,6 +77,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     @discardableResult
     public func setSizePlaceHolderImage(_ size: CGFloat) -> Self {
+        guard let placeHolderImage else {return self}
         let img = placeHolderImage.setSize(size)
         placeHolderImage.get.image = img.get.image
         return self
@@ -85,7 +85,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setTintColor(color: UIColor) -> Self {
-        placeHolderImage.setTintColor(color: color)
+        placeHolderImage?.setTintColor(color: color)
         return self
     }
     
@@ -113,25 +113,44 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         configConstraints()
         configCircleProfilePicture()
         
-        TapGestureBuilder(placeHolderImage)
-            .setTap { tapGesture in
-                print("DALE ATRAS DE DALE")
-            }
+        if let placeHolderImage {
+            _ = ProfilePictureActionBuilder(component: placeHolderImage)
+                .setTap({ component, tapGesture in
+                    print("DALEEEEEEEEEEE")
+                })
+            
+            TapGestureBuilder(placeHolderImage)
+                .setTap { tapGesture in
+                    print("TAPPPPPPPP GESTUREEE")
+                }
+        }
+        
+        
     }
     
     private func configPlaceHolderImage() {
-        guard let image else {return}
-        setPlaceHolderImage(image)
+        if placeHolderImage == nil {
+            placeHolderImage = ImageViewBuilder(systemName: "camera.viewfinder")
+        }
+        
+        if let placeHolderImage {
+            placeHolderImage
+                .setContentMode(.center)
+                .setConstraints { build in
+                    build
+                        .setPin.equalToSuperView
+                }
+        }
     }
     
     private func addElements() {
         backgroundView.add(insideTo: profilePicture.get)
-        placeHolderImage.add(insideTo: backgroundView.get)
+        placeHolderImage?.add(insideTo: backgroundView.get)
     }
     
     private func configConstraints() {
         backgroundView.applyConstraint()
-        placeHolderImage.applyConstraint()
+        placeHolderImage?.applyConstraint()
     }
     
     private func configCircleProfilePicture() {
