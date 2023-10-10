@@ -8,11 +8,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public var get: UIView { self.profilePicture.get }
     
     private var chooseSource: ProfileChooseSourceBuilder?
-    
     private var size: CGFloat?
-    
     private var image: ImageViewBuilder?
-    private var profilePicture: ViewBuilder
+    
+    private let profilePicture: ViewBuilder
     
     
 //  MARK: - INITIALIZERS
@@ -98,7 +97,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setChooseSource(viewController: UIViewController, _ builder: (_ build: ProfileChooseSourceBuilder) -> ProfileChooseSourceBuilder) -> Self {
-        chooseSource = builder(ProfileChooseSourceBuilder(viewController: viewController ))
+        chooseSource = builder(ProfileChooseSourceBuilder(viewController: viewController, profilePicture: self ))
         return self
     }
     
