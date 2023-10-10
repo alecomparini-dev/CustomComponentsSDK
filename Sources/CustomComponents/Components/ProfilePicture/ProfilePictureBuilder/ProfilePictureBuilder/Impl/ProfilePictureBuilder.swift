@@ -49,7 +49,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             .setContentMode(.scaleAspectFit)
             .setConstraints { build in
                 build
-                    .setPin.equalTo(backgroundView.get)
+                    .setPin.equalToSafeArea
             }
         return comp
     }()
@@ -124,7 +124,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     private func addElements() {
         backgroundView.add(insideTo: profilePicture.get)
-        placeHolderImage.add(insideTo: self.get)
+        placeHolderImage.add(insideTo: profilePicture.get)
     }
     
     private func configConstraints() {
