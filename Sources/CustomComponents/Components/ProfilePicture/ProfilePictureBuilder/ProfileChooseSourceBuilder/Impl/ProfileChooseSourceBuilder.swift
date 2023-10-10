@@ -60,10 +60,11 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
         self.alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
+        imagePicker.delegate = self
     }
     
     private func openCamera() {
-        self.imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = false
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.sourceType = .camera
             viewController.present(imagePicker, animated: true, completion: nil)
@@ -73,10 +74,8 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
     
     private func openGallery() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let imagePicker = UIImagePickerController()
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
-            imagePicker.delegate = self
             viewController.present(imagePicker, animated: true, completion: nil)
             return
         }
@@ -90,13 +89,9 @@ extension ProfileChooseSourceBuilder: UIImagePickerControllerDelegate, UINavigat
     public func imagePickerController(_ picker: UIImagePickerController,  didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         profilePicture.placeHolderImage.setContentMode(.scaleAspectFill)
         
-        if let image = info[.originalImage] as? UIImage {
-            profilePicture.placeHolderImage.get.image = image
-        }
+        guard let image = info[.originalImage] as? UIImage else { return }
         
-        if let image = info[.livePhoto] as? UIImage {
-            profilePicture.placeHolderImage.get.image = image
-        }
+        profilePicture.placeHolderImage.get.image = image
         
         picker.dismiss(animated: true, completion: nil)
         
