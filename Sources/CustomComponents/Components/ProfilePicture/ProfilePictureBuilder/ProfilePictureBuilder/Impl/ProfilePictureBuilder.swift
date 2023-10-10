@@ -41,11 +41,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
                     .setAlignmentCenterXY.equalToSafeArea
                     .setSize.equalToConstant(size)
             }
-
-        TapGestureBuilder(comp)
-            .setTap { [weak self] tapGesture in
-                print("dale")
-            }
         return comp
     }()
 
@@ -54,10 +49,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             .setContentMode(.center)
             .setConstraints { build in
                 build
-                    .setPin.equalToSafeArea
+                    .setPin.equalToSuperView
             }
-        comp.get.clipsToBounds = true
-        comp.get.layer.masksToBounds = true
         return comp
     }()
 

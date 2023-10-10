@@ -87,6 +87,7 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
 extension ProfileChooseSourceBuilder: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     public func imagePickerController(_ picker: UIImagePickerController,  didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         profilePicture.placeHolderImage.setContentMode(.scaleAspectFill)
         
         guard let image = info[.originalImage] as? UIImage else { return }
