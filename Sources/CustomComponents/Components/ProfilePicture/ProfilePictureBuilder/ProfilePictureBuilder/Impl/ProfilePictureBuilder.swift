@@ -102,15 +102,15 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         setPlaceHolderImage( ImageViewBuilder(systemName: "camera.viewfinder") )
         
         guard let placeHolderImage else {return}
-//        _ = ProfilePictureActionBuilder(component: placeHolderImage)
-//            .setTap({ component, tapGesture in
-//                print("DALE TAP")
-//            })
+        _ = ProfilePictureActionBuilder(component: placeHolderImage)
+            .setTap({ component, tapGesture in
+                print("DALE TAP")
+            })
         
-        TapGestureBuilder(placeHolderImage)
-            .setTap { tapGesture in
-                print("DALE ATRAS DE DALE")
-            }
+//        TapGestureBuilder(placeHolderImage)
+//            .setTap { tapGesture in
+//                print("DALE ATRAS DE DALE")
+//            }
     }
     
     private func configPlaceHolderImage() {
