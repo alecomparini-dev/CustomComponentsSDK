@@ -118,6 +118,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         configCircleProfilePicture()
         setPlaceHolderImage(image)
         configTapGesture()
+        
+//        placeHolderImage.get.clipsToBounds = true
     }
     
     private func addElements() {
@@ -137,7 +139,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     private func configTapGesture() {
         TapGestureBuilder(profilePicture)
             .setTap { [weak self] tapGesture in
-                print(self?.chooseSource ?? "")
                 self?.chooseSource?.show()
             }
     }
