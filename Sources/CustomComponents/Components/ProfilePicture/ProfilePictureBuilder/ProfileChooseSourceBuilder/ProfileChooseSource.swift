@@ -3,7 +3,7 @@
 
 import Foundation
 
-protocol ProfileChooseSource {
+public protocol ProfileChooseSource {
     typealias completion = () -> Void
     
     @discardableResult

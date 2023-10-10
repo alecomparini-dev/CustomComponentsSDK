@@ -19,13 +19,13 @@ public class ProfileChooseSourceBuilder: ProfileChooseSource {
 
 //  MARK: - SET PROPERTIES
     @discardableResult
-    func setTitle(title: String) -> Self {
+    public func setTitle(title: String) -> Self {
         alert = UIAlertController(title: title, message:"", preferredStyle: .alert)
         return self
     }
     
     @discardableResult
-    func setOpenCamera(completion: completion?) -> Self {
+    public func setOpenCamera(completion: completion?) -> Self {
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] _ in
             self?.openCamera()
         }
@@ -34,13 +34,13 @@ public class ProfileChooseSourceBuilder: ProfileChooseSource {
     }
     
     @discardableResult
-    func setOpenGallery(completion: completion?) -> Self {
+    public func setOpenGallery(completion: completion?) -> Self {
         return self
     }
     
     
 //  MARK: - Title
-    func show() {
+    public func show() {
         viewController.present(alert, animated: true, completion: nil)
     }
     
