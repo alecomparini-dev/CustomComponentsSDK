@@ -49,7 +49,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             .setContentMode(.scaleAspectFit)
             .setConstraints { build in
                 build
-                    .setPin.equalToSuperView
+                    .setPin.equalTo(backgroundView.get)
             }
         return comp
     }()
