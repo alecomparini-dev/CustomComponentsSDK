@@ -27,6 +27,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         self.init(size: size, image: nil)
         setPlaceHolderImage( ImageViewBuilder(systemName: "camera.viewfinder") )
         setSizePlaceHolderImage(size/2)
+        
     }
     
     
@@ -43,7 +44,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         return comp
     }()
     
-    lazy var picture: ImageViewBuilder = {
+    lazy var placeHolderImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
             .setContentMode(.center)
             .setConstraints { build in
@@ -60,7 +61,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setPlaceHolderImage(_ image: ImageViewBuilder) -> Self {
-        picture.get.image = image.get.image
+        placeHolderImage.get.image = image.get.image
         return self
     }
 
@@ -77,14 +78,14 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     @discardableResult
     public func setSizePlaceHolderImage(_ size: CGFloat) -> Self {
-        let img = picture.setSize(size)
-        picture.get.image = img.get.image
+        let img = placeHolderImage.setSize(size)
+        placeHolderImage.get.image = img.get.image
         return self
     }
     
     @discardableResult
     public func setTintColor(color: UIColor) -> Self {
-        picture.setTintColor(color: color)
+        placeHolderImage.setTintColor(color: color)
         return self
     }
     
@@ -112,11 +113,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         configConstraints()
         configCircleProfilePicture()
         
-        
-        _ = ProfilePictureActionBuilder(component: picture)
-            .setTap({ component, tapGesture in
-                print("DALE TAP")
-            })
+        TapGestureBuilder(placeHolderImage)
+            .setTap { tapGesture in
+                print("DALE ATRAS DE DALE")
+            }
     }
     
     private func configPlaceHolderImage() {
@@ -126,12 +126,12 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     private func addElements() {
         backgroundView.add(insideTo: profilePicture.get)
-        picture.add(insideTo: backgroundView.get)
+        placeHolderImage.add(insideTo: backgroundView.get)
     }
     
     private func configConstraints() {
         backgroundView.applyConstraint()
-        picture.applyConstraint()
+        placeHolderImage.applyConstraint()
     }
     
     private func configCircleProfilePicture() {
