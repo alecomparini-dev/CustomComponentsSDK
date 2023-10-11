@@ -5,7 +5,7 @@ import Foundation
 
 
 public protocol ProfileChooseSource {
-    typealias completion = () -> Void
+    typealias completion = (_ imageData: Data?) -> Void
     
     @discardableResult
     func setTitle(title: String) -> Self

@@ -33,7 +33,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
 //  MARK: - LAZY AREA
     
-    lazy var backgroundView: ViewBuilder = {
+    lazy private var backgroundView: ViewBuilder = {
         guard let size else { return ViewBuilder() }
         let comp = ViewBuilder()
             .setConstraints { build in
@@ -44,7 +44,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         return comp
     }()
 
-    lazy var placeHolderImage: ImageViewBuilder = {
+    lazy var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
             .setContentMode(.center)
             .setConstraints { build in
@@ -60,7 +60,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     @discardableResult
     public func setPlaceHolderImage(_ image: ImageViewBuilder?) -> Self {
         guard let image else {return self}
-        placeHolderImage.get.image = image.get.image
+        profileImage.get.image = image.get.image
         return self
     }
 
@@ -77,14 +77,14 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     @discardableResult
     public func setSizePlaceHolderImage(_ size: CGFloat) -> Self {
-        let img = placeHolderImage.setSize(size)
-        placeHolderImage.get.image = img.get.image
+        let img = profileImage.setSize(size)
+        profileImage.get.image = img.get.image
         return self
     }
     
     @discardableResult
     public func setTintColor(color: UIColor) -> Self {
-        placeHolderImage.setTintColor(color: color)
+        profileImage.setTintColor(color: color)
         return self
     }
     
@@ -122,12 +122,12 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     private func addElements() {
         backgroundView.add(insideTo: profilePicture.get)
-        placeHolderImage.add(insideTo: backgroundView.get)
+        profileImage.add(insideTo: backgroundView.get)
     }
     
     private func configConstraints() {
         backgroundView.applyConstraint()
-        placeHolderImage.applyConstraint()
+        profileImage.applyConstraint()
     }
     
     private func configCircleProfilePicture() {
