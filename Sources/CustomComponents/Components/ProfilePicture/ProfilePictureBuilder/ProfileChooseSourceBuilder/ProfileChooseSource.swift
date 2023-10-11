@@ -3,17 +3,18 @@
 
 import Foundation
 
-protocol ProfileChooseSource {
-    typealias completion = () -> Void
+
+public protocol ProfileChooseSource {
+    typealias completion = (_ imageData: Data?) -> Void
     
     @discardableResult
-    func setTitle(title: String) -> Self
+    func setTitle(_ title: String) -> Self
     
     @discardableResult
-    func setOpenCamera(completion: completion?) -> Self
+    func setOpenCamera(_ title: String?, completion: completion?) -> Self
     
     @discardableResult
-    func setOpenGallery(completion: completion?) -> Self
+    func setOpenGallery(_ title: String?, completion: completion?) -> Self
     
     
 }

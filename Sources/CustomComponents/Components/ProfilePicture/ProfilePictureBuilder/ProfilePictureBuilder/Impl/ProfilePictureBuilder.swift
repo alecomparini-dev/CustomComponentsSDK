@@ -8,11 +8,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public var get: UIView { self.profilePicture.get }
     
     private var chooseSource: ProfileChooseSourceBuilder?
-    
     private var size: CGFloat?
-    
     private var image: ImageViewBuilder?
-    private var profilePicture: ViewBuilder
+    
+    private let profilePicture: ViewBuilder
     
     
 //  MARK: - INITIALIZERS
@@ -34,9 +33,9 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
 //  MARK: - LAZY AREA
     
-    lazy var backgroundView: ViewBuilder = {
-        guard let size else { return ViewBuilder()}
-        let comp = ViewBuilder(frame: CGRect(origin: .zero, size: CGSize(width: size, height: size)))
+    lazy private var backgroundView: ViewBuilder = {
+        guard let size else { return ViewBuilder() }
+        let comp = ViewBuilder()
             .setConstraints { build in
                 build
                     .setAlignmentCenterXY.equalToSafeArea
@@ -45,7 +44,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         return comp
     }()
 
-    lazy var placeHolderImage: ImageViewBuilder = {
+    lazy var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
             .setContentMode(.center)
             .setConstraints { build in
@@ -59,8 +58,9 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setPlaceHolderImage(_ image: ImageViewBuilder) -> Self {
-        placeHolderImage.get.image = image.get.image
+    public func setPlaceHolderImage(_ image: ImageViewBuilder?) -> Self {
+        guard let image else {return self}
+        profileImage.get.image = image.get.image
         return self
     }
 
@@ -77,14 +77,14 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     @discardableResult
     public func setSizePlaceHolderImage(_ size: CGFloat) -> Self {
-        let img = placeHolderImage.setSize(size)
-        placeHolderImage.get.image = img.get.image
+        let img = profileImage.setSize(size)
+        profileImage.get.image = img.get.image
         return self
     }
     
     @discardableResult
     public func setTintColor(color: UIColor) -> Self {
-        placeHolderImage.setTintColor(color: color)
+        profileImage.setTintColor(color: color)
         return self
     }
     
@@ -97,7 +97,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setChooseSource(viewController: UIViewController, _ builder: (_ build: ProfileChooseSourceBuilder) -> ProfileChooseSourceBuilder) -> Self {
-        chooseSource = builder(ProfileChooseSourceBuilder(viewController: viewController ))
+        chooseSource = builder(ProfileChooseSourceBuilder(viewController: viewController, profilePicture: self ))
         return self
     }
     
@@ -116,30 +116,29 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         addElements()
         configConstraints()
         configCircleProfilePicture()
-        if let image {
-            setPlaceHolderImage(image)
-        }
-        
-        
-        TapGestureBuilder(profilePicture)
-            .setTap { [weak self] tapGesture in
-                print(self?.chooseSource ?? "")
-                self?.chooseSource?.show()
-            }
-        
+        setPlaceHolderImage(image)
+        configTapGesture()
     }
     
     private func addElements() {
         backgroundView.add(insideTo: profilePicture.get)
-        placeHolderImage.add(insideTo: self.get)
+        profileImage.add(insideTo: backgroundView.get)
     }
     
     private func configConstraints() {
         backgroundView.applyConstraint()
-        placeHolderImage.applyConstraint()
+        profileImage.applyConstraint()
     }
     
     private func configCircleProfilePicture() {
         setCornerRadius((self.size ?? 0) / 2)
     }
+    
+    private func configTapGesture() {
+        TapGestureBuilder(backgroundView)
+            .setTap { [weak self] tapGesture in
+                self?.chooseSource?.show()
+            }
+    }
+
 }

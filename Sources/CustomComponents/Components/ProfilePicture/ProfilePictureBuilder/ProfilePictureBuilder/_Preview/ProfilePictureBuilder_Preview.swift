@@ -21,21 +21,22 @@ final class ProfilePictureBuilderPreview: UIView {
             .setContentMode(.center)
             .setSize(30)
             .setWeight(.ultraLight)
-//        let comp = ProfilePictureBuilder(size: 100, image: img )
-        let comp = ProfilePictureBuilder(size: 100 )
+        let comp = ProfilePictureBuilder(size: 100, image: img )
+//        let comp = ProfilePictureBuilder(size: 100 )
             .setBackgroundColor(hexColor: "#ffffff")
             .setTintColor("#000000")
 //            .setSizePlaceHolderImage(10)
 //            .setCornerRadius(30)
             .setChooseSource(viewController: UIViewController(), { build in
                 build
-                    .setOpenCamera {
+                    .setOpenCamera { imageData in 
                         print("camera")
                     }
             })
             .setConstraints { build in
                 build
-                    .setAlignmentCenterXY.equalToSafeArea
+//                    .setAlignmentCenterXY.equalToSafeArea
+                    .setPin.equalToSafeArea
             }
         return comp
     }()

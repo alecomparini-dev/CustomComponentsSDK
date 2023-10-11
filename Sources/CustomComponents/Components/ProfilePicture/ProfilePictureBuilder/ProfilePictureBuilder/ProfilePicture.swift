@@ -6,7 +6,7 @@ import Foundation
 public protocol ProfilePicture: AnyObject {
     
     @discardableResult
-    func setPlaceHolderImage(_ image: ImageViewBuilder) -> Self
+    func setPlaceHolderImage(_ image: ImageViewBuilder?) -> Self
     
     @discardableResult
     func setCornerRadius(_ radius: CGFloat) -> Self
