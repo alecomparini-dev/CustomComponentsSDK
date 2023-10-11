@@ -39,6 +39,9 @@ public protocol TextField {
 
     @discardableResult
     func setIsSecureText(_ flag: Bool) -> Self
+    
+    @discardableResult
+    func setReadOnly(_ flag: Bool) -> Self
 
     @discardableResult
     func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType) -> Self
