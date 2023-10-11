@@ -36,6 +36,7 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
     public func setOpenCamera(_ title: String? = nil, completion: completion?) -> Self {
         let cameraAction = UIAlertAction(title: title ?? "Camera", style: .default) { [weak self] _ in
             self?.openCamera()
+            self?.completionOpenCamera = completion
             Control.isOpenCamera = true
         }
         alert.addAction(cameraAction)
@@ -44,8 +45,9 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
     
     @discardableResult
     public func setOpenGallery(_ title: String? = nil, completion: completion?) -> Self {
-        let galleryAction = UIAlertAction(title: title ?? "Gallery", style: .default) { UIAlertAction in
-            self.openGallery()
+        let galleryAction = UIAlertAction(title: title ?? "Gallery", style: .default) { [weak self] _ in
+            self?.openGallery()
+            self?.completionOpenGallery = completion
             Control.isOpenCamera = false
         }
         alert.addAction(galleryAction)
