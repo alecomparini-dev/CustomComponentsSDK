@@ -29,7 +29,7 @@ final class ProfilePictureBuilderPreview: UIView {
 //            .setCornerRadius(30)
             .setChooseSource(viewController: UIViewController(), { build in
                 build
-                    .setOpenCamera {
+                    .setOpenCamera { imageData in 
                         print("camera")
                     }
             })
