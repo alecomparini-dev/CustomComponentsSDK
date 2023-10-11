@@ -134,6 +134,12 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         textField.isSecureTextEntry = flag
         return self
     }
+    
+    @discardableResult
+    public func setReadOnly(_ flag: Bool) -> Self {
+        textField.isEnabled = !flag
+        return self
+    }
 
     @discardableResult
     public func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType) -> Self {
