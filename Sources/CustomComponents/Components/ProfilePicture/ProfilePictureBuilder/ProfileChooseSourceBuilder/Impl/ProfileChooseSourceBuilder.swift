@@ -27,7 +27,7 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
 
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setTitle(title: String) -> Self {
+    public func setTitle(_ title: String) -> Self {
         alert.title = title
         return self
     }
