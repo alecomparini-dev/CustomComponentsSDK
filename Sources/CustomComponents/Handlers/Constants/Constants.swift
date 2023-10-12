@@ -17,6 +17,7 @@ public struct K {
 
 
 //  MARK: - EXTENSION - Images
+
 extension K {
     public struct Images {
         static let eye = "eye"
@@ -29,6 +30,7 @@ extension K {
 
 
 //  MARK: - EXTENSION - Strings
+
 extension K {
     public struct Strings {
         public static let empty = ""
@@ -40,6 +42,7 @@ extension K {
 
 
 //  MARK: - EXTENSION - Appearance
+
 extension K {
     public enum Appearance: Int {
         case `default` = 0
@@ -50,6 +53,7 @@ extension K {
 
 
 //  MARK: - EXTENSION - Weight
+
 extension K {
     public enum Weight: Int {
         case bold = 0
@@ -66,6 +70,7 @@ extension K {
 
 
 //  MARK: - EXTENSION - ContentMode
+
 extension K {
     public enum ContentMode: Int {
         case scaleToFill = 0
@@ -86,6 +91,7 @@ extension K {
 
 
 //  MARK: - EXTENSION - Position
+
 extension K {
     public enum Position {
         case top
@@ -107,6 +113,7 @@ extension K {
 
 
 //  MARK: - EXTENSION - Text
+
 extension K {
     public struct Text {
         public enum Alignment: Int {
@@ -134,6 +141,7 @@ extension K {
 
 
 //  MARK: - EXTENSION - Corner
+
 extension K {
     public enum Corner {
         case leftTop
@@ -146,6 +154,27 @@ extension K {
         case right
         case diagonalUp
         case diagonalDown
+    }
+}
+
+
+//  MARK: - EXTENSION - Shows Scroll
+
+extension K {
+    public enum ShowsScroll {
+        case horizontal
+        case vertical
+        case both
+    }
+}
+
+
+//  MARK: - EXTENSION - SeparatorStyle
+
+extension K {
+    public enum SeparatorStyle: Int {
+        case none = 0
+        case singleLine = 1
     }
 }
 
