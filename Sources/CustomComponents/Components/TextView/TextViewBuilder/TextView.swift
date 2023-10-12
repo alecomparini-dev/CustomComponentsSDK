@@ -27,5 +27,7 @@ public protocol TextView {
     
     @discardableResult
     func setPadding(left: CGFloat?, top: CGFloat?, right: CGFloat?, bottom: CGFloat? ) -> Self
-    
+ 
+    @discardableResult
+    func setIsReadOnly(_ flag: Bool) -> Self
 }

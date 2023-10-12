@@ -67,7 +67,7 @@ open class TableViewBuilder: BaseBuilder, TableView {
                                               right: right ?? 0)
         return self
     }
-
+    
     
 //  MARK: - DELEGATE and DATASOURCE
 

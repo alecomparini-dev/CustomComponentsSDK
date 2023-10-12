@@ -88,7 +88,12 @@ open class TextViewBuilder: BaseBuilder, TextView {
         return self
     }
     
-    
+    @discardableResult
+    public func setIsReadOnly(_ flag: Bool) -> Self {
+        textView.isEditable = !flag
+        return self
+    }
+
     
 //  MARK: - PRIVATE AREA
     private func configure() {
