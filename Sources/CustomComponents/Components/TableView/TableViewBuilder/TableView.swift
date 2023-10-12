@@ -22,4 +22,8 @@ public protocol TableView {
     @discardableResult
     func setTableFooter(_ tableFooter: ViewBuilder ) -> Self
     
+    @discardableResult
+    func setPadding(top: CGFloat?, left: CGFloat?, bottom: CGFloat?, right: CGFloat?) -> Self
+    
+    
 }
