@@ -4,6 +4,7 @@
 import UIKit
 
 open class TableViewBuilder: BaseBuilder, TableView {
+    
     public typealias T = UITableView
     
     public var get: UITableView { self.tableView }
@@ -56,6 +57,26 @@ open class TableViewBuilder: BaseBuilder, TableView {
     public func setTableFooter(_ tableFooter: ViewBuilder) -> Self {
         tableView.tableFooterView = tableFooter.get
         return self
+    }
+    
+    @discardableResult
+    public func setPadding(top: CGFloat?, left: CGFloat?, bottom: CGFloat?, right: CGFloat?) -> Self {
+        tableView.contentInset = UIEdgeInsets(top: top ?? 0,
+                                              left: left ?? 0,
+                                              bottom: bottom ?? 0,
+                                              right: right ?? 0)
+        return self
+    }
+
+    
+//  MARK: - DELEGATE and DATASOURCE
+
+    public func setDelegate(delegate: UITableViewDelegate) {
+        tableView.delegate = delegate
+    }
+    
+    public func setDataSource(dataSource: UITableViewDataSource) {
+        tableView.dataSource = dataSource
     }
     
 }
