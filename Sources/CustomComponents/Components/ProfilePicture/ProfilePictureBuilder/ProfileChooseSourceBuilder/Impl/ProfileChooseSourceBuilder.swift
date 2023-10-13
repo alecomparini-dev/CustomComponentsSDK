@@ -14,8 +14,8 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
     private var completionOpenCamera: ProfileChooseSource.completion?
     private var completionOpenGallery: ProfileChooseSource.completion?
     
-    private let viewController: UIViewController
-    private let profilePicture: ProfilePictureBuilder
+    private weak var viewController: UIViewController?
+    private weak var profilePicture: ProfilePictureBuilder?
     
     public init(viewController: UIViewController, profilePicture: ProfilePictureBuilder) {
         self.viewController = viewController
@@ -59,7 +59,7 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
 //  MARK: - SHOW ALERT
 
     func show() {
-        viewController.present(alert, animated: true, completion: nil)
+        viewController?.present(alert, animated: true, completion: nil)
     }
     
     
@@ -76,7 +76,7 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
         imagePicker.allowsEditing = false
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.sourceType = .camera
-            viewController.present(imagePicker, animated: true, completion: nil)
+            viewController?.present(imagePicker, animated: true, completion: nil)
             return
         }
     }
@@ -85,7 +85,7 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
-            viewController.present(imagePicker, animated: true, completion: nil)
+            viewController?.present(imagePicker, animated: true, completion: nil)
             return
         }
     }
@@ -117,11 +117,11 @@ extension ProfileChooseSourceBuilder: UIImagePickerControllerDelegate, UINavigat
     
     public func imagePickerController(_ picker: UIImagePickerController,  didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        profilePicture.profileImage.setContentMode(.scaleAspectFill)
+        profilePicture?.profileImage.setContentMode(.scaleAspectFill)
         
         guard let image = info[.originalImage] as? UIImage else { return }
         
-        profilePicture.profileImage.get.image = image
+        profilePicture?.profileImage.get.image = image
         
         picker.dismiss(animated: true, completion: nil)
         
