@@ -17,6 +17,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     private var keyboardConfiguration: KeyboardConfigurationBuilder?
+    private var mask: MaskBuilder?
     
     private var attributesPlaceholder: [NSAttributedString.Key: Any] = [:]
     private var textField: UITextField
@@ -175,14 +176,20 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
+    public func setFocus() -> Self {
+        textField.becomeFirstResponder()
+        return self
+    }
+
+    @discardableResult
     public func setKeyboard(_ configKeyboard: (_ build: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self {
         keyboardConfiguration = configKeyboard(KeyboardConfigurationBuilder(textFieldBuilder: self))
         return self
     }
-    
+
     @discardableResult
-    public func setFocus() -> Self {
-        textField.becomeFirstResponder()
+    public func setMask(_ configMask: (_ build: MaskBuilder) -> MaskBuilder) -> Self {
+        mask = configMask(MaskBuilder())
         return self
     }
     
@@ -335,4 +342,15 @@ extension TextFieldBuilder: UITextFieldDelegate {
         return true
     }
     
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let mask {
+            textField.text = mask.get.formatStringWithRange(range: range, string: string)
+            return false
+        }
+        
+        return true
+    }
 }
+
+

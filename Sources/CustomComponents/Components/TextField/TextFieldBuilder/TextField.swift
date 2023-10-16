@@ -62,9 +62,12 @@ public protocol TextField {
     func setPadding(_ paddingView: BaseBuilder?, _ position: K.Position.Horizontal?) -> Self
     
     @discardableResult
-    func setKeyboard(_ configKeyboard: (_ buid: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self
-    
-    @discardableResult
     func setFocus() -> Self
-    
+
+    @discardableResult
+    func setKeyboard(_ configKeyboard: (_ build: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self
+
+    @discardableResult
+    func setMask(_ configMask: (_ build: MaskBuilder) -> MaskBuilder ) -> Self
+
 }

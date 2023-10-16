@@ -24,6 +24,11 @@ final class TextFieldBuilderPreview: UIView {
                 build
                     .setCornerRadius(8)
             }
+            .setMask({ build in
+                build
+                    .setDateMask()
+                    .setCellPhoneNumberMask()
+            })
             .setConstraints { build in
                 build
                     .setTop.equalToSafeArea(20)
