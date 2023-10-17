@@ -70,4 +70,5 @@ public protocol TextField {
     @discardableResult
     func setMask(_ configMask: (_ build: MaskBuilder) -> MaskBuilder ) -> Self
 
+
 }

@@ -194,7 +194,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
 
-    // MARK: - PADDING
+// MARK: - PADDING
     @discardableResult
     public func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal? = nil) -> Self {
         guard let padding else {return self}
@@ -214,9 +214,18 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         addPaddingToTextField(paddingView, .right)
         return self
     }
+
     
+
+// MARK: - PADDING
+    @discardableResult
+    public func setDelegate(_ delegate: UITextFieldDelegate) -> Self {
+        textField.delegate = delegate
+        return self
+    }
+
     
-//  MARK: - PRIVATE Area
+//  MARK: - PRIVATE AREA
     
     private func configure() {
         setPadding(K.Default.padding)
