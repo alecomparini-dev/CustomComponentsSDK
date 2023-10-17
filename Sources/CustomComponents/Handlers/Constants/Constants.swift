@@ -271,3 +271,17 @@ extension K {
         }
     }
 }
+
+
+//  MARK: - EXTENSION - SeparatorStyle
+
+extension K {
+    public struct ActivityIndicator {
+        public enum Style: Int {
+            case medium = 100
+            case large = 101
+        }
+    }
+}
+
+
