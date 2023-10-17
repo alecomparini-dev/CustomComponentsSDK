@@ -189,10 +189,12 @@ public class TLCustomMask {
         let char = string.cString(using: String.Encoding.utf8)!
         let isBackSpace = strcmp(char, "\\b")
         
+        if (range == NSRange("{0,0}")) {
+            self.finalText = string
+        }
+        
         if (isBackSpace == -92) { //Backspace was pressed
             self.finalText = deleteLastChar()
-        } else if (range == NSRange("{0,0}")) {
-            self.finalText = ""
         } else {
             //Find index of first special character ($ or *)
             if let range = self.finalText!.range(of: "\\*|\\$", options: .regularExpression){
