@@ -17,4 +17,7 @@ public protocol ProfilePicture: AnyObject {
     @discardableResult
     func setTintColor(_ hexColor: String) -> Self
     
+    @discardableResult
+    func setImagePicture(_ imageData: Data) -> Self
+    
 }

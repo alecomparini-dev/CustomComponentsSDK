@@ -101,6 +101,13 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         return self
     }
     
+    @discardableResult
+    public func setImagePicture(_ imageData: Data) -> Self {
+        profileImage.get.image = UIImage(data: imageData)
+        return self
+    }
+    
+    
     
 //  MARK: - OVERRIDE PROPERTIES AREA
     
