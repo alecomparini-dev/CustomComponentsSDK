@@ -11,6 +11,7 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
     
     init(component: UIView) {
         super.init(component)
+        configure()
     }
     
     
@@ -96,6 +97,10 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
     
 //  MARK: - PRIVATE AREA
    
+    private func configure() {
+        setIsSkeletonable(true)
+    }
+    
     private func configShow() {
         if let color {
             super.baseView.showSkeleton(usingColor: color)
@@ -115,19 +120,19 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
     
     private func configShowSolidAnimated() {
         if let color {
-            super.baseView.showAnimatedSkeleton(usingColor: color)
+            super.baseView.showAnimatedSkeleton(usingColor: color, animation: nil, transition: .crossDissolve(0.5))
             return
         }
-        super.baseView.showAnimatedSkeleton()
+        super.baseView.showAnimatedSkeleton(transition: .crossDissolve(0.5))
     }
     
     private func configShowGrandientAnimated() {
         if let color {
             let skeletonGradient = SkeletonGradient(baseColor: color)
-            super.baseView.showAnimatedGradientSkeleton(usingGradient: skeletonGradient)
+            super.baseView.showAnimatedGradientSkeleton(usingGradient: skeletonGradient, animation: nil, transition: .crossDissolve(0.5))
             return
         }
-        super.baseView.showAnimatedGradientSkeleton()
+        super.baseView.showAnimatedGradientSkeleton(transition: .crossDissolve(0.5))
     }
     
     
