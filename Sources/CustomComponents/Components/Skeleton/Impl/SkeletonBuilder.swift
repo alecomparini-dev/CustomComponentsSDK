@@ -8,15 +8,17 @@ import SkeletonView
 open class SkeletonBuilder: BaseBuilder, Skeleton {
     
     private var color: UIColor?
-       
+    
     init(component: UIView) {
         super.init(component)
     }
+    
     
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setIsSkeletonable(_ flag: Bool) -> Self {
         super.baseView.isSkeletonable = flag
+        super.baseView.isUserInteractionDisabledWhenSkeletonIsActive = flag
         return self
     }
     
@@ -63,6 +65,12 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
         return self
     }
     
+    @discardableResult
+    public func setSkeletonCornerRadius(_ radius: Float) -> Self {
+        baseView.skeletonCornerRadius = radius
+        return self
+    }
+
     @discardableResult
     public func showSkeleton(_ displayTypes: DisplayTypes) -> Self {
         switch displayTypes {
