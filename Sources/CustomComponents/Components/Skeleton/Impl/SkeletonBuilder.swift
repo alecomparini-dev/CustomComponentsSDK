@@ -74,19 +74,23 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
 
     @discardableResult
     public func showSkeleton(_ displayTypes: DisplayTypes) -> Self {
-        switch displayTypes {
-            case .solid:
-                configShow()
-                
-            case .gradient:
-                configShowGradient()
-                
-            case .solidAnimated:
-                configShowSolidAnimated()
-                
-            case .gradientAnimated:
-                configShowGrandientAnimated()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            switch displayTypes {
+                case .solid:
+                    configShow()
+                    
+                case .gradient:
+                    configShowGradient()
+                    
+                case .solidAnimated:
+                    configShowSolidAnimated()
+                    
+                case .gradientAnimated:
+                    configShowGrandientAnimated()
+            }
         }
+        
         return self
     }
     
