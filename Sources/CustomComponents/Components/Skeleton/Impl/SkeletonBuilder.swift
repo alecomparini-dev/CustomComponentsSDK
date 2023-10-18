@@ -11,6 +11,7 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
        
     init(component: UIView) {
         super.init(component)
+        configure()
     }
     
 //  MARK: - SET PROPERTIES
@@ -80,11 +81,16 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
     }
     
     public func hideSkeleton() {
-        
+        super.baseView.hideSkeleton(transition: .crossDissolve(0.5))
     }
 
     
 //  MARK: - PRIVATE AREA
+    
+    private func configure() {
+        setIsSkeletonable(true)
+    }
+    
     private func configShow() {
         if let color {
             super.baseView.showSkeleton(usingColor: color)
