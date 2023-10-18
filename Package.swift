@@ -15,7 +15,7 @@ let package = Package(
     ],
     
     dependencies: [
-        .package(url: "https://github.com/Juanpe/SkeletonView.git", from: "1.30.4")
+        .package(url: "https://github.com/Juanpe/SkeletonView.git", from: "1.30.3")
     ],
 
     targets: [
