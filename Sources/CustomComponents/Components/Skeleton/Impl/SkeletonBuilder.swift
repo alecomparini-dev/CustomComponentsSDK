@@ -74,21 +74,18 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
 
     @discardableResult
     public func showSkeleton(_ displayTypes: DisplayTypes) -> Self {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            switch displayTypes {
-                case .solid:
-                    configShow()
-                    
-                case .gradient:
-                    configShowGradient()
-                    
-                case .solidAnimated:
-                    configShowSolidAnimated()
-                    
-                case .gradientAnimated:
-                    configShowGrandientAnimated()
-            }
+        switch displayTypes {
+            case .solid:
+                configShow()
+                
+            case .gradient:
+                configShowGradient()
+                
+            case .solidAnimated:
+                configShowSolidAnimated()
+                
+            case .gradientAnimated:
+                configShowGrandientAnimated()
         }
         
         return self
@@ -131,12 +128,17 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
     }
     
     private func configShowGrandientAnimated() {
-        if let color {
-            let skeletonGradient = SkeletonGradient(baseColor: color)
-            super.baseView.showAnimatedGradientSkeleton(usingGradient: skeletonGradient, animation: nil, transition: .crossDissolve(0.5))
-            return
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            if let color {
+                let skeletonGradient = SkeletonGradient(baseColor: color)
+                baseView.showAnimatedGradientSkeleton(usingGradient: skeletonGradient, animation: nil, transition: .crossDissolve(0.5))
+                return
+            }
+            baseView.showAnimatedGradientSkeleton(transition: .crossDissolve(0.5))
         }
-        super.baseView.showAnimatedGradientSkeleton(transition: .crossDissolve(0.5))
+        
+        
     }
     
     
