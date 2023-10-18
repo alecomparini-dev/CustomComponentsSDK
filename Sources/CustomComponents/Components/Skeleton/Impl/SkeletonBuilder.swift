@@ -20,6 +20,7 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
     public func setIsSkeletonable(_ flag: Bool) -> Self {
         super.baseView.isSkeletonable = flag
         super.baseView.isUserInteractionDisabledWhenSkeletonIsActive = flag
+        super.baseView.isHiddenWhenSkeletonIsActive = flag
         SkeletonAppearance.default.tintColor = .silver
         return self
     }
