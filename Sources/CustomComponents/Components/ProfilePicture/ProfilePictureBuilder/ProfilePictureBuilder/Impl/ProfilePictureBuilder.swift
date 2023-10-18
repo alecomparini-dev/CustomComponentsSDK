@@ -33,7 +33,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
 //  MARK: - LAZY AREA
     
-    lazy private var backgroundView: ViewBuilder = {
+    lazy public var backgroundView: ViewBuilder = {
         guard let size else { return ViewBuilder() }
         let comp = ViewBuilder()
             .setConstraints { build in
@@ -44,7 +44,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         return comp
     }()
 
-    lazy var profileImage: ImageViewBuilder = {
+    lazy public var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
             .setContentMode(.center)
             .setConstraints { build in
