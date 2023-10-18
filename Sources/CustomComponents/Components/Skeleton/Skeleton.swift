@@ -27,7 +27,8 @@ public protocol Skeleton {
     @discardableResult
     func setSkeletonLineSpacing(_ spacing: CGFloat) -> Self
     
-    func showSkeleton(_ displayTypes: DisplayTypes)
+    @discardableResult
+    func showSkeleton(_ displayTypes: DisplayTypes) -> Self
     
     func hideSkeleton()
         

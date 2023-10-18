@@ -64,7 +64,8 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
         return self
     }
     
-    public func showSkeleton(_ displayTypes: DisplayTypes) {
+    @discardableResult
+    public func showSkeleton(_ displayTypes: DisplayTypes) -> Self {
         switch displayTypes {
             case .solid:
                 configShow()
@@ -78,6 +79,7 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
             case .gradientAnimated:
                 configShowGrandientAnimated()
         }
+        return self
     }
     
     public func hideSkeleton() {
