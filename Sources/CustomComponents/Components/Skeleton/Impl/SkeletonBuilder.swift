@@ -128,17 +128,12 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
     }
     
     private func configShowGrandientAnimated() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            if let color {
-                let skeletonGradient = SkeletonGradient(baseColor: color)
-                baseView.showAnimatedGradientSkeleton(usingGradient: skeletonGradient, animation: nil, transition: .crossDissolve(0.5))
-                return
-            }
-            baseView.showAnimatedGradientSkeleton(transition: .crossDissolve(0.5))
+        if let color {
+            let skeletonGradient = SkeletonGradient(baseColor: color)
+            baseView.showAnimatedGradientSkeleton(usingGradient: skeletonGradient, animation: nil, transition: .crossDissolve(0.5))
+            return
         }
-        
-        
+        baseView.showAnimatedGradientSkeleton(transition: .crossDissolve(0.5))   
     }
     
     
