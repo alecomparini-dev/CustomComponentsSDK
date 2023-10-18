@@ -25,6 +25,9 @@ public protocol Skeleton {
     func setLinesCornerRadius(_ radius: Int) -> Self
     
     @discardableResult
+    func setSkeletonCornerRadius(_ radius: Float) -> Self
+    
+    @discardableResult
     func setSkeletonLineSpacing(_ spacing: CGFloat) -> Self
     
     @discardableResult
