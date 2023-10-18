@@ -93,6 +93,12 @@ open class BaseBuilder: NSObject {
         return self
     }
     
+    @discardableResult
+    public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
+        _ = build(SkeletonBuilder(component: baseView))
+        return self
+    }
+    
     
 //  MARK: - CONSTRAINTS AREA
     
