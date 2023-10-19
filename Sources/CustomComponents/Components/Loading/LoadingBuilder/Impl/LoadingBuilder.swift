@@ -42,12 +42,15 @@ public class LoadingBuilder: BaseBuilder , Loading {
         return self
     }
     
-    public func setStartAnimating() {
+    public func setStartAnimating() -> Self {
         loading.startAnimating()
+        return self
     }
     
-    public func setStopAnimating() {
+    @discardableResult
+    public func setStopAnimating() -> Self {
         loading.stopAnimating()
+        return self
     }
     
 }
