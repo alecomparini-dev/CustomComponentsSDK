@@ -38,7 +38,7 @@ public protocol Button {
     func setTitleWeight(_ weight: K.Weight? ) -> Self
     
     
-//    func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self
+    func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self
     func setShowLoadingIndicator(_ styleIndicator: K.ActivityIndicator.Style) -> Self
     func setHideLoadingIndicator() -> Self
     
