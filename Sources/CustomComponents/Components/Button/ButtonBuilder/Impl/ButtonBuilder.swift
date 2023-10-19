@@ -125,25 +125,31 @@ open class ButtonBuilder: BaseBuilder, Button {
             .setStyle(styleIndicator)
             .setColor(color: .darkGray)
             .setHideWhenStopped(true)
-            .setConstraints({ build in
-                build
-                    .setAlignmentCenterXY.equalToSafeArea
-//                    .setSize.equalToConstant(40)
-            })
-        if let loading {
-            loading.add(insideTo: button)
-            loading.applyConstraint()
-            loading.setStartAnimating()
-            self.titleButton = button.currentTitle
-            button.setTitle("", for: .normal)
-        }
+        configLoadingIndicator()
         return self
     }
 
     @discardableResult
     public func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self {
         self.loading = build(LoadingBuilder())
-        
+        configLoadingIndicator()
+        return self
+    }
+    
+    @discardableResult
+    public func setHideLoadingIndicator() -> Self {
+        if let loading {
+            loading.setStopAnimating()
+            button.setTitle(self.titleButton, for: .normal)
+        }
+        loading = nil
+        titleButton = nil
+        return self
+    }
+    
+    
+//  MARK: - PRIVATE AREA
+    private func configLoadingIndicator() {
         if let loading {
             loading.add(insideTo: button)
             loading.setConstraints { build in
@@ -155,19 +161,6 @@ open class ButtonBuilder: BaseBuilder, Button {
             self.titleButton = button.currentTitle
             button.setTitle("", for: .normal)
         }
-        return self
-    }
-
-    
-    @discardableResult
-    public func setHideLoadingIndicator() -> Self {
-        if let loading {
-            loading.setStopAnimating()
-            button.setTitle(self.titleButton, for: .normal)
-        }
-        loading = nil
-        titleButton = nil
-        return self
     }
 
 }
