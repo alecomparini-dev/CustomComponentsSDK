@@ -8,6 +8,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     public var get: UIButton {self.button}
     
     private var loading: LoadingBuilder?
+    private var titleButton: String?
     
     private var button: UIButton
 
@@ -126,10 +127,14 @@ open class ButtonBuilder: BaseBuilder, Button {
             .setConstraints({ build in
                 build
                     .setAlignmentCenterXY.equalToSafeArea
+                    .setSize.equalToConstant(40)
             })
         if let loading {
             loading.add(insideTo: button)
             loading.applyConstraint()
+            loading.setStartAnimating()
+            self.titleButton = button.currentTitle
+            button.setTitle("", for: .normal)
         }
         return self
     }
@@ -138,6 +143,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     public func setHideLoadingIndicator() -> Self {
         if let loading {
             loading.setStopAnimating()
+            button.setTitle(self.titleButton, for: .normal)
         }
         loading = nil
         return self
