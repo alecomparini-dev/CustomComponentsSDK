@@ -151,6 +151,7 @@ open class ButtonBuilder: BaseBuilder, Button {
                     .setAlignmentCenterXY.equalToSafeArea
                     .apply()
             }
+            loading.setStartAnimating()
             self.titleButton = button.currentTitle
             button.setTitle("", for: .normal)
         }
@@ -165,6 +166,7 @@ open class ButtonBuilder: BaseBuilder, Button {
             button.setTitle(self.titleButton, for: .normal)
         }
         loading = nil
+        titleButton = nil
         return self
     }
 
