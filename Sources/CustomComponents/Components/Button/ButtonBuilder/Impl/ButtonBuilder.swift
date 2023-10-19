@@ -150,8 +150,7 @@ open class ButtonBuilder: BaseBuilder, Button {
                 build
                     .setAlignmentCenterXY.equalToSafeArea
                     .apply()
-            }           
-            loading.setStartAnimating()
+            }
             self.titleButton = button.currentTitle
             button.setTitle("", for: .normal)
         }
