@@ -123,6 +123,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     public func setShowLoadingIndicator(_ styleIndicator: K.ActivityIndicator.Style = .medium) -> Self {
         self.loading = LoadingBuilder()
             .setStyle(styleIndicator)
+            .setColor(color: .darkGray)
             .setHideWhenStopped(true)
             .setConstraints({ build in
                 build
@@ -139,6 +140,25 @@ open class ButtonBuilder: BaseBuilder, Button {
         return self
     }
 
+    @discardableResult
+    public func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self {
+        self.loading = build(LoadingBuilder())
+        
+        if let loading {
+            loading.add(insideTo: button)
+            loading.setConstraints { build in
+                build
+                    .setAlignmentCenterXY.equalToSafeArea
+                    .apply()
+            }           
+            loading.setStartAnimating()
+            self.titleButton = button.currentTitle
+            button.setTitle("", for: .normal)
+        }
+        return self
+    }
+
+    
     @discardableResult
     public func setHideLoadingIndicator() -> Self {
         if let loading {
