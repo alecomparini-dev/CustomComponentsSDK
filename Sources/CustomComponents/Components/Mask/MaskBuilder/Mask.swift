@@ -14,6 +14,12 @@ public protocol Mask {
     
     @discardableResult
     func setDateMask(_ abbreviatedYear: Bool) -> Self
+        
+    @discardableResult
+    func setDateUniversalMask() -> Self
+    
+    @discardableResult
+    func setHourMask() -> Self
 
     @discardableResult
     func setCPFMask() -> Self

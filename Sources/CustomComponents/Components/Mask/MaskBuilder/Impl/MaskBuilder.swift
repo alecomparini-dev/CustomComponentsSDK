@@ -4,7 +4,6 @@
 import Foundation
 
 open class MaskBuilder: Mask {
-    
     public typealias T = TLCustomMask
     public var get: TLCustomMask { self.tlCustomMask }
     
@@ -39,6 +38,18 @@ open class MaskBuilder: Mask {
         return self
     }
     
+    @discardableResult
+    public func setDateUniversalMask() -> Self {
+        tlCustomMask.formattingPattern = "$$$$-$$-$$"
+        return self
+    }
+
+    @discardableResult
+    public func setHourMask() -> Self {
+        tlCustomMask.formattingPattern = "$$:$$:$$"
+        return self
+    }
+
     @discardableResult
     public func setCPFMask() -> Self {
         tlCustomMask.formattingPattern = "$$$.$$$.$$$-$$"
