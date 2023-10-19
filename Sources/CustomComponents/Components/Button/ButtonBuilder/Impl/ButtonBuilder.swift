@@ -7,8 +7,11 @@ open class ButtonBuilder: BaseBuilder, Button {
     public typealias T = UIButton
     public var get: UIButton {self.button}
     
-    private var button: UIButton
+    private var loading: LoadingBuilder?
     
+    private var button: UIButton
+
+//  MARK: - INITIALIZERS
     public init() {
         self.button = UIButton(type: .system)
         super.init(button)
@@ -115,4 +118,20 @@ open class ButtonBuilder: BaseBuilder, Button {
         return self
     }
     
+    
+    public func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) {
+        self.loading = build(LoadingBuilder())
+        if let loading {
+            button.addSubview(loading.get)
+            loading.setStartAnimating()
+        }
+    }
+
+    public func setHideLoadingIndicator() {
+        if let loading {
+            loading.setStopAnimating()
+        }
+        loading = nil
+    }
+
 }
