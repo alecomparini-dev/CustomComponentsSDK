@@ -127,7 +127,7 @@ open class ButtonBuilder: BaseBuilder, Button {
             .setConstraints({ build in
                 build
                     .setAlignmentCenterXY.equalToSafeArea
-                    .setSize.equalToConstant(40)
+//                    .setSize.equalToConstant(40)
             })
         if let loading {
             loading.add(insideTo: button)
