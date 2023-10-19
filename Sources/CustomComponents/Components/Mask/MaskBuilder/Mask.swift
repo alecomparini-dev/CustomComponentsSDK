@@ -7,7 +7,8 @@ public protocol Mask {
     associatedtype T
     var get: T { get }
     
-    func getFormatString(_ string: String) -> String
+    func formatString(_ string: String) -> String
+    func formatStringWithRange(range: NSRange, string: String) -> String
     
     @discardableResult
     func setCustomMask(_ mask: String) -> Self

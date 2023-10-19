@@ -15,8 +15,12 @@ open class MaskBuilder: Mask {
 
     
 //  MARK: - GET PROPERTIES
-    public func getFormatString(_ string: String) -> String {
+    public func formatString(_ string: String) -> String {
         return tlCustomMask.formatString(string: string)
+    }
+    
+    public func formatStringWithRange(range: NSRange, string: String) -> String {
+        return tlCustomMask.formatStringWithRange(range: range, string: string)
     }
     
     
@@ -128,7 +132,7 @@ public class TLCustomMask {
         }
     }
     
-    public init(formattingPattern : String = ""){
+    fileprivate init(formattingPattern : String = ""){
         self._formattingPattern = formattingPattern;
         self.finalText = self._formattingPattern
     }
@@ -139,7 +143,7 @@ public class TLCustomMask {
      * one for the pattern e.g: ["$","-","$"]
      * and one for the string e.g: ["1","a","2"]
      */
-    public func formatString(string: String) -> String{
+    fileprivate func formatString(string: String) -> String{
         // if there is no pattern, return string
         if self._formattingPattern.isEmpty{
             return string
@@ -195,7 +199,7 @@ public class TLCustomMask {
      * it will search for the first special character ($ or *)
      * and replace it with the user input e.g: 12-$$$$ -> 12-3$$$
      */
-    public func formatStringWithRange(range: NSRange, string: String) -> String {
+    fileprivate func formatStringWithRange(range: NSRange, string: String) -> String {
         //Detect backspace
         let char = string.cString(using: String.Encoding.utf8)!
         let isBackSpace = strcmp(char, "\\b")
