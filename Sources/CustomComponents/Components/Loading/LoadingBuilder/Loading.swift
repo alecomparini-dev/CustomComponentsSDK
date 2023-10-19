@@ -16,8 +16,10 @@ public protocol Loading {
     @discardableResult
     func setHideWhenStopped(_ hide: Bool) -> Self
     
+    @discardableResult
     func setStartAnimating() -> Self
     
+    @discardableResult
     func setStopAnimating() -> Self
     
 }
