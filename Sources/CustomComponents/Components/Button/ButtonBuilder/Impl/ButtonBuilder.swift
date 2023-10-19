@@ -120,9 +120,9 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setShowLoadingIndicator() -> Self {
+    public func setShowLoadingIndicator(_ styleIndicator: K.ActivityIndicator.Style = .medium) -> Self {
         self.loading = LoadingBuilder()
-            .setStyle(.medium)
+            .setStyle(styleIndicator)
             .setHideWhenStopped(true)
             .setConstraints({ build in
                 build
