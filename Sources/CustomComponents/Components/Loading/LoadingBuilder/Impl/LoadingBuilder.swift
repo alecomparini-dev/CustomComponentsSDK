@@ -37,7 +37,7 @@ public class LoadingBuilder: BaseBuilder , Loading {
     }
     
     @discardableResult
-    public func setHidesWhenStopped(_ hide: Bool) -> Self {
+    public func setHideWhenStopped(_ hide: Bool) -> Self {
         loading.hidesWhenStopped = hide
         return self
     }
