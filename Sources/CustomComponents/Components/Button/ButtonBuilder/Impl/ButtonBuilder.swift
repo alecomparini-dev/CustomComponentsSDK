@@ -118,20 +118,22 @@ open class ButtonBuilder: BaseBuilder, Button {
         return self
     }
     
-    
-    public func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) {
+    @discardableResult
+    public func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self {
         self.loading = build(LoadingBuilder())
         if let loading {
             button.addSubview(loading.get)
-            loading.setStartAnimating()
         }
+        return self
     }
 
-    public func setHideLoadingIndicator() {
+    @discardableResult
+    public func setHideLoadingIndicator() -> Self {
         if let loading {
             loading.setStopAnimating()
         }
         loading = nil
+        return self
     }
 
 }

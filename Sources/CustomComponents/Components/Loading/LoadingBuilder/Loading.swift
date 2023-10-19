@@ -14,7 +14,7 @@ public protocol Loading {
     func setStyle(_ style: K.ActivityIndicator.Style) -> Self
     
     @discardableResult
-    func setHidesWhenStopped(_ hide: Bool) -> Self
+    func setHideWhenStopped(_ hide: Bool) -> Self
     
     func setStartAnimating()
     
