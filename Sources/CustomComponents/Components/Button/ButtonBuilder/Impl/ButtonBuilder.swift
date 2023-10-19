@@ -119,10 +119,17 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self {
-        self.loading = build(LoadingBuilder())
+    public func setShowLoadingIndicator() -> Self {
+        self.loading = LoadingBuilder()
+            .setStyle(.medium)
+            .setHideWhenStopped(true)
+            .setConstraints({ build in
+                build
+                    .setAlignmentCenterXY.equalToSafeArea
+            })
         if let loading {
-            button.addSubview(loading.get)
+            loading.add(insideTo: button)
+            loading.applyConstraint()
         }
         return self
     }
