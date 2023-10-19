@@ -354,7 +354,7 @@ extension TextFieldBuilder: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if let mask {
-            textField.text = mask.get.formatStringWithRange(range: range, string: string)
+            textField.text = mask.formatStringWithRange(range: range, string: string)
             return false
         }
         
