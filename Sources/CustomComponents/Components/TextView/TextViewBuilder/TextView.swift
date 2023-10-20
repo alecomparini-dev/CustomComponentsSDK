@@ -30,4 +30,10 @@ public protocol TextView {
  
     @discardableResult
     func setReadOnly(_ flag: Bool) -> Self
+    
+    @discardableResult
+    func setClearText() -> Self
+    
+    @discardableResult
+    func setText(_ text: String) -> Self
 }

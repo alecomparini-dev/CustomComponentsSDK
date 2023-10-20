@@ -93,6 +93,19 @@ open class TextViewBuilder: BaseBuilder, TextView {
         textView.isEditable = !flag
         return self
     }
+    
+    @discardableResult
+    public func setClearText() -> Self {
+        textView.text = ""
+        return self
+    }
+    
+    @discardableResult
+    public func setText(_ text: String) -> Self {
+        textView.text = text
+        return self
+    }
+
 
     
 //  MARK: - PRIVATE AREA
