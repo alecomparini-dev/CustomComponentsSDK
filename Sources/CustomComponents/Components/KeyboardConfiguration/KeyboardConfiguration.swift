@@ -28,4 +28,6 @@ public protocol KeyboardConfiguration {
     @discardableResult
     func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias?) -> Self
     
+    @discardableResult
+    func setTintColor(hexColor: String?) -> Self
 }
