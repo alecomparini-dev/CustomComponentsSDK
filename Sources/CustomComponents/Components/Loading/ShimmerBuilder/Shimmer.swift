@@ -5,8 +5,10 @@ import Foundation
 
 public protocol Shimmer {
     
-    func startShimmer()
+    @discardableResult
+    func startShimmer() -> Self
 
-    func stopShimmer()
+    @discardableResult
+    func stopShimmer() -> Self
 
 }
