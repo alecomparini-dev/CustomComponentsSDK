@@ -135,7 +135,8 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.items = []
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
-        toolbar?.tintColor = self.textFieldBuilder?.get.textColor
+//        toolbar?.tintColor = self.textFieldBuilder?.get.textColor
+        toolbar?.tintColor = .red
     }
     
     private func addToolbarOfTextField() {
