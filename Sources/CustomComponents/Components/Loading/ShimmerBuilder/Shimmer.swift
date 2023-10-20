@@ -5,8 +5,8 @@ import Foundation
 
 public protocol Shimmer {
     
-    func startCovering(_ view: BaseBuilder?, with identifiers: [String]?)
+    func startCovering()
 
-    func stopCovering(_ view: BaseBuilder?)
+    func stopCovering()
 
 }
