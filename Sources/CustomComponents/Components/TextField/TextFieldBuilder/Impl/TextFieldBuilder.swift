@@ -42,7 +42,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     @discardableResult
     public func setPlaceHolder(_ placeholder: String?) -> Self {
         guard let placeholder else {return self}
-        setPlaceHolderColor(color: .systemGray3)
+        setPlaceHolderColor(color: .lightGray)
         textField.attributedPlaceholder = NSAttributedString (
             string: placeholder,
             attributes: self.attributesPlaceholder)
