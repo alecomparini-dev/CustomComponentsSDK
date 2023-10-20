@@ -2,6 +2,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 open class BaseBuilder: NSObject {
     
@@ -95,6 +96,12 @@ open class BaseBuilder: NSObject {
     @discardableResult
     public func setShimmer(_ build: (_ build: ShimmerBuilder) -> ShimmerBuilder) -> Self {
         _ = build(ShimmerBuilder(component: baseView))
+        return self
+    }
+    
+    @discardableResult
+    public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
+        _ = build(SkeletonBuilder(component: baseView))
         return self
     }
     
