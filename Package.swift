@@ -22,7 +22,6 @@ let package = Package(
         .target(
             name: "CustomComponentsSDK",
             dependencies: [
-                "SkeletonView"
             ],
             path: "Sources/CustomComponents"
         ),

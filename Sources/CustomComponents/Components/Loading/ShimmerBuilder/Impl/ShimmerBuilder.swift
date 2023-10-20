@@ -234,7 +234,7 @@ public class LoadingShimmer: NSObject {
     }
 
     func currentViewController() -> UIViewController? {
-        let keyWindow: UIWindow? = UIApplication.shared.keyWindow
+        let keyWindow: UIWindow? = CurrentWindow.get
         var vc: UIViewController? = keyWindow?.rootViewController
         while ((vc?.presentedViewController) != nil) {
             vc = vc?.presentedViewController
