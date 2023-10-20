@@ -5,8 +5,6 @@
 import UIKit
 
 public class KeyboardConfigurationBuilder: KeyboardConfiguration {
-
-    
     static private let keyboardTypeWithOutReturn: [UIKeyboardType] = [.decimalPad, .asciiCapableNumberPad, .numberPad, .twitter, .phonePad]
     
     private(set) var completionReturnType: CompletionKeyboardAlias?
@@ -84,7 +82,20 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         return self
     }
 
+    @discardableResult
+    public func setTintColor(color: UIColor?) -> Self {
+        guard let color else {return self}
+        toolbar?.tintColor = color
+        return self
+    }
     
+    @discardableResult
+    public func setTintColor(hexColor: String?) -> Self {
+        guard let hexColor, hexColor.isHexColor() else {return self}
+        setTintColor(color: UIColor.HEX(hexColor))
+        return self
+    }
+
     
 //  MARK: - PRIVATE AREA
     private func createFixedSpace(_ space: CGFloat) -> UIBarButtonItem {
@@ -135,8 +146,11 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.items = []
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
-//        toolbar?.tintColor = self.textFieldBuilder?.get.textColor
-        toolbar?.tintColor = .red
+        if ThemeIOS.isDarkMode() {
+            setTintColor(color: .white)
+            return
+        }
+        setTintColor(color: self.textFieldBuilder?.get.textColor)
     }
     
     private func addToolbarOfTextField() {
