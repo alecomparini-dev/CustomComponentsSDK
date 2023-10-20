@@ -95,17 +95,18 @@ public class ProfileChooseSourceBuilder: BaseBuilder, ProfileChooseSource {
     }
     
     private func callCompletion(_ image: UIImage) {
-        let imageData: Data? = image.jpegData(compressionQuality: 1.0)
-        
+        let imgViewBuilder = ImageViewBuilder()
+        imgViewBuilder.get.image = image
+
         if Control.isOpenCamera {
             if let completionOpenCamera {
-                completionOpenCamera(imageData)
+                completionOpenCamera(imgViewBuilder)
             }
             return
         }
         
         if let completionOpenGallery {
-            completionOpenGallery(imageData)
+            completionOpenGallery(imgViewBuilder)
         }
         
     }
