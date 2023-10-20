@@ -16,11 +16,11 @@ public class ShimmerBuilder: BaseBuilder, Shimmer {
     
 
 //  MARK: - PUBLIC AREA
-    public func startCovering() {
+    public func startShimmer() {
         shimmer.coverSubviews(component, with: nil)
     }
     
-    public func stopCovering() {
+    public func stopShimmer() {
         shimmer.removeSubviews(component)
     }
     

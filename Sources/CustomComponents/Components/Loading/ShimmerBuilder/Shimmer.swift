@@ -5,8 +5,8 @@ import Foundation
 
 public protocol Shimmer {
     
-    func startCovering()
+    func startShimmer()
 
-    func stopCovering()
+    func stopShimmer()
 
 }
