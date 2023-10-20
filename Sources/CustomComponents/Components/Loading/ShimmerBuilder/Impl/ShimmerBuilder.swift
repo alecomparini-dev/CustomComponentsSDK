@@ -3,22 +3,25 @@
 
 import UIKit
 
-public class ShimmerBuilder: Shimmer {
+public class ShimmerBuilder: BaseBuilder, Shimmer {
     private let shimmer: LoadingShimmer
     
+    private weak var component: UIView?
     
-    public init() {
+    public init(component: UIView) {
         self.shimmer = LoadingShimmer.shared
+        self.component = component
+        super.init(component)
     }
     
 
 //  MARK: - PUBLIC AREA
-    public func startCovering(_ view: BaseBuilder?, with identifiers: [String]?) {
-        shimmer.coverSubviews(view?.baseView, with: nil)
+    public func startCovering() {
+        shimmer.coverSubviews(component, with: nil)
     }
     
-    public func stopCovering(_ view: BaseBuilder?) {
-        shimmer.removeSubviews(view?.baseView)
+    public func stopCovering() {
+        shimmer.removeSubviews(component)
     }
     
 }
