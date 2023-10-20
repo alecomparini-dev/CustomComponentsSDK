@@ -102,8 +102,16 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     @discardableResult
+    public func setImagePicture(_ image: UIImage) -> Self {
+        profileImage.get.image = image
+        return self
+    }
+    
+    @discardableResult
     public func setImagePicture(_ imageData: Data) -> Self {
-        profileImage.get.image = UIImage(data: imageData)
+        if let image = UIImage(data: imageData) {
+            setImagePicture(image)
+        }
         return self
     }
     
