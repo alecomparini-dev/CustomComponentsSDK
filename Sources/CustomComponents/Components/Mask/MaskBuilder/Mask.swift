@@ -9,6 +9,7 @@ public protocol Mask {
     
     func formatString(_ string: String) -> String
     func formatStringWithRange(range: NSRange, string: String) -> String
+    func cleanText() -> String
     
     @discardableResult
     func setCustomMask(_ mask: String) -> Self

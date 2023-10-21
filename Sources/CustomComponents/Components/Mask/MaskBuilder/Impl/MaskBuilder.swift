@@ -23,6 +23,10 @@ open class MaskBuilder: Mask {
         return tlCustomMask.formatStringWithRange(range: range, string: string)
     }
     
+    public func cleanText() -> String {
+        return tlCustomMask.cleanText
+    }
+    
     
 //  MARK: - SET PROPERTIES
     
@@ -143,7 +147,8 @@ public class TLCustomMask {
      * one for the pattern e.g: ["$","-","$"]
      * and one for the string e.g: ["1","a","2"]
      */
-    fileprivate func formatString(string: String) -> String{
+//    fileprivate func formatString(string: String) -> String{
+    public func formatString(string: String) -> String{
         // if there is no pattern, return string
         if self._formattingPattern.isEmpty{
             return string
@@ -199,12 +204,11 @@ public class TLCustomMask {
      * it will search for the first special character ($ or *)
      * and replace it with the user input e.g: 12-$$$$ -> 12-3$$$
      */
-    fileprivate func formatStringWithRange(range: NSRange, string: String) -> String {
+//    fileprivate func formatStringWithRange(range: NSRange, string: String) -> String {
+    public func formatStringWithRange(range: NSRange, string: String) -> String {
         //Detect backspace
         let char = string.cString(using: String.Encoding.utf8)!
         let isBackSpace = strcmp(char, "\\b")
-        
-        
         
         if (isBackSpace == -92) { //Backspace was pressed
             self.finalText = deleteLastChar()
@@ -270,7 +274,8 @@ public class TLCustomMask {
      * Cleans the string, removing the pattern
      * e.g: "123-4*-***" will return "123-4"
      */
-    private func removePatternFromString(string : String) -> String{
+//    private func removePatternFromString(string : String) -> String{
+    public func removePatternFromString(string : String) -> String{
         //let matches = regMatchGroup("-?((\\*.*)|(\\$.*))", text: self.finalText!)
         let matches = matchesForRegexInText(regex: "((-)|(\\()|(\\)))?(\\*.*)|(\\$.*)", text: self.finalText!)
         var finalString = string
