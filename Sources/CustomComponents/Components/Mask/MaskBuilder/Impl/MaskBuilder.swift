@@ -23,8 +23,8 @@ open class MaskBuilder: Mask {
         return tlCustomMask.formatStringWithRange(range: range, string: string)
     }
     
-    public func cleanText() -> String {
-        return tlCustomMask.cleanText
+    public func cleanText(_ text: String) -> String {
+        return tlCustomMask.cleanText(text)
     }
     
     
@@ -139,6 +139,11 @@ public class TLCustomMask {
     fileprivate init(formattingPattern : String = ""){
         self._formattingPattern = formattingPattern;
         self.finalText = self._formattingPattern
+    }
+    
+    
+    public func cleanText(_ text: String) -> String {
+        return alfanumericOnly(string: text)
     }
     
     /*
