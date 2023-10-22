@@ -41,7 +41,13 @@ open class LabelBuilder: BaseBuilder, Label {
         label.text = text
         return self
     }
-    
+
+    @discardableResult
+    public func setNumberOfLines(_ number: Int ) -> Self {
+        label.numberOfLines = number
+        return self
+    }
+
     @discardableResult
     public func setColor(color: UIColor?) -> Self {
         guard let color else {return self}
