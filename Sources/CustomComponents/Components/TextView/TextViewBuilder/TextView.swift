@@ -8,7 +8,7 @@ public protocol TextView {
     var get: T { get }
     
     @discardableResult
-    func setInsertText(_ text: String) -> Self
+    func setInsertText(_ text: String?) -> Self
     
     @discardableResult
     func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
@@ -35,5 +35,5 @@ public protocol TextView {
     func setClearText() -> Self
     
     @discardableResult
-    func setText(_ text: String) -> Self
+    func setText(_ text: String?) -> Self
 }
