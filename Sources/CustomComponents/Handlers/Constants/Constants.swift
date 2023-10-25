@@ -273,13 +273,25 @@ extension K {
 }
 
 
-//  MARK: - EXTENSION - SeparatorStyle
+//  MARK: - EXTENSION - ActivityIndicator
 
 extension K {
     public struct ActivityIndicator {
         public enum Style: Int {
             case medium = 100
             case large = 101
+        }
+    }
+}
+
+
+//  MARK: - EXTENSION - UISheetPresentationController
+
+extension K {
+    public struct SheetPresentationController {
+        public enum Detent {
+            case medium
+            case large
         }
     }
 }
