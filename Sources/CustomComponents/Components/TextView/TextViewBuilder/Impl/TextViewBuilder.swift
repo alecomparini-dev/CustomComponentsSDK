@@ -22,7 +22,8 @@ open class TextViewBuilder: BaseBuilder, TextView {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setInsertText(_ text: String) -> Self {
+    public func setInsertText(_ text: String?) -> Self {
+        guard let text else { return self }
         textView.insertText(text)
         let attributedText = NSAttributedString(string: textView.text, attributes: [
             .paragraphStyle: paragraphStyle,
@@ -101,7 +102,8 @@ open class TextViewBuilder: BaseBuilder, TextView {
     }
     
     @discardableResult
-    public func setText(_ text: String) -> Self {
+    public func setText(_ text: String?) -> Self {
+        guard let text else {return self}
         textView.text = text
         return self
     }
