@@ -7,7 +7,6 @@ import Foundation
 public protocol FormatterNumber {
     
     func formatter(double: Double) -> String?
-//    func formatter(string: String) -> Double
     
     func getLocaleAvailable() -> [String]
     
@@ -26,15 +25,5 @@ public protocol FormatterNumber {
     @discardableResult
     func setCurrentLocale() -> Self
             
-    
 }
 
-//en_US: Inglês (Estados Unidos)
-//en_GB: Inglês (Reino Unido)
-//fr_FR: Francês (França)
-//es_ES: Espanhol (Espanha)
-//de_DE: Alemão (Alemanha)
-//it_IT: Italiano (Itália)
-//ja_JP: Japonês (Japão)
-//pt_BR: Português (Brasil)
-//Locale.availableIdentifiers
