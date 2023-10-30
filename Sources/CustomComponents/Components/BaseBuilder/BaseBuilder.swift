@@ -24,7 +24,7 @@ open class BaseBuilder: NSObject {
     
     
 //  MARK: - GET PROPERTIES
-    public func getTag(_ tag: Int) -> Int { baseView.tag  }
+    public func getTag() -> Int { baseView.tag  }
 
     
 //  MARK: - SET PROPERTIES
