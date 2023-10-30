@@ -23,6 +23,10 @@ open class BaseBuilder: NSObject {
     }
     
     
+//  MARK: - GET PROPERTIES
+    public func getTag(_ tag: Int) -> Int { baseView.tag  }
+
+    
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setTranslatesAutoresizingMaskIntoConstraints(_ flag: Bool) -> Self {
@@ -105,6 +109,12 @@ open class BaseBuilder: NSObject {
         return self
     }
     
+    @discardableResult
+    public func setTag(_ tag: Int) -> Self {
+        baseView.tag = tag
+        return self
+    }
+        
     
 //  MARK: - CONSTRAINTS AREA
     
