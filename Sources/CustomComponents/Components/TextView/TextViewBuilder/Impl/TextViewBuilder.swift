@@ -109,6 +109,12 @@ open class TextViewBuilder: BaseBuilder, TextView {
     }
 
 
+//  MARK: - SET DELEGATE
+    @discardableResult
+    public func setDelegate(_ delegate: UITextViewDelegate) -> Self {
+        textView.delegate = delegate
+        return self
+    }
     
 //  MARK: - PRIVATE AREA
     private func configure() {
