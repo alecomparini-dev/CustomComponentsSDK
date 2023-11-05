@@ -121,7 +121,7 @@ open class TextViewBuilder: BaseBuilder, TextView {
     private func configure() {
         setLineSpacing(5)
         setPadding(top: 12)
-        disableDynamicContent()
+//        disableDynamicContent()
     }
     
     private func disableDynamicContent() {
