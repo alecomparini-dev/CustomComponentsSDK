@@ -66,6 +66,7 @@ open class TextViewBuilder: BaseBuilder, TextView {
     @discardableResult
     public func setSize(_ fontSize: CGFloat) -> Self {
         self.fontSize = fontSize
+        textView.font = UIFont.systemFont(ofSize: fontSize)
         let attributedText = NSAttributedString(string: textView.text, attributes: [
             .paragraphStyle: paragraphStyle,
             .font: UIFont.systemFont(ofSize: fontSize)
