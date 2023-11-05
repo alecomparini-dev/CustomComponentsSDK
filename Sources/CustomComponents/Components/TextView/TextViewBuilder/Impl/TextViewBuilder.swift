@@ -27,7 +27,7 @@ open class TextViewBuilder: BaseBuilder, TextView {
         textView.insertText(text)
         let attributedText = NSAttributedString(string: textView.text, attributes: [
             .paragraphStyle: paragraphStyle,
-//            .font: UIFont.systemFont(ofSize: fontSize ?? 17)
+            .font: UIFont.systemFont(ofSize: fontSize ?? 17)
         ])
         textView.attributedText = attributedText
         return self
