@@ -120,9 +120,9 @@ open class TextViewBuilder: BaseBuilder, TextView {
     
 //  MARK: - PRIVATE AREA
     private func configure() {
+        setBackgroundColor(hexColor: K.Default.backgroundColor)
         setLineSpacing(5)
         setPadding(top: 12)
-//        disableDynamicContent()
     }
     
     private func disableDynamicContent() {

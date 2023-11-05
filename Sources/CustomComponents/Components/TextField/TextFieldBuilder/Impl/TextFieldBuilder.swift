@@ -229,6 +229,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 //  MARK: - PRIVATE AREA
     
     private func configure() {
+        setBackgroundColor(hexColor: K.Default.backgroundColor)
         setPadding(K.Default.padding)
         configDelegate()
         TextFieldBuilder.hideKeyboardWhenViewTapped()

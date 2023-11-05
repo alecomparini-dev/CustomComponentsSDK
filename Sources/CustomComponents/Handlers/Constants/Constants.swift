@@ -6,6 +6,7 @@ import Foundation
 
 public struct K {
     public struct Default {
+        public static let backgroundColor: String = "#ffffff"
         public static let padding: CGFloat = 8
         public static let paddingWithImage: CGFloat = 8
         public static let weight: K.Weight = .medium
