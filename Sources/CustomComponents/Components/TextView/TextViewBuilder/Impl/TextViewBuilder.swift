@@ -116,10 +116,16 @@ open class TextViewBuilder: BaseBuilder, TextView {
         return self
     }
     
+    
 //  MARK: - PRIVATE AREA
     private func configure() {
         setLineSpacing(5)
         setPadding(top: 12)
+        disableDynamicContent()
+    }
+    
+    private func disableDynamicContent() {
+        textView.adjustsFontForContentSizeCategory = false
     }
     
 }

@@ -36,4 +36,5 @@ public protocol TextView {
     
     @discardableResult
     func setText(_ text: String?) -> Self
+    
 }
