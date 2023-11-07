@@ -107,6 +107,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setImagePicture(_ image: UIImage) -> Self {
+        profileImage.get.image = nil
         profileImage.setContentMode(.scaleAspectFill)
         profileImage.get.image = image
         return self
