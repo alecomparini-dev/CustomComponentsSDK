@@ -53,7 +53,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
                     .setTop.equalToSuperView
                     .setLeading.equalToSuperView
                     .setTrailing.equalToSuperView
-                    .setBottom.equalToSuperView(-50)
+                    .setBottom.equalToSafeArea(5)
             }
         return comp
     }()
