@@ -18,15 +18,13 @@ final class ProfilePictureBuilderPreview: UIView {
     
     lazy var profilePicture: ProfilePictureBuilder = {
         let img = ImageViewBuilder(systemName: "person")
-            .setContentMode(.center)
-            .setSize(30)
+            .setContentMode(.scaleAspectFill)
+            .setBackgroundColor(color: .yellow)
+//            .setSize(30)
             .setWeight(.ultraLight)
         let comp = ProfilePictureBuilder(size: 100, image: img )
-//        let comp = ProfilePictureBuilder(size: 100 )
             .setBackgroundColor(hexColor: "#ffffff")
             .setTintColor("#000000")
-//            .setSizePlaceHolderImage(10)
-//            .setCornerRadius(30)
             .setChooseSource(viewController: UIViewController(), { build in
                 build
                     .setOpenCamera { imageData in 
@@ -35,7 +33,6 @@ final class ProfilePictureBuilderPreview: UIView {
             })
             .setConstraints { build in
                 build
-//                    .setAlignmentCenterXY.equalToSafeArea
                     .setPin.equalToSafeArea
             }
         return comp
