@@ -50,10 +50,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             .setContentMode(.center)
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView
-                    .setLeading.equalToSuperView
-                    .setTrailing.equalToSuperView
-                    .setBottom.equalToSafeArea(5)
+                    .setTop.setBottom.equalToSafeArea(5)
+                    .setLeading.equalToSafeArea
             }
         return comp
     }()
