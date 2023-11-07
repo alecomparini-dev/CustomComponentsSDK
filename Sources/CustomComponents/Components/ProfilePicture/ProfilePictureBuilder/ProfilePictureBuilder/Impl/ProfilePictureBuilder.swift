@@ -22,7 +22,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         self.image = image
         super.init(profilePicture.get)
         configure()
-        setBackgroundColor(color: .yellow)
+        setBackgroundColor(color: .black)
+        self.setBorder { build in
+            build.setWidth(0)
+        }
     }
     
     public convenience init(size: CGFloat) {
@@ -37,7 +40,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     lazy public var backgroundView: ViewBuilder = {
         guard let size else { return ViewBuilder() }
         let comp = ViewBuilder()
-            .setBackgroundColor(color: .red)
             .setConstraints { build in
                 build
                     .setAlignmentCenterXY.equalToSuperView
@@ -107,7 +109,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public func setImagePicture(_ image: UIImage) -> Self {
         profileImage.setContentMode(.scaleAspectFill)
         profileImage.get.image = image
-        profileImage.get.layoutIfNeeded()
         return self
     }
     
