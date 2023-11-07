@@ -27,11 +27,13 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder, TextFieldPassword {
     
     
 //  MARK: - SET PROPERTIES
+    @discardableResult
     public func setCloseEye() -> Self {
         closeEye()
         return self
     }
     
+    @discardableResult
     public func setOpenEye() -> Self {
         openEye()
         return self
