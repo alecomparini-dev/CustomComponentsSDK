@@ -50,7 +50,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             .setContentMode(.center)
             .setConstraints { build in
                 build
-                    .setTop.setBottom.equalToSafeArea(5)
+                    .setTop.setBottom.equalToSafeArea(50)
                     .setLeading.setTrailing.equalToSafeArea
             }
         return comp
