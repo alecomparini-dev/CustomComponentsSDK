@@ -38,7 +38,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-                    .setAlignmentCenterXY.equalToSafeArea
+                    .setAlignmentCenterXY.equalToSuperView
                     .setSize.equalToConstant(size)
             }
         return comp
@@ -49,7 +49,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             .setContentMode(.center)
             .setConstraints { build in
                 build
-                    .setPin.equalToSafeArea
+                    .setPin.equalToSuperView
             }
         return comp
     }()
