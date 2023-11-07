@@ -51,7 +51,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSafeArea(5)
-                    .setLeading.equalToSafeArea
+                    .setLeading.setTrailing.equalToSafeArea
             }
         return comp
     }()
