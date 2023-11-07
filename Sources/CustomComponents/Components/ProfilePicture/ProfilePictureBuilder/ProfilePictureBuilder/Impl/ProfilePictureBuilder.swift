@@ -36,6 +36,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     lazy public var backgroundView: ViewBuilder = {
         guard let size else { return ViewBuilder() }
         let comp = ViewBuilder()
+            .setBackgroundColor(color: .red)
             .setConstraints { build in
                 build
                     .setAlignmentCenterXY.equalToSuperView
@@ -49,7 +50,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             .setContentMode(.center)
             .setConstraints { build in
                 build
-                    .setPin.equalToSuperView
+                    .setPin.equalToSuperView(-10)
             }
         return comp
     }()
