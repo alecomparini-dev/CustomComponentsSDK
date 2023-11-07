@@ -46,7 +46,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     lazy public var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
-//            .setContentMode(.center)
+            .setContentMode(.center)
             .setConstraints { build in
                 build
                     .setPin.equalToSafeArea
@@ -103,9 +103,9 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setImagePicture(_ image: UIImage) -> Self {
+        profileImage.setContentMode(.scaleAspectFit)
         profileImage.get.image = image
-        profileImage.get.contentMode = .scaleAspectFill
-//        profileImage.setContentMode(.scaleAspectFill)
+        profileImage.get.layoutIfNeeded()
         return self
     }
     
