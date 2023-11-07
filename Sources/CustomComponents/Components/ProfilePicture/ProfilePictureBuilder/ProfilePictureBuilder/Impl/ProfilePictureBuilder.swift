@@ -46,10 +46,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     lazy public var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
-            .setContentMode(.center)
+//            .setContentMode(.center)
             .setConstraints { build in
                 build
-                    .setPin.equalToSuperView
+                    .setPin.equalToSafeArea
             }
         return comp
     }()
@@ -103,9 +103,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setImagePicture(_ image: UIImage) -> Self {
-        profileImage.get.image = nil
-        profileImage.setContentMode(.scaleAspectFill)
         profileImage.get.image = image
+        profileImage.setContentMode(.scaleAspectFill)
         return self
     }
     
@@ -116,7 +115,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         }
         return self
     }
-    
     
     
 //  MARK: - OVERRIDE PROPERTIES AREA
