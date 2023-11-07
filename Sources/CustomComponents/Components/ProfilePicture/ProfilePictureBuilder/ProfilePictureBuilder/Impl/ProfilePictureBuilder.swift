@@ -47,10 +47,13 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     lazy public var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
-            .setContentMode(.scaleAspectFill)
+            .setContentMode(.center)
             .setConstraints { build in
                 build
-                    .setPin.equalTo(backgroundView.get)
+                    .setTop.equalToSuperView
+                    .setLeading.equalToSuperView
+                    .setTrailing.equalToSuperView
+                    .setBottom.equalToSuperView
             }
         return comp
     }()
