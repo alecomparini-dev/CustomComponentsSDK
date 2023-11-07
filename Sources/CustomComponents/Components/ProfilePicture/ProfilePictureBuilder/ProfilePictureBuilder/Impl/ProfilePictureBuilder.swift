@@ -22,6 +22,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         self.image = image
         super.init(profilePicture.get)
         configure()
+        setBackgroundColor(color: .yellow)
     }
     
     public convenience init(size: CGFloat) {
