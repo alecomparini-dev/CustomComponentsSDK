@@ -50,7 +50,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
             .setContentMode(.center)
             .setConstraints { build in
                 build
-                    .setPin.equalToSuperView(-10)
+                    .setPin.equalTo(backgroundView.get)
             }
         return comp
     }()
