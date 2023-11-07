@@ -3,7 +3,7 @@
 
 import UIKit
 
-open class TextFieldPasswordBuilder: TextFieldImageBuilder {
+open class TextFieldPasswordBuilder: TextFieldImageBuilder, TextFieldPassword {
     
     private let paddingRightImage: CGFloat
     
@@ -26,6 +26,18 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
     }
     
     
+//  MARK: - SET PROPERTIES
+    public func setCloseEye() -> Self {
+        closeEye()
+        return self
+    }
+    
+    public func setOpenEye() -> Self {
+        openEye()
+        return self
+    }
+    
+    
 //  MARK: - PRIVATE AREA
 
     private func configure() {
@@ -39,18 +51,27 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder {
                 build
                     .setTap { [weak self] component, tapGesture in
                         guard let self else {return}
-                        self.openCloseEyes(component as! ImageViewBuilder )
+                        self.openCloseEyes()
                     }
             }
     }
     
-    private func openCloseEyes(_ imageView: ImageViewBuilder) {
-        var systemName = K.Images.eyeSlash
+    private func openCloseEyes() {
         if super.get.isSecureTextEntry {
-            systemName = K.Images.eye
+            openEye()
+            return
         }
-        setImage(ImageViewBuilder(systemName: systemName), .right, paddingRightImage)
-        setIsSecureText(!super.get.isSecureTextEntry)
+        closeEye()
+    }
+    
+    private func openEye() {
+        setImage(ImageViewBuilder(systemName: K.Images.eye), .right, paddingRightImage)
+        setIsSecureText(false)
+    }
+    
+    private func closeEye() {
+        setImage(ImageViewBuilder(systemName: K.Images.eyeSlash), .right, paddingRightImage)
+        setIsSecureText(true)
     }
     
 }
