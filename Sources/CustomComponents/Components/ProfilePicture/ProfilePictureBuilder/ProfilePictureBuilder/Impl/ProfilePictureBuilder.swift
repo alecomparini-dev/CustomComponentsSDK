@@ -37,17 +37,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
 //  MARK: - LAZY AREA
     
-    lazy public var backgroundView: ViewBuilder = {
-        guard let size else { return ViewBuilder() }
-        let comp = ViewBuilder()
-            .setConstraints { build in
-                build
-                    .setAlignmentCenterXY.equalToSuperView
-                    .setSize.equalToConstant(size)
-            }
-        return comp
-    }()
-
     lazy public var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
             .setContentMode(.center)
@@ -71,7 +60,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     @discardableResult
     public func setCornerRadius(_ radius: CGFloat) -> Self {
         DispatchQueue.main.async { [weak self] in
-            self?.backgroundView.setBorder { build in
+            self?.profileImage.setBorder { build in
                 build
                     .setCornerRadius(radius)
             }
@@ -81,8 +70,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     @discardableResult
     public func setSizePlaceHolderImage(_ size: CGFloat) -> Self {
-        let img = profileImage.setSize(size)
-        profileImage.get.image = img.get.image
+        profileImage.setSize(size)
         return self
     }
     
@@ -125,7 +113,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public override func setBackgroundColor(hexColor: String?) -> Self {
-        backgroundView.setBackgroundColor(hexColor: hexColor)
+        profileImage.setBackgroundColor(hexColor: hexColor)
         return self
     }
     
@@ -140,12 +128,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func addElements() {
-        backgroundView.add(insideTo: profilePicture.get)
-        profileImage.add(insideTo: backgroundView.get)
+        profileImage.add(insideTo: profilePicture.get)
     }
     
     private func configConstraints() {
-        backgroundView.applyConstraint()
         profileImage.applyConstraint()
     }
     
@@ -154,7 +140,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func configTapGesture() {
-        TapGestureBuilder(backgroundView)
+        TapGestureBuilder(profileImage)
             .setTap { [weak self] tapGesture in
                 self?.chooseSource?.show()
             }
