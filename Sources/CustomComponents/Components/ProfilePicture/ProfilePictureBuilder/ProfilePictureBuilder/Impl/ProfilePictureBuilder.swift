@@ -7,9 +7,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public typealias T = UIView
     public var get: UIView { self.profilePicture.get }
     
-    private var chooseSource: ProfileChooseSourceBuilder?
     private let size: CGFloat
     private var image: ImageViewBuilder?
+
+    private weak var chooseSource: ProfileChooseSourceBuilder?
     
     private let profilePicture: ViewBuilder
     
@@ -85,6 +86,12 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     @discardableResult
     public func setChooseSource(viewController: UIViewController, _ builder: (_ build: ProfileChooseSourceBuilder) -> ProfileChooseSourceBuilder) -> Self {
         chooseSource = builder(ProfileChooseSourceBuilder(viewController: viewController, profilePicture: self ))
+        return self
+    }
+    
+    @discardableResult
+    public func setChooseSource(profileChooseSourceBuilder: ProfileChooseSourceBuilder) -> Self {
+        chooseSource = profileChooseSourceBuilder
         return self
     }
     
