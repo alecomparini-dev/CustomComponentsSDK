@@ -84,7 +84,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setChooseSource(viewController: UIViewController, _ builder: (_ build: ProfileChooseSourceBuilder) -> ProfileChooseSourceBuilder) -> Self {
-        chooseSource = builder(ProfileChooseSourceBuilder(viewController: viewController, profilePicture: self ))
+//        chooseSource = builder(ProfileChooseSourceBuilder(viewController: viewController, profilePicture: self ))
         return self
     }
     
@@ -135,10 +135,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func configTapGesture() {
-//        TapGestureBuilder(profileImage)
-//            .setTap { [weak self] tapGesture in
-//                self?.chooseSource?.show()
-//            }
+        TapGestureBuilder(profileImage)
+            .setTap { [weak self] tapGesture in
+                self?.chooseSource?.show()
+            }
     }
 
 }
