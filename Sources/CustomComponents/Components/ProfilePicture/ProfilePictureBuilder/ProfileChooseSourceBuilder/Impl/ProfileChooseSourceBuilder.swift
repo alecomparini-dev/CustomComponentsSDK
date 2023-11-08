@@ -6,7 +6,7 @@ import UIKit
 open class ProfileChooseSourceBuilder:  ProfileChooseSource {
     
     private var alert: UIAlertController?
-    private var imagePicker:UIImagePickerController?
+    private var imagePicker:UIImagePickerController? = UIImagePickerController()
     
     private struct Control {
         static var isOpenCamera = false
