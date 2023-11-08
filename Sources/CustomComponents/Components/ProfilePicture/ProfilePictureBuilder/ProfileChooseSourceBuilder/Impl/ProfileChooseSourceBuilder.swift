@@ -3,7 +3,7 @@
 
 import UIKit
 
-public class ProfileChooseSourceBuilder:  ProfileChooseSource {
+open class ProfileChooseSourceBuilder:  ProfileChooseSource {
     
     private var alert: UIAlertController = UIAlertController()
     private let imagePicker = UIImagePickerController()
