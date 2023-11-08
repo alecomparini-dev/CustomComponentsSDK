@@ -152,7 +152,8 @@ open class ShadowBuilder: Shadow {
         if isBringToFront {
             shadowAt = UInt32(component.layer.sublayers?.filter({ $0.shadowOpacity > .zero }).count ?? .zero)
         }
-        component.layer.insertSublayer(self.shadow, at: self.shadowAt)
+//        component.layer.insertSublayer(shadow, at: shadowAt)
+        component.layer.addSublayer(shadow)
     }
     
     private func configure() {
