@@ -117,12 +117,11 @@ public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
 extension ProfileChooseSourceBuilder: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     public func imagePickerController(_ picker: UIImagePickerController,  didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        profilePicture?.profileImage.setContentMode(.scaleAspectFill)
-        
+                
         guard let image = info[.originalImage] as? UIImage else { return }
         
-        profilePicture?.profileImage.get.image = image
+//        profilePicture?.profileImage.get.image = image
+        profilePicture?.setImagePicture(image)
         
         picker.dismiss(animated: true, completion: nil)
         
