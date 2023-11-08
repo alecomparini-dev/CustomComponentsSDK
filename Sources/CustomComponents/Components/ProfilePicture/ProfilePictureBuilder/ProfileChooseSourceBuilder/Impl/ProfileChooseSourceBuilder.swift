@@ -5,7 +5,7 @@ import UIKit
 
 public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
     
-    private var alert: UIAlertController!
+    private var alert: UIAlertController = UIAlertController()
     private let imagePicker = UIImagePickerController()
     
     private struct Control {
@@ -21,7 +21,7 @@ public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
         self.viewController = viewController
         self.profilePicture = profilePicture
         super.init()
-        configure()
+//        configure()
     }
     
 
