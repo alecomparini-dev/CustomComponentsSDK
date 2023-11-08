@@ -39,14 +39,17 @@ public extension UIView {
                             cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
     }
     
+//  MARK: - SHADOWS
     func removeShadowByID(_ id: String) {
         if let layerToRemove = self.layer.sublayers?.first(where: { $0.name == id }) {
             layerToRemove.removeFromSuperlayer()
         }
     }
     
-    func hasShadow() -> Bool {
-        return (self.layer.sublayers?.filter({ $0.shadowOpacity > 0 }).count ?? 0) > 0
+    func countShadows() -> Int {
+        return self.layer.sublayers?.filter({ $0.shadowOpacity > 0 }).count ?? 0
     }
+    
+    func hasShadow() -> Bool { return countShadows() > 0 }
 }
 
