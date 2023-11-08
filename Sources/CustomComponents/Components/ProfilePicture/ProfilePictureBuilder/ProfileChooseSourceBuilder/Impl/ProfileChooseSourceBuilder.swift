@@ -14,8 +14,8 @@ open class ProfileChooseSourceBuilder:  ProfileChooseSource {
 //    private var completionOpenCamera: ProfileChooseSource.completion?
 //    private var completionOpenGallery: ProfileChooseSource.completion?
     
-    private weak var viewController: UIViewController?
-    private weak var profilePicture: ProfilePictureBuilder?
+//    private weak var viewController: UIViewController?
+//    private weak var profilePicture: ProfilePictureBuilder?
     
     public init(viewController: UIViewController?, profilePicture: ProfilePictureBuilder?) {
 //        self.viewController = viewController
@@ -57,8 +57,8 @@ open class ProfileChooseSourceBuilder:  ProfileChooseSource {
     
 
 //  MARK: - SHOW ALERT
-    func show() {
-        viewController?.present(alert, animated: true, completion: nil)
+    public func show() {
+//        viewController?.present(alert, animated: true, completion: nil)
     }
     
     
@@ -75,7 +75,7 @@ open class ProfileChooseSourceBuilder:  ProfileChooseSource {
         imagePicker.allowsEditing = false
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.sourceType = .camera
-            viewController?.present(imagePicker, animated: true, completion: nil)
+//            viewController?.present(imagePicker, animated: true, completion: nil)
             return
         }
     }
@@ -84,7 +84,7 @@ open class ProfileChooseSourceBuilder:  ProfileChooseSource {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
-            viewController?.present(imagePicker, animated: true, completion: nil)
+//            viewController?.present(imagePicker, animated: true, completion: nil)
             return
         }
     }
