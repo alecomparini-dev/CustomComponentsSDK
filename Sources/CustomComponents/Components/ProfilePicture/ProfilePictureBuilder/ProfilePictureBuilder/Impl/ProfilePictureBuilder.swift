@@ -63,7 +63,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         DispatchQueue.main.async { [weak self] in
             self?.profileImage.setBorder { build in
                 build
-                    .setCornerRadius(radius)
+                    .setCornerRadius((self?.get.layer.frame.width ?? 0) / 2)
             }
         }
         return self
