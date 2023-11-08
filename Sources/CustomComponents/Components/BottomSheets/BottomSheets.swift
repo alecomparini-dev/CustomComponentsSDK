@@ -5,8 +5,7 @@ import Foundation
 
 public protocol BottomSheets {
     
-    
-    func setDetents(_ detent: K.SheetPresentationController.Detent) -> Self
+    func setDetents(_ detents: [K.SheetPresentationController.Detent]) -> Self
     
     func setScrollingExpandsWhenScrolledToEdge(_ flag: Bool) -> Self
     
