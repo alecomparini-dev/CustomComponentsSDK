@@ -115,7 +115,7 @@ open class BaseBuilder: NSObject {
     }
 
     @discardableResult
-    func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
+    public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
         _ = build(ShadowBuilder(baseView))
         return self
     }
