@@ -107,6 +107,7 @@ open class ShadowBuilder: Shadow {
     @discardableResult
     public func apply() -> Self {
         component?.layer.shadowColor = shadow.shadowColor
+        component?.layer.shadowRadius = shadow.shadowRadius
         component?.layer.shadowOpacity = shadow.opacity
         component?.layer.shadowOffset = shadow.shadowOffset
         DispatchQueue.main.async { [weak self] in
