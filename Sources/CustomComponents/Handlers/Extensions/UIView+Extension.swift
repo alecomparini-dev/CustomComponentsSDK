@@ -26,5 +26,27 @@ public extension UIView {
         tap.cancelsTouchesInView = false
         self.addGestureRecognizer(tap)
     }
+    
+    func replicateFormat( width: CGFloat? = nil, height: CGFloat? = nil, cornerRadius: CGFloat? = nil ) -> UIBezierPath {
+        let replicateWidth = width ?? self.frame.width
+        let replicateHeight = height ?? self.frame.height
+        let replicateCornerRadius = cornerRadius ?? self.layer.cornerRadius
+        
+        return UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: 0, y: 0),
+                                                size: CGSize(width: replicateWidth,
+                                                             height: replicateHeight)),
+                            byRoundingCorners: self.layer.maskedCorners.toRectCorner ,
+                            cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
+    }
+    
+    func removeShadowByID(_ id: String) {
+        if let layerToRemove = self.layer.sublayers?.first(where: { $0.name == id }) {
+            layerToRemove.removeFromSuperlayer()
+        }
+    }
+    
+    func hasShadow() -> Bool {
+        return (self.layer.sublayers?.filter({ $0.shadowOpacity > 0 }).count ?? 0) > 0
+    }
 }
 
