@@ -109,9 +109,15 @@ open class ShadowBuilder: Shadow {
         self.insertSubLayer()
         DispatchQueue.main.async { [weak self] in
             guard let self, let component else {return}
+            
             shadow.frame = component.bounds
-            shadow.shadowPath = calculateShadowPath()
+//            shadow.shadowPath = calculateShadowPath()
+            component.layer.shadowPath = calculateShadowPath()
+            component.layer.shadowOpacity = shadow.opacity
+            component.layer.shadowOffset = shadow.shadowOffset
         }
+        
+        
         return self
     }
     
@@ -133,27 +139,22 @@ open class ShadowBuilder: Shadow {
     
     private func getShadowHeight() -> CGFloat {
         guard let component else {return .zero}
-        if let shadowHeight {
-            return shadowHeight
-        }
+        if let shadowHeight { return shadowHeight }
         return component.frame.height
     }
     
     private func getShadowWidth() -> CGFloat {
         guard let component else {return .zero}
-        if let shadowWidth {
-            return shadowWidth
-        }
+        if let shadowWidth { return shadowWidth }
         return component.frame.width
     }
     
     private func insertSubLayer() {
         guard let component else {return }
         if isBringToFront {
-            shadowAt = UInt32(component.layer.sublayers?.filter({ $0.shadowOpacity > .zero }).count ?? .zero)
+            shadowAt = UInt32(component.countShadows())
         }
-//        component.layer.insertSublayer(shadow, at: shadowAt)
-        component.layer.addSublayer(shadow)
+        component.layer.insertSublayer(shadow, at: shadowAt)
     }
     
     private func configure() {
