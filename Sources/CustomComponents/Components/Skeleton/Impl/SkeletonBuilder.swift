@@ -17,14 +17,8 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
     
     
     
-    
-    private func configSkeleton() {
-//        cpfTextField.get.isSkeletonable = true
-//        cpfTextField.get.showAnimatedGradientSkeleton()
-//        cpfLabelText.get.isSkeletonable = true
-//        cpfLabelText.get.showAnimatedGradientSkeleton()
-        
-//
+//    
+//    private func configSkeleton() {
 //        let skeleton = ViewBuilder()
 //            .setBackgroundColor(color: .lightGray)
 //            .setConstraints { build in
@@ -34,7 +28,7 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
 //                    .setHeight.equalToConstant(50)
 //            }
 //
-//        skeleton.add(insideTo: self.contentView)
+//        skeleton.add(insideTo: self)
 //        skeleton.applyConstraint()
 //
 //        let skeletonLayer = UIView(frame: CGRect(origin: CGPoint(x: -50, y: 0), size: CGSize(width: 50, height: 50)))
@@ -47,10 +41,10 @@ open class SkeletonBuilder: BaseBuilder, Skeleton {
 //        UIView.animate(withDuration: 1.5, delay: 0, options: [.curveLinear, .repeat], animations: { [self] in
 //            skeletonLayer.frame.origin.x = 250
 //        }, completion: nil)
-        
-    }
-    
-    
+//        
+//    }
+//    
+
     
     
     

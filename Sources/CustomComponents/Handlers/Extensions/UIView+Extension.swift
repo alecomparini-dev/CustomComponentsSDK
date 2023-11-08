@@ -8,8 +8,8 @@ import SwiftUI
 //  MARK: - PREVIEW UIVIEW ON SWIFTUI
 
 public extension UIView {
+    
     private struct SwiftUIViewWrapper: UIViewRepresentable {
-        typealias UIViewType = UIView
         let view: UIView
         
         func makeUIView(context: Context) -> UIView { view }
