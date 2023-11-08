@@ -112,10 +112,11 @@ open class ShadowBuilder: Shadow {
             
             shadow.frame = component.bounds
 //            shadow.shadowPath = calculateShadowPath()
+            
             component.layer.shadowPath = calculateShadowPath()
-//            component.layer.shadowColor = shadow.shadowColor
-//            component.layer.shadowOpacity = shadow.opacity
-//            component.layer.shadowOffset = shadow.shadowOffset
+            component.layer.shadowColor = shadow.shadowColor
+            component.layer.shadowOpacity = shadow.opacity
+            component.layer.shadowOffset = shadow.shadowOffset
         }
         
         
