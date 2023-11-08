@@ -11,15 +11,15 @@ public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
     private struct Control {
         static var isOpenCamera = false
     }
-    private var completionOpenCamera: ProfileChooseSource.completion?
-    private var completionOpenGallery: ProfileChooseSource.completion?
+//    private var completionOpenCamera: ProfileChooseSource.completion?
+//    private var completionOpenGallery: ProfileChooseSource.completion?
     
     private weak var viewController: UIViewController?
     private weak var profilePicture: ProfilePictureBuilder?
     
     public init(viewController: UIViewController, profilePicture: ProfilePictureBuilder) {
-        self.viewController = viewController
-        self.profilePicture = profilePicture
+//        self.viewController = viewController
+//        self.profilePicture = profilePicture
         super.init()
 //        configure()
     }
@@ -36,7 +36,7 @@ public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
     public func setOpenCamera(_ title: String? = nil, completion: completion?) -> Self {
         let cameraAction = UIAlertAction(title: title ?? "Camera", style: .default) { [weak self] _ in
             self?.openCamera()
-            self?.completionOpenCamera = completion
+//            self?.completionOpenCamera = completion
             Control.isOpenCamera = true
         }
         alert.addAction(cameraAction)
@@ -47,7 +47,7 @@ public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
     public func setOpenGallery(_ title: String? = nil, completion: completion?) -> Self {
         let galleryAction = UIAlertAction(title: title ?? "Gallery", style: .default) { [weak self] _ in
             self?.openGallery()
-            self?.completionOpenGallery = completion
+//            self?.completionOpenGallery = completion
             Control.isOpenCamera = false
         }
         alert.addAction(galleryAction)
@@ -57,7 +57,6 @@ public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
     
 
 //  MARK: - SHOW ALERT
-
     func show() {
         viewController?.present(alert, animated: true, completion: nil)
     }
@@ -69,7 +68,7 @@ public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
         self.alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
-        imagePicker.delegate = self
+//        imagePicker.delegate = self
     }
     
     private func openCamera() {
@@ -99,35 +98,35 @@ public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
         imgViewBuilder.get.image = image
 
         if Control.isOpenCamera {
-            if let completionOpenCamera {
-                completionOpenCamera(imgViewBuilder)
-            }
+//            if let completionOpenCamera {
+//                completionOpenCamera(imgViewBuilder)
+//            }
             return
         }
         
-        if let completionOpenGallery {
-            completionOpenGallery(imgViewBuilder)
-        }
+//        if let completionOpenGallery {
+//            completionOpenGallery(imgViewBuilder)
+//        }
         
     }
     
 }
 
-//  MARK: - EXTENSION UIImagePickerControllerDelegate
-extension ProfileChooseSourceBuilder: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    public func imagePickerController(_ picker: UIImagePickerController,  didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-                
-        guard let image = info[.originalImage] as? UIImage else { return }
-        
-//        profilePicture?.profileImage.get.image = image
-        profilePicture?.setImagePicture(image)
-        
-        picker.dismiss(animated: true, completion: nil)
-        
-        callCompletion(image)
-        
-        resetControl()
-    }
-    
-}
+////  MARK: - EXTENSION UIImagePickerControllerDelegate
+//extension ProfileChooseSourceBuilder: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//    
+//    public func imagePickerController(_ picker: UIImagePickerController,  didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//                
+//        guard let image = info[.originalImage] as? UIImage else { return }
+//        
+////        profilePicture?.profileImage.get.image = image
+//        profilePicture?.setImagePicture(image)
+//        
+//        picker.dismiss(animated: true, completion: nil)
+//        
+//        callCompletion(image)
+//        
+//        resetControl()
+//    }
+//    
+//}
