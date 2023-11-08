@@ -22,10 +22,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         self.image = image
         super.init(profilePicture.get)
         configure()
-        setBackgroundColor(color: .black)
-        self.setBorder { build in
-            build.setWidth(0)
-        }
     }
     
     public convenience init(size: CGFloat) {
