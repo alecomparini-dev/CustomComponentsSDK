@@ -7,6 +7,8 @@ import SkeletonView
 open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
+    private(set) var shadow: ShadowBuilder?
+    
     private weak var _baseView: UIView?
     
     //  MARK: - GET Properties
@@ -116,7 +118,7 @@ open class BaseBuilder: NSObject {
 
     @discardableResult
     public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
-        _ = build(ShadowBuilder(baseView))
+        shadow = build(ShadowBuilder(baseView))
         return self
     }
     
