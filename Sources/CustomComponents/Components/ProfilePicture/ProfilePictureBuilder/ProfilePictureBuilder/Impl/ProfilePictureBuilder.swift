@@ -90,7 +90,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     @discardableResult
-    public func setChooseSource(profileChooseSourceBuilder: ProfileChooseSourceBuilder) -> Self {
+    public func setChooseSource(profileChooseSourceBuilder: ProfileChooseSourceBuilder?) -> Self {
         chooseSource = profileChooseSourceBuilder
         return self
     }
