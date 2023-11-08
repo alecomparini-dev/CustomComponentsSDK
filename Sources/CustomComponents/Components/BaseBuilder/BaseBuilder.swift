@@ -42,12 +42,6 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    public func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
-        _ = build(BorderBuilder(baseView))
-        return self
-    }
-    
-    @discardableResult
     public func setBackgroundColor(color: UIColor?) -> Self {
         guard let color else {return self}
         baseView.backgroundColor = color
@@ -67,7 +61,6 @@ open class BaseBuilder: NSObject {
         setBackgroundColor(color: namedColor)
         return self
     }
-    
     
     @discardableResult
     func setIsUserInteractionEnabled(_ interactionEnabled: Bool?) -> Self {
@@ -114,7 +107,19 @@ open class BaseBuilder: NSObject {
         baseView.tag = tag
         return self
     }
-        
+    
+    @discardableResult
+    public func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
+        _ = build(BorderBuilder(baseView))
+        return self
+    }
+
+    @discardableResult
+    func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
+        _ = build(ShadowBuilder(baseView))
+        return self
+    }
+    
     
 //  MARK: - CONSTRAINTS AREA
     
