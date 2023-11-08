@@ -3,7 +3,7 @@
 
 import UIKit
 
-public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
+public class ProfileChooseSourceBuilder:  ProfileChooseSource {
     
     private var alert: UIAlertController = UIAlertController()
     private let imagePicker = UIImagePickerController()
@@ -17,10 +17,10 @@ public class ProfileChooseSourceBuilder: NSObject , ProfileChooseSource {
     private weak var viewController: UIViewController?
     private weak var profilePicture: ProfilePictureBuilder?
     
-    public init(viewController: UIViewController, profilePicture: ProfilePictureBuilder) {
+    public init(viewController: UIViewController?, profilePicture: ProfilePictureBuilder?) {
 //        self.viewController = viewController
 //        self.profilePicture = profilePicture
-        super.init()
+//        super.init()
 //        configure()
     }
     
