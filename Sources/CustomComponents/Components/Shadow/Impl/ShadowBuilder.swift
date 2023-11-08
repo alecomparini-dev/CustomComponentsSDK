@@ -106,15 +106,16 @@ open class ShadowBuilder: Shadow {
     
     @discardableResult
     public func apply() -> Self {
-        self.insertSubLayer()
+//        self.insertSubLayer()
         DispatchQueue.main.async { [weak self] in
             guard let self, let component else {return}
             
             shadow.frame = component.bounds
 //            shadow.shadowPath = calculateShadowPath()
             component.layer.shadowPath = calculateShadowPath()
-            component.layer.shadowOpacity = shadow.opacity
-            component.layer.shadowOffset = shadow.shadowOffset
+//            component.layer.shadowColor = shadow.shadowColor
+//            component.layer.shadowOpacity = shadow.opacity
+//            component.layer.shadowOffset = shadow.shadowOffset
         }
         
         
