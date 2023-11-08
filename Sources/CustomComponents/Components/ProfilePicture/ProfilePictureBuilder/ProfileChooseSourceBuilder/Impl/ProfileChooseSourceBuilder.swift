@@ -5,8 +5,8 @@ import UIKit
 
 open class ProfileChooseSourceBuilder:  ProfileChooseSource {
     
-    private var alert: UIAlertController = UIAlertController()
-    private let imagePicker = UIImagePickerController()
+    private var alert: UIAlertController?
+    private var imagePicker:UIImagePickerController?
     
     private struct Control {
         static var isOpenCamera = false
@@ -28,7 +28,7 @@ open class ProfileChooseSourceBuilder:  ProfileChooseSource {
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setTitle(_ title: String) -> Self {
-        alert.title = title
+        alert?.title = title
         return self
     }
     
@@ -39,7 +39,7 @@ open class ProfileChooseSourceBuilder:  ProfileChooseSource {
 //            self?.completionOpenCamera = completion
             Control.isOpenCamera = true
         }
-        alert.addAction(cameraAction)
+        alert?.addAction(cameraAction)
         return self
     }
     
@@ -50,7 +50,7 @@ open class ProfileChooseSourceBuilder:  ProfileChooseSource {
 //            self?.completionOpenGallery = completion
             Control.isOpenCamera = false
         }
-        alert.addAction(galleryAction)
+        alert?.addAction(galleryAction)
         return self
     }
     
@@ -67,14 +67,14 @@ open class ProfileChooseSourceBuilder:  ProfileChooseSource {
     private func configure() {
         self.alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
+        alert?.addAction(cancelAction)
 //        imagePicker.delegate = self
     }
     
     private func openCamera() {
-        imagePicker.allowsEditing = false
+        imagePicker?.allowsEditing = false
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker.sourceType = .camera
+            imagePicker?.sourceType = .camera
 //            viewController?.present(imagePicker, animated: true, completion: nil)
             return
         }
@@ -82,8 +82,8 @@ open class ProfileChooseSourceBuilder:  ProfileChooseSource {
     
     private func openGallery() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.allowsEditing = false
+            imagePicker?.sourceType = .photoLibrary
+            imagePicker?.allowsEditing = false
 //            viewController?.present(imagePicker, animated: true, completion: nil)
             return
         }
