@@ -88,13 +88,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         chooseSource = builder(ProfileChooseSourceBuilder(viewController: viewController, profilePicture: self ))
         return self
     }
-    
-    @discardableResult
-    public func setChooseSource(profileChooseSourceBuilder: ProfileChooseSourceBuilder?) -> Self {
-        chooseSource = profileChooseSourceBuilder
-        return self
-    }
-    
+        
     @discardableResult
     public func setImagePicture(_ image: UIImage) -> Self {
         profileImage.get.image = image
