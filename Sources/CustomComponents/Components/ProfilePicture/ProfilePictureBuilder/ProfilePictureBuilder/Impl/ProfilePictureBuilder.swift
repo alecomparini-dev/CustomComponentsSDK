@@ -56,12 +56,12 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     @discardableResult
     public func setCornerRadius(_ radius: CGFloat) -> Self {
-        DispatchQueue.main.async { [weak self] in
-            self?.profileImage.setBorder { build in
+//        DispatchQueue.main.async { [weak self] in
+            self.profileImage.setBorder { build in
                 build
                     .setCornerRadius(radius)
             }
-        }
+//        }
         return self
     }
 
