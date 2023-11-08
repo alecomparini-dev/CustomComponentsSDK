@@ -17,13 +17,15 @@ open class BottomSheetsBuilder: BottomSheets {
     
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setDetents(_ detent: K.SheetPresentationController.Detent) -> Self {
-        switch detent {
-        case .medium:
-            sheet?.detents.append(.medium())
-        case .large:
-            sheet?.detents.append(.large())
-        }
+    public func setDetents(_ detents: [K.SheetPresentationController.Detent]) -> Self {
+        sheet?.detents = detents.map({ detent in
+            switch detent {
+            case .medium:
+                return UISheetPresentationController.Detent.medium()
+            case .large:
+                return UISheetPresentationController.Detent.large()
+            }
+        })
         return self
     }
     
