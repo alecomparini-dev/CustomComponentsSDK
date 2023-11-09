@@ -138,7 +138,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configGradientSkeletonLayer() {
-        skeletonLayerGradient = GradientBuilder(skeletonView.get)
+        skeletonLayerGradient = GradientBuilder(skeletonLayer.get)
             .setGradientColors(configColorsGradientSkeleton())
             .setOpacity(0.8)
             .apply()
