@@ -101,6 +101,10 @@ open class SkeletonBuilder: Skeleton {
                     .setOpacity(0.8)
                     .apply()
             }
+        skeletonView.skeletonLayer.setConstraints { build in
+            build
+                .setWidth.equalToConstant(100)
+        }
     }
     
     private func configColorsGradientSkeleton() -> [UIColor] {
