@@ -3,16 +3,8 @@
 
 import UIKit
 
-extension UIImage {
-    
-    func convertImageToJPEG(_ compressionQuality: CGFloat) -> Data? {
-        return self.jpegData(compressionQuality: compressionQuality)
-    }
-    
-    func convertImageToPNG() -> Data? {
-        return self.pngData()
-    }
-    
+public extension UIImage {
+        
     func resizeImage(targetSize: CGSize) -> UIImage? {
         let size = self.size
         
