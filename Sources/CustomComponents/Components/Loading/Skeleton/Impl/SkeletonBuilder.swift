@@ -71,8 +71,8 @@ open class SkeletonBuilder: Skeleton {
     public func apply() -> Self {
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
-            configGradientSkeleton()
-            configGradientOfSkeletonLayer()
+            configSkeleton()
+            configSkeletonLayer()
             startAnimation()
         }
         
@@ -86,24 +86,35 @@ open class SkeletonBuilder: Skeleton {
 
     }
     
-    private func configGradientSkeleton() {
+    private func configSkeleton() {
+        configFrame()
+        configCustomCornerRadius()
+        addSkeletonOnComponent()
+        configGradientSkeleton()
+    }
+
+    private func configFrame() {
         guard let component else {return}
-        let color: UIColor = color ?? .lightGray
-        
         skeletonView.get.frame = component.bounds
         skeletonView.get.layer.cornerRadius = component.layer.cornerRadius
-        
+    }
+    
+    private func configCustomCornerRadius() {
         if let radius {
             skeletonView.setBorder { build in
-                build
-                    .setCornerRadius(radius)
+                build.setCornerRadius(radius)
             }
         }
-        
-        
+    }
+    
+    private func addSkeletonOnComponent() {
+        guard let component else {return}
         skeletonView.add(insideTo: component.superview ?? component)
         skeletonView.applyConstraint()
-        
+    }
+    
+    private func configGradientSkeleton() {
+        let color: UIColor = color ?? .lightGray
         skeletonView
             .setGradient { build in
                 build
@@ -111,20 +122,25 @@ open class SkeletonBuilder: Skeleton {
                     .setOpacity(1)
                     .apply()
             }
-        
         skeletonView.get.layer.masksToBounds = true
     }
     
-    private func configGradientOfSkeletonLayer() {
-        
-        skeletonLayer = ViewBuilder(frame: 
-                                        CGRect(
-                                            origin: CGPoint(x: -100, y: .zero),
-                                            size: CGSize(width: 100, height: skeletonView.get.bounds.height)
-                                        ))
-        
+    private func configSkeletonLayer() {
+        configFrameSkeletonLayer()
+        configGradientSkeletonLayer()
+    }
+    
+    private func configFrameSkeletonLayer() {
+        skeletonLayer = ViewBuilder(
+            frame:
+                CGRect(
+                    origin: CGPoint(x: -100, y: .zero),
+                    size: CGSize(width: 100, height: skeletonView.get.bounds.height)
+                ))
         skeletonLayer.add(insideTo: skeletonView.get)
-        
+    }
+    
+    private func configGradientSkeletonLayer() {
         skeletonLayer
             .setGradient { build in
                 build
@@ -132,7 +148,6 @@ open class SkeletonBuilder: Skeleton {
                     .setOpacity(0.8)
                     .apply()
             }
-        
     }
     
     private func configColorsGradientSkeleton() -> [UIColor] {
