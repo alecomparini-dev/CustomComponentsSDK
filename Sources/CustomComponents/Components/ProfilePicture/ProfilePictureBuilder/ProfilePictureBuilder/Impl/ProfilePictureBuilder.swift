@@ -10,7 +10,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     private let size: CGFloat
     private var image: ImageViewBuilder?
 
-    private weak var chooseSource: ProfileChooseSourceBuilder?
+    private var chooseSource: ProfileChooseSourceBuilder?
     
     private let profilePicture: ViewBuilder
     

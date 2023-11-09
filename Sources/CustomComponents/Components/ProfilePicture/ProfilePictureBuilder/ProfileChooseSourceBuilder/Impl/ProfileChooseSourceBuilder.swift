@@ -66,8 +66,8 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-        self.imagePicker = UIImagePickerController()
-        self.alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
+        imagePicker = UIImagePickerController()
+        alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert?.addAction(cancelAction)
         imagePicker?.delegate = self
