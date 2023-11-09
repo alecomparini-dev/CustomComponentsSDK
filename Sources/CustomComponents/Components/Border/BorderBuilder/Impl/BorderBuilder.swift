@@ -50,13 +50,12 @@ open class BorderBuilder: Border {
 //        component.layer.cornerRadius = radius
         
         var corner: CAShapeLayer = CAShapeLayer()
-        corner.addSublayer(component.layer)
+        corner.cornerRadius = radius
+        component.layer.insertSublayer(corner, at: 0)
         DispatchQueue.main.async { [weak self] in
             guard let self, let component else {return}
             
-            corner.masksToBounds = true
             corner.frame = component.bounds
-            corner.cornerRadius = radius
             corner.path = component.replicateFormat(width: component.frame.width,
                                                      height: component.frame.height,
                                                      cornerRadius: radius
