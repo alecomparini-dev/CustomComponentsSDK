@@ -15,7 +15,7 @@ class SkeletonView: ViewBuilder {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-                    .setHeight.equalToSuperView
+                    .setHeight.equalToSafeArea
             }
         return comp
     }()
