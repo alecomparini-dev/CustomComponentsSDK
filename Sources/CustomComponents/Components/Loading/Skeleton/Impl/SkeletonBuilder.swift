@@ -96,7 +96,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configGradientOfSkeletonLayer() {
-        skeletonView.skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 25)))
+        skeletonView.skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 35)))
         
         skeletonView.skeletonLayer.add(insideTo: skeletonView.get)
         
@@ -130,7 +130,7 @@ open class SkeletonBuilder: Skeleton {
 //        })
 //        animator?.startAnimation()
         
-        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
+        UIView.animate(withDuration: 1.5, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
             guard let self else {return}
             skeletonView.skeletonLayer.get.frame.origin.x = 350
         }, completion: nil)
