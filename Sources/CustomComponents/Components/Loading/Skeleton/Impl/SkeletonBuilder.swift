@@ -104,7 +104,7 @@ open class SkeletonBuilder: Skeleton {
         skeletonView.skeletonLayer.setConstraints { build in
             build
                 .setWidth.equalToConstant(100)
-//                .setHeight.equalToConstant(50)
+                .setHeight.equalToConstant(20)
                 .apply()
         }
         
