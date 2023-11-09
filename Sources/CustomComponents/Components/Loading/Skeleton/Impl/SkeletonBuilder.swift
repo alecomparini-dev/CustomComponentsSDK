@@ -83,7 +83,8 @@ open class SkeletonBuilder: Skeleton {
         
         skeletonView.get.frame = component.bounds
         skeletonView.get.layer.cornerRadius = component.layer.cornerRadius
-        skeletonView.add(insideTo: component)
+        
+        skeletonView.add(insideTo: component.superview ?? component)
         
         skeletonView
             .setGradient { build in
