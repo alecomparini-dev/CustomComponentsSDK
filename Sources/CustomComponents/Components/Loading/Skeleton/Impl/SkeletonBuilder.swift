@@ -91,6 +91,8 @@ open class SkeletonBuilder: Skeleton {
                     .setPin.equalTo(component)
                     .apply()
             }
+        
+        skeletonView.get.layer.masksToBounds = true
     }
     
     private func configGradientOfSkeletonLayer() {
@@ -109,7 +111,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configColorsGradientSkeleton() -> [UIColor] {
-        let color: UIColor = .black
+        let color: UIColor = color ?? .lightGray
         let color1 = color.adjustBrightness(5).withAlphaComponent(0.8)
         let color2 = color.adjustBrightness(15)
         let color3 = color.adjustBrightness(25)
@@ -120,17 +122,18 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func startAnimation() {
-//        let duration = TimeInterval(getDuration())
-//        animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut, animations: { [weak self] in
+        let duration = TimeInterval(getDuration())
+        animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut, animations: { [weak self] in
 //            guard let self, let widthComponent else {return}
-//            skeletonView.skeletonLayer.get.frame.origin.x = widthComponent
-//        })
-//        animator?.startAnimation()
-        
-        UIView.animate(withDuration: 1.5, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
             guard let self else {return}
             skeletonView.skeletonLayer.get.frame.origin.x = 350
-        }, completion: nil)
+        })
+        animator?.startAnimation()
+//        
+//        UIView.animate(withDuration: 1.5, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
+//            guard let self else {return}
+//            skeletonView.skeletonLayer.get.frame.origin.x = 350
+//        }, completion: nil)
         
     }
     
