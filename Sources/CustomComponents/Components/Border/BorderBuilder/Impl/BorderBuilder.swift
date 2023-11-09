@@ -45,8 +45,8 @@ open class BorderBuilder: Border {
     @discardableResult
     public func setCornerRadius(_ radius: CGFloat) -> Self {
         self.removeBorderStyleOfTextField()
+        component?.layer.masksToBounds = true
         component.clipsToBounds = true
-        component?.layer.masksToBounds = false
         component.layer.cornerRadius = radius
         return self
     }
