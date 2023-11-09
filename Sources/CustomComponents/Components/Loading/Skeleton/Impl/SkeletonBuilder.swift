@@ -134,8 +134,8 @@ open class SkeletonBuilder: Skeleton {
         skeletonLayer = ViewBuilder(
             frame:
                 CGRect(
-                    origin: CGPoint(x: -100, y: .zero),
-                    size: CGSize(width: 100, height: skeletonView.get.bounds.height)
+                    origin: CGPoint(x: -200, y: .zero),
+                    size: CGSize(width: 200, height: skeletonView.get.bounds.height)
                 ))
         skeletonLayer.add(insideTo: skeletonView.get)
     }
