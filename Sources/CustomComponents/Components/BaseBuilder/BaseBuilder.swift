@@ -122,12 +122,6 @@ open class BaseBuilder: NSObject {
 
     
     @discardableResult
-    public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
-        skeleton = build(SkeletonBuilder(component: baseView))
-        return self
-    }
-
-    @discardableResult
     public func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
         border = build(BorderBuilder(baseView))
         return self
@@ -144,7 +138,13 @@ open class BaseBuilder: NSObject {
         gradient = build(GradientBuilder(baseView))
         return self
     }
-    
+
+    @discardableResult
+    public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
+        skeleton = build(SkeletonBuilder(component: baseView))
+        return self
+    }
+
     
 //  MARK: - CONSTRAINTS AREA
     
