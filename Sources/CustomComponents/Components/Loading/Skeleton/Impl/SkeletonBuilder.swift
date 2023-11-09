@@ -61,7 +61,7 @@ open class SkeletonBuilder: Skeleton {
     
     public func hideSkeleton() {
         animator = nil
-        UIView.animate(withDuration: 0.5, delay: .zero, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
+        UIView.animate(withDuration: 5.5, delay: .zero, animations: { [weak self] in
             guard let self else {return}
             skeletonLayer.get.alpha = 0
         }, completion: { [weak self] _ in
