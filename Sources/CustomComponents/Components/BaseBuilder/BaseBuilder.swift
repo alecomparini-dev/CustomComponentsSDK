@@ -8,9 +8,9 @@ open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private weak var border: BorderBuilder?
-    private var shadow: ShadowBuilder?
-    private var gradient: GradientBuilder?
-    private var skeleton: Skeleton?
+    private var _shadow: ShadowBuilder?
+    private var _gradient: GradientBuilder?
+    private var _skeleton: Skeleton?
     
     private weak var _baseView: UIView?
     
@@ -29,14 +29,19 @@ open class BaseBuilder: NSObject {
 //  MARK: - GET PROPERTIES
     public var getTag: Int { baseView.tag  }
     
-    public var getSkeleton: Skeleton? {
-        get { skeleton }
-        set { skeleton = newValue}
+    public var skeleton: Skeleton? {
+        get { _skeleton }
+        set { _skeleton = newValue}
     }
     
-    public var getGradient: GradientBuilder? {
-        get { gradient }
-        set { gradient = newValue}
+    public var gradient: GradientBuilder? {
+        get { _gradient }
+        set { _gradient = newValue}
+    }
+    
+    public var shadow: ShadowBuilder? {
+        get { _shadow }
+        set { _shadow = newValue}
     }
 
     
