@@ -96,7 +96,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configGradientOfSkeletonLayer() {
-        skeletonView.skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 35)))
+        skeletonView.skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 40)))
         
         skeletonView.skeletonLayer.add(insideTo: skeletonView.get)
         
@@ -112,12 +112,12 @@ open class SkeletonBuilder: Skeleton {
     
     private func configColorsGradientSkeleton() -> [UIColor] {
         let color: UIColor = .red
-        let color1 = color.adjustBrightness(5).withAlphaComponent(0.8)
-        let color2 = color.adjustBrightness(15)
-        let color3 = color.adjustBrightness(25)
-        let color4 = color.adjustBrightness(25)
-        let color5 = color.adjustBrightness(15)
-        let color6 = color.adjustBrightness(5).withAlphaComponent(0.8)
+        let color1 = color.adjustBrightness(30).withAlphaComponent(0.8)
+        let color2 = color.adjustBrightness(55)
+        let color3 = color.adjustBrightness(65)
+        let color4 = color.adjustBrightness(65)
+        let color5 = color.adjustBrightness(55)
+        let color6 = color.adjustBrightness(30).withAlphaComponent(0.8)
         return [color1, color2, color3, color4, color5, color6 ]
     }
     
