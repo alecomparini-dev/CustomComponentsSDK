@@ -54,7 +54,7 @@ open class BorderBuilder: Border {
         component.layer.insertSublayer(corner, at: 0)
         DispatchQueue.main.async { [weak self] in
             guard let self, let component else {return}
-            
+            corner.masksToBounds = true
             corner.frame = component.bounds
             corner.path = component.replicateFormat(width: component.frame.width,
                                                      height: component.frame.height,
