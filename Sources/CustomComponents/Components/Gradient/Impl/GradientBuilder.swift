@@ -70,7 +70,7 @@ open class GradientBuilder: Gradient {
     }
     
     @discardableResult
-    public func setRadialGradient(startPoint: CGPoint, _ endPoint: CGPoint?) -> Self {
+    public func setRadialGradient(startPoint: CGPoint, _ endPoint: CGPoint? = nil) -> Self {
         setStartPoint(startPoint.x, startPoint.y)
         gradient.endPoint = endPoint ?? CGPointZero
         setType(.radial)
