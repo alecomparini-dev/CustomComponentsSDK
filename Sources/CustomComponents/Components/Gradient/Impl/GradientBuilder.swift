@@ -189,6 +189,7 @@ open class GradientBuilder: Gradient {
             let endY = component.frame.size.width / component.frame.size.height / 2
             gradient.endPoint = CGPoint(x: 0, y: endY)
         }
+        
     }
     
     private func setGradientOnComponent() {
