@@ -107,11 +107,6 @@ open class SkeletonBuilder: Skeleton {
                     .setOpacity(1)
                     .apply()
             }
-            .setConstraints { build in
-                build
-                    .setWidth.equalToConstant(100)
-                    .apply()
-            }
         
     }
     
