@@ -123,6 +123,12 @@ open class BaseBuilder: NSObject {
         return self
     }
     
+    @discardableResult
+    func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
+        _ = build(GradientBuilder(baseView))
+        return self
+    }
+    
     
 //  MARK: - CONSTRAINTS AREA
     
