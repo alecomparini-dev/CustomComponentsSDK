@@ -5,6 +5,10 @@ import UIKit
 
 
 open class SkeletonBuilder: Skeleton {
+    
+    private var skeletonGradient: GradientBuilder?
+    private var skeletonLayerGradient: GradientBuilder?
+    
     private var speed: K.Skeleton.SpeedAnimation?
     private var color: UIColor?
     private var radius: CGFloat?
@@ -61,6 +65,8 @@ open class SkeletonBuilder: Skeleton {
     public func hideSkeleton() {
         stopAnimation()
         component = nil
+        skeletonLayerGradient = nil
+        skeletonGradient = nil
     }
 
 
@@ -108,7 +114,7 @@ open class SkeletonBuilder: Skeleton {
     
     private func configGradientSkeleton() {
         let color: UIColor = color ?? .lightGray
-        GradientBuilder(skeletonView.get)
+        skeletonGradient = GradientBuilder(skeletonView.get)
             .setReferenceColor(color, percentageGradient: 10)
             .setOpacity(1)
             .apply()
@@ -132,10 +138,10 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configGradientSkeletonLayer() {
-        GradientBuilder(skeletonView.get)
+        skeletonLayerGradient = GradientBuilder(skeletonView.get)
             .setGradientColors(configColorsGradientSkeleton())
             .setOpacity(0.8)
-            .apply()        
+            .apply()
     }
     
     private func configColorsGradientSkeleton() -> [UIColor] {
