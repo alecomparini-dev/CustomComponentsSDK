@@ -64,10 +64,6 @@ open class SkeletonBuilder: Skeleton {
     
     public func hideSkeleton() {
         stopAnimation()
-        component?.skeleton = nil
-        component?.gradient = nil
-        skeletonLayerGradient = nil
-        skeletonGradient = nil
     }
 
 
@@ -171,6 +167,7 @@ open class SkeletonBuilder: Skeleton {
             guard let self else {return}
             skeletonLayer.get.layer.removeAllAnimations()
             skeletonView.get.removeFromSuperview()
+            freeMemory() 
         })
     }
     
@@ -185,6 +182,14 @@ open class SkeletonBuilder: Skeleton {
             case nil:
                 return 1.5
         }
+    }
+    
+    private func freeMemory() {
+        component?.skeleton = nil
+        component?.gradient = nil
+        skeletonLayerGradient = nil
+        skeletonGradient = nil
+
     }
     
 }
