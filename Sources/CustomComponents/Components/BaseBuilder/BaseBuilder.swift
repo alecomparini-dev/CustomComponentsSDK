@@ -8,20 +8,18 @@ open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private weak var border: BorderBuilder?
-    private(set) var shadow: ShadowBuilder?
-    private(set) var gradient: GradientBuilder?
-    private(set) var skeleton: Skeleton?
+    private var shadow: ShadowBuilder?
+    private var gradient: GradientBuilder?
+    private var skeleton: Skeleton?
     
     private weak var _baseView: UIView?
     
     
-    //  MARK: - GET Properties
-        
     var baseView: UIView {
         get { self._baseView ?? UIView() }
         set { self._baseView = newValue }
     }
-    
+
     public init(_ view: UIView) {
         self._baseView = view
         super.init()
@@ -31,6 +29,9 @@ open class BaseBuilder: NSObject {
     
 //  MARK: - GET PROPERTIES
     public func getTag() -> Int { baseView.tag  }
+    
+    public func getSkeleton() -> Skeleton? { skeleton }
+    public func getGradient() -> GradientBuilder? { gradient }
 
     
 //  MARK: - SET PROPERTIES
