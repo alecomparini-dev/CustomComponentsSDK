@@ -98,17 +98,20 @@ open class GradientBuilder: Gradient {
         DispatchQueue.main.async { [weak self] in
             guard let self, let component else {return}
 
-            setGradientOnComponent()
-            
-            gradient.frame = component.bounds
-            gradient.cornerRadius = component.layer.cornerRadius
-            gradient.maskedCorners = component.layer.maskedCorners
-
-            if !isAxial && gradient.endPoint == CGPointZero {
-                let endY = component.frame.size.width / component.frame.size.height / 2
-                gradient.endPoint = CGPoint(x: 0, y: endY)
-            }
         }
+        
+        guard let component else {return self}
+        setGradientOnComponent()
+        
+        gradient.frame = component.bounds
+        gradient.cornerRadius = component.layer.cornerRadius
+        gradient.maskedCorners = component.layer.maskedCorners
+
+        if !isAxial && gradient.endPoint == CGPointZero {
+            let endY = component.frame.size.width / component.frame.size.height / 2
+            gradient.endPoint = CGPoint(x: 0, y: endY)
+        }
+
         
         return self
     }
