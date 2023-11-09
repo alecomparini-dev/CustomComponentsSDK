@@ -47,7 +47,8 @@ public extension UIView {
     }
     
     func countShadows() -> Int {
-        return self.layer.sublayers?.filter({ $0.shadowOpacity > 0 }).count ?? 0
+        var count = self.layer.sublayers?.filter({ $0.shadowOpacity > 0 }).count ?? 0
+        return (self.layer.shadowOpacity > 0) ? count + 1 : count
     }
     
     func hasShadow() -> Bool { return countShadows() > 0 }
