@@ -9,7 +9,7 @@ open class GradientBuilder: Gradient {
     
     private var isAxial = false
     private let gradient: CAGradientLayer
-    private let gradientID = "gradientID"
+    private let gradientID = K.Strings.gradientID
     
     private weak var component: UIView?
     
@@ -94,9 +94,24 @@ open class GradientBuilder: Gradient {
     @discardableResult
     public func apply() -> Self {
         removeGradient()
-        DispatchQueue.main.async { [weak self] in
-            self?.applyGradient()
+        setGradientOnComponent()
+        
+        if let component {
+            gradient.cornerRadius = component.layer.cornerRadius
+            gradient.maskedCorners = component.layer.maskedCorners
         }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self, let component else {return}
+            
+            gradient.frame = component.bounds
+            
+            if !isAxial && gradient.endPoint == CGPointZero {
+                let endY = component.frame.size.width / component.frame.size.height / 2
+                gradient.endPoint = CGPoint(x: 0, y: endY)
+            }
+        }
+        
         return self
     }
 
@@ -179,30 +194,11 @@ open class GradientBuilder: Gradient {
     
     
 //  MARK: - APPLY
-    private func applyGradient() {
-        guard let component else { return }
-        setGradientOnComponent()
-        
-        configGradient()
-        
-        if !isAxial && gradient.endPoint == CGPointZero {
-            let endY = component.frame.size.width / component.frame.size.height / 2
-            gradient.endPoint = CGPoint(x: 0, y: endY)
-        }
-        
-        self.component = nil
-    }
     
     private func setGradientOnComponent() {
         let indexLayer = calculateIndexLayer()
         component?.layer.insertSublayer(gradient, at: indexLayer)
     }
     
-    private func configGradient() {
-        guard let component else { return }
-        gradient.frame = component.bounds
-        gradient.cornerRadius = component.layer.cornerRadius
-        gradient.maskedCorners = component.layer.maskedCorners
-    }
     
 }

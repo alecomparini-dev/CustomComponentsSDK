@@ -34,6 +34,7 @@ extension K {
 
 extension K {
     public struct Strings {
+        public static let gradientID = "gradientID"
         public static let empty = ""
         public static let done = "Done"
         public static let dot = "."

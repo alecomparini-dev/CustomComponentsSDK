@@ -14,8 +14,9 @@ open class BaseBuilder: NSObject {
     private weak var _baseView: UIView?
     
     deinit {
-        debugPrint("gradient:", gradient, "_baseView:", _baseView )
+        gradient = nil
     }
+    
     
     //  MARK: - GET Properties
         
