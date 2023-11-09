@@ -95,14 +95,14 @@ open class GradientBuilder: Gradient {
     public func apply() -> Self {
         guard let component else {return self}
         removeGradient()
-        setGradientOnComponent()
-        gradient.removeAllAnimations()
         gradient.cornerRadius = component.layer.cornerRadius
         gradient.maskedCorners = component.layer.maskedCorners
+
         
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
-
+            setGradientOnComponent()
+            
             gradient.frame = component.bounds
 
             if !isAxial && gradient.endPoint == CGPointZero {
