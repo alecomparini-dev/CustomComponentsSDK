@@ -97,7 +97,12 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configGradientOfSkeletonLayer() {
-        skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 40)))
+        
+        skeletonLayer = ViewBuilder(frame: 
+                                        CGRect(
+                                            origin: CGPoint(x: -100, y: 0),
+                                            size: CGSize(width: 100, height: skeletonView.get.bounds.height)
+                                        ))
         
         skeletonLayer.add(insideTo: skeletonView.get)
         
