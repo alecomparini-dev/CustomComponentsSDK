@@ -18,8 +18,13 @@ open class SkeletonBuilder: Skeleton {
         configure()
     }
     
-    private lazy var skeletonView: SkeletonView = {
-        let comp = SkeletonView()
+    private lazy var skeletonView: ViewBuilder = {
+        let comp = ViewBuilder()
+        return comp
+    }()
+    
+    lazy var skeletonLayer: ViewBuilder = {
+        let comp = ViewBuilder()
         return comp
     }()
     
@@ -75,8 +80,9 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         
         let color = color ?? .lightGray
-        print("entrou")
         
+        skeletonView.get.frame = component.bounds
+        skeletonView.get.layer.cornerRadius = component.layer.cornerRadius
         skeletonView.add(insideTo: component)
         
         skeletonView
@@ -86,21 +92,16 @@ open class SkeletonBuilder: Skeleton {
                     .setOpacity(1)
                     .apply()
             }
-            .setConstraints { build in
-                build
-                    .setPin.equalTo(component)
-                    .apply()
-            }
         
         skeletonView.get.layer.masksToBounds = true
     }
     
     private func configGradientOfSkeletonLayer() {
-        skeletonView.skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 40)))
+        skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 40)))
         
-        skeletonView.skeletonLayer.add(insideTo: skeletonView.get)
+        skeletonLayer.add(insideTo: skeletonView.get)
         
-        skeletonView.skeletonLayer
+        skeletonLayer
             .setGradient { build in
                 build
                     .setGradientColors(configColorsGradientSkeleton())
@@ -125,7 +126,7 @@ open class SkeletonBuilder: Skeleton {
         let duration = TimeInterval(getDuration())
         UIView.animate(withDuration: 1.5, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
             guard let self else {return}
-            skeletonView.skeletonLayer.get.frame.origin.x = 350
+            skeletonLayer.get.frame.origin.x = 350
         }, completion: nil)
         
     }
