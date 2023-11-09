@@ -60,6 +60,7 @@ open class SkeletonBuilder: Skeleton {
     
     public func hideSkeleton() {
         stopAnimation()
+        component = nil
     }
 
 
@@ -72,7 +73,6 @@ open class SkeletonBuilder: Skeleton {
             configSkeletonLayer()
             startAnimation()
         }
-        
         return self
     }
 
