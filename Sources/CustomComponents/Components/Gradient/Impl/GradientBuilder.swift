@@ -94,7 +94,6 @@ open class GradientBuilder: Gradient {
     @discardableResult
     public func apply() -> Self {
         removeGradient()
-        setGradientOnComponent()
         
         if let component {
             gradient.cornerRadius = component.layer.cornerRadius
@@ -103,6 +102,8 @@ open class GradientBuilder: Gradient {
         
         DispatchQueue.main.async { [weak self] in
             guard let self, let component else {return}
+            
+            setGradientOnComponent()
             
             gradient.frame = component.bounds
             
