@@ -105,6 +105,7 @@ open class SkeletonBuilder: Skeleton {
             build
                 .setWidth.equalToConstant(100)
                 .setHeight.equalToConstant(50)
+                .apply()
         }
         
     }
