@@ -123,17 +123,17 @@ open class SkeletonBuilder: Skeleton {
     
     private func startAnimation() {
         let duration = TimeInterval(getDuration())
-        animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut, animations: { [weak self] in
-//            guard let self, let widthComponent else {return}
-            guard let self else {return}
-            skeletonView.skeletonLayer.get.frame.origin.x = 350
-        })
-        animator?.startAnimation()
-//        
-//        UIView.animate(withDuration: 1.5, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
+//        animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut, animations: { [weak self] in
+////            guard let self, let widthComponent else {return}
 //            guard let self else {return}
 //            skeletonView.skeletonLayer.get.frame.origin.x = 350
-//        }, completion: nil)
+//        })
+//        animator?.startAnimation()
+        
+        UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
+            guard let self else {return}
+            skeletonView.skeletonLayer.get.frame.origin.x = 350
+        }, completion: nil)
         
     }
     
