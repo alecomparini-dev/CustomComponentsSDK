@@ -22,7 +22,7 @@ open class GradientBuilder: Gradient {
         configure()
     }
     
-    convenience init() {
+    public convenience init() {
         self.init(UIView())
     }
     
