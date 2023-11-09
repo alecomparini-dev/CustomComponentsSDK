@@ -48,6 +48,7 @@ public extension UIView {
     
     func countShadows() -> Int {
         var count = self.layer.sublayers?.filter({ $0.shadowOpacity > 0 }).count ?? 0
+        //TODO: Pode ocorrer um possivel problema no shadow applyLayer, fazer testes
         return (self.layer.shadowOpacity > 0) ? count + 1 : count
     }
     
