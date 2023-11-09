@@ -45,9 +45,19 @@ open class BorderBuilder: Border {
     @discardableResult
     public func setCornerRadius(_ radius: CGFloat) -> Self {
         self.removeBorderStyleOfTextField()
-        component?.layer.masksToBounds = true
-        component.clipsToBounds = true
-        component.layer.cornerRadius = radius
+//        component?.layer.masksToBounds = true
+//        component.clipsToBounds = true
+//        component.layer.cornerRadius = radius
+        
+        
+        var corner: CAShapeLayer = CAShapeLayer()
+        corner.masksToBounds = true
+        corner.path = component!.replicateFormat(width: component.frame.width,
+                                         height: component.frame.height,
+                                         cornerRadius: radius
+                                        ).cgPath
+        
+        component.layer.addSublayer(corner)
         return self
     }
     
