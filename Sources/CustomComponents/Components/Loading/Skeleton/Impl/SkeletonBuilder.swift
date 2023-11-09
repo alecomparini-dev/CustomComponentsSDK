@@ -108,13 +108,11 @@ open class SkeletonBuilder: Skeleton {
     
     private func configGradientSkeleton() {
         let color: UIColor = color ?? .lightGray
-        skeletonView
-            .setGradient { build in
-                build
-                    .setReferenceColor(color, percentageGradient: 10)
-                    .setOpacity(1)
-                    .apply()
-            }
+        GradientBuilder(skeletonView.get)
+            .setReferenceColor(color, percentageGradient: 10)
+            .setOpacity(1)
+            .apply()
+
         skeletonView.get.layer.masksToBounds = true
     }
     
@@ -134,13 +132,10 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configGradientSkeletonLayer() {
-        skeletonLayer
-            .setGradient { build in
-                build
-                    .setGradientColors(configColorsGradientSkeleton())
-                    .setOpacity(0.8)
-                    .apply()
-            }
+        GradientBuilder(skeletonView.get)
+            .setGradientColors(configColorsGradientSkeleton())
+            .setOpacity(0.8)
+            .apply()        
     }
     
     private func configColorsGradientSkeleton() -> [UIColor] {
