@@ -106,7 +106,6 @@ open class SkeletonBuilder: Skeleton {
                 .setWidth.equalToConstant(100)
         }
         
-        widthComponent = 100
     }
     
     private func configColorsGradientSkeleton() -> [UIColor] {
@@ -129,7 +128,7 @@ open class SkeletonBuilder: Skeleton {
 //        animator?.startAnimation()
         UIView.animate(withDuration: 1.5, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
             guard let self else {return}
-            skeletonView.skeletonLayer.get.frame.origin.x = 100
+            skeletonView.skeletonLayer.get.frame.origin.x = 500
         }, completion: nil)
     }
     
