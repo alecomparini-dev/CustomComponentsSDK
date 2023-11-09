@@ -124,6 +124,7 @@ open class SkeletonBuilder: Skeleton {
             guard let self, let widthComponent else {return}
             skeletonView.skeletonLayer.get.frame.origin.x = widthComponent
         })
+        animator?.startAnimation()
     }
     
     private func getDuration() -> Float {
