@@ -39,7 +39,8 @@ open class SkeletonBuilder: Skeleton {
     
     @discardableResult
     public func setColorSkeleton(color: UIColor?) -> Self {
-        self.color = color
+//        self.color = color
+        self.color = .lightGray
         return self
     }
     
@@ -79,7 +80,7 @@ open class SkeletonBuilder: Skeleton {
     private func configGradientSkeleton() {
         guard let component else {return}
         
-        let color = color ?? .lightGray
+        let color: UIColor = color ?? .lightGray
         
         skeletonView.get.frame = component.bounds
         skeletonView.get.layer.cornerRadius = component.layer.cornerRadius
@@ -123,7 +124,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configColorsGradientSkeleton() -> [UIColor] {
-        let color: UIColor = .lightGray
+        let color: UIColor = color ?? .lightGray
         let color1 = color.adjustBrightness(5).withAlphaComponent(0.8)
         let color2 = color.adjustBrightness(15)
         let color3 = color.adjustBrightness(25)
