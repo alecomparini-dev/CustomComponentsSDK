@@ -111,7 +111,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configColorsGradientSkeleton() -> [UIColor] {
-        let color: UIColor = color ?? .lightGray
+        let color: UIColor = .lightGray
         let color1 = color.adjustBrightness(5).withAlphaComponent(0.8)
         let color2 = color.adjustBrightness(15)
         let color3 = color.adjustBrightness(25)
