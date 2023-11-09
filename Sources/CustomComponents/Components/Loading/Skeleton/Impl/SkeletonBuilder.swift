@@ -5,7 +5,6 @@ import UIKit
 
 
 open class SkeletonBuilder: Skeleton {
-
     private var animator: UIViewPropertyAnimator?
     private var speed: K.Skeleton.SpeedAnimation?
     private var color: UIColor?
@@ -20,6 +19,10 @@ open class SkeletonBuilder: Skeleton {
     
     private lazy var skeletonView: ViewBuilder = {
         let comp = ViewBuilder()
+            .setConstraints { build in
+                build
+                    .setPin.equalTo(component ?? UIView())
+            }
         return comp
     }()
     
@@ -44,6 +47,15 @@ open class SkeletonBuilder: Skeleton {
         return self
     }
     
+    @discardableResult
+    public func setCornerRadius(_ radius: CGFloat) -> Self {
+        skeletonView.setBorder { build in
+            build
+                .setCornerRadius(radius)
+        }
+        return self
+    }
+
     @discardableResult
     public func setColorSkeleton(hexColor: String?) -> Self {
         guard let hexColor, hexColor.isHexColor() else {return self}
@@ -79,18 +91,12 @@ open class SkeletonBuilder: Skeleton {
     
     private func configGradientSkeleton() {
         guard let component else {return}
-        
         let color: UIColor = color ?? .lightGray
         
         skeletonView.get.frame = component.bounds
         skeletonView.get.layer.cornerRadius = component.layer.cornerRadius
-        
         skeletonView.add(insideTo: component.superview ?? component)
-        skeletonView.setConstraints { build in
-            build
-                .setPin.equalTo(component)
-                .apply()
-        }
+        skeletonView.applyConstraint()
         
         skeletonView
             .setGradient { build in

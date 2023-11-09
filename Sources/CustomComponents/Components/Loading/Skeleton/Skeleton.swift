@@ -14,6 +14,9 @@ public protocol Skeleton {
     func setColorSkeleton(hexColor: String?) -> Self
     
     @discardableResult
+    func setCornerRadius(_ radius: CGFloat) -> Self
+    
+    @discardableResult
     func apply() -> Self
     
     func hideSkeleton(_ completion: completion?)
