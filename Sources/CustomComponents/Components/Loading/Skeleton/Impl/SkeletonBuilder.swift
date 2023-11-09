@@ -60,9 +60,10 @@ open class SkeletonBuilder: Skeleton {
         return self
     }
     
-    public func hideSkeleton(_ completion: completion?) {
-        animator?.stopAnimation(true)
+    public func hideSkeleton(_ completion: completion? = nil) {
+        skeletonLayer.get.layer.removeAllAnimations()
         animator = nil
+        skeletonView.get.removeFromSuperview()
     }
 
 
