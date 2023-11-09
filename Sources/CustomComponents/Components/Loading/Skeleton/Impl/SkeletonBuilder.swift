@@ -94,6 +94,8 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configGradientOfSkeletonLayer() {
+        skeletonView.skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 25)))
+        
         skeletonView.skeletonLayer
             .setGradient { build in
                 build
@@ -102,12 +104,10 @@ open class SkeletonBuilder: Skeleton {
                     .apply()
             }
         
-        skeletonView.skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 25)))
-        
     }
     
     private func configColorsGradientSkeleton() -> [UIColor] {
-        let color = color ?? .lightGray
+        let color: UIColor = .black
         let color1 = color.adjustBrightness(5).withAlphaComponent(0.8)
         let color2 = color.adjustBrightness(15)
         let color3 = color.adjustBrightness(25)
@@ -124,10 +124,12 @@ open class SkeletonBuilder: Skeleton {
 //            skeletonView.skeletonLayer.get.frame.origin.x = widthComponent
 //        })
 //        animator?.startAnimation()
+        
         UIView.animate(withDuration: 1.5, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
             guard let self else {return}
-            skeletonView.skeletonLayer.get.frame.origin.x = 500
+            skeletonView.skeletonLayer.get.frame.origin.x = 350
         }, completion: nil)
+        
     }
     
     private func getDuration() -> Float {
