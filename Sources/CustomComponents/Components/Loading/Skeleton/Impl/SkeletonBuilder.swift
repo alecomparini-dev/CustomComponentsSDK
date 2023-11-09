@@ -85,6 +85,11 @@ open class SkeletonBuilder: Skeleton {
         skeletonView.get.layer.cornerRadius = component.layer.cornerRadius
         
         skeletonView.add(insideTo: component.superview ?? component)
+        skeletonView.setConstraints { build in
+            build
+                .setPin.equalTo(component)
+                .apply()
+        }
         
         skeletonView
             .setGradient { build in
