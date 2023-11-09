@@ -160,7 +160,7 @@ open class ShadowBuilder: Shadow {
     private func insertSubLayer() {
         guard let component else {return }
         if isBringToFront {
-            shadowAt = UInt32(component.countShadows())
+            shadowAt = UInt32(component.countShadows().shadowLayer)
         }
         component.layer.insertSublayer(shadow, at: shadowAt)
     }
