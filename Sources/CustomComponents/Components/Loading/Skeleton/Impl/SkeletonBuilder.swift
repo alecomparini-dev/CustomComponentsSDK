@@ -5,7 +5,6 @@ import UIKit
 
 
 open class SkeletonBuilder: Skeleton {
-    private var animator: UIViewPropertyAnimator?
     private var speed: K.Skeleton.SpeedAnimation?
     private var color: UIColor?
     private var radius: CGFloat?
@@ -60,15 +59,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     public func hideSkeleton() {
-        animator = nil
-        UIView.animate(withDuration: 5.5, delay: .zero, animations: { [weak self] in
-            guard let self else {return}
-            skeletonLayer.get.alpha = 0
-        }, completion: { [weak self] _ in
-            guard let self else {return}
-            skeletonLayer.get.layer.removeAllAnimations()
-            skeletonView.get.removeFromSuperview()
-        })
+        stopAnimation()
     }
 
 
@@ -169,7 +160,16 @@ open class SkeletonBuilder: Skeleton {
             guard let self else {return}
             skeletonLayer.get.frame.origin.x = 350
         }, completion: nil)
-        
+    }
+    
+    private func stopAnimation() {
+        UIView.animate(withDuration: 0.5, delay: .zero, animations: { [weak self] in
+            self?.skeletonLayer.get.alpha = 0
+        }, completion: { [weak self] _ in
+            guard let self else {return}
+            skeletonLayer.get.layer.removeAllAnimations()
+            skeletonView.get.removeFromSuperview()
+        })
     }
     
     private func getDuration() -> Float {
