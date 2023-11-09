@@ -167,7 +167,7 @@ open class ShadowBuilder: Shadow {
     
     private func configure() {
         setDefault()
-//        component?.layer.masksToBounds = false
+        component?.layer.masksToBounds = false
         shadow.shouldRasterize = true
         shadow.rasterizationScale = UIScreen.main.scale
     }
