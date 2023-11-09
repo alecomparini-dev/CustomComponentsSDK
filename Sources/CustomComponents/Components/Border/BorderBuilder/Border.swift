@@ -15,7 +15,7 @@ public protocol Border {
     func setColor(named color: String?) -> Self
     
     @discardableResult
-    func setCornerRadius(_ radius: CGFloat) -> Self 
+    func setCornerRadius(_ radius: CGFloat) -> Self
     
     @discardableResult
     func setWhichCornersWillBeRounded(_ cornes: [K.Corner]) -> Self
