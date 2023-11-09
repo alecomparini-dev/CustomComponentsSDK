@@ -77,6 +77,8 @@ open class SkeletonBuilder: Skeleton {
         let color = color ?? .lightGray
         print("entrou")
         
+        skeletonView.add(insideTo: component)
+        
         skeletonView
             .setGradient { build in
                 build
@@ -89,8 +91,6 @@ open class SkeletonBuilder: Skeleton {
                     .setPin.equalTo(component)
                     .apply()
             }
-        
-        skeletonView.add(insideTo: component)
     }
     
     private func configGradientOfSkeletonLayer() {
