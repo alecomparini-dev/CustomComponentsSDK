@@ -56,6 +56,7 @@ open class BorderBuilder: Border {
             
             corner.masksToBounds = true
             corner.frame = component.bounds
+            corner.cornerRadius = radius
             corner.path = component.replicateFormat(width: component.frame.width,
                                                      height: component.frame.height,
                                                      cornerRadius: radius
