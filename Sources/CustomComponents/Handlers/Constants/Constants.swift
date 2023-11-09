@@ -316,4 +316,15 @@ extension K {
     }
 }
 
+//  MARK: - EXTENSION - Skeleton
+extension K {
+    public struct Skeleton {
+        public enum SpeedAnimation {
+            case slow
+            case medium
+            case fast
+        }
+    }
+}
+
 

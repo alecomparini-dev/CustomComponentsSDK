@@ -5,7 +5,7 @@ import UIKit
 
 import SkeletonView
 
-open class SkeletonBuilder: BaseBuilder, Skeleton {
+open class SkeletonBuilderCopy: BaseBuilder, SkeletonCopy {
     
     private var color: UIColor?
     

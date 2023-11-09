@@ -10,7 +10,7 @@ public enum DisplayTypes {
     case gradientAnimated
 }
 
-public protocol Skeleton {
+public protocol SkeletonCopy {
 
     @discardableResult
     func setIsSkeletonable(_ flag: Bool) -> Self
