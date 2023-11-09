@@ -64,7 +64,8 @@ open class SkeletonBuilder: Skeleton {
     
     public func hideSkeleton() {
         stopAnimation()
-        component = nil
+        component?.skeleton = nil
+        component?.gradient = nil
         skeletonLayerGradient = nil
         skeletonGradient = nil
     }
