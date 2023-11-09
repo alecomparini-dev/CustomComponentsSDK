@@ -8,7 +8,7 @@ open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private(set) var shadow: ShadowBuilder?
-    private(set) var border: BorderBuilder?
+    private weak var border: BorderBuilder?
     
     private weak var _baseView: UIView?
     
