@@ -44,7 +44,7 @@ open class GradientBuilder: Gradient {
     @discardableResult
     public func setReferenceColor(_ referenceColor: UIColor, percentageGradient: CGFloat) -> Self {
         let colors = [referenceColor, referenceColor.adjustBrightness(percentageGradient)]
-        gradient.colors = colors.map { $0.cgColor }
+        setGradientColors(colors)
         return self
     }
     

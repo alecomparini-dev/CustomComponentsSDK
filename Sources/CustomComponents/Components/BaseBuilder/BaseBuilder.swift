@@ -9,6 +9,7 @@ open class BaseBuilder: NSObject {
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private(set) var shadow: ShadowBuilder?
     private weak var border: BorderBuilder?
+    private weak var gradient: GradientBuilder?
     
     private weak var _baseView: UIView?
     
@@ -125,7 +126,7 @@ open class BaseBuilder: NSObject {
     
     @discardableResult
     public func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
-        _ = build(GradientBuilder(baseView))
+        gradient = build(GradientBuilder(baseView))
         return self
     }
     
