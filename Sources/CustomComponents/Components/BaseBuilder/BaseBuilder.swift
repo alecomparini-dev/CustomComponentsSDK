@@ -10,7 +10,7 @@ open class BaseBuilder: NSObject {
     private weak var border: BorderBuilder?
     private var _shadow: ShadowBuilder?
     private var _gradient: GradientBuilder?
-    private var _skeleton: Skeleton?
+    private var _skeleton: SkeletonBuilder?
     
     private weak var _baseView: UIView?
     
@@ -29,7 +29,7 @@ open class BaseBuilder: NSObject {
 //  MARK: - GET PROPERTIES
     public var getTag: Int { baseView.tag  }
     
-    public var skeleton: Skeleton? {
+    public var skeleton: SkeletonBuilder? {
         get { _skeleton }
         set { _skeleton = newValue}
     }
@@ -141,7 +141,7 @@ open class BaseBuilder: NSObject {
 
     @discardableResult
     public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
-        skeleton = build(SkeletonBuilder(component: baseView))
+        skeleton = build(SkeletonBuilder(component: self))
         return self
     }
 

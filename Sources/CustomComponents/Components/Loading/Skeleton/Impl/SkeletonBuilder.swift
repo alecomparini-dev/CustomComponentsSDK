@@ -14,9 +14,9 @@ open class SkeletonBuilder: Skeleton {
     private var radius: CGFloat?
     private var widthComponent: CGFloat?
     
-    private weak var component: UIView?
+    private weak var component: BaseBuilder?
     
-    public init(component: UIView) {
+    public init(component: BaseBuilder) {
         self.component = component
     }
     
@@ -24,7 +24,7 @@ open class SkeletonBuilder: Skeleton {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-                    .setPin.equalTo(component ?? UIView())
+                    .setPin.equalTo(component?.baseView ?? UIView())
             }
         return comp
     }()
@@ -94,8 +94,8 @@ open class SkeletonBuilder: Skeleton {
 
     private func configFrame() {
         guard let component else {return}
-        skeletonView.get.frame = component.bounds
-        skeletonView.get.layer.cornerRadius = component.layer.cornerRadius
+        skeletonView.get.frame = component.baseView.bounds
+        skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
     }
     
     private func configCustomCornerRadius() {
@@ -108,7 +108,7 @@ open class SkeletonBuilder: Skeleton {
     
     private func addSkeletonOnComponent() {
         guard let component else {return}
-        skeletonView.add(insideTo: component.superview ?? component)
+        skeletonView.add(insideTo: component.baseView.superview ?? UIView())
         skeletonView.applyConstraint()
     }
     
