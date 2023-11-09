@@ -18,6 +18,12 @@ public protocol Border {
     func setCornerRadius(_ radius: CGFloat) -> Self
     
     @discardableResult
+    func setClipsToBounds(_ flag: Bool) -> Self
+    
+    @discardableResult
+    func setMasksToBounds(_ flag: Bool) -> Self
+    
+    @discardableResult
     func setWhichCornersWillBeRounded(_ cornes: [K.Corner]) -> Self
     
 }
