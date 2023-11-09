@@ -42,8 +42,7 @@ open class SkeletonBuilder: Skeleton {
     
     @discardableResult
     public func setColorSkeleton(color: UIColor?) -> Self {
-//        self.color = color
-        self.color = .lightGray
+        self.color = color
         return self
     }
     
@@ -102,7 +101,7 @@ open class SkeletonBuilder: Skeleton {
             .setGradient { build in
                 build
                     .setReferenceColor(color, percentageGradient: 10)
-                    .setOpacity(1)
+                    .setOpacity(0.8)
                     .apply()
             }
         
