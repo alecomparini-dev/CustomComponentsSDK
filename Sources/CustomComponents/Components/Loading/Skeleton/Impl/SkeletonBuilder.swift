@@ -93,10 +93,13 @@ open class SkeletonBuilder: Skeleton {
         skeletonView.get.frame = component.bounds
         skeletonView.get.layer.cornerRadius = component.layer.cornerRadius
         
-        skeletonView.setBorder { build in
-            build
-                .setCornerRadius(radius ?? .zero)
+        if let radius {
+            skeletonView.setBorder { build in
+                build
+                    .setCornerRadius(radius)
+            }
         }
+        
         
         skeletonView.add(insideTo: component.superview ?? component)
         skeletonView.applyConstraint()
