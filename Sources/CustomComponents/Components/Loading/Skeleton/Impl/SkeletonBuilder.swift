@@ -101,7 +101,7 @@ open class SkeletonBuilder: Skeleton {
             .setGradient { build in
                 build
                     .setReferenceColor(color, percentageGradient: 10)
-                    .setOpacity(0.8)
+                    .setOpacity(1)
                     .apply()
             }
         
@@ -122,7 +122,7 @@ open class SkeletonBuilder: Skeleton {
             .setGradient { build in
                 build
                     .setGradientColors(configColorsGradientSkeleton())
-                    .setOpacity(1)
+                    .setOpacity(0.8)
                     .apply()
             }
         
