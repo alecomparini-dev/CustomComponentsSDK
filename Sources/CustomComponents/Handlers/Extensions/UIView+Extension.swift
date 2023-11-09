@@ -27,7 +27,7 @@ public extension UIView {
                             cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
     }
     
-    //  MARK: - SHADOWS
+//  MARK: - SHADOWS
     func removeShadowByID(_ id: String) {
         if let layerToRemove = self.layer.sublayers?.first(where: { $0.name == id }) {
             layerToRemove.removeFromSuperlayer()
@@ -43,6 +43,14 @@ public extension UIView {
     func hasShadow() -> Bool {
         let hasShadow = countShadows()
         return (hasShadow.shadowLayer > 0 || hasShadow.shadowComponent)
+    }
+    
+    
+//  MARK: - GRADIENT
+    func removeGradientByID(_ id: String) {
+        if let gradientLayer = self.layer.sublayers?.first(where: { $0.name == id }) {
+            gradientLayer.removeFromSuperlayer()
+        }
     }
     
     

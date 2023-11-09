@@ -298,3 +298,21 @@ extension K {
 }
 
 
+//  MARK: - EXTENSION - Gradient
+
+extension K {
+    public struct Gradient {
+        public enum Direction {
+            case leftToRight
+            case rightToLeft
+            case topToBottom
+            case bottomToTop
+            case leftBottomToRightTop
+            case leftTopToRightBottom
+            case rightBottomToLeftTop
+            case rightTopToLeftBottom
+        }
+    }
+}
+
+
