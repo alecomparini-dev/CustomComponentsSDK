@@ -7,6 +7,7 @@ open class ViewBuilder: BaseBuilder, ViewProtocol {
     public typealias T = UIView
     
     public var get: T { self.view }
+    
     private var view: UIView
     
 
