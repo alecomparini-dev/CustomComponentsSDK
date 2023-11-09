@@ -9,7 +9,7 @@ open class BaseBuilder: NSObject {
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private(set) var shadow: ShadowBuilder?
     private weak var border: BorderBuilder?
-    private weak var gradient: GradientBuilder?
+    private(set) var gradient: GradientBuilder?
     
     private weak var _baseView: UIView?
     
