@@ -49,10 +49,11 @@ open class BorderBuilder: Border {
         component.clipsToBounds = true
 //        component.layer.cornerRadius = radius
         
+        var corner: CAShapeLayer = CAShapeLayer()
+        component.layer.addSublayer(corner)
         DispatchQueue.main.async { [weak self] in
-            guard let self, let component else {return}
+            guard let self, let component else {return}            
             
-            var corner: CAShapeLayer = CAShapeLayer()
             corner.masksToBounds = true
             corner.frame = component.bounds
             corner.path = component.replicateFormat(width: component.frame.width,
@@ -60,7 +61,6 @@ open class BorderBuilder: Border {
                                                      cornerRadius: radius
             ).cgPath
             
-            component.layer.addSublayer(corner)
         }
         return self
     }
