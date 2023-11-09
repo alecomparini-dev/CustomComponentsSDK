@@ -8,6 +8,7 @@ open class SkeletonBuilder: Skeleton {
     private var animator: UIViewPropertyAnimator?
     private var speed: K.Skeleton.SpeedAnimation?
     private var color: UIColor?
+    private var radius: CGFloat?
     private var widthComponent: CGFloat?
     
     private weak var component: UIView?
@@ -48,10 +49,7 @@ open class SkeletonBuilder: Skeleton {
     
     @discardableResult
     public func setCornerRadius(_ radius: CGFloat) -> Self {
-        skeletonView.setBorder { build in
-            build
-                .setCornerRadius(radius)
-        }
+        self.radius = radius
         return self
     }
 
@@ -94,6 +92,12 @@ open class SkeletonBuilder: Skeleton {
         
         skeletonView.get.frame = component.bounds
         skeletonView.get.layer.cornerRadius = component.layer.cornerRadius
+        
+        skeletonView.setBorder { build in
+            build
+                .setCornerRadius(radius ?? .zero)
+        }
+        
         skeletonView.add(insideTo: component.superview ?? component)
         skeletonView.applyConstraint()
         
@@ -112,7 +116,7 @@ open class SkeletonBuilder: Skeleton {
         
         skeletonLayer = ViewBuilder(frame: 
                                         CGRect(
-                                            origin: CGPoint(x: -100, y: 0),
+                                            origin: CGPoint(x: -100, y: .zero),
                                             size: CGSize(width: 100, height: skeletonView.get.bounds.height)
                                         ))
         
@@ -141,7 +145,7 @@ open class SkeletonBuilder: Skeleton {
     
     private func startAnimation() {
         let duration = TimeInterval(getDuration())
-        UIView.animate(withDuration: 1.5, delay: 0, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
+        UIView.animate(withDuration: duration, delay: .zero, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
             guard let self else {return}
             skeletonLayer.get.frame.origin.x = 350
         }, completion: nil)
