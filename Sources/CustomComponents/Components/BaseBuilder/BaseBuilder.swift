@@ -14,7 +14,6 @@ open class BaseBuilder: NSObject {
     
     private weak var _baseView: UIView?
     
-    
     var baseView: UIView {
         get { self._baseView ?? UIView() }
         set { self._baseView = newValue }
@@ -28,10 +27,17 @@ open class BaseBuilder: NSObject {
     
     
 //  MARK: - GET PROPERTIES
-    public func getTag() -> Int { baseView.tag  }
+    public var getTag: Int { baseView.tag  }
     
-    public func getSkeleton() -> Skeleton? { skeleton }
-    public func getGradient() -> GradientBuilder? { gradient }
+    public var getSkeleton: Skeleton? {
+        get { skeleton }
+        set { skeleton = newValue}
+    }
+    
+    public var getGradient: GradientBuilder? {
+        get { gradient }
+        set { gradient = newValue}
+    }
 
     
 //  MARK: - SET PROPERTIES
