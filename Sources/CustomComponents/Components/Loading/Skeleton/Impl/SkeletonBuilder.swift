@@ -173,11 +173,11 @@ open class SkeletonBuilder: Skeleton {
     private func getDuration() -> Float {
         switch speed {
             case .slow:
-                return 1
+                return 2.5
             case .medium:
                 return 1.5
             case .fast:
-                return 2.5
+                return 1
             case nil:
                 return 1.5
         }
