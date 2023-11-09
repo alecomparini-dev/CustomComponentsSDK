@@ -13,10 +13,6 @@ class SkeletonView: ViewBuilder {
     
     lazy var skeletonLayer: ViewBuilder = {
         let comp = ViewBuilder()
-            .setConstraints { build in
-                build
-                    .setHeight.equalToSafeArea
-            }
         return comp
     }()
     

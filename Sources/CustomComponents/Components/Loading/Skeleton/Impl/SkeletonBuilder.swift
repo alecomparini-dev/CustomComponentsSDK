@@ -101,12 +101,8 @@ open class SkeletonBuilder: Skeleton {
                     .setOpacity(0.8)
                     .apply()
             }
-        skeletonView.skeletonLayer.setConstraints { build in
-            build
-                .setWidth.equalToConstant(100)
-                .setHeight.equalToConstant(20)
-                .apply()
-        }
+        
+        skeletonView.skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 25)))
         
     }
     
