@@ -19,6 +19,6 @@ public protocol Skeleton {
     @discardableResult
     func apply() -> Self
     
-    func hideSkeleton(_ completion: completion?)
+    func hideSkeleton()
     
 }

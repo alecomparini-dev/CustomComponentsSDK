@@ -15,7 +15,6 @@ open class SkeletonBuilder: Skeleton {
     
     public init(component: UIView) {
         self.component = component
-        configure()
     }
     
     private lazy var skeletonView: ViewBuilder = {
@@ -33,8 +32,8 @@ open class SkeletonBuilder: Skeleton {
     }()
     
     
-//  MARK: - SET PROPERTIES
-
+    //  MARK: - SET PROPERTIES
+    
     @discardableResult
     public func setSpeedAnimation(_ speed: K.Skeleton.SpeedAnimation) -> Self {
         self.speed = speed
@@ -52,7 +51,7 @@ open class SkeletonBuilder: Skeleton {
         self.radius = radius
         return self
     }
-
+    
     @discardableResult
     public func setColorSkeleton(hexColor: String?) -> Self {
         guard let hexColor, hexColor.isHexColor() else {return self}
@@ -60,10 +59,16 @@ open class SkeletonBuilder: Skeleton {
         return self
     }
     
-    public func hideSkeleton(_ completion: completion? = nil) {
-        skeletonLayer.get.layer.removeAllAnimations()
+    public func hideSkeleton() {
         animator = nil
-        skeletonView.get.removeFromSuperview()
+        UIView.animate(withDuration: 0.5, delay: .zero, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
+            guard let self else {return}
+            skeletonLayer.get.alpha = 0
+        }, completion: { [weak self] _ in
+            guard let self else {return}
+            skeletonLayer.get.layer.removeAllAnimations()
+            skeletonView.get.removeFromSuperview()
+        })
     }
 
 
@@ -82,10 +87,6 @@ open class SkeletonBuilder: Skeleton {
 
     
 //  MARK: - PRIVATE AREA
-   
-    private func configure() {
-
-    }
     
     private func configSkeleton() {
         configFrame()
