@@ -24,30 +24,37 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
     
         
 //  MARK: - SET PROPERTIES
+    
+    @discardableResult
+    public func setImage(image: UIImage?) -> Self {
+        self.imageView.image = image
+        return self
+    }
+    
     @discardableResult
     public func setImage(systemName: String) -> Self {
-        self.imageView.image = UIImage(systemName: systemName)
+        setImage(image: UIImage(systemName: systemName))
         return self
     }
     
     @discardableResult
     public func setImage(named: String) -> Self {
-        self.imageView.image = UIImage(named: named)
+        setImage(image: UIImage(named: named))
         return self
     }
     
     @discardableResult
     public func setContentMode(_ contentMode: K.ContentMode) -> Self {
-        self.imageView.contentMode = UIView.ContentMode.init(rawValue: contentMode.rawValue) ?? .scaleAspectFill
+        imageView.contentMode = UIView.ContentMode.init(rawValue: contentMode.rawValue) ?? .scaleAspectFill
         return self
     }
     
     @discardableResult
     public func setTintColor(color: UIColor?) -> Self {
         guard let color else {return self}
-        self.imageView.image = self.imageView.image?.withRenderingMode(.alwaysTemplate)
-        self.imageView.image?.withTintColor(color)
-        self.imageView.tintColor = color
+        imageView.image = self.imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.image?.withTintColor(color)
+        imageView.tintColor = color
         return self
     }
     
@@ -67,14 +74,14 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
         
     @discardableResult
     public func setSize(_ size: CGFloat) -> Self {
-        self.imageView.image = self.imageView.image?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: size))
+        imageView.image = imageView.image?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: size))
         return self
     }
     
     @discardableResult
     public func setWeight(_ weight: K.Weight) -> Self {
         let weight = UIImage.SymbolWeight.init(rawValue: weight.rawValue) ?? .regular
-        self.imageView.image = self.imageView.image?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(weight: weight))
+        imageView.image = imageView.image?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(weight: weight))
         return self
     }
     

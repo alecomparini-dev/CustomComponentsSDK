@@ -50,8 +50,19 @@ final class TextFieldBuilderPreview: UIView {
             .setPlaceHolder("Type here ...")
             .setBorder { build in
                 build
-                    .setCornerRadius(8)
+                    .setCornerRadius(18)
             }
+            .setShadow({ build in
+                build
+                    .setColor(color: .black)
+                    .setOffset(width: 3, height: 3)
+                    .setRadius(5)
+                    .apply()
+            })
+//            .setBorder { build in
+//                build
+//                    .setCornerRadius(8)
+//            }
             .setConstraints { build in
                 build
                     .setTop.equalTo(textField.get, .bottom, 20)

@@ -10,7 +10,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     private let size: CGFloat
     private var image: ImageViewBuilder?
 
-    private weak var chooseSource: ProfileChooseSourceBuilder?
+    private var chooseSource: ProfileChooseSourceBuilder?
     
     private let profilePicture: ViewBuilder
     
@@ -91,8 +91,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         
     @discardableResult
     public func setImagePicture(_ image: UIImage) -> Self {
-        profileImage.get.image = image
         profileImage.setContentMode(.scaleAspectFill)
+        profileImage.setImage(image: image)
         return self
     }
     

@@ -8,6 +8,7 @@ open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private(set) var shadow: ShadowBuilder?
+    private(set) var border: BorderBuilder?
     
     private weak var _baseView: UIView?
     
@@ -112,7 +113,7 @@ open class BaseBuilder: NSObject {
     
     @discardableResult
     public func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
-        _ = build(BorderBuilder(baseView))
+        border = build(BorderBuilder(baseView))
         return self
     }
 

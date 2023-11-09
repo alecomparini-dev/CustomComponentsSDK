@@ -9,18 +9,6 @@ import SwiftUI
 
 public extension UIView {
     
-    private struct SwiftUIViewWrapper: UIViewRepresentable {
-        let view: UIView
-        
-        func makeUIView(context: Context) -> UIView { view }
-        
-        func updateUIView(_ uiView: UIView, context: Context) {}
-    }
-    
-    var asSwiftUIView: some View {
-        SwiftUIViewWrapper(view: self)
-    }
-    
     func hideKeyboardWhenViewTapped() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
@@ -39,17 +27,37 @@ public extension UIView {
                             cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
     }
     
-//  MARK: - SHADOWS
+    //  MARK: - SHADOWS
     func removeShadowByID(_ id: String) {
         if let layerToRemove = self.layer.sublayers?.first(where: { $0.name == id }) {
             layerToRemove.removeFromSuperlayer()
         }
     }
     
-    func countShadows() -> Int {
-        return self.layer.sublayers?.filter({ $0.shadowOpacity > 0 }).count ?? 0
+    func countShadows() -> (shadowLayer: Int, shadowComponent: Bool) {
+        let countShadowLayer = self.layer.sublayers?.filter({ $0.shadowOpacity > 0 }).count ?? 0
+        let countShadowComponent = self.layer.shadowOpacity > 0
+        return (shadowLayer: countShadowLayer, shadowComponent: countShadowComponent)
     }
     
-    func hasShadow() -> Bool { return countShadows() > 0 }
+    func hasShadow() -> Bool {
+        let hasShadow = countShadows()
+        return (hasShadow.shadowLayer > 0 || hasShadow.shadowComponent)
+    }
+    
+    
+//  MARK: - PREVIEW SWIFTUI
+    private struct SwiftUIViewWrapper: UIViewRepresentable {
+        let view: UIView
+        
+        func makeUIView(context: Context) -> UIView { view }
+        
+        func updateUIView(_ uiView: UIView, context: Context) {}
+    }
+    
+    var asSwiftUIView: some View {
+        SwiftUIViewWrapper(view: self)
+    }
+
 }
 
