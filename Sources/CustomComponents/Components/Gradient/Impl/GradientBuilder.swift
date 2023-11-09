@@ -190,6 +190,7 @@ open class GradientBuilder: Gradient {
             gradient.endPoint = CGPoint(x: 0, y: endY)
         }
         
+        self.component = nil
     }
     
     private func setGradientOnComponent() {
