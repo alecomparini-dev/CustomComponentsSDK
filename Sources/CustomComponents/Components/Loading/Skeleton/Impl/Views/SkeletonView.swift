@@ -8,8 +8,12 @@ class SkeletonView: ViewBuilder {
     
     override init() {
         super.init()
-        configure()
     }
+    
+    lazy var skeletonLayer: ViewBuilder = {
+        let comp = ViewBuilder()
+        return comp
+    }()
     
     
 //  MARK: - PRIVATE AREA
@@ -17,7 +21,6 @@ class SkeletonView: ViewBuilder {
     private func configure() {
         configSkeleton()
     }
-    
     
     private func configSkeleton() {
         self.get.layer.masksToBounds = true
