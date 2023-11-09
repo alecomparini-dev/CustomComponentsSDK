@@ -8,7 +8,7 @@ class SkeletonView: ViewBuilder {
     
     override init() {
         super.init()
-        configure()
+//        configure()
     }
     
     lazy var skeletonLayer: ViewBuilder = {

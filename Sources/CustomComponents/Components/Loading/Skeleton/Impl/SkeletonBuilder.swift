@@ -77,8 +77,6 @@ open class SkeletonBuilder: Skeleton {
         let color = color ?? .lightGray
         print("entrou")
         
-        skeletonView.add(insideTo: component)
-        
         skeletonView
             .setGradient { build in
                 build
@@ -91,10 +89,14 @@ open class SkeletonBuilder: Skeleton {
                     .setPin.equalTo(component)
                     .apply()
             }
+        
+        skeletonView.add(insideTo: component)
     }
     
     private func configGradientOfSkeletonLayer() {
         skeletonView.skeletonLayer = ViewBuilder(frame: CGRect(origin: CGPoint(x: -100, y: 0), size: CGSize(width: 100, height: 25)))
+        
+        skeletonView.add(insideTo: skeletonView.get)
         
         skeletonView.skeletonLayer
             .setGradient { build in
@@ -118,7 +120,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func startAnimation() {
-        let duration = TimeInterval(getDuration())
+//        let duration = TimeInterval(getDuration())
 //        animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut, animations: { [weak self] in
 //            guard let self, let widthComponent else {return}
 //            skeletonView.skeletonLayer.get.frame.origin.x = widthComponent
