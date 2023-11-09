@@ -30,7 +30,7 @@ open class GradientBuilder: Gradient {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    func setGradientColors(_ colors: [UIColor]) -> Self {
+    public func setGradientColors(_ colors: [UIColor]) -> Self {
         gradient.colors = colors.map { $0.cgColor }
         return self
     }

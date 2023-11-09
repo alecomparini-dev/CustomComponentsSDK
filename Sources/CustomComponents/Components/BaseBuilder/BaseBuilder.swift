@@ -124,7 +124,7 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
+    public func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
         _ = build(GradientBuilder(baseView))
         return self
     }
