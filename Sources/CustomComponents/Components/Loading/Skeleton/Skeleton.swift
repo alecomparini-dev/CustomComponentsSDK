@@ -17,6 +17,9 @@ public protocol Skeleton {
     func setCornerRadius(_ radius: CGFloat) -> Self
     
     @discardableResult
+    func setTransition(_ duration: CGFloat) -> Self
+    
+    @discardableResult
     func apply() -> Self
     
     func hideSkeleton()

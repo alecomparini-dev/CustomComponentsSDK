@@ -9,6 +9,7 @@ open class SkeletonBuilder: Skeleton {
     private var skeletonGradient: GradientBuilder?
     private var skeletonLayerGradient: GradientBuilder?
     
+    private var transitionDuration: CGFloat?
     private var speed: K.Skeleton.SpeedAnimation?
     private var color: UIColor?
     private var radius: CGFloat?
@@ -18,6 +19,7 @@ open class SkeletonBuilder: Skeleton {
     
     public init(component: BaseBuilder) {
         self.component = component
+        configure()
     }
     
     private lazy var skeletonView: ViewBuilder = {
@@ -40,6 +42,12 @@ open class SkeletonBuilder: Skeleton {
     @discardableResult
     public func setSpeedAnimation(_ speed: K.Skeleton.SpeedAnimation) -> Self {
         self.speed = speed
+        return self
+    }
+    
+    @discardableResult
+    public func setTransition(_ duration: CGFloat) -> Self {
+        transitionDuration = duration
         return self
     }
     
@@ -81,7 +89,10 @@ open class SkeletonBuilder: Skeleton {
 
     
 //  MARK: - PRIVATE AREA
-    
+    private func configure() {
+        setTransition(0.5)
+    }
+
     private func configSkeleton() {
         configFrame()
         configCustomCornerRadius()
@@ -157,15 +168,23 @@ open class SkeletonBuilder: Skeleton {
     
     private func stopAnimation() {
         component?.setHidden(true)
-        UIView.animate(withDuration: 0, delay: .zero, animations: { [weak self] in
-            self?.skeletonLayer.get.alpha = 0
-        }, completion: { [weak self] _ in
-            guard let self else {return}
-            component?.setHidden(false)
-            skeletonLayer.get.layer.removeAllAnimations()
-            skeletonView.get.removeFromSuperview()
-            freeMemory()
-        })
+        if let transitionDuration {
+            UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
+                self?.skeletonLayer.get.alpha = 0
+            }, completion: { [weak self] _ in
+                guard let self else {return}
+                hide()
+            })
+            return
+        }
+        hide()
+    }
+    
+    private func hide() {
+        component?.setHidden(false)
+        skeletonLayer.get.layer.removeAllAnimations()
+        skeletonView.get.removeFromSuperview()
+        freeMemory()
     }
     
     private func getDuration() -> Float {
