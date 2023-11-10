@@ -138,7 +138,7 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func configFrameSkeletonLayer() {
-//        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
+        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
         
         let startLayer = calculateStartLayer()
         
@@ -147,7 +147,7 @@ open class SkeletonBuilder: Skeleton {
             size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
         )
         skeletonLayer.add(insideTo: skeletonView.get)
-        skeletonView.get.layersResizeIfNeeded()
+//        skeletonView.get.layersResizeIfNeeded()
         skeletonLayer.get.layersResizeIfNeeded()
     }
 
