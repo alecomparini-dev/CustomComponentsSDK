@@ -133,11 +133,13 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configFrameSkeletonLayer() {
+        guard let component else {return}
+        let startLayer = (component.baseView.layer.bounds.width * 66)/100
         skeletonLayer = ViewBuilder(
             frame:
                 CGRect(
-                    origin: CGPoint(x: -200, y: .zero),
-                    size: CGSize(width: 200, height: skeletonView.get.bounds.height)
+                    origin: CGPoint(x: -startLayer, y: .zero),
+                    size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
                 ))
         skeletonLayer.add(insideTo: skeletonView.get)
     }
@@ -164,7 +166,7 @@ open class SkeletonBuilder: Skeleton {
         let duration = TimeInterval(getDuration())
         UIView.animate(withDuration: duration, delay: .zero, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
             guard let self else {return}
-            skeletonLayer.get.frame.origin.x = component?.baseView.layer.bounds.width ?? 350
+            skeletonLayer.get.frame.origin.x = component?.baseView.layer.bounds.width ?? 100
         }, completion: nil)
     }
     
