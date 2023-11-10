@@ -104,13 +104,12 @@ open class SkeletonBuilder: Skeleton {
     private func configFrame() {
         guard let component else {return}
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView.get.frame = component.baseView.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         
         skeletonView
             .setConstraints { build in
                 build
-//                    .setAlignmentCenterXY.equalTo(component.baseView)
+                    .setAlignmentCenterXY.equalTo(component.baseView)
                     .setTop.setLeading.setHeight.equalTo(component.baseView)
                     .apply()
             }
@@ -199,6 +198,7 @@ open class SkeletonBuilder: Skeleton {
         widthConstraint.constant = width
         
         skeletonView.get.layoutIfNeeded()
+        skeletonLayer.setHidden(true)
 
         
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5.1, execute: { [weak self] in
