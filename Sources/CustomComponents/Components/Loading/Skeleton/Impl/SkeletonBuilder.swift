@@ -28,9 +28,7 @@ open class SkeletonBuilder: Skeleton {
             .setBackgroundColor(color: .red)
             .setConstraints { build in
                 build
-//                    .setTop.setLeading.setBottom.equalTo(component?.baseView ?? UIView())
                     .setPin.equalTo(component?.baseView ?? UIView())
-//                    .setAlignmentCenterXY.equalTo(component?.baseView ?? UIView())
             }
         return comp
     }()
@@ -174,7 +172,7 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
 
-//        skeletonView.get.layer.frame = component.baseView.layer.bounds
+        skeletonView.get.layer.frame = component.baseView.layer.bounds
         skeletonView.get.layersResizeIfNeeded()
 
         
