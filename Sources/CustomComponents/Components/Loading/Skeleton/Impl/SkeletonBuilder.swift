@@ -183,7 +183,7 @@ open class SkeletonBuilder: Skeleton {
             skeletonView.get.alpha = 1
             if let transitionDuration {
                 UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
-                    self?.skeletonView.get.alpha = 0
+//                    self?.skeletonView.get.alpha = 0
                 }, completion: { [weak self] _ in
                     guard let self else {return}
                     hide()
