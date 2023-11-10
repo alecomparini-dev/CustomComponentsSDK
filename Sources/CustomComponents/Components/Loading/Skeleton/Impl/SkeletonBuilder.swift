@@ -28,15 +28,15 @@ open class SkeletonBuilder: Skeleton {
                 build
                     .setPin.equalTo(component?.baseView ?? UIView())
             }
-        comp.get.layer.masksToBounds = true
-        comp.get.clipsToBounds = true
         return comp
     }()
     
     lazy var skeletonLayer: ViewBuilder = {
         let comp = ViewBuilder()
-        comp.get.layer.masksToBounds = true
-        comp.get.clipsToBounds = true
+            .setConstraints { build in
+                build
+                    .setHeight.equalTo(skeletonView.get)
+            }
         return comp
     }()
     
@@ -84,8 +84,9 @@ open class SkeletonBuilder: Skeleton {
     public func apply() -> Self {
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
-            configSkeleton()
+            configSkeletonView()
             configSkeletonLayer()
+            configClipsToBounds()
             startAnimation()
         }
         return self
@@ -97,7 +98,14 @@ open class SkeletonBuilder: Skeleton {
         setTransition(0.5)
     }
 
-    private func configSkeleton() {
+    private func configClipsToBounds() {
+        skeletonView.get.layer.masksToBounds = true
+        skeletonView.get.clipsToBounds = true
+        skeletonLayer.get.layer.masksToBounds = true
+        skeletonLayer.get.clipsToBounds = true
+    }
+    
+    private func configSkeletonView() {
         addSkeletonOnComponent()
         configCustomCornerRadius()
         configGradientSkeletonView()
@@ -143,6 +151,7 @@ open class SkeletonBuilder: Skeleton {
                     size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
                 ))
         skeletonLayer.add(insideTo: skeletonView.get)
+        skeletonLayer.applyConstraint()
     }
 
     private func calculateStartLayer() -> CGFloat {
