@@ -85,7 +85,6 @@ open class SkeletonBuilder: Skeleton {
     private func configSkeleton() {
         configFrame()
         configCustomCornerRadius()
-        addSkeletonOnComponent()
         configGradientSkeleton()
     }
 
@@ -93,6 +92,7 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         skeletonView.get.frame = component.baseView.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
+        skeletonView.add(insideTo: component.baseView.superview ?? UIView())
     }
     
     private func configCustomCornerRadius() {
@@ -101,12 +101,6 @@ open class SkeletonBuilder: Skeleton {
                 build.setCornerRadius(radius)
             }
         }
-    }
-    
-    private func addSkeletonOnComponent() {
-        guard let component else {return}
-        skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-//        skeletonView.applyConstraint()
     }
     
     private func configGradientSkeleton() {
