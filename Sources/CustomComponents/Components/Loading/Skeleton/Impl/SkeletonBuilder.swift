@@ -25,6 +25,7 @@ open class SkeletonBuilder: Skeleton {
     
     private lazy var skeletonView: ViewBuilder = {
         let comp = ViewBuilder()
+            .setBackgroundColor(color: .red)
             .setConstraints { build in
                 build
                     .setTop.setLeading.setBottom.equalTo(component?.baseView ?? UIView())
