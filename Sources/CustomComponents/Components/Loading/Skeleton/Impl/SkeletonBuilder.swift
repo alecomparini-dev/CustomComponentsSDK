@@ -14,7 +14,7 @@ open class SkeletonBuilder: Skeleton {
     private var color: UIColor?
     private var radius: CGFloat?
     private var widthComponent: CGFloat?
-    private var widthConstraint: NSLayoutConstraint!
+//    private var widthConstraint: NSLayoutConstraint!
     
     private weak var component: BaseBuilder?
     
@@ -28,8 +28,8 @@ open class SkeletonBuilder: Skeleton {
             .setBackgroundColor(color: .red)
             .setConstraints { build in
                 build
-                    .setTop.setLeading.setBottom.equalTo(component?.baseView ?? UIView())
-//                    .setPin.equalTo(component?.baseView ?? UIView())
+//                    .setTop.setLeading.setBottom.equalTo(component?.baseView ?? UIView())
+                    .setPin.equalTo(component?.baseView ?? UIView())
 //                    .setAlignmentCenterXY.equalTo(component?.baseView ?? UIView())
             }
         return comp
@@ -105,14 +105,14 @@ open class SkeletonBuilder: Skeleton {
 
     private func configFrame() {
         guard let component else {return}
-        widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
+//        widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
         
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
         skeletonView.get.layer.bounds = component.baseView.layer.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
 
         skeletonView.applyConstraint()
-        widthConstraint.isActive = true
+//        widthConstraint.isActive = true
     }
     
     private func configCustomCornerRadius() {
