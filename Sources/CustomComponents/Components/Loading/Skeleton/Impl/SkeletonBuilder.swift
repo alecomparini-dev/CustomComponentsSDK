@@ -172,27 +172,19 @@ open class SkeletonBuilder: Skeleton {
         component.baseView.layoutIfNeeded()
         skeletonView.get.layer.frame = component.baseView.layer.bounds
         skeletonView.get.layersResizeIfNeeded()
-
         
-            if let transitionDuration {
-                UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
-                    self?.skeletonView.get.alpha = 0
-                }, completion: { [weak self] _ in
-                    guard let self else {return}
-                    hide()
-                })
-                return
-            }
+        if let transitionDuration {
+            UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
+                self?.skeletonView.get.alpha = 0
+            }, completion: { [weak self] _ in
+                guard let self else {return}
+                hide()
+            })
+            return
+        }
         hide()
     }
-    
-    private func hide() {
-        skeletonLayer.get.layer.removeAllAnimations()
-        skeletonView.get.layer.removeAllAnimations()
-        skeletonView.get.removeFromSuperview()
-        freeMemory()
-    }
-    
+
     private func getDuration() -> Float {
         switch speed {
             case .slow:
@@ -204,6 +196,13 @@ open class SkeletonBuilder: Skeleton {
             case nil:
                 return 1.5
         }
+    }
+
+    private func hide() {
+        skeletonLayer.get.layer.removeAllAnimations()
+        skeletonView.get.layer.removeAllAnimations()
+        skeletonView.get.removeFromSuperview()
+        freeMemory()
     }
     
     private func freeMemory() {
