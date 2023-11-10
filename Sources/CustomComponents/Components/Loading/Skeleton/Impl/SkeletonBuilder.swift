@@ -91,7 +91,7 @@ open class SkeletonBuilder: Skeleton {
     private func configFrame() {
         guard let component else {return}
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView.get.frame = component.baseView.bounds
+        skeletonView.get.bounds = component.baseView.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
     }
     
