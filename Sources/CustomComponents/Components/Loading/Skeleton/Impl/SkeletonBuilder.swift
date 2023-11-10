@@ -106,7 +106,7 @@ open class SkeletonBuilder: Skeleton {
     private func addSkeletonOnComponent() {
         guard let component else {return}
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView.applyConstraint()
+//        skeletonView.applyConstraint()
     }
     
     private func configGradientSkeleton() {
@@ -161,8 +161,6 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func stopAnimation() {
-        skeletonView.get.layoutIfNeeded()
-        skeletonView.get.updateConstraintsIfNeeded()
         component?.setHidden(true)
         UIView.animate(withDuration: 0.5, delay: .zero, animations: { [weak self] in
             self?.skeletonLayer.get.alpha = 0
