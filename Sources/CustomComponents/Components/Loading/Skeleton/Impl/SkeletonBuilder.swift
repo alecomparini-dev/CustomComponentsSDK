@@ -161,10 +161,12 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func stopAnimation() {
+        component?.setAlpha(0)
         UIView.animate(withDuration: 0.5, delay: .zero, animations: { [weak self] in
             self?.skeletonLayer.get.alpha = 0
         }, completion: { [weak self] _ in
             guard let self else {return}
+            component?.setAlpha(1)
             skeletonLayer.get.layer.removeAllAnimations()
             skeletonView.get.removeFromSuperview()
             freeMemory()
