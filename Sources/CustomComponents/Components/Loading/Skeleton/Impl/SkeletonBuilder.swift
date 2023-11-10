@@ -167,7 +167,6 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func stopAnimation() {
-        component?.setHidden(true)
         if let transitionDuration {
             UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
                 self?.skeletonView.get.alpha = 0
@@ -182,7 +181,6 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func hide() {
-        component?.setHidden(false)
         skeletonLayer.get.layer.removeAllAnimations()
         skeletonView.get.layer.removeAllAnimations()
         skeletonView.get.removeFromSuperview()
