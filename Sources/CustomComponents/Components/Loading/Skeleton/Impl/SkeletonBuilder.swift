@@ -175,7 +175,13 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func stopAnimation() {
+        guard let component else {return}
+        skeletonView.get.layer.frame = component.baseView.bounds
+    
+        
         skeletonView.get.updateConstraintsIfNeeded()
+        skeletonView.get.layoutIfNeeded()
+        
         
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5.1, execute: { [weak self] in
 //            guard let self else {return}
