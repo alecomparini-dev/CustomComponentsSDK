@@ -124,7 +124,6 @@ open class SkeletonBuilder: Skeleton {
             .setReferenceColor(color, percentageGradient: 10)
             .setOpacity(1)
             .apply()
-
         skeletonView.get.layer.masksToBounds = true
         skeletonView.get.clipsToBounds = true
     }
