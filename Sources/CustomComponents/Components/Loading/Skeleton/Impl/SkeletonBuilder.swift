@@ -180,15 +180,18 @@ open class SkeletonBuilder: Skeleton {
     private func stopAnimation() {
         skeletonView.get.updateConstraintsIfNeeded()
         skeletonView.get.layoutIfNeeded()
-        if let transitionDuration {
-            UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
-                self?.skeletonView.get.alpha = 0
-            }, completion: { [weak self] _ in
-                guard let self else {return}
-                hide()
-            })
-            return
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            if let transitionDuration {
+                UIView.animate(withDuration: transitionDuration, delay: 1, animations: { [weak self] in
+                    self?.skeletonView.get.alpha = 0
+                }, completion: { [weak self] _ in
+                    guard let self else {return}
+                    hide()
+                })
+                return
+            }
+//        })
+        
         hide()
     }
     
