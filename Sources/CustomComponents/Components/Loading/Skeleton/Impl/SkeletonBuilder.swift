@@ -35,7 +35,8 @@ open class SkeletonBuilder: Skeleton {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-                    .setTop.setBottom.equalTo(skeletonView.get)
+//                    .setTop.setBottom.equalTo(skeletonView.get)
+                    .setHeight.equalTo(skeletonView.get)
             }
         return comp
     }()
@@ -142,7 +143,7 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func configFrameSkeletonLayer() {
-        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
+//        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
 //        skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
         
         let startLayer = calculateStartLayer()
@@ -150,6 +151,12 @@ open class SkeletonBuilder: Skeleton {
             origin: CGPoint(x: -startLayer, y: .zero),
             size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
         )
+        
+        skeletonLayer.setConstraints { build in
+            build
+                .setHeight.equalTo(skeletonView.get)
+                .setWidth.equalToConstant(startLayer)
+        }
         
         skeletonLayer.add(insideTo: skeletonView.get)
         skeletonLayer.applyConstraint()
