@@ -173,6 +173,7 @@ open class SkeletonBuilder: Skeleton {
                 self?.skeletonView.get.alpha = 0
             }, completion: { [weak self] _ in
                 guard let self else {return}
+                print("transitionDuration", transitionDuration, "parouuu")
                 hide()
             })
             return
