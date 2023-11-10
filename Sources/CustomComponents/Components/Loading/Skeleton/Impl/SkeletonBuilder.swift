@@ -28,6 +28,8 @@ open class SkeletonBuilder: Skeleton {
                 build
                     .setPin.equalTo(component?.baseView ?? UIView())
             }
+        comp.get.layer.masksToBounds = true
+        comp.get.clipsToBounds = true
         return comp
     }()
     
@@ -124,8 +126,6 @@ open class SkeletonBuilder: Skeleton {
             .setReferenceColor(color, percentageGradient: 10)
             .setOpacity(1)
             .apply()
-        skeletonView.get.layer.masksToBounds = true
-        skeletonView.get.clipsToBounds = true
     }
     
     private func configSkeletonLayer() {
@@ -136,13 +136,13 @@ open class SkeletonBuilder: Skeleton {
     private func configFrameSkeletonLayer() {
         let startLayer = calculateStartLayer()
         skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
+        skeletonLayer.add(insideTo: skeletonView.get)
         skeletonLayer = ViewBuilder(
             frame:
                 CGRect(
                     origin: CGPoint(x: -startLayer, y: .zero),
                     size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
                 ))
-        skeletonLayer.add(insideTo: skeletonView.get)
     }
 
     private func calculateStartLayer() -> CGFloat {
