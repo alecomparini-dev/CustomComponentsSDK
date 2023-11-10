@@ -110,13 +110,12 @@ open class SkeletonBuilder: Skeleton {
             .setConstraints { build in
                 build
                     .setTop.setLeading.setHeight.equalTo(component.baseView)
-                    .apply()
             }
         widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
         widthConstraint.isActive = true
         print(widthConstraint.constant)
         
-//        skeletonView.applyConstraint()
+        skeletonView.applyConstraint()
     }
     
     private func configCustomCornerRadius() {
