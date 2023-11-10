@@ -191,9 +191,10 @@ open class SkeletonBuilder: Skeleton {
                 })
                 return
             }
+            hide()
         })
         
-        hide()
+//        hide()
     }
     
     private func hide() {
