@@ -145,7 +145,7 @@ open class SkeletonBuilder: Skeleton {
         guard let component else { return }
         skeletonLayer.get.frame = CGRect(
             origin: CGPoint(x: -startLayer, y: .zero),
-            size: CGSize(width: startLayer, height: component.baseView.bounds.height)
+            size: CGSize(width: startLayer, height: component.baseView.frame.height)
         )
     }
 
