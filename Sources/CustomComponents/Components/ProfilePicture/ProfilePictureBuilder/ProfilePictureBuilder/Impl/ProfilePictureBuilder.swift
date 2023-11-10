@@ -41,6 +41,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
                     .setAlignmentCenterXY.equalTo(profilePicture.get)
                     .setSize.equalToConstant(size)
             }
+        comp.get.clipsToBounds = true
         return comp
     }()
 
