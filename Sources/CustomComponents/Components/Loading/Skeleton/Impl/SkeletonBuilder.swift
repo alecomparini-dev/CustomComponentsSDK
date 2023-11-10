@@ -110,8 +110,8 @@ open class SkeletonBuilder: Skeleton {
         skeletonView
             .setConstraints { build in
                 build
-                    .setAlignmentCenterXY.equalTo(component.baseView)
-                    .setHeight.equalTo(component.baseView)
+//                    .setAlignmentCenterXY.equalTo(component.baseView)
+                    .setTop.setLeading.setHeight.equalTo(component.baseView)
                     .apply()
             }
         widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
