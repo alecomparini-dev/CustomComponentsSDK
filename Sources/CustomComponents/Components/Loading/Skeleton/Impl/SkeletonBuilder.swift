@@ -25,11 +25,11 @@ open class SkeletonBuilder: Skeleton {
     
     private lazy var skeletonView: ViewBuilder = {
         let comp = ViewBuilder()
-//            .setConstraints { build in
-//                build
-//                    .setPin.equalTo(component?.baseView ?? UIView())
-////                    .setAlignmentCenterXY.equalTo(component?.baseView ?? UIView())
-//            }
+            .setConstraints { build in
+                build
+                    .setPin.equalTo(component?.baseView ?? UIView())
+//                    .setAlignmentCenterXY.equalTo(component?.baseView ?? UIView())
+            }
         return comp
     }()
     
@@ -106,14 +106,7 @@ open class SkeletonBuilder: Skeleton {
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         
-        skeletonView
-            .setConstraints { build in
-                build
-                    .setTop.setLeading.setHeight.equalTo(component.baseView)
-            }
         widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
-        widthConstraint.isActive = true
-        print(widthConstraint.constant)
         
         skeletonView.applyConstraint()
     }
