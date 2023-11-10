@@ -26,14 +26,15 @@ open class SkeletonBuilder: Skeleton {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-                    .setTop.setLeading.setTrailing.equalTo(component?.baseView ?? UIView())
-                    .setBottom.equalTo(component?.baseView ?? UIView(), .bottom, 2)
+                    .setPin.equalTo(component?.baseView ?? UIView())
             }
         return comp
     }()
     
     lazy var skeletonLayer: ViewBuilder = {
         let comp = ViewBuilder()
+        comp.get.layer.masksToBounds = true
+        comp.get.clipsToBounds = true
         return comp
     }()
     
@@ -125,6 +126,7 @@ open class SkeletonBuilder: Skeleton {
             .apply()
 
         skeletonView.get.layer.masksToBounds = true
+        skeletonView.get.clipsToBounds = true
     }
     
     private func configSkeletonLayer() {
@@ -135,7 +137,6 @@ open class SkeletonBuilder: Skeleton {
     private func configFrameSkeletonLayer() {
         let startLayer = calculateStartLayer()
         skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
-        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
         skeletonLayer = ViewBuilder(
             frame:
                 CGRect(
