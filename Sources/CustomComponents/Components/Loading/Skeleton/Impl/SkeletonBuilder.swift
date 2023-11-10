@@ -80,9 +80,9 @@ open class SkeletonBuilder: Skeleton {
     public func apply() -> Self {
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
+            configClipsToBounds()
             configSkeletonView()
             configSkeletonLayer()
-            configClipsToBounds()
             startAnimation()
         }
         return self
@@ -139,7 +139,7 @@ open class SkeletonBuilder: Skeleton {
 
     private func configFrameSkeletonLayer() {
         skeletonLayer.get.bounds = skeletonView.get.layer.bounds
-        skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
+//        skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
         
         let startLayer = calculateStartLayer()
         
