@@ -178,8 +178,9 @@ open class SkeletonBuilder: Skeleton {
         skeletonView.get.updateConstraintsIfNeeded()
         skeletonView.get.layoutIfNeeded()
         skeletonView.get.alpha = 1
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.1, execute: { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.1, execute: { [weak self] in
             guard let self else {return}
+            skeletonView.get.alpha = 1
             if let transitionDuration {
                 UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
                     self?.skeletonView.get.alpha = 0
