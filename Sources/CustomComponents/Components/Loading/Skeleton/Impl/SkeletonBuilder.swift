@@ -180,9 +180,10 @@ open class SkeletonBuilder: Skeleton {
     private func stopAnimation() {
         skeletonView.get.updateConstraintsIfNeeded()
         skeletonView.get.layoutIfNeeded()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.1, execute: { [weak self] in
+            guard let self else {return}
             if let transitionDuration {
-                UIView.animate(withDuration: transitionDuration, delay: 1, animations: { [weak self] in
+                UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
                     self?.skeletonView.get.alpha = 0
                 }, completion: { [weak self] _ in
                     guard let self else {return}
@@ -190,7 +191,7 @@ open class SkeletonBuilder: Skeleton {
                 })
                 return
             }
-//        })
+        })
         
         hide()
     }
