@@ -14,7 +14,6 @@ open class SkeletonBuilder: Skeleton {
     private var color: UIColor?
     private var radius: CGFloat?
     private var widthComponent: CGFloat?
-//    private var widthConstraint: NSLayoutConstraint!
     
     private weak var component: BaseBuilder?
     
@@ -25,7 +24,6 @@ open class SkeletonBuilder: Skeleton {
     
     private lazy var skeletonView: ViewBuilder = {
         let comp = ViewBuilder()
-            .setBackgroundColor(color: .red)
             .setConstraints { build in
                 build
                     .setPin.equalTo(component?.baseView ?? UIView())
@@ -104,6 +102,7 @@ open class SkeletonBuilder: Skeleton {
     private func addSkeletonOnComponent() {
         guard let component else {return}
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
+        skeletonView.get.layer.frame = component.baseView.layer.bounds
         skeletonView.applyConstraint()
     }
     
@@ -171,7 +170,6 @@ open class SkeletonBuilder: Skeleton {
     private func stopAnimation() {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
-
         skeletonView.get.layer.frame = component.baseView.layer.bounds
         skeletonView.get.layersResizeIfNeeded()
 
