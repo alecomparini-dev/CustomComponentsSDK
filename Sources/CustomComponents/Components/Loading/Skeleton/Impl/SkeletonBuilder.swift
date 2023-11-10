@@ -26,8 +26,7 @@ open class SkeletonBuilder: Skeleton {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-//                    .setPin.equalTo(component?.baseView ?? UIView())
-                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
+                    .setPin.equalTo(component?.baseView ?? UIView())
             }
         return comp
     }()
