@@ -146,9 +146,8 @@ open class SkeletonBuilder: Skeleton {
             origin: CGPoint(x: -startLayer, y: .zero),
             size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
         )
-        
         skeletonLayer.add(insideTo: skeletonView.get)
-
+        skeletonLayer.get.layersResizeIfNeeded()
     }
 
     private func calculateStartLayer() -> CGFloat {
