@@ -95,8 +95,8 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func configClipsToBounds() {
-        skeletonView.get.layer.masksToBounds = false
-        skeletonView.get.clipsToBounds = false
+        skeletonView.get.layer.masksToBounds = true
+        skeletonView.get.clipsToBounds = true
         skeletonLayer.get.layer.masksToBounds = false
         skeletonLayer.get.clipsToBounds = false
     }
