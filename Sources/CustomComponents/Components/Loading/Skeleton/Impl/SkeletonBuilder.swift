@@ -169,6 +169,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func startAnimation() {
+        component?.setHidden(true)
         let duration = TimeInterval(getDuration())
         UIView.animate(withDuration: duration, delay: .zero, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
             guard let self else {return}
@@ -177,6 +178,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func stopAnimation() {
+        component?.setHidden(false)
         configWidthSkeletonView()
         if let transitionDuration {
             transitionDissolve(transitionDuration)
