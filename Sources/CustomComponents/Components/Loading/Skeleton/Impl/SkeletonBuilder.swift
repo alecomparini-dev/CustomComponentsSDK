@@ -90,9 +90,10 @@ open class SkeletonBuilder: Skeleton {
 
     private func configFrame() {
         guard let component else {return}
-        skeletonView.add(insideTo: component.baseView.superview ?? UIView())
         skeletonView.get.bounds = component.baseView.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
+        skeletonView.add(insideTo: component.baseView.superview ?? UIView())
+        skeletonView.applyConstraint()
     }
     
     private func configCustomCornerRadius() {
