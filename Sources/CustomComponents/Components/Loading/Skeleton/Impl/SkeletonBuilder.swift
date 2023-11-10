@@ -24,10 +24,11 @@ open class SkeletonBuilder: Skeleton {
     
     private lazy var skeletonView: ViewBuilder = {
         let comp = ViewBuilder()
-//            .setConstraints { build in
-//                build
+            .setConstraints { build in
+                build
 //                    .setPin.equalTo(component?.baseView ?? UIView())
-//            }
+                    .setAlignmentCenterXY.equalTo(component?.baseView ?? UIView())
+            }
         return comp
     }()
     
