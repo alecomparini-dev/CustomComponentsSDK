@@ -138,9 +138,14 @@ open class SkeletonBuilder: Skeleton {
     private func configFrameSkeletonLayer() {
         let startLayer = calculateStartLayer()
         skeletonLayer.add(insideTo: skeletonView.get)
+//        skeletonLayer.get.frame = CGRect(
+//            origin: CGPoint(x: -startLayer, y: .zero),
+//            size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
+//        )
+        guard let component else { return }
         skeletonLayer.get.frame = CGRect(
             origin: CGPoint(x: -startLayer, y: .zero),
-            size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
+            size: CGSize(width: startLayer, height: component.baseView.bounds.height)
         )
     }
 
@@ -168,14 +173,12 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func startAnimation() {
-        configClipsToBounds()
         component?.setHidden(true)
         let duration = TimeInterval(getDuration())
         UIView.animate(withDuration: duration, delay: .zero, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
             guard let self else {return}
             skeletonLayer.get.frame.origin.x = component?.baseView.layer.bounds.width ?? 100
         }, completion: nil)
-        configClipsToBounds()
     }
     
     private func stopAnimation() {
