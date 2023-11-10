@@ -24,10 +24,10 @@ open class SkeletonBuilder: Skeleton {
     
     private lazy var skeletonView: ViewBuilder = {
         let comp = ViewBuilder()
-            .setConstraints { build in
-                build
-                    .setPin.equalTo(component?.baseView ?? UIView())
-            }
+//            .setConstraints { build in
+//                build
+//                    .setPin.equalTo(component?.baseView ?? UIView())
+//            }
         return comp
     }()
     
@@ -101,7 +101,7 @@ open class SkeletonBuilder: Skeleton {
 
     private func configFrame() {
         guard let component else {return}
-        skeletonView.get.bounds = component.baseView.bounds
+        skeletonView.get.frame = component.baseView.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
         skeletonView.applyConstraint()
