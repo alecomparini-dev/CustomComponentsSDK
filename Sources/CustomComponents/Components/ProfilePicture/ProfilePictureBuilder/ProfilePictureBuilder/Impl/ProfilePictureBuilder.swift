@@ -36,7 +36,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     lazy public var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
-            .setContentMode(.redraw)
+            .setContentMode(.scaleAspectFill)
             .setConstraints { build in
                 build
                     .setAlignmentCenterXY.equalTo(profilePicture.get)
