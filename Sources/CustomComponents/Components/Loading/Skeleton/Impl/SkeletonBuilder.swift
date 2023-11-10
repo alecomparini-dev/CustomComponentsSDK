@@ -167,7 +167,7 @@ open class SkeletonBuilder: Skeleton {
             guard let self else {return}
             skeletonLayer.get.layer.removeAllAnimations()
             skeletonView.get.removeFromSuperview()
-            freeMemory() 
+            freeMemory()
         })
     }
     
@@ -189,7 +189,6 @@ open class SkeletonBuilder: Skeleton {
         component?.gradient = nil
         skeletonLayerGradient = nil
         skeletonGradient = nil
-
     }
     
 }

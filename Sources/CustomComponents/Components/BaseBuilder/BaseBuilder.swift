@@ -129,7 +129,7 @@ open class BaseBuilder: NSObject {
 
     @discardableResult
     public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
-        shadow = build(ShadowBuilder(baseView))
+        shadow = build(ShadowBuilder(self))
         return self
     }
     
