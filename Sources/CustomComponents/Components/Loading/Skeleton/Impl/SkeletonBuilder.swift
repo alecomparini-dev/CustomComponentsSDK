@@ -112,7 +112,7 @@ open class SkeletonBuilder: Skeleton {
         
         print(component.baseView.layer.frame)
 
-//        skeletonView.applyConstraint()
+        skeletonView.applyConstraint()
         widthConstraint.isActive = true
     }
     
