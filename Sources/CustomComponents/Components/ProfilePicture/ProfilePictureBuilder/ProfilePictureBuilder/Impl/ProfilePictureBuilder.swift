@@ -41,7 +41,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
                     .setAlignmentCenterXY.equalTo(profilePicture.get)
                     .setSize.equalToConstant(size)
             }
-        comp.get.clipsToBounds = true
         return comp
     }()
 
@@ -122,6 +121,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 //        configCircleProfilePicture()
         setPlaceHolderImage(image)
         configTapGesture()
+        profileImage.get.clipsToBounds = true
     }
     
     private func addElements() {
