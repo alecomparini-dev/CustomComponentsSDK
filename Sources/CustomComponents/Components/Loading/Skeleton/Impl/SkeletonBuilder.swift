@@ -110,8 +110,6 @@ open class SkeletonBuilder: Skeleton {
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
         skeletonView.get.layer.bounds = component.baseView.layer.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
-        
-        print(component.baseView.layer.frame)
 
         skeletonView.applyConstraint()
         widthConstraint.isActive = true
@@ -192,10 +190,10 @@ open class SkeletonBuilder: Skeleton {
 //                                                width: component.baseView.layer.frame.width,
 //                                                height: skeletonView.get.layer.frame.height))
         
-        let width = component.baseView.layer.frame.width
-        print(width)
-        print(skeletonView.get.layer.frame.width)
-        widthConstraint.constant = width
+//        let width = component.baseView.layer.frame.width
+//        print(width)
+//        print(skeletonView.get.layer.frame.width)
+//        widthConstraint.constant = width
         
         skeletonLayer.setHidden(true)
 
