@@ -28,6 +28,7 @@ open class SkeletonBuilder: Skeleton {
             .setConstraints { build in
                 build
                     .setPin.equalTo(component?.baseView ?? UIView())
+                    .setPin.equalTo(component?.baseView ?? UIView())
 //                    .setAlignmentCenterXY.equalTo(component?.baseView ?? UIView())
             }
         return comp
@@ -107,6 +108,7 @@ open class SkeletonBuilder: Skeleton {
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         
         widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
+        widthConstraint.isActive = true
         
         skeletonView.applyConstraint()
     }
