@@ -179,6 +179,7 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
 
+        skeletonView.get.layer.bounds = component.baseView.layer.bounds
 //        skeletonView.get.translatesAutoresizingMaskIntoConstraints = true
 //        
 //        skeletonView.get.layer.frame = component.baseView.layer.bounds
@@ -193,7 +194,7 @@ open class SkeletonBuilder: Skeleton {
         let width = component.baseView.layer.frame.width
         widthConstraint.constant = width
         
-//        skeletonView.get.layoutIfNeeded()
+        skeletonView.get.layoutIfNeeded()
         skeletonLayer.setHidden(true)
 
         
