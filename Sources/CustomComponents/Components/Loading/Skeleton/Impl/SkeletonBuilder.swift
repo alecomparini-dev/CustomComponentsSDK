@@ -135,6 +135,7 @@ open class SkeletonBuilder: Skeleton {
     private func configFrameSkeletonLayer() {
         let startLayer = calculateStartLayer()
         skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
+        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
         skeletonLayer = ViewBuilder(
             frame:
                 CGRect(
