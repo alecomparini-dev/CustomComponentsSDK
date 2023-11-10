@@ -122,6 +122,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         setPlaceHolderImage(image)
         configTapGesture()
         profileImage.get.clipsToBounds = true
+        profileImage.get.layer.masksToBounds = true
     }
     
     private func addElements() {
