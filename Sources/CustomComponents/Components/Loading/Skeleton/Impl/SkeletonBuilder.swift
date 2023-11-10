@@ -109,7 +109,8 @@ open class SkeletonBuilder: Skeleton {
         
         widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
         widthConstraint.isActive = true
-        
+        print(component.baseView.layer.frame)
+
         skeletonView.applyConstraint()
     }
     
