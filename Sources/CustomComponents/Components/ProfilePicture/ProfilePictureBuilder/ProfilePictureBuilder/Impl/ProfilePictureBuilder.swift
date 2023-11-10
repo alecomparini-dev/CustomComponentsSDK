@@ -38,8 +38,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         let comp = ImageViewBuilder()
             .setConstraints { build in
                 build
-                    .setSize.equalToConstant(size)
                     .setAlignmentCenterXY.equalToSuperView
+                    .setSize.equalToConstant(size)
             }
         return comp
     }()
@@ -57,7 +57,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     @discardableResult
     public func setCornerRadius(_ radius: CGFloat) -> Self {
-        self.profileImage.setBorder { build in
+        profileImage.setBorder { build in
             build
                 .setCornerRadius(radius)
         }
@@ -132,7 +132,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func configCircleProfilePicture() {
-        setCornerRadius(self.size / 2)
+        setCornerRadius(size / 2)
     }
     
     private func configTapGesture() {
