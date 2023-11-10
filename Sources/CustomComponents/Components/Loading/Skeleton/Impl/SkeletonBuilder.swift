@@ -95,10 +95,10 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func configClipsToBounds() {
-        skeletonView.get.layer.masksToBounds = true
-        skeletonView.get.clipsToBounds = true
-        skeletonLayer.get.layer.masksToBounds = true
-        skeletonLayer.get.clipsToBounds = true
+//        skeletonView.get.layer.masksToBounds = true
+//        skeletonView.get.clipsToBounds = true
+//        skeletonLayer.get.layer.masksToBounds = true
+//        skeletonLayer.get.clipsToBounds = true
     }
     
     private func configSkeletonView() {
