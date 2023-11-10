@@ -107,12 +107,12 @@ open class SkeletonBuilder: Skeleton {
         widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
         
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-//        skeletonView.get.layer.bounds = component.baseView.layer.bounds
+        skeletonView.get.layer.bounds = component.baseView.layer.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         
         print(component.baseView.layer.frame)
 
-        skeletonView.applyConstraint()
+//        skeletonView.applyConstraint()
         widthConstraint.isActive = true
     }
     
