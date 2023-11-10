@@ -104,12 +104,13 @@ open class SkeletonBuilder: Skeleton {
 
     private func configFrame() {
         guard let component else {return}
+        widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
+        widthConstraint.isActive = true
+
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
         skeletonView.get.layer.bounds = component.baseView.layer.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         
-        widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
-        widthConstraint.isActive = true
         print(component.baseView.layer.frame)
 
         skeletonView.applyConstraint()
