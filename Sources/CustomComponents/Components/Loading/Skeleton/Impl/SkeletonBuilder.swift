@@ -176,8 +176,14 @@ open class SkeletonBuilder: Skeleton {
     
     private func stopAnimation() {
         guard let component else {return}
-        skeletonView.get.layer.frame = component.baseView.bounds
-    
+        skeletonView.get.layer.frame = component.baseView.layer.bounds
+        skeletonView.get.layer.frame = CGRect(origin:
+                                                CGPoint(
+                                                    x: skeletonView.get.layer.frame.origin.x,
+                                                    y: skeletonView.get.layer.frame.origin.y),
+                                              size: CGSize(
+                                                width: component.baseView.layer.frame.width,
+                                                height: skeletonView.get.layer.frame.height))
         
         skeletonView.get.updateConstraintsIfNeeded()
         skeletonView.get.layoutIfNeeded()
