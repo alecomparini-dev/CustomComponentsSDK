@@ -178,6 +178,9 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         skeletonView.get.updateConstraintsIfNeeded()
         skeletonView.get.layoutIfNeeded()
+        
+        component.baseView.updateConstraintsIfNeeded()
+        component.baseView.layoutIfNeeded()
 
 
         skeletonView.get.layer.frame = component.baseView.layer.bounds
