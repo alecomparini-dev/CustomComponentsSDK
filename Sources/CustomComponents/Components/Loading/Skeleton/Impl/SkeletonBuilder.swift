@@ -105,14 +105,11 @@ open class SkeletonBuilder: Skeleton {
 
     private func configFrame() {
         guard let component else {return}
-//        widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
-        
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView.get.layer.bounds = component.baseView.layer.bounds
+//        skeletonView.get.layer.bounds = component.baseView.layer.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
 
         skeletonView.applyConstraint()
-//        widthConstraint.isActive = true
     }
     
     private func configCustomCornerRadius() {
@@ -178,8 +175,7 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
 
-        skeletonView.get.layer.frame = component.baseView.layer.bounds
-        skeletonLayer.setHidden(true)
+//        skeletonView.get.layer.frame = component.baseView.layer.bounds
         skeletonView.get.resize()
 
         
