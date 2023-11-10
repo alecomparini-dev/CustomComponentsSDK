@@ -55,7 +55,7 @@ public extension UIView {
     
     
 //  MARK: - RESIZE
-    func resize() {
+    func layersResizeIfNeeded() {
         self.layer.sublayers?.forEach({ layer in
             if layer.shadowOpacity > 0 {
                 layer.shadowPath = self.replicateFormat().cgPath

@@ -98,21 +98,20 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func configSkeleton() {
-        configFrame()
+        addSkeletonOnComponent()
         configCustomCornerRadius()
         configGradientSkeletonView()
     }
 
-    private func configFrame() {
+    private func addSkeletonOnComponent() {
         guard let component else {return}
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-//        skeletonView.get.layer.bounds = component.baseView.layer.bounds
-        skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
-
         skeletonView.applyConstraint()
     }
     
     private func configCustomCornerRadius() {
+        guard let component else {return}
+        skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         if let radius {
             skeletonView.setBorder { build in
                 build.setCornerRadius(radius)
@@ -126,7 +125,7 @@ open class SkeletonBuilder: Skeleton {
             .setReferenceColor(color, percentageGradient: 10)
             .setOpacity(1)
             .apply()
-
+        
         skeletonView.get.layer.masksToBounds = true
     }
     
@@ -174,26 +173,19 @@ open class SkeletonBuilder: Skeleton {
     private func stopAnimation() {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
+        skeletonView.get.layersResizeIfNeeded()
 
-//        skeletonView.get.layer.frame = component.baseView.layer.bounds
-        skeletonView.get.resize()
-
+        if let transitionDuration {
+            UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
+                self?.skeletonView.get.alpha = 0
+            }, completion: { [weak self] _ in
+                guard let self else {return}
+                hide()
+            })
+            return
+        }
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.1, execute: { [weak self] in
-//            guard let self else {return}
-//            if let transitionDuration {
-//                UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
-////                    self?.skeletonView.get.alpha = 0
-//                }, completion: { [weak self] _ in
-//                    guard let self else {return}
-//                    hide()
-//                })
-//                return
-//            }
-//            hide()
-//        })
-        
-//        hide()
+        hide()
     }
     
     private func hide() {
