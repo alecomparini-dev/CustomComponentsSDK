@@ -190,7 +190,7 @@ open class SkeletonBuilder: Skeleton {
         let width = component.baseView.layer.frame.width
         widthConstraint.constant = width
         
-        skeletonView.get.layoutIfNeeded()
+//        skeletonView.get.layoutIfNeeded()
         skeletonLayer.setHidden(true)
 
         
