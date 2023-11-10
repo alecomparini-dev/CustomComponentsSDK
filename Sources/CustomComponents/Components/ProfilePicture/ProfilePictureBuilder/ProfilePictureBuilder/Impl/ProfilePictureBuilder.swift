@@ -118,7 +118,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     private func configure() {
         addElements()
         configConstraints()
-//        configCircleProfilePicture()
+        configCircleProfilePicture()
         setPlaceHolderImage(image)
         configTapGesture()
         profileImage.get.clipsToBounds = true

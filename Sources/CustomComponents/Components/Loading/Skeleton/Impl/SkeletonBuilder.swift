@@ -138,10 +138,6 @@ open class SkeletonBuilder: Skeleton {
     private func configFrameSkeletonLayer() {
         let startLayer = calculateStartLayer()
         skeletonLayer.add(insideTo: skeletonView.get)
-//        skeletonLayer.get.frame = CGRect(
-//            origin: CGPoint(x: -startLayer, y: .zero),
-//            size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
-//        )
         guard let component else { return }
         skeletonLayer.get.frame = CGRect(
             origin: CGPoint(x: -startLayer, y: .zero),
