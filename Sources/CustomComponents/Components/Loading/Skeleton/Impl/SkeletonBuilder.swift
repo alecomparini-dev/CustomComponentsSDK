@@ -168,28 +168,35 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func stopAnimation() {
-        guard let component else {return}
-        component.baseView.layoutIfNeeded()
-        skeletonView.get.layer.frame = CGRect(origin:
-                                                CGPoint(
-                                                    x: skeletonView.get.layer.frame.origin.x,
-                                                    y: skeletonView.get.layer.frame.origin.y),
-                                              size: CGSize(
-                                                width: component.baseView.layer.frame.width,
-                                                height: skeletonView.get.layer.frame.height))
-
-        skeletonView.get.layersResizeIfNeeded()
-        
+        configWidthSkeletonView()
         if let transitionDuration {
-            UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
-                self?.skeletonView.get.alpha = 0
-            }, completion: { [weak self] _ in
-                guard let self else {return}
-                hide()
-            })
+            transitionDissolve(transitionDuration)
             return
         }
         hide()
+    }
+    
+    private func configWidthSkeletonView() {
+        guard let component else {return}
+        component.baseView.layoutIfNeeded()
+        skeletonView.get.layer.frame = CGRect(
+            origin: CGPoint(
+                x: skeletonView.get.layer.frame.origin.x,
+                y: skeletonView.get.layer.frame.origin.y),
+            size: CGSize(
+                width: component.baseView.layer.frame.width,
+                height: skeletonView.get.layer.frame.height))
+
+        skeletonView.get.layersResizeIfNeeded()
+    }
+    
+    private func transitionDissolve(_ transitionDuration: CGFloat) {
+        UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
+            self?.skeletonView.get.alpha = 0
+        }, completion: { [weak self] _ in
+            guard let self else {return}
+            hide()
+        })
     }
 
     private func getDuration() -> Float {
