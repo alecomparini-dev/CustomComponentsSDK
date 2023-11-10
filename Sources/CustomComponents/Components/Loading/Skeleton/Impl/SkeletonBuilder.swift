@@ -147,6 +147,7 @@ open class SkeletonBuilder: Skeleton {
             size: CGSize(width: startLayer, height: skeletonView.get.bounds.height - 50)
         )
         skeletonLayer.get.layersResizeIfNeeded()
+        configClipsToBounds()
     }
 
     private func calculateStartLayer() -> CGFloat {
