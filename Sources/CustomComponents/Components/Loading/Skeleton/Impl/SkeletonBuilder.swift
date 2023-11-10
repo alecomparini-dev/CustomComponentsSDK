@@ -178,6 +178,8 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func stopAnimation() {
+        skeletonView.get.updateConstraintsIfNeeded()
+        skeletonView.get.layoutIfNeeded()
         if let transitionDuration {
             UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
                 self?.skeletonView.get.alpha = 0
