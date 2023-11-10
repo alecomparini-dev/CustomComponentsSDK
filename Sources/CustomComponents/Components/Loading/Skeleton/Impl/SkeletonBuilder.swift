@@ -97,7 +97,7 @@ open class SkeletonBuilder: Skeleton {
     private func configSkeleton() {
         configFrame()
         configCustomCornerRadius()
-        configGradientSkeleton()
+        configGradientSkeletonView()
     }
 
     private func configFrame() {
@@ -111,11 +111,8 @@ open class SkeletonBuilder: Skeleton {
                 build
                     .setAlignmentCenterXY.equalTo(component.baseView)
                     .setWidth.setHeight.equalTo(component.baseView)
+                    .apply()
             }
-
-        
-        skeletonView.applyConstraint()
-        
     }
     
     private func configCustomCornerRadius() {
@@ -126,7 +123,7 @@ open class SkeletonBuilder: Skeleton {
         }
     }
     
-    private func configGradientSkeleton() {
+    private func configGradientSkeletonView() {
         let color: UIColor = color ?? .lightGray
         skeletonGradient = GradientBuilder(skeletonView.get)
             .setReferenceColor(color, percentageGradient: 10)
@@ -180,6 +177,7 @@ open class SkeletonBuilder: Skeleton {
     private func stopAnimation() {
         skeletonView.get.updateConstraintsIfNeeded()
         skeletonView.get.layoutIfNeeded()
+        skeletonView.get.alpha = 1
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1, execute: { [weak self] in
             guard let self else {return}
             if let transitionDuration {
