@@ -38,7 +38,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         let comp = ImageViewBuilder()
             .setConstraints { build in
                 build
-                    .setAlignmentCenterXY.equalToSuperView
+                    .setAlignmentCenterXY.equalTo(profilePicture.get)
                     .setSize.equalToConstant(size)
             }
         return comp

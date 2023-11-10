@@ -82,7 +82,6 @@ open class SkeletonBuilder: Skeleton {
             guard let self else {return}
             configSkeletonView()
             configSkeletonLayer()
-            configClipsToBounds()
             startAnimation()
         }
         return self
@@ -97,14 +96,13 @@ open class SkeletonBuilder: Skeleton {
     private func configClipsToBounds() {
         skeletonView.get.layer.masksToBounds = true
         skeletonView.get.clipsToBounds = true
-        skeletonLayer.get.layer.masksToBounds = false
-        skeletonLayer.get.clipsToBounds = false
     }
     
     private func configSkeletonView() {
         addSkeletonOnComponent()
         configCustomCornerRadius()
         configGradientSkeletonView()
+        configClipsToBounds()
     }
 
     private func addSkeletonOnComponent() {
@@ -138,17 +136,12 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func configFrameSkeletonLayer() {
-       
         let startLayer = calculateStartLayer()
         skeletonLayer.add(insideTo: skeletonView.get)
-        configClipsToBounds()
-        
         skeletonLayer.get.frame = CGRect(
             origin: CGPoint(x: -startLayer, y: .zero),
             size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
         )
-        skeletonLayer.get.layersResizeIfNeeded()
-        
     }
 
     private func calculateStartLayer() -> CGFloat {
