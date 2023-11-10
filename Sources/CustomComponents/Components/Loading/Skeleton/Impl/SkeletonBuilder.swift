@@ -184,6 +184,7 @@ open class SkeletonBuilder: Skeleton {
     private func hide() {
         component?.setHidden(false)
         skeletonLayer.get.layer.removeAllAnimations()
+        skeletonView.get.layer.removeAllAnimations()
         skeletonView.get.removeFromSuperview()
         freeMemory()
     }
