@@ -33,6 +33,10 @@ open class SkeletonBuilder: Skeleton {
     
     lazy var skeletonLayer: ViewBuilder = {
         let comp = ViewBuilder()
+            .setConstraints { build in
+                build
+                    .setTop.setBottom.equalTo(skeletonLayer.get)
+            }
         return comp
     }()
     
@@ -80,9 +84,9 @@ open class SkeletonBuilder: Skeleton {
     public func apply() -> Self {
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
-            configClipsToBounds()
             configSkeletonView()
             configSkeletonLayer()
+            configClipsToBounds()
             startAnimation()
         }
         return self
@@ -138,17 +142,17 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func configFrameSkeletonLayer() {
-        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
+//        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
 //        skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
         
         let startLayer = calculateStartLayer()
-        
         skeletonLayer.get.frame = CGRect(
             origin: CGPoint(x: -startLayer, y: .zero),
             size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
         )
         
         skeletonLayer.add(insideTo: skeletonView.get)
+        skeletonLayer.applyConstraint()
     }
 
     private func calculateStartLayer() -> CGFloat {
