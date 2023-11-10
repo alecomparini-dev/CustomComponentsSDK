@@ -109,7 +109,6 @@ open class SkeletonBuilder: Skeleton {
         skeletonView
             .setConstraints { build in
                 build
-                    .setAlignmentCenterXY.equalTo(component.baseView)
                     .setTop.setLeading.setHeight.equalTo(component.baseView)
                     .apply()
             }
