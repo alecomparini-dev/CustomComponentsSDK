@@ -24,11 +24,11 @@ open class SkeletonBuilder: Skeleton {
     
     private lazy var skeletonView: ViewBuilder = {
         let comp = ViewBuilder()
-//            .setConstraints { build in
-//                build
-////                    .setPin.equalTo(component?.baseView ?? UIView())
+            .setConstraints { build in
+                build
+                    .setPin.equalTo(component?.baseView ?? UIView())
 //                    .setAlignmentCenterXY.equalTo(component?.baseView ?? UIView())
-//            }
+            }
         return comp
     }()
     
@@ -178,14 +178,14 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
 
-        skeletonView.get.layer.frame = component.baseView.layer.bounds
-        skeletonView.get.layer.frame = CGRect(origin:
-                                                CGPoint(
-                                                    x: skeletonView.get.layer.frame.origin.x,
-                                                    y: skeletonView.get.layer.frame.origin.y),
-                                              size: CGSize(
-                                                width: component.baseView.layer.frame.width,
-                                                height: skeletonView.get.layer.frame.height))
+//        skeletonView.get.layer.frame = component.baseView.layer.bounds
+//        skeletonView.get.layer.frame = CGRect(origin:
+//                                                CGPoint(
+//                                                    x: skeletonView.get.layer.frame.origin.x,
+//                                                    y: skeletonView.get.layer.frame.origin.y),
+//                                              size: CGSize(
+//                                                width: component.baseView.layer.frame.width,
+//                                                height: skeletonView.get.layer.frame.height))
         
         skeletonView.get.updateConstraintsIfNeeded()
         skeletonView.get.layoutIfNeeded()
