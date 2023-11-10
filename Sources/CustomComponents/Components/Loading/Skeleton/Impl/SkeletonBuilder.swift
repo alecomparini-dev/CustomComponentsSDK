@@ -162,7 +162,8 @@ open class SkeletonBuilder: Skeleton {
     
     private func stopAnimation() {
         component?.setHidden(true)
-        skeletonView.get.layoutIfNeeded()
+        skeletonView.get.updateConstraints()
+        skeletonView.get.updateConstraintsIfNeeded()
         UIView.animate(withDuration: 0.5, delay: .zero, animations: { [weak self] in
             self?.skeletonLayer.get.alpha = 0
         }, completion: { [weak self] _ in
