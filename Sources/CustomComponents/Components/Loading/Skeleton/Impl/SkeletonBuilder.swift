@@ -95,10 +95,10 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func configClipsToBounds() {
-//        skeletonView.get.layer.masksToBounds = true
-//        skeletonView.get.clipsToBounds = true
-//        skeletonLayer.get.layer.masksToBounds = true
-//        skeletonLayer.get.clipsToBounds = true
+        skeletonView.get.layer.masksToBounds = false
+        skeletonView.get.clipsToBounds = false
+        skeletonLayer.get.layer.masksToBounds = false
+        skeletonLayer.get.clipsToBounds = false
     }
     
     private func configSkeletonView() {
@@ -141,13 +141,14 @@ open class SkeletonBuilder: Skeleton {
        
         let startLayer = calculateStartLayer()
         skeletonLayer.add(insideTo: skeletonView.get)
+        configClipsToBounds()
         
         skeletonLayer.get.frame = CGRect(
             origin: CGPoint(x: -startLayer, y: .zero),
             size: CGSize(width: startLayer, height: skeletonView.get.bounds.height - 50)
         )
         skeletonLayer.get.layersResizeIfNeeded()
-        configClipsToBounds()
+        
     }
 
     private func calculateStartLayer() -> CGFloat {
