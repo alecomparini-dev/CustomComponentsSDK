@@ -136,13 +136,13 @@ open class SkeletonBuilder: Skeleton {
     private func configFrameSkeletonLayer() {
         let startLayer = calculateStartLayer()
         skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
-        skeletonLayer.add(insideTo: skeletonView.get)
         skeletonLayer = ViewBuilder(
             frame:
                 CGRect(
                     origin: CGPoint(x: -startLayer, y: .zero),
                     size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
                 ))
+        skeletonLayer.add(insideTo: skeletonView.get)
     }
 
     private func calculateStartLayer() -> CGFloat {
