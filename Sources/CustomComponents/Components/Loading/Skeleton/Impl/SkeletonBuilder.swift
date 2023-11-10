@@ -106,13 +106,14 @@ open class SkeletonBuilder: Skeleton {
         skeletonView.get.frame = component.baseView.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         
-        skeletonView
-            .setConstraints { build in
-                build
-                    .setAlignmentCenterXY.equalTo(component.baseView)
-                    .setWidth.setHeight.equalTo(component.baseView)
-                    .apply()
-            }
+//        skeletonView
+//            .setConstraints { build in
+//                build
+//                    .setAlignmentCenterXY.equalTo(component.baseView)
+//                    .setWidth.setHeight.equalTo(component.baseView)
+//                    .apply()
+//            }
+        skeletonView.applyConstraint()
     }
     
     private func configCustomCornerRadius() {
