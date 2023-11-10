@@ -35,7 +35,7 @@ open class SkeletonBuilder: Skeleton {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-                    .setTop.setBottom.equalTo(skeletonLayer.get)
+                    .setTop.setBottom.equalTo(skeletonView.get)
             }
         return comp
     }()
@@ -142,7 +142,7 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func configFrameSkeletonLayer() {
-//        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
+        skeletonLayer.get.bounds = skeletonView.get.layer.bounds
 //        skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
         
         let startLayer = calculateStartLayer()
