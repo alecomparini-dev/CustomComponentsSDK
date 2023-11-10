@@ -131,10 +131,10 @@ open class SkeletonBuilder: Skeleton {
         configFrameSkeletonLayer()
         configGradientSkeletonLayer()
     }
-    
+
     private func configFrameSkeletonLayer() {
-        guard let component else {return}
-        let startLayer = (component.baseView.layer.bounds.width * 66)/100
+        let startLayer = calculateStartLayer()
+        skeletonLayer.get.layer.cornerRadius = skeletonView.get.layer.cornerRadius
         skeletonLayer = ViewBuilder(
             frame:
                 CGRect(
@@ -142,6 +142,11 @@ open class SkeletonBuilder: Skeleton {
                     size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
                 ))
         skeletonLayer.add(insideTo: skeletonView.get)
+    }
+
+    private func calculateStartLayer() -> CGFloat {
+        guard let component else {return .zero}
+        return (component.baseView.layer.bounds.width * 66)/100
     }
     
     private func configGradientSkeletonLayer() {
