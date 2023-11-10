@@ -175,8 +175,8 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func stopAnimation() {
-        skeletonView.get.updateConstraintsIfNeeded()
-//        skeletonView.get.layoutIfNeeded()
+//        skeletonView.get.updateConstraintsIfNeeded()
+        skeletonView.get.layoutIfNeeded()
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.1, execute: { [weak self] in
             guard let self else {return}
             if let transitionDuration {
