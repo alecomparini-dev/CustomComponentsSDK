@@ -14,6 +14,7 @@ open class SkeletonBuilder: Skeleton {
     private var color: UIColor?
     private var radius: CGFloat?
     private var widthComponent: CGFloat?
+    private var widthConstraint: NSLayoutConstraint!
     
     private weak var component: BaseBuilder?
     
@@ -106,14 +107,17 @@ open class SkeletonBuilder: Skeleton {
         skeletonView.get.frame = component.baseView.bounds
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         
-//        skeletonView
-//            .setConstraints { build in
-//                build
-//                    .setAlignmentCenterXY.equalTo(component.baseView)
-//                    .setWidth.setHeight.equalTo(component.baseView)
-//                    .apply()
-//            }
-        skeletonView.applyConstraint()
+        skeletonView
+            .setConstraints { build in
+                build
+                    .setAlignmentCenterXY.equalTo(component.baseView)
+
+                    .apply()
+            }
+        widthConstraint = skeletonView.get.widthAnchor.constraint(equalTo: component.baseView.widthAnchor)
+        widthConstraint.isActive = true
+        
+//        skeletonView.applyConstraint()
     }
     
     private func configCustomCornerRadius() {
@@ -179,18 +183,20 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
 
-        skeletonView.get.translatesAutoresizingMaskIntoConstraints = true
+//        skeletonView.get.translatesAutoresizingMaskIntoConstraints = true
+//        
+//        skeletonView.get.layer.frame = component.baseView.layer.bounds
+//        skeletonView.get.layer.frame = CGRect(origin:
+//                                                CGPoint(
+//                                                    x: skeletonView.get.layer.frame.origin.x,
+//                                                    y: skeletonView.get.layer.frame.origin.y),
+//                                              size: CGSize(
+//                                                width: component.baseView.layer.frame.width,
+//                                                height: skeletonView.get.layer.frame.height))
         
-        skeletonView.get.layer.frame = component.baseView.layer.bounds
-        skeletonView.get.layer.frame = CGRect(origin:
-                                                CGPoint(
-                                                    x: skeletonView.get.layer.frame.origin.x,
-                                                    y: skeletonView.get.layer.frame.origin.y),
-                                              size: CGSize(
-                                                width: component.baseView.layer.frame.width,
-                                                height: skeletonView.get.layer.frame.height))
+        let width = component.baseView.layer.frame.width
+        widthConstraint.constant = width
         
-        skeletonView.get.updateConstraintsIfNeeded()
         skeletonView.get.layoutIfNeeded()
 
         
