@@ -178,10 +178,8 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
 
-        skeletonView.get.layer.bounds = component.baseView.layer.bounds
-//        skeletonView.get.translatesAutoresizingMaskIntoConstraints = true
-//        
-//        skeletonView.get.layer.frame = component.baseView.layer.bounds
+//        skeletonView.get.layer.bounds = component.baseView.layer.bounds
+        skeletonView.get.layer.frame = component.baseView.layer.bounds
 //        skeletonView.get.layer.frame = CGRect(origin:
 //                                                CGPoint(
 //                                                    x: skeletonView.get.layer.frame.origin.x,
@@ -189,11 +187,6 @@ open class SkeletonBuilder: Skeleton {
 //                                              size: CGSize(
 //                                                width: component.baseView.layer.frame.width,
 //                                                height: skeletonView.get.layer.frame.height))
-        
-//        let width = component.baseView.layer.frame.width
-//        print(width)
-//        print(skeletonView.get.layer.frame.width)
-//        widthConstraint.constant = width
         
         skeletonLayer.setHidden(true)
 
