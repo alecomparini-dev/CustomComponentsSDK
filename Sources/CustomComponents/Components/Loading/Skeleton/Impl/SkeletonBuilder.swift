@@ -178,17 +178,9 @@ open class SkeletonBuilder: Skeleton {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
 
-//        skeletonView.get.layer.bounds = component.baseView.layer.bounds
         skeletonView.get.layer.frame = component.baseView.layer.bounds
-//        skeletonView.get.layer.frame = CGRect(origin:
-//                                                CGPoint(
-//                                                    x: skeletonView.get.layer.frame.origin.x,
-//                                                    y: skeletonView.get.layer.frame.origin.y),
-//                                              size: CGSize(
-//                                                width: component.baseView.layer.frame.width,
-//                                                height: skeletonView.get.layer.frame.height))
-        
         skeletonLayer.setHidden(true)
+        skeletonView.get.resize()
 
         
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5.1, execute: { [weak self] in

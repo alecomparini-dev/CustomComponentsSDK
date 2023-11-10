@@ -54,6 +54,30 @@ public extension UIView {
     }
     
     
+//  MARK: - RESIZE
+    func resize() {
+        self.layer.sublayers?.forEach({ layer in
+            if layer.shadowOpacity > 0 {
+                layer.shadowPath = self.replicateFormat().cgPath
+                return
+            }
+            if layer is CAShapeLayer {
+                (layer as! CAShapeLayer).path = self.replicateFormat().cgPath
+                return
+            }
+            if layer is CAGradientLayer {
+                guard let layer = layer as? CAGradientLayer else { return }
+                CATransaction.begin()
+                CATransaction.setDisableActions(true)
+                layer.frame = self.bounds
+                layer.maskedCorners = self.layer.maskedCorners
+                CATransaction.commit()
+                return
+            }
+        })
+    }
+    
+    
 //  MARK: - PREVIEW SWIFTUI
     private struct SwiftUIViewWrapper: UIViewRepresentable {
         let view: UIView
