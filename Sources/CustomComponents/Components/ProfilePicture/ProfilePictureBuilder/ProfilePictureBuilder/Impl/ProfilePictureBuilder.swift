@@ -36,12 +36,12 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     lazy public var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
+            .setContentMode(.redraw)
             .setConstraints { build in
                 build
                     .setAlignmentCenterXY.equalTo(profilePicture.get)
                     .setSize.equalToConstant(size)
             }
-        comp.get.clipsToBounds = true
         return comp
     }()
 
@@ -51,7 +51,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     @discardableResult
     public func setPlaceHolderImage(_ image: ImageViewBuilder?) -> Self {
         guard let image else {return self}
-        profileImage.setContentMode(.center)
+//        profileImage.setContentMode(.center)
         profileImage.get.image = image.get.image
         return self
     }
@@ -92,7 +92,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         
     @discardableResult
     public func setImagePicture(_ image: UIImage) -> Self {
-        profileImage.setContentMode(.scaleAspectFill)
+//        profileImage.setContentMode(.scaleAspectFill)
         profileImage.setImage(image: image)
         return self
     }
