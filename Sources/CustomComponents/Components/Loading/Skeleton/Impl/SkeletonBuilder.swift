@@ -145,7 +145,7 @@ open class SkeletonBuilder: Skeleton {
         
         skeletonLayer.get.frame = CGRect(
             origin: CGPoint(x: -startLayer, y: .zero),
-            size: CGSize(width: startLayer, height: skeletonView.get.bounds.height - 50)
+            size: CGSize(width: startLayer, height: skeletonView.get.bounds.height)
         )
         skeletonLayer.get.layersResizeIfNeeded()
         
