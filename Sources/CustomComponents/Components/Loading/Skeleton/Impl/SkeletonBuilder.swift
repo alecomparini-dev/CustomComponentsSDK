@@ -25,9 +25,12 @@ open class SkeletonBuilder: Skeleton {
     
     private lazy var skeletonView: ViewBuilder = {
         let comp = ViewBuilder()
+            .setBackgroundColor(color: .red)
             .setConstraints { build in
                 build
+//                    .setTop.setLeading.setBottom.equalTo(component?.baseView ?? UIView())
                     .setPin.equalTo(component?.baseView ?? UIView())
+//                    .setAlignmentCenterXY.equalTo(component?.baseView ?? UIView())
             }
         return comp
     }()
@@ -122,7 +125,7 @@ open class SkeletonBuilder: Skeleton {
             .setReferenceColor(color, percentageGradient: 10)
             .setOpacity(1)
             .apply()
-        
+
         skeletonView.get.layer.masksToBounds = true
     }
     
@@ -170,19 +173,26 @@ open class SkeletonBuilder: Skeleton {
     private func stopAnimation() {
         guard let component else {return}
         component.baseView.layoutIfNeeded()
+
+//        skeletonView.get.layer.frame = component.baseView.layer.bounds
         skeletonView.get.layersResizeIfNeeded()
 
-        if let transitionDuration {
-            UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
-                self?.skeletonView.get.alpha = 0
-            }, completion: { [weak self] _ in
-                guard let self else {return}
-                hide()
-            })
-            return
-        }
         
-        hide()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.1, execute: { [weak self] in
+//            guard let self else {return}
+//            if let transitionDuration {
+//                UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
+////                    self?.skeletonView.get.alpha = 0
+//                }, completion: { [weak self] _ in
+//                    guard let self else {return}
+//                    hide()
+//                })
+//                return
+//            }
+//            hide()
+//        })
+        
+//        hide()
     }
     
     private func hide() {
