@@ -102,7 +102,7 @@ open class SkeletonBuilder: Skeleton {
     private func addSkeletonOnComponent() {
         guard let component else {return}
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView.get.layer.frame = component.baseView.layer.bounds
+        skeletonView.get.bounds = component.baseView.layer.bounds
         skeletonView.applyConstraint()
     }
     
