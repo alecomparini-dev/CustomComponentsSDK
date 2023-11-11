@@ -28,7 +28,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public convenience init(size: CGFloat) {
         self.init(size: size, image: nil)
         let img = ImageViewBuilder(systemName: "camera.viewfinder")
-            .setContentMode(.center)
+            .setContentMode(.scaleAspectFill)
         setPlaceHolderImage(img)
 //        setSizePlaceHolderImage(size/2)
     }
