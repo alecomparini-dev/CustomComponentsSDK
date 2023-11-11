@@ -21,9 +21,9 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         self.profilePicture = ViewBuilder()
         self.size = size
         super.init(profilePicture.get)
-        let img = ImageViewBuilder(systemName: "camera.viewfinder")
-        self.setPlaceHolderImage(img)
-        self.profileImage.setSize(size)
+//        let img = ImageViewBuilder(systemName: "camera.viewfinder")
+//        self.setPlaceHolderImage(img)
+//        self.profileImage.setSize(size)
         configure()
     }
     
