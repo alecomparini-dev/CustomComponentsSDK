@@ -5,7 +5,7 @@ import UIKit
 
 open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public typealias T = ImageViewBuilder
-    public var get: ImageViewBuilder { profileImage }
+    public var get: UIImageView { profileImage.get }
     
     private let size: CGFloat
     private var image: ImageViewBuilder?
