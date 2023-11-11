@@ -187,6 +187,7 @@ open class SkeletonBuilder: Skeleton {
     private func startAnimation() {
         component?.setHidden(true)
         self.skeletonView.get.alpha = 1
+        skeletonView.setHidden(false)
         let duration = TimeInterval(getDuration())
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
@@ -244,7 +245,7 @@ open class SkeletonBuilder: Skeleton {
     private func remove() {
         skeletonLayer.get.layer.removeAllAnimations()
         skeletonView.get.layer.removeAllAnimations()
-//        skeletonView.get.removeFromSuperview()
+        skeletonView.setHidden(true)
         freeMemory()
     }
     
