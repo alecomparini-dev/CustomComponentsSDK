@@ -233,7 +233,7 @@ open class SkeletonBuilder: Skeleton {
         skeletonLayer.get.layer.removeAllAnimations()
         skeletonView.get.layer.removeAllAnimations()
         skeletonView.get.removeFromSuperview()
-        freeMemory()
+//        freeMemory()
     }
     
     private func freeMemory() {
