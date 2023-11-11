@@ -2,7 +2,6 @@
 //
 
 import UIKit
-import SkeletonView
 
 open class BaseBuilder: NSObject {
     
@@ -119,7 +118,6 @@ open class BaseBuilder: NSObject {
         baseView.tag = tag
         return self
     }
-
     
     @discardableResult
     public func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
