@@ -21,17 +21,18 @@ open class SkeletonBuilder: Skeleton {
         self.component = component
         configure()
     }
+    private var skeletonView: ViewBuilder!
     
-    private lazy var skeletonView: ViewBuilder = {
-        let comp = ViewBuilder()
-            .setConstraints { build in
-                build
-//                    .setPin.equalTo(component?.baseView ?? UIView())
-                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
-                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
-            }
-        return comp
-    }()
+//    private lazy var skeletonView: ViewBuilder = {
+//        let comp = ViewBuilder()
+//            .setConstraints { build in
+//                build
+////                    .setPin.equalTo(component?.baseView ?? UIView())
+//                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
+//                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
+//            }
+//        return comp
+//    }()
     
     lazy var skeletonLayer: ViewBuilder = {
         let comp = ViewBuilder()
@@ -39,6 +40,14 @@ open class SkeletonBuilder: Skeleton {
         return comp
     }()
     
+    private func makeSkeletonView() -> ViewBuilder {
+        return ViewBuilder()
+            .setConstraints { build in
+                build
+                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
+                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
+            }
+    }
         
     //  MARK: - SET PROPERTIES
     
@@ -94,11 +103,6 @@ open class SkeletonBuilder: Skeleton {
         setTransition(0.5)
     }
 
-    private func configClipsToBoundsSkeletonView() {
-        skeletonView.get.layer.masksToBounds = true
-        skeletonView.get.clipsToBounds = true
-    }
-    
     private func addSkeleton() {
         addSkeletonView()
         addSkeletonLayer()
@@ -106,14 +110,20 @@ open class SkeletonBuilder: Skeleton {
     
     private func addSkeletonView() {
         guard let component else {return}
-        skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView.applyConstraint()
+        self.skeletonLayer = makeSkeletonView()
+        skeletonLayer.add(insideTo: component.baseView.superview ?? UIView())
+        skeletonLayer.applyConstraint()
     }
     
     private func addSkeletonLayer() {
         skeletonLayer.add(insideTo: skeletonView.get)
     }
 
+    private func configClipsToBoundsSkeletonView() {
+        skeletonView.get.layer.masksToBounds = true
+        skeletonView.get.clipsToBounds = true
+    }
+    
     private func configCustomCornerRadiusSkeletonView() {
         guard let component else {return}
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
