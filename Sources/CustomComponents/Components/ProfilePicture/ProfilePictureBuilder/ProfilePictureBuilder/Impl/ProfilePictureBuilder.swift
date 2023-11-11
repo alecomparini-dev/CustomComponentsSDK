@@ -28,9 +28,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public convenience init(size: CGFloat) {
         self.init(size: size, image: nil)
         let img = ImageViewBuilder(systemName: "camera.viewfinder")
-            .setContentMode(.scaleAspectFill)
         setPlaceHolderImage(img)
-//        setSizePlaceHolderImage(size/2)
     }
     
     
@@ -52,7 +50,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     @discardableResult
     public func setPlaceHolderImage(_ image: ImageViewBuilder?) -> Self {
         guard let image else {return self}
-//        profileImage.setContentMode(.center)
+        profileImage.setContentMode(.center)
         profileImage.setImage(image: image.get.image)
         return self
     }
