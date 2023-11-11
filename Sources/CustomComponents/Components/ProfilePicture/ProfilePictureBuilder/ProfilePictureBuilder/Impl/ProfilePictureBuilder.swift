@@ -27,8 +27,8 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     public convenience init(size: CGFloat) {
         self.init(size: size, image: nil)
-//        setPlaceHolderImage(ImageViewBuilder(systemName: "camera.viewfinder"))
-//        setSizePlaceHolderImage(size/2)
+        setPlaceHolderImage(ImageViewBuilder(systemName: "camera.viewfinder"))
+        setSizePlaceHolderImage(size/2)
     }
     
     
