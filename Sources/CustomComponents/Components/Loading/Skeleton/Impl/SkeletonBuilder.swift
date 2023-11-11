@@ -21,18 +21,17 @@ open class SkeletonBuilder: Skeleton {
         self.component = component
         configure()
     }
-    private var skeletonView: ViewBuilder?
     
-//    private lazy var skeletonView: ViewBuilder = {
-//        let comp = ViewBuilder()
-//            .setConstraints { build in
-//                build
-////                    .setPin.equalTo(component?.baseView ?? UIView())
-//                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
-//                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
-//            }
-//        return comp
-//    }()
+    private lazy var skeletonView: ViewBuilder = {
+        let comp = ViewBuilder()
+            .setConstraints { build in
+                build
+//                    .setPin.equalTo(component?.baseView ?? UIView())
+                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
+                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
+            }
+        return comp
+    }()
     
     lazy var skeletonLayer: ViewBuilder = {
         let comp = ViewBuilder()
@@ -40,14 +39,6 @@ open class SkeletonBuilder: Skeleton {
         return comp
     }()
     
-    private func makeSkeletonView() -> ViewBuilder {
-        return ViewBuilder()
-            .setConstraints { build in
-                build
-                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
-                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
-            }
-    }
         
     //  MARK: - SET PROPERTIES
     
@@ -103,6 +94,11 @@ open class SkeletonBuilder: Skeleton {
         setTransition(0.5)
     }
 
+    private func configClipsToBoundsSkeletonView() {
+        skeletonView.get.layer.masksToBounds = true
+        skeletonView.get.clipsToBounds = true
+    }
+    
     private func addSkeleton() {
         addSkeletonView()
         addSkeletonLayer()
@@ -110,23 +106,16 @@ open class SkeletonBuilder: Skeleton {
     
     private func addSkeletonView() {
         guard let component else {return}
-        self.skeletonView = makeSkeletonView()
-        skeletonView?.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView?.applyConstraint()
+        skeletonView.add(insideTo: component.baseView.superview ?? UIView())
+        skeletonView.applyConstraint()
     }
     
     private func addSkeletonLayer() {
-        guard let skeletonView else {return}
         skeletonLayer.add(insideTo: skeletonView.get)
     }
 
-    private func configClipsToBoundsSkeletonView() {
-        skeletonView?.get.layer.masksToBounds = true
-        skeletonView?.get.clipsToBounds = true
-    }
-    
     private func configCustomCornerRadiusSkeletonView() {
-        guard let component, let skeletonView else {return}
+        guard let component else {return}
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         if let radius {
             skeletonView.setBorder { build in
@@ -141,7 +130,6 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configGradientSkeletonView() {
-        guard let skeletonView else {return}
         let color: UIColor = color ?? .lightGray
         skeletonGradient = GradientBuilder(skeletonView.get)
             .setReferenceColor(color, percentageGradient: 10)
@@ -151,7 +139,7 @@ open class SkeletonBuilder: Skeleton {
         
     private func configFrameSkeletonLayer() {
         DispatchQueue.main.async { [weak self] in
-            guard let self, let skeletonView else {return}
+            guard let self else {return}
             let widthLayer = calculateWidthSkeletonLayer()
             skeletonLayer.get.frame = CGRect(
                 origin: CGPoint(x: -widthLayer, y: .zero),
@@ -169,7 +157,7 @@ open class SkeletonBuilder: Skeleton {
 
     private func calculateWidthSkeletonLayer() -> CGFloat {
         let sixtySixPercent = 0.66
-        return (skeletonView?.get.bounds.width ?? 0) * sixtySixPercent
+        return skeletonView.get.bounds.width * sixtySixPercent
     }
 
     private func configColorsGradientSkeleton() -> [UIColor] {
@@ -186,8 +174,8 @@ open class SkeletonBuilder: Skeleton {
     private func startAnimation() {
         component?.setHidden(true)
         
-        self.skeletonView?.get.alpha = 1
-        skeletonView?.setHidden(false)
+        self.skeletonView.get.alpha = 1
+        skeletonView.setHidden(false)
         let duration = TimeInterval(getDuration())
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
@@ -209,7 +197,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configWidthSkeletonView() {
-        guard let component, let skeletonView else {return}
+        guard let component else {return}
         component.baseView.layoutIfNeeded()
         skeletonView.get.layer.frame = CGRect(
             origin: CGPoint(
@@ -222,7 +210,7 @@ open class SkeletonBuilder: Skeleton {
     
     private func transitionDissolve(_ transitionDuration: CGFloat) {
         UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
-            self?.skeletonView?.get.alpha = 0
+            self?.skeletonView.get.alpha = 0
         }, completion: { [weak self] _ in
             guard let self else {return}
             remove()
@@ -244,9 +232,8 @@ open class SkeletonBuilder: Skeleton {
 
     private func remove() {
         skeletonLayer.get.layer.removeAllAnimations()
-        skeletonView?.get.layer.removeAllAnimations()
-        skeletonView?.get.removeFromSuperview()
-        skeletonView?.setHidden(true)
+        skeletonView.get.layer.removeAllAnimations()
+        skeletonView.setHidden(true)
         freeMemory()
     }
     
