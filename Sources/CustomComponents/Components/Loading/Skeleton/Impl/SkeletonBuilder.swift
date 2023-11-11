@@ -233,12 +233,13 @@ open class SkeletonBuilder: Skeleton {
     private func remove() {
         skeletonLayer.get.layer.removeAllAnimations()
         skeletonView.get.layer.removeAllAnimations()
+        skeletonView.get.removeFromSuperview()
         skeletonView.setHidden(true)
         freeMemory()
     }
     
     private func freeMemory() {
-        component?.skeleton = nil
+//        component?.skeleton = nil
         component?.gradient = nil
         skeletonLayerGradient = nil
         skeletonGradient = nil
