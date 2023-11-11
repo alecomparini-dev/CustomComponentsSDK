@@ -21,7 +21,7 @@ open class SkeletonBuilder: Skeleton {
         self.component = component
         configure()
     }
-    private var skeletonView: ViewBuilder!
+    private var skeletonView: ViewBuilder?
     
 //    private lazy var skeletonView: ViewBuilder = {
 //        let comp = ViewBuilder()
@@ -111,21 +111,22 @@ open class SkeletonBuilder: Skeleton {
     private func addSkeletonView() {
         guard let component else {return}
         self.skeletonView = makeSkeletonView()
-        skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView.applyConstraint()
+        skeletonView?.add(insideTo: component.baseView.superview ?? UIView())
+        skeletonView?.applyConstraint()
     }
     
     private func addSkeletonLayer() {
+        guard let skeletonView else {return}
         skeletonLayer.add(insideTo: skeletonView.get)
     }
 
     private func configClipsToBoundsSkeletonView() {
-        skeletonView.get.layer.masksToBounds = true
-        skeletonView.get.clipsToBounds = true
+        skeletonView?.get.layer.masksToBounds = true
+        skeletonView?.get.clipsToBounds = true
     }
     
     private func configCustomCornerRadiusSkeletonView() {
-        guard let component else {return}
+        guard let component, let skeletonView else {return}
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         if let radius {
             skeletonView.setBorder { build in
@@ -140,6 +141,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configGradientSkeletonView() {
+        guard let skeletonView else {return}
         let color: UIColor = color ?? .lightGray
         skeletonGradient = GradientBuilder(skeletonView.get)
             .setReferenceColor(color, percentageGradient: 10)
@@ -149,7 +151,7 @@ open class SkeletonBuilder: Skeleton {
         
     private func configFrameSkeletonLayer() {
         DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
+            guard let self, let skeletonView else {return}
             let widthLayer = calculateWidthSkeletonLayer()
             skeletonLayer.get.frame = CGRect(
                 origin: CGPoint(x: -widthLayer, y: .zero),
@@ -167,7 +169,7 @@ open class SkeletonBuilder: Skeleton {
 
     private func calculateWidthSkeletonLayer() -> CGFloat {
         let sixtySixPercent = 0.66
-        return skeletonView.get.bounds.width * sixtySixPercent
+        return (skeletonView?.get.bounds.width ?? 0) * sixtySixPercent
     }
 
     private func configColorsGradientSkeleton() -> [UIColor] {
@@ -184,8 +186,8 @@ open class SkeletonBuilder: Skeleton {
     private func startAnimation() {
         component?.setHidden(true)
         
-        self.skeletonView.get.alpha = 1
-        skeletonView.setHidden(false)
+        self.skeletonView?.get.alpha = 1
+        skeletonView?.setHidden(false)
         let duration = TimeInterval(getDuration())
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
@@ -207,7 +209,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func configWidthSkeletonView() {
-        guard let component else {return}
+        guard let component, let skeletonView else {return}
         component.baseView.layoutIfNeeded()
         skeletonView.get.layer.frame = CGRect(
             origin: CGPoint(
@@ -220,7 +222,7 @@ open class SkeletonBuilder: Skeleton {
     
     private func transitionDissolve(_ transitionDuration: CGFloat) {
         UIView.animate(withDuration: transitionDuration, delay: .zero, animations: { [weak self] in
-            self?.skeletonView.get.alpha = 0
+            self?.skeletonView?.get.alpha = 0
         }, completion: { [weak self] _ in
             guard let self else {return}
             remove()
@@ -242,9 +244,9 @@ open class SkeletonBuilder: Skeleton {
 
     private func remove() {
         skeletonLayer.get.layer.removeAllAnimations()
-        skeletonView.get.layer.removeAllAnimations()
-        skeletonView.get.removeFromSuperview()
-        skeletonView.setHidden(true)
+        skeletonView?.get.layer.removeAllAnimations()
+        skeletonView?.get.removeFromSuperview()
+        skeletonView?.setHidden(true)
         freeMemory()
     }
     
