@@ -4,8 +4,8 @@
 import UIKit
 
 open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
-    public typealias T = UIView
-    public var get: UIView { self.profilePicture.get }
+    public typealias T = ImageViewBuilder
+    public var get: ImageViewBuilder { profileImage }
     
     private let size: CGFloat
     private var image: ImageViewBuilder?
@@ -27,7 +27,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     public convenience init(size: CGFloat) {
         self.init(size: size, image: nil)
-        setPlaceHolderImage(ImageViewBuilder(systemName: "camera.viewfinder"))
+//        setPlaceHolderImage(ImageViewBuilder(systemName: "camera.viewfinder"))
 //        setSizePlaceHolderImage(size/2)
     }
     
