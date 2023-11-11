@@ -19,8 +19,7 @@ public protocol Skeleton {
     @discardableResult
     func setTransition(_ duration: CGFloat) -> Self
     
-    @discardableResult
-    func apply() -> Self
+    func showSkeleton()
     
     func hideSkeleton()
     

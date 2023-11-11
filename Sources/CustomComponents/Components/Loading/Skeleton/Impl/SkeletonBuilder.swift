@@ -39,18 +39,7 @@ open class SkeletonBuilder: Skeleton {
         return comp
     }()
     
-    
-    private func makeSkeletonView() -> ViewBuilder {
-        let comp = ViewBuilder()
-            .setConstraints { build in
-                build
-//                    .setPin.equalTo(component?.baseView ?? UIView())
-                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
-                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
-            }
-        return comp
-    }
-    
+        
     //  MARK: - SET PROPERTIES
     
     @discardableResult
@@ -89,16 +78,14 @@ open class SkeletonBuilder: Skeleton {
     }
 
 
-//  MARK: - APPLY SKELETON
-    @discardableResult
-    public func apply() -> Self {
+//  MARK: - SHOW SKELETON
+    public func showSkeleton() {
         addSkeleton()
         configClipsToBoundsSkeletonView()
         configCustomCornerRadiusSkeletonView()
         configFrameSkeletonLayer()
         configGradient()
         startAnimation()
-        return self
     }
 
     

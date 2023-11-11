@@ -29,7 +29,6 @@ final class SkeletonBuilderPreview: UIView {
             .setSkeleton({ build in
                 build
                     .setColorSkeleton(color: .yellow)
-                    .apply()
             })
             .setConstraints { build in
                 build
