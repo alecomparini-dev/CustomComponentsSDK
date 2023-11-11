@@ -244,7 +244,7 @@ open class SkeletonBuilder: Skeleton {
     private func remove() {
         skeletonLayer.get.layer.removeAllAnimations()
         skeletonView.get.layer.removeAllAnimations()
-        skeletonView.get.removeFromSuperview()
+//        skeletonView.get.removeFromSuperview()
         freeMemory()
     }
     
