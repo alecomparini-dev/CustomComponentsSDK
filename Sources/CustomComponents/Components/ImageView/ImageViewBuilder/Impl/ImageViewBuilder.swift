@@ -27,7 +27,7 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
     
     @discardableResult
     public func setImage(image: UIImage?) -> Self {
-        self.imageView.image = image
+        imageView.image = image
         return self
     }
     
