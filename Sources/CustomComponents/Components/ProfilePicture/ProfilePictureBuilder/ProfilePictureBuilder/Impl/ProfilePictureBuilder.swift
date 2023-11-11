@@ -4,8 +4,8 @@
 import UIKit
 
 open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
-    public typealias T = ImageViewBuilder
-    public var get: UIImageView { profileImage.get }
+    public typealias T = UIView
+    public var get: UIView { self.profilePicture.get }
     
     private let size: CGFloat
     private var image: ImageViewBuilder?
@@ -17,17 +17,20 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
 //  MARK: - INITIALIZERS
     
-    public init(size: CGFloat) {
+    public init(size: CGFloat, image: ImageViewBuilder? = nil) {
         self.profilePicture = ViewBuilder()
         self.size = size
+        self.image = image
         super.init(profilePicture.get)
-        let img = UIImage(systemName: "camera.viewfinder")
-//        let img = ImageViewBuilder(systemName: "camera.viewfinder")
-        self.setPlaceHolderImage(img)
-//        self.profileImage.setSize(size)
         configure()
     }
     
+    public convenience init(size: CGFloat) {
+        self.init(size: size, image: nil)
+        profileImage.setContentMode(.center)
+        setPlaceHolderImage(ImageViewBuilder(systemName: "camera.viewfinder"))
+        setSizePlaceHolderImage(size/2)
+    }
     
     
 //  MARK: - LAZY AREA
@@ -36,6 +39,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         let comp = ImageViewBuilder()
             .setConstraints { build in
                 build
+                    .setAlignmentCenterXY.equalTo(profilePicture.get)
                     .setSize.equalToConstant(size)
             }
         return comp
@@ -45,16 +49,9 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setPlaceHolderImage(_ image: UIImage?) -> Self {
-        guard let image else {return self}
-        profileImage.setImage(image: image)
-        return self
-    }
-    
-    @discardableResult
     public func setPlaceHolderImage(_ image: ImageViewBuilder?) -> Self {
         guard let image else {return self}
-        profileImage.setImage(image: image.get.image)
+        profileImage.get.image = image.get.image
         return self
     }
 
@@ -124,8 +121,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         configCircleProfilePicture()
         setPlaceHolderImage(image)
         configTapGesture()
-        profileImage.get.clipsToBounds = true
-        profileImage.get.layer.masksToBounds = true
     }
     
     private func addElements() {

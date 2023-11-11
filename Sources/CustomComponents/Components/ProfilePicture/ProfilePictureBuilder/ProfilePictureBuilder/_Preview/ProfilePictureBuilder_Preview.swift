@@ -22,7 +22,7 @@ final class ProfilePictureBuilderPreview: UIView {
             .setBackgroundColor(color: .yellow)
 //            .setSize(30)
             .setWeight(.ultraLight)
-        let comp = ProfilePictureBuilder(size: 100)
+        let comp = ProfilePictureBuilder(size: 100, image: img )
             .setBackgroundColor(hexColor: "#ffffff")
             .setTintColor("#000000")
             .setChooseSource(viewController: UIViewController(), { build in

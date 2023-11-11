@@ -26,13 +26,16 @@ open class SkeletonBuilder: Skeleton {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-                    .setPin.equalTo(component?.baseView ?? UIView())
+//                    .setPin.equalTo(component?.baseView ?? UIView())
+                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
+                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
             }
         return comp
     }()
     
     lazy var skeletonLayer: ViewBuilder = {
         let comp = ViewBuilder()
+            .setTranslatesAutoresizingMaskIntoConstraints(false)
         return comp
     }()
     
@@ -78,12 +81,12 @@ open class SkeletonBuilder: Skeleton {
 //  MARK: - APPLY SKELETON
     @discardableResult
     public func apply() -> Self {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            configSkeletonView()
-            configSkeletonLayer()
-            startAnimation()
-        }
+        addSkeleton()
+        configClipsToBoundsSkeletonView()
+        configCustomCornerRadiusSkeletonView()
+        configFrameSkeletonLayer()
+        configGradient()
+        startAnimation()
         return self
     }
 
@@ -93,26 +96,27 @@ open class SkeletonBuilder: Skeleton {
         setTransition(0.5)
     }
 
-    private func configClipsToBounds() {
+    private func configClipsToBoundsSkeletonView() {
         skeletonView.get.layer.masksToBounds = true
         skeletonView.get.clipsToBounds = true
     }
     
-    private func configSkeletonView() {
-        addSkeletonOnComponent()
-        configCustomCornerRadius()
-        configGradientSkeletonView()
-        configClipsToBounds()
+    private func addSkeleton() {
+        addSkeletonView()
+        addSkeletonLayer()
     }
-
-    private func addSkeletonOnComponent() {
+    
+    private func addSkeletonView() {
         guard let component else {return}
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView.get.bounds = component.baseView.layer.bounds
         skeletonView.applyConstraint()
     }
     
-    private func configCustomCornerRadius() {
+    private func addSkeletonLayer() {
+        skeletonLayer.add(insideTo: skeletonView.get)
+    }
+
+    private func configCustomCornerRadiusSkeletonView() {
         guard let component else {return}
         skeletonView.get.layer.cornerRadius = component.baseView.layer.cornerRadius
         if let radius {
@@ -122,6 +126,11 @@ open class SkeletonBuilder: Skeleton {
         }
     }
     
+    private func configGradient() {
+        configGradientSkeletonView()
+        configGradientSkeletonLayer()
+    }
+    
     private func configGradientSkeletonView() {
         let color: UIColor = color ?? .lightGray
         skeletonGradient = GradientBuilder(skeletonView.get)
@@ -129,37 +138,32 @@ open class SkeletonBuilder: Skeleton {
             .setOpacity(1)
             .apply()
     }
-    
-    private func configSkeletonLayer() {
-        configFrameSkeletonLayer()
-        configGradientSkeletonLayer()
-    }
-
+        
     private func configFrameSkeletonLayer() {
-        let startLayer = calculateStartLayer()
-        skeletonLayer.add(insideTo: skeletonView.get)
-        guard let component else { return }
-        skeletonLayer.get.frame = CGRect(
-            origin: CGPoint(x: -startLayer, y: .zero),
-            size: CGSize(width: startLayer, height: component.baseView.frame.height)
-        )
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            let widthLayer = calculateWidthSkeletonLayer()
+            skeletonLayer.get.frame = CGRect(
+                origin: CGPoint(x: -widthLayer, y: .zero),
+                size: CGSize(width: widthLayer, height: skeletonView.get.bounds.height)
+            )
+        }
     }
 
-    private func calculateStartLayer() -> CGFloat {
-        guard let component else {return .zero}
-        return (component.baseView.layer.bounds.width * 66)/100
-    }
-    
     private func configGradientSkeletonLayer() {
         skeletonLayerGradient = GradientBuilder(skeletonLayer.get)
             .setGradientColors(configColorsGradientSkeleton())
             .setOpacity(0.8)
             .apply()
     }
-    
+
+    private func calculateWidthSkeletonLayer() -> CGFloat {
+        let sixtySixPercent = 0.66
+        return skeletonView.get.bounds.width * sixtySixPercent
+    }
+
     private func configColorsGradientSkeleton() -> [UIColor] {
-//        let color: UIColor = color ?? .lightGray
-        let color: UIColor = .red
+        let color: UIColor = color ?? .lightGray
         let color1 = color.adjustBrightness(5).withAlphaComponent(0.8)
         let color2 = color.adjustBrightness(15)
         let color3 = color.adjustBrightness(25)
@@ -172,10 +176,13 @@ open class SkeletonBuilder: Skeleton {
     private func startAnimation() {
         component?.setHidden(true)
         let duration = TimeInterval(getDuration())
-        UIView.animate(withDuration: duration, delay: .zero, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             guard let self else {return}
-            skeletonLayer.get.frame.origin.x = component?.baseView.layer.bounds.width ?? 100
-        }, completion: nil)
+            UIView.animate(withDuration: duration, delay: .zero, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
+                guard let self else {return}
+                skeletonLayer.get.frame.origin.x = component?.baseView.layer.bounds.width ?? 100
+            }, completion: nil)
+        }
     }
     
     private func stopAnimation() {
@@ -198,8 +205,6 @@ open class SkeletonBuilder: Skeleton {
             size: CGSize(
                 width: component.baseView.layer.frame.width,
                 height: skeletonView.get.layer.frame.height))
-
-        skeletonView.get.layersResizeIfNeeded()
     }
     
     private func transitionDissolve(_ transitionDuration: CGFloat) {
