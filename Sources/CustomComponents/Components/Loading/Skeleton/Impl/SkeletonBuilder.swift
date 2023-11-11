@@ -238,7 +238,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     private func freeMemory() {
-//        component?.skeleton = nil
+        component?.skeleton = nil
         component?.gradient = nil
         skeletonLayerGradient = nil
         skeletonGradient = nil
