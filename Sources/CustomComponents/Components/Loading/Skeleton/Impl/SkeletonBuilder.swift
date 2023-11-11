@@ -110,9 +110,9 @@ open class SkeletonBuilder: Skeleton {
     
     private func addSkeletonView() {
         guard let component else {return}
-        self.skeletonLayer = makeSkeletonView()
-        skeletonLayer.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonLayer.applyConstraint()
+        self.skeletonView = makeSkeletonView()
+        skeletonView.add(insideTo: component.baseView.superview ?? UIView())
+        skeletonView.applyConstraint()
     }
     
     private func addSkeletonLayer() {
