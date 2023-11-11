@@ -17,20 +17,16 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
 //  MARK: - INITIALIZERS
     
-    public init(size: CGFloat, image: ImageViewBuilder? = nil) {
+    public init(size: CGFloat) {
         self.profilePicture = ViewBuilder()
         self.size = size
-        self.image = image
         super.init(profilePicture.get)
+        let img = ImageViewBuilder(systemName: "camera.viewfinder")
+        self.setPlaceHolderImage(img)
+        self.profileImage.setSize(size)
         configure()
     }
     
-    public convenience init(size: CGFloat) {
-        self.init(size: size, image: nil)
-        let img = ImageViewBuilder(systemName: "camera.viewfinder")
-        profileImage.setSize(size)
-        setPlaceHolderImage(img)
-    }
     
     
 //  MARK: - LAZY AREA
