@@ -21,8 +21,9 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         self.profilePicture = ViewBuilder()
         self.size = size
         super.init(profilePicture.get)
+        let img = UIImage(systemName: "camera.viewfinder")
 //        let img = ImageViewBuilder(systemName: "camera.viewfinder")
-//        self.setPlaceHolderImage(img)
+        self.setPlaceHolderImage(img)
 //        self.profileImage.setSize(size)
         configure()
     }
@@ -43,6 +44,14 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     
 //  MARK: - SET PROPERTIES
+    
+    @discardableResult
+    public func setPlaceHolderImage(_ image: UIImage?) -> Self {
+        guard let image else {return self}
+//        profileImage.setContentMode(.center)
+        profileImage.setImage(image: image)
+        return self
+    }
     
     @discardableResult
     public func setPlaceHolderImage(_ image: ImageViewBuilder?) -> Self {
