@@ -186,6 +186,7 @@ open class SkeletonBuilder: Skeleton {
     
     private func startAnimation() {
         component?.setHidden(true)
+        
         self.skeletonView.get.alpha = 1
         skeletonView.setHidden(false)
         let duration = TimeInterval(getDuration())
