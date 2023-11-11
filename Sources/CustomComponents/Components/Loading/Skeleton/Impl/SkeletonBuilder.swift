@@ -192,7 +192,7 @@ open class SkeletonBuilder: Skeleton {
             transitionDissolve(transitionDuration)
             return
         }
-        hide()
+        remove()
     }
     
     private func configWidthSkeletonView() {
@@ -212,7 +212,7 @@ open class SkeletonBuilder: Skeleton {
             self?.skeletonView.get.alpha = 0
         }, completion: { [weak self] _ in
             guard let self else {return}
-            hide()
+            remove()
         })
     }
 
@@ -229,10 +229,10 @@ open class SkeletonBuilder: Skeleton {
         }
     }
 
-    private func hide() {
+    private func remove() {
         skeletonLayer.get.layer.removeAllAnimations()
         skeletonView.get.layer.removeAllAnimations()
-        skeletonView.get.removeFromSuperview()
+//        skeletonView.get.removeFromSuperview()
         freeMemory()
     }
     
