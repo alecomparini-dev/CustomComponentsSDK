@@ -51,7 +51,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public func setPlaceHolderImage(_ image: ImageViewBuilder?) -> Self {
         guard let image else {return self}
 //        profileImage.setContentMode(.center)
-        profileImage.get.image = image.get.image
+        profileImage.setImage(image: image.get.image)
         return self
     }
 
