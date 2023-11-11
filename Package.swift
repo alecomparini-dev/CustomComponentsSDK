@@ -15,7 +15,6 @@ let package = Package(
     ],
     
     dependencies: [
-        .package(url: "https://github.com/Juanpe/SkeletonView.git", branch: "1.30.4")
     ],
     
     targets: [
@@ -23,7 +22,6 @@ let package = Package(
         .target(
             name: "CustomComponentsSDK",
             dependencies: [
-                "SkeletonView"
             ],
             path: "Sources/CustomComponents"
         ),
