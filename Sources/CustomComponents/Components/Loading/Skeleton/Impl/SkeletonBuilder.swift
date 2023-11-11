@@ -40,6 +40,17 @@ open class SkeletonBuilder: Skeleton {
     }()
     
     
+    private func makeSkeletonView() -> ViewBuilder {
+        let comp = ViewBuilder()
+            .setConstraints { build in
+                build
+//                    .setPin.equalTo(component?.baseView ?? UIView())
+                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
+                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
+            }
+        return comp
+    }
+    
     //  MARK: - SET PROPERTIES
     
     @discardableResult
@@ -175,6 +186,7 @@ open class SkeletonBuilder: Skeleton {
     
     private func startAnimation() {
         component?.setHidden(true)
+        self.skeletonView.get.alpha = 1
         let duration = TimeInterval(getDuration())
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
