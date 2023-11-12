@@ -26,6 +26,10 @@ final class SkeletonBuilderPreview: UIView {
                 build
                     .setCornerRadius(8)
             }
+            .setSkeleton({ build in
+                build
+                    .setColorSkeleton(color: .yellow)
+            })
             .setConstraints { build in
                 build
                     .setTop.equalToSafeArea(20)
@@ -42,8 +46,8 @@ final class SkeletonBuilderPreview: UIView {
     
     private func configure() {
         backgroundColor = .red
-//        addSubview(textField.get)
-//        textField.applyConstraint()
+        addSubview(textField.get)
+        textField.applyConstraint()
     }
     
 }

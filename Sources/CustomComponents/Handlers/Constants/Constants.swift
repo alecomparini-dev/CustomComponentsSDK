@@ -34,6 +34,7 @@ extension K {
 
 extension K {
     public struct Strings {
+        public static let gradientID = "gradientID"
         public static let empty = ""
         public static let done = "Done"
         public static let dot = "."
@@ -293,6 +294,35 @@ extension K {
         public enum Detent {
             case medium
             case large
+        }
+    }
+}
+
+
+//  MARK: - EXTENSION - Gradient
+
+extension K {
+    public struct Gradient {
+        public enum Direction {
+            case leftToRight
+            case rightToLeft
+            case topToBottom
+            case bottomToTop
+            case leftBottomToRightTop
+            case leftTopToRightBottom
+            case rightBottomToLeftTop
+            case rightTopToLeftBottom
+        }
+    }
+}
+
+//  MARK: - EXTENSION - Skeleton
+extension K {
+    public struct Skeleton {
+        public enum SpeedAnimation {
+            case slow
+            case medium
+            case fast
         }
     }
 }

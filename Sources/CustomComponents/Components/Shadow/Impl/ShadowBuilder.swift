@@ -13,12 +13,12 @@ open class ShadowBuilder: Shadow {
     private var shadowWidth: CGFloat?
     
     private let shadow: CAShapeLayer
-    private weak var component: UIView?
+    private weak var component: BaseBuilder?
     
     
 //  MARK: - INITIALIZER
     
-    public init(_ component: UIView) {
+    public init(_ component: BaseBuilder) {
         self.component = component
         shadow = CAShapeLayer()
         configure()
@@ -28,7 +28,7 @@ open class ShadowBuilder: Shadow {
 //  MARK: - GET PROPERTIES
     
     public func getShadowById(_ id: String) -> CALayer? {
-        return self.component?.layer.sublayers?.first(where: { $0.name == id })
+        return self.component?.baseView.layer.sublayers?.first(where: { $0.name == id })
     }
     
     
@@ -106,68 +106,69 @@ open class ShadowBuilder: Shadow {
     
     @discardableResult
     public func apply() -> Self {
-        component?.layer.shadowColor = shadow.shadowColor
-        component?.layer.shadowRadius = shadow.shadowRadius
-        component?.layer.shadowOpacity = shadow.opacity
-        component?.layer.shadowOffset = shadow.shadowOffset
-        DispatchQueue.main.async { [weak self] in
-            guard let self, let component else {return}
-            shadow.frame = component.bounds
-            component.layer.shadowPath = calculateShadowPath()
-        }
+        component?.baseView.layer.shadowColor = shadow.shadowColor
+        component?.baseView.layer.shadowRadius = shadow.shadowRadius
+        component?.baseView.layer.shadowOpacity = shadow.opacity
+        component?.baseView.layer.shadowOffset = shadow.shadowOffset
+        applyFrame()
         return self
     }
 
     @discardableResult
     public func applyLayer() -> Self {
-        self.insertSubLayer()
-        DispatchQueue.main.async { [weak self] in
-            guard let self, let component else {return}
-            shadow.frame = component.bounds
-            shadow.shadowPath = calculateShadowPath()
-        }
+        insertSubLayer()
+        applyFrame()
         return self
     }
 
     
 //  MARK: - PRIVATE AREA
-    
+
+    private func applyFrame() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self, let component else {return}
+            shadow.frame = component.baseView.bounds
+            component.baseView.layer.shadowPath = calculateShadowPath()
+            component.shadow = nil
+        }
+    }
+
     private func getCornerRadius() -> CGFloat {
         guard let component else {return .zero}
         if let cornerRadius { return cornerRadius }
-        return component.layer.cornerRadius
+        return component.baseView.layer.cornerRadius
     }
     
     private func calculateShadowPath() -> CGPath {
-        return component!.replicateFormat(width: self.getShadowWidth(),
-                                         height: self.getShadowHeight(),
-                                         cornerRadius: self.getCornerRadius()
+        return component!.baseView.replicateFormat(width: getShadowWidth(),
+                                         height: getShadowHeight(),
+                                         cornerRadius: getCornerRadius()
                                         ).cgPath
     }
     
     private func getShadowHeight() -> CGFloat {
         guard let component else {return .zero}
         if let shadowHeight { return shadowHeight }
-        return component.frame.height
+        return component.baseView.frame.height
     }
     
     private func getShadowWidth() -> CGFloat {
         guard let component else {return .zero}
         if let shadowWidth { return shadowWidth }
-        return component.frame.width
+        return component.baseView.frame.width
     }
     
     private func insertSubLayer() {
         guard let component else {return }
         if isBringToFront {
-            shadowAt = UInt32(component.countShadows().shadowLayer)
+            shadowAt = UInt32(component.baseView.countShadows().shadowLayer)
         }
-        component.layer.insertSublayer(shadow, at: shadowAt)
+        component.baseView.layer.insertSublayer(shadow, at: shadowAt)
     }
     
     private func configure() {
         setDefault()
-        component?.layer.masksToBounds = false
+        component?.baseView.layer.masksToBounds = false
         shadow.shouldRasterize = true
         shadow.rasterizationScale = UIScreen.main.scale
     }

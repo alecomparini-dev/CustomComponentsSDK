@@ -27,6 +27,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     public convenience init(size: CGFloat) {
         self.init(size: size, image: nil)
+        profileImage.setContentMode(.center)
         setPlaceHolderImage(ImageViewBuilder(systemName: "camera.viewfinder"))
         setSizePlaceHolderImage(size/2)
     }
@@ -36,11 +37,10 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     lazy public var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
-            .setContentMode(.center)
             .setConstraints { build in
                 build
+                    .setAlignmentCenterXY.equalTo(profilePicture.get)
                     .setSize.equalToConstant(size)
-                    .setAlignmentCenterXY.equalToSuperView
             }
         return comp
     }()
@@ -57,7 +57,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
 
     @discardableResult
     public func setCornerRadius(_ radius: CGFloat) -> Self {
-        self.profileImage.setBorder { build in
+        profileImage.setBorder { build in
             build
                 .setCornerRadius(radius)
         }
@@ -132,7 +132,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func configCircleProfilePicture() {
-        setCornerRadius(self.size / 2)
+        setCornerRadius(size / 2)
     }
     
     private func configTapGesture() {

@@ -1,7 +1,3 @@
-//
-//  UIColor+Extension+Component.swift
-//  BackFront-BFNFT
-//
 //  Created by Alessandro Comparini on 23/03/23.
 //
 
@@ -33,7 +29,6 @@ public extension UIColor {
         let b = (rgbValue & 0x0000ff)
 
         return UIColor.RGBA(Int(r), Int(g), Int(b), alpha)
-
     }
     
     @nonobjc class func HEX(_ hexColor: String, _ alpha: Float) -> UIColor {
@@ -43,7 +38,6 @@ public extension UIColor {
     @nonobjc class func HEX(_ hexColor: String) -> UIColor {
         return HEXA(hexColor, 1.0)
     }
-    
     
     var toHexString: String {
         guard let components = self.cgColor.components, components.count >= 3 else {
@@ -55,9 +49,7 @@ public extension UIColor {
         let b = max(0, min(255, Int(components[2] * 255.0)))
         
         return String(format: "#%02X%02X%02X", r, g, b)
-        
     }
-    
     
     func adjustBrightness(_ percentage: CGFloat) -> UIColor {
         var hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0, alpha: CGFloat = 0.0

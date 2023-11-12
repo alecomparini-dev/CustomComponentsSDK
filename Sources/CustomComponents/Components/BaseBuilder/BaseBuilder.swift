@@ -2,23 +2,22 @@
 //
 
 import UIKit
-import SkeletonView
 
 open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
-    private(set) var shadow: ShadowBuilder?
-    private(set) var border: BorderBuilder?
+    private weak var border: BorderBuilder?
+    private var _shadow: ShadowBuilder?
+    private var _gradient: GradientBuilder?
+    private var _skeleton: SkeletonBuilder?
     
     private weak var _baseView: UIView?
     
-    //  MARK: - GET Properties
-        
     var baseView: UIView {
         get { self._baseView ?? UIView() }
         set { self._baseView = newValue }
     }
-    
+
     public init(_ view: UIView) {
         self._baseView = view
         super.init()
@@ -27,7 +26,22 @@ open class BaseBuilder: NSObject {
     
     
 //  MARK: - GET PROPERTIES
-    public func getTag() -> Int { baseView.tag  }
+    public var getTag: Int { baseView.tag  }
+    
+    public var skeleton: SkeletonBuilder? {
+        get { _skeleton }
+        set { _skeleton = newValue}
+    }
+    
+    public var gradient: GradientBuilder? {
+        get { _gradient }
+        set { _gradient = newValue}
+    }
+    
+    public var shadow: ShadowBuilder? {
+        get { _shadow }
+        set { _shadow = newValue}
+    }
 
     
 //  MARK: - SET PROPERTIES
@@ -100,12 +114,6 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
-        _ = build(SkeletonBuilder(component: baseView))
-        return self
-    }
-    
-    @discardableResult
     public func setTag(_ tag: Int) -> Self {
         baseView.tag = tag
         return self
@@ -119,10 +127,22 @@ open class BaseBuilder: NSObject {
 
     @discardableResult
     public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
-        shadow = build(ShadowBuilder(baseView))
+        shadow = build(ShadowBuilder(self))
         return self
     }
     
+    @discardableResult
+    public func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
+        gradient = build(GradientBuilder(baseView))
+        return self
+    }
+
+    @discardableResult
+    public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
+        skeleton = build(SkeletonBuilder(component: self))
+        return self
+    }
+
     
 //  MARK: - CONSTRAINTS AREA
     

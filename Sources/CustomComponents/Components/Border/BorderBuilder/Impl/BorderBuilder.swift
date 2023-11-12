@@ -4,7 +4,6 @@
 import UIKit
 
 open class BorderBuilder: Border {
-    
     private weak var component: UIView!
     
     
@@ -44,14 +43,24 @@ open class BorderBuilder: Border {
     
     @discardableResult
     public func setCornerRadius(_ radius: CGFloat) -> Self {
-        self.removeBorderStyleOfTextField()
-        if !component.hasShadow() {
-            component.layer.masksToBounds = true
-        }
+        removeBorderStyleOfTextField()
+        setClipsToBounds(true)
         component.layer.cornerRadius = radius
         return self
     }
     
+    @discardableResult
+    public func setClipsToBounds(_ flag: Bool) -> Self {
+        component.clipsToBounds = flag
+        return self
+    }
+    
+    @discardableResult
+    public func setMasksToBounds(_ flag: Bool) -> Self {
+        component.layer.masksToBounds = flag
+        return self
+    }
+     
     @discardableResult
     public func setWhichCornersWillBeRounded(_ cornes: [K.Corner]) -> Self {
         component?.layer.maskedCorners = selectCorners(cornes)
