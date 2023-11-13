@@ -34,7 +34,6 @@ extension K {
 
 extension K {
     public struct Strings {
-        public static let gradientID = "gradientID"
         public static let empty = ""
         public static let done = "Done"
         public static let dot = "."
@@ -302,7 +301,13 @@ extension K {
 //  MARK: - EXTENSION - Gradient
 
 extension K {
+    
     public struct Gradient {
+        
+        public enum Identifiers: String {
+            case gradientID = "gradientID"
+        }
+        
         public enum Direction {
             case leftToRight
             case rightToLeft
@@ -313,6 +318,7 @@ extension K {
             case rightBottomToLeftTop
             case rightTopToLeftBottom
         }
+        
     }
 }
 
@@ -328,3 +334,49 @@ extension K {
 }
 
 
+//  MARK: - EXTENSION - Neumorphism
+extension K {
+    public struct Neumorphism {
+    
+        public struct Strings {
+            public static let distance = "distance"
+            public static let blur = "blur"
+            public static let intensity = "intensity"
+        }
+        
+        public enum Identifiers: String {
+            case darkShadowID = "DARK_SHADOW_ID"
+            case lightShadowID = "LIGHT_SHADOW_ID"
+            case shapeID = "SHAPE_ID"
+        }
+        
+        public enum Shadow {
+            case light
+            case dark
+        }
+        
+        public enum Shape {
+            case flat
+            case concave
+            case convex
+            case pressed
+            case none
+        }
+        
+        public enum LightPosition {
+            case leftTop
+            case leftBottom
+            case rightTop
+            case rightBottom
+        }
+        
+        public enum Percentage: CGFloat {
+            case lightShadeColor = 60
+            case darkShadeColor = -85
+            case lightShapeColorByColorReference = 70
+            case darkShapeColorByColorReference = -30
+        }
+        
+    }
+    
+}

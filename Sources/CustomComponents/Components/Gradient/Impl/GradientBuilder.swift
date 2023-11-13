@@ -9,7 +9,7 @@ open class GradientBuilder: Gradient {
     
     private var isAxial = false
     private let gradient: CAGradientLayer
-    private let gradientID = K.Strings.gradientID
+    private let gradientID = K.Gradient.Identifiers.gradientID.rawValue
     
     private weak var component: UIView?
     
