@@ -170,7 +170,7 @@ open class NeumorphismBuilder: Neumorphism {
         calculateShadoweColorByColorReference()
         applyShadow()
         applyShape()
-        freeMemory()
+//        freeMemory()
         return self
     }
     
