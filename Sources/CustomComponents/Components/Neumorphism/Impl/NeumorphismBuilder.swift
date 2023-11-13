@@ -170,13 +170,18 @@ open class NeumorphismBuilder: Neumorphism {
         calculateShadoweColorByColorReference()
         applyShadow()
         applyShape()
+        freeMemory()
         return self
     }
     
     private func freeMemory() {
-        darkShadowBuilder = nil
-        lightShadowBuilder = nil
+        DispatchQueue.main.async {
+            self.lightShadowBuilder = nil
+            self.darkShadowBuilder = nil
+        }
     }
+    
+    
     
     
 //  MARK: - REMOVE NEUMORPHIS
