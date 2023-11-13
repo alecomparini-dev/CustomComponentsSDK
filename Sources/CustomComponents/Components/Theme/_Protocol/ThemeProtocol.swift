@@ -3,7 +3,7 @@
 
 import UIKit
 
-public protocol ThemeColor {
+public protocol ThemeProtocol: ThemePrimaryColor, ThemeSecondaryColor, ThemeTertiaryColor, ThemeSurface, ThemeGradientColor {
     var backgroundColor: UIColor { get }
     var error: UIColor { get }
     var onError: UIColor { get }
@@ -30,7 +30,7 @@ public protocol ThemeTertiaryColor {
     var onTertiaryContainer: UIColor { get }
 }
 
-protocol ThemeGradientColor {
+public protocol ThemeGradientColor {
     var backgroundColorGradient: [UIColor] { get }
     var primaryGradient: [UIColor] { get }
     var secondaryGradient: [UIColor] { get }

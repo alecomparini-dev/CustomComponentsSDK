@@ -4,7 +4,7 @@
 import UIKit
 
 
-public struct ThemeDarkDefault: ThemeColor {
+public struct ThemeDarkDefault: ThemeProtocol {
     public var backgroundColor: UIColor { UIColor.HEX("#292D2E")}
     public var error: UIColor { UIColor.HEX("#c81b1a") }
     public var onError: UIColor { UIColor.HEX("#d3d3d3") }
