@@ -183,7 +183,7 @@ open class GradientBuilder: Gradient {
             setGradientOnComponent()
             setFrame()
             calculateEndPoint()
-            self.component = nil
+            component = nil
         }
     }
     

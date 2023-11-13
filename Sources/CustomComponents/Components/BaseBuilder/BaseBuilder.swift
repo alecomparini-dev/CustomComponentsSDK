@@ -132,14 +132,14 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    public func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
-        gradient = build(GradientBuilder(baseView))
-        return self
-    }
-
-    @discardableResult
     public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
         skeleton = build(SkeletonBuilder(component: self))
+        return self
+    }
+    
+    @discardableResult
+    public func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
+        _ = build(GradientBuilder(baseView))
         return self
     }
     
