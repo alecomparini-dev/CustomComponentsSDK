@@ -160,6 +160,7 @@ open class ShadowBuilder: Shadow {
     
     private func insertSubLayer() {
         guard let component else {return }
+        component.setBackgroundColor(color: .none)
         if isBringToFront {
             shadowAt = UInt32(component.baseView.countShadows().shadowLayer)
         }
