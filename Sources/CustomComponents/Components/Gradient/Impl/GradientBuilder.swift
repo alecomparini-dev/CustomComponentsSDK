@@ -178,12 +178,11 @@ open class GradientBuilder: Gradient {
 //  MARK: - APPLY
 
     private func applyMainThread() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            setGradientOnComponent()
-            setFrame()
-            calculateEndPoint()
-            component = nil
+        DispatchQueue.main.async {
+            self.setGradientOnComponent()
+            self.setFrame()
+            self.calculateEndPoint()
+            self.component = nil
         }
     }
     

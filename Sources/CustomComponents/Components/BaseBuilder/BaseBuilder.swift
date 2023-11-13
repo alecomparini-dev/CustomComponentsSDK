@@ -8,7 +8,7 @@ open class BaseBuilder: NSObject {
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private weak var border: BorderBuilder?
     private var _shadow: ShadowBuilder?
-    private var _gradient: GradientBuilder?
+//    private var _gradient: GradientBuilder?
     private var _skeleton: SkeletonBuilder?
     
     private weak var _baseView: UIView?
@@ -33,11 +33,11 @@ open class BaseBuilder: NSObject {
         set { _skeleton = newValue}
     }
     
-    public var gradient: GradientBuilder? {
-        get { _gradient }
-        set { _gradient = newValue}
-    }
-    
+//    public var gradient: GradientBuilder? {
+//        get { _gradient }
+//        set { _gradient = newValue}
+//    }
+//    
     public var shadow: ShadowBuilder? {
         get { _shadow }
         set { _shadow = newValue}
@@ -145,7 +145,8 @@ open class BaseBuilder: NSObject {
     
     @discardableResult
     public func setNeumorphism(_ build: (_ build: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
-        _ = build(NeumorphismBuilder(self))
+        let gradient = build(NeumorphismBuilder(self))
+        gradient.apply()
         return self
     }
 
