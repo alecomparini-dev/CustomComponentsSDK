@@ -34,7 +34,7 @@ open class ShadowBuilder: Shadow {
     
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setColor(color: UIColor?) -> Self {
+    public func setColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         shadow.shadowColor = color.cgColor
         return self
@@ -43,7 +43,7 @@ open class ShadowBuilder: Shadow {
     @discardableResult
     public func setColor(hexColor: String?) -> Self {
         guard let hexColor, hexColor.isHexColor() else {return self}
-        setColor(color: UIColor.HEX(hexColor))
+        setColor( UIColor.HEX(hexColor))
         return self
     }
     
@@ -160,7 +160,6 @@ open class ShadowBuilder: Shadow {
     
     private func insertSubLayer() {
         guard let component else {return }
-        component.setBackgroundColor(color: .none)
         if isBringToFront {
             shadowAt = UInt32(component.baseView.countShadows().shadowLayer)
         }
@@ -176,6 +175,7 @@ open class ShadowBuilder: Shadow {
     
     private func setDefault(){
         self
+            .setColor(.black)
             .setOpacity(0.6)
             .setRadius(5)
     }

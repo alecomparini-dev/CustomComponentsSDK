@@ -371,8 +371,8 @@ extension K {
         }
         
         public enum Percentage: CGFloat {
-            case lightShadeColor = 60
-            case darkShadeColor = -85
+            case lightShadowColor = 60
+            case darkShadowColor = -85
             case lightShapeColorByColorReference = 70
             case darkShapeColorByColorReference = -30
         }
