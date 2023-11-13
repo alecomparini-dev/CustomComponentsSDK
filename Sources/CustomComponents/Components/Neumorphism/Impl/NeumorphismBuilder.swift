@@ -5,6 +5,9 @@ import UIKit
 
 open class NeumorphismBuilder: Neumorphism {
     
+    private var lightShadowBuilder: ShadowBuilder?
+    private var darkShadowBuilder: ShadowBuilder?
+    
     private let darkShadowID: String = K.Neumorphism.Identifiers.darkShadowID.rawValue
     private let lightShadowID: String = K.Neumorphism.Identifiers.lightShadowID.rawValue
     private let shapeID: String = K.Neumorphism.Identifiers.shapeID.rawValue
@@ -231,7 +234,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func applyDarkShadow(_ offSetDarkShadow: CGSize) {
         guard let component else {return}
-        _ = ShadowBuilder(component)
+        darkShadowBuilder = ShadowBuilder(component)
             .setColor(color: darkShadowColor ?? .clear)
             .setOffset(offSetDarkShadow)
             .setOpacity(darkShadowIntensity)
@@ -243,7 +246,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func applyLightShadow(_ offSetLightShadow: CGSize) {
         guard let component else {return}
-        _ = ShadowBuilder(component)
+        lightShadowBuilder = ShadowBuilder(component)
             .setColor(color: lightShadowColor ?? .clear)
             .setOffset(offSetLightShadow)
             .setOpacity(lightShadowIntensity)
