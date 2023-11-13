@@ -170,7 +170,6 @@ open class NeumorphismBuilder: Neumorphism {
         calculateShadoweColorByColorReference()
         applyShadow()
         applyShape()
-        freeMemory()
         return self
     }
     
@@ -190,10 +189,9 @@ open class NeumorphismBuilder: Neumorphism {
 
 //  MARK: - PRIVATE AREA
     private func applyShadow() {
-        let (offSetDarkShadow, offSetLightShadow) = self.calculateLightPosition()
-        self.applyDarkShadow(offSetDarkShadow)
-        self.applyLightShadow(offSetLightShadow)
-        
+        let (offSetDarkShadow, offSetLightShadow) = calculateLightPosition()
+        applyDarkShadow(offSetDarkShadow)
+        applyLightShadow(offSetLightShadow)
     }
     
     private func validatePercent(_ property: String , _ percent: CGFloat, _ defaultPercent: CGFloat ) -> Bool {
@@ -209,10 +207,10 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     private func calculateLightPosition() -> (CGSize, CGSize) {
-        let darkDistance = self.darkShadowDistance
-        let lightDistance = self.lightShadowDistance
+        let darkDistance = darkShadowDistance
+        let lightDistance = lightShadowDistance
         
-        switch self.lightPosition {
+        switch lightPosition {
             case .leftTop:
                 let darkOffset = CGSize(width: darkDistance, height: darkDistance)
                 let lightOffset = CGSize(width: -lightDistance, height: -lightDistance)
@@ -268,15 +266,15 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     private func calculateDarkShadow() {
-        if self.darkShadowColor != nil { return }
+        if darkShadowColor != nil { return }
         guard let referenceColor = referenceColor else {return }
-        self.setShadowColor(to: .dark, color: referenceColor.adjustBrightness(darkShadowColorPercentage))
+        setShadowColor(to: .dark, color: referenceColor.adjustBrightness(darkShadowColorPercentage))
     }
 
     private func calculateLightShadow() {
-        if self.lightShadowColor != nil { return }
+        if lightShadowColor != nil { return }
         guard let referenceColor = referenceColor else {return }
-        self.setShadowColor(to: .light, color: referenceColor.adjustBrightness(lightShadowColorPercentage))
+        setShadowColor(to: .light, color: referenceColor.adjustBrightness(lightShadowColorPercentage))
 
     }
 
@@ -284,7 +282,7 @@ open class NeumorphismBuilder: Neumorphism {
 //  MARK: - SHAPE AREA
     
     private func applyShape() {
-        switch self.shape {
+        switch shape {
             case .flat:
                 setShapeFlat()
                 return
@@ -302,8 +300,8 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     private func getShapeColorByColorReference() -> (UIColor,UIColor) {
-        let dark = self.referenceColor!.adjustBrightness(darkShapeColorByColorReferencePercentage)
-        let light = self.referenceColor!.adjustBrightness(lightShapeColorByColorReferencePercentage)
+        let dark = referenceColor!.adjustBrightness(darkShapeColorByColorReferencePercentage)
+        let light = referenceColor!.adjustBrightness(lightShapeColorByColorReferencePercentage)
         return (dark,light)
     }
     
@@ -311,7 +309,7 @@ open class NeumorphismBuilder: Neumorphism {
         guard let component else {return}
         _ = GradientBuilder(component.baseView)
             .setGradientColors(color)
-            .setAxialGradient(self.calculateGradientDirection())
+            .setAxialGradient(calculateGradientDirection())
             .setID(shapeID)
             .apply()        
     }
@@ -331,17 +329,17 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func setShapeConcave() {
         let (dark,light) = getShapeColorByColorReference()
-        self.addShapeOnComponent([dark,light])
+        addShapeOnComponent([dark,light])
     }
     
     private func setShapeConvex() {
         let (dark,light) = getShapeColorByColorReference()
-        self.addShapeOnComponent([light,dark])
+        addShapeOnComponent([light,dark])
     }
     
     private func setShapeFlat() {
         if let referenceColor {
-            self.addShapeOnComponent([referenceColor, referenceColor])
+            addShapeOnComponent([referenceColor, referenceColor])
         }
     }
     
