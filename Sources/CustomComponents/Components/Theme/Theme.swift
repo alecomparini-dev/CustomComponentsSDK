@@ -4,15 +4,15 @@
 import UIKit
 
 open class Theme {
-    static let shared = Theme()
+    static public let shared = Theme()
     
-    var currentTheme: ThemeProtocol
+    public var currentTheme: ThemeProtocol
     
     private init() {
         self.currentTheme = ThemeDarkDefault()
     }
     
-    static func setTheme(_ theme: ThemeProtocol) {
+    static public func setTheme(_ theme: ThemeProtocol) {
         Theme.shared.currentTheme = theme
     }
     
