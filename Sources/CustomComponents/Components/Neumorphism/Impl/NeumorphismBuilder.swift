@@ -237,7 +237,7 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(darkShadowIntensity)
             .setRadius(darkShadowBlur)
             .setID(darkShadowID)
-            .apply()
+            .applyLayer()
         
     }
     
@@ -249,7 +249,7 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(lightShadowIntensity)
             .setRadius(lightShadowBlur)
             .setID(lightShadowID)
-            .apply()
+            .applyLayer()
         
     }
     
