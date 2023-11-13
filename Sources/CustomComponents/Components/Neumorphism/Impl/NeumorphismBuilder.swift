@@ -12,8 +12,8 @@ open class NeumorphismBuilder: Neumorphism {
     private let lightShadowID: String = K.Neumorphism.Identifiers.lightShadowID.rawValue
     private let shapeID: String = K.Neumorphism.Identifiers.shapeID.rawValue
     
-    private let lightShadeColorPercentage: CGFloat = K.Neumorphism.Percentage.lightShadeColor.rawValue
-    private let darkShadeColorPercentage: CGFloat = K.Neumorphism.Percentage.darkShadeColor.rawValue
+    private let lightShadowColorPercentage: CGFloat = K.Neumorphism.Percentage.lightShadowColor.rawValue
+    private let darkShadowColorPercentage: CGFloat = K.Neumorphism.Percentage.darkShadowColor.rawValue
     private let lightShapeColorByColorReferencePercentage: CGFloat = K.Neumorphism.Percentage.lightShapeColorByColorReference.rawValue
     private let darkShapeColorByColorReferencePercentage: CGFloat = K.Neumorphism.Percentage.darkShapeColorByColorReference.rawValue
     
@@ -40,7 +40,7 @@ open class NeumorphismBuilder: Neumorphism {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setReferenceColor(color: UIColor?) -> Self {
+    public func setReferenceColor(_ color: UIColor?) -> Self {
         referenceColor = color
         return self
     }
@@ -48,7 +48,7 @@ open class NeumorphismBuilder: Neumorphism {
     @discardableResult
     public func setReferenceColor(hexColor: String?) -> Self {
         guard let hexColor, hexColor.isHexColor() else {return self}
-        setReferenceColor(color: UIColor.HEX(hexColor))
+        setReferenceColor(UIColor.HEX(hexColor))
         return self
     }
     
@@ -167,7 +167,7 @@ open class NeumorphismBuilder: Neumorphism {
     @discardableResult
     public func apply() -> Self {
         removeNeumorphism()
-        calculateShadeColorByColorReference()
+        calculateShadoweColorByColorReference()
         applyShadow()
         applyShape()
         return self
@@ -235,7 +235,7 @@ open class NeumorphismBuilder: Neumorphism {
     private func applyDarkShadow(_ offSetDarkShadow: CGSize) {
         guard let component else {return}
         darkShadowBuilder = ShadowBuilder(component)
-            .setColor(color: darkShadowColor ?? .clear)
+            .setColor( darkShadowColor ?? .clear)
             .setOffset(offSetDarkShadow)
             .setOpacity(darkShadowIntensity)
             .setRadius(darkShadowBlur)
@@ -247,7 +247,7 @@ open class NeumorphismBuilder: Neumorphism {
     private func applyLightShadow(_ offSetLightShadow: CGSize) {
         guard let component else {return}
         lightShadowBuilder = ShadowBuilder(component)
-            .setColor(color: lightShadowColor ?? .clear)
+            .setColor( lightShadowColor ?? .clear)
             .setOffset(offSetLightShadow)
             .setOpacity(lightShadowIntensity)
             .setRadius(lightShadowBlur)
@@ -256,21 +256,21 @@ open class NeumorphismBuilder: Neumorphism {
         
     }
     
-    private func calculateShadeColorByColorReference() {
-        calculateLightShade()
-        calculateDarkShade()
+    private func calculateShadoweColorByColorReference() {
+        calculateLightShadow()
+        calculateDarkShadow()
     }
     
-    private func calculateDarkShade() {
+    private func calculateDarkShadow() {
         if self.darkShadowColor != nil { return }
         guard let referenceColor = referenceColor else {return }
-        self.setShadowColor(to: .dark, color: referenceColor.adjustBrightness(darkShadeColorPercentage))
+        self.setShadowColor(to: .dark, color: referenceColor.adjustBrightness(darkShadowColorPercentage))
     }
 
-    private func calculateLightShade() {
+    private func calculateLightShadow() {
         if self.lightShadowColor != nil { return }
         guard let referenceColor = referenceColor else {return }
-        self.setShadowColor(to: .light, color: referenceColor.adjustBrightness(lightShadeColorPercentage))
+        self.setShadowColor(to: .light, color: referenceColor.adjustBrightness(lightShadowColorPercentage))
 
     }
 

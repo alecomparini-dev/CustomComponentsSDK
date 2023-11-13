@@ -54,7 +54,7 @@ final class TextFieldBuilderPreview: UIView {
             }
             .setShadow({ build in
                 build
-                    .setColor(color: .black)
+                    .setColor(.black)
                     .setOffset(width: 3, height: 3)
                     .setRadius(5)
                     .apply()
