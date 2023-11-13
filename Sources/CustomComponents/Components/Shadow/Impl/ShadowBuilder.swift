@@ -117,7 +117,8 @@ open class ShadowBuilder: Shadow {
 
     @discardableResult
     public func applyLayer() -> Self {
-//        applyFrame()
+        insertSubLayer()
+        applyFrame()
         applyShadowFrame()
         return self
     }
@@ -142,8 +143,7 @@ open class ShadowBuilder: Shadow {
     
     private func applyShadowFrame() {
         DispatchQueue.main.async { [weak self] in
-            guard let self, let component else {return}
-            shadow.frame = component.baseView.bounds
+            guard let self else {return}
             shadow.shadowPath = calculateShadowPath()
         }
     }
