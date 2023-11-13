@@ -129,7 +129,7 @@ open class ShadowBuilder: Shadow {
             guard let self, let component else {return}
             shadow.frame = component.baseView.bounds
             component.baseView.layer.shadowPath = calculateShadowPath()
-            component.shadow = nil
+//            component.shadow = nil
         }
     }
 
