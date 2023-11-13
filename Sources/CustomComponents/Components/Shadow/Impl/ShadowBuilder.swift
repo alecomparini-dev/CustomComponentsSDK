@@ -111,13 +111,14 @@ open class ShadowBuilder: Shadow {
         component?.baseView.layer.shadowOpacity = shadow.opacity
         component?.baseView.layer.shadowOffset = shadow.shadowOffset
         applyFrame()
+        applyComponentFrame()
         return self
     }
 
     @discardableResult
     public func applyLayer() -> Self {
-        insertSubLayer()
         applyFrame()
+        applyShadowFrame()
         return self
     }
 
@@ -128,11 +129,24 @@ open class ShadowBuilder: Shadow {
         DispatchQueue.main.async { [weak self] in
             guard let self, let component else {return}
             shadow.frame = component.baseView.bounds
-            component.baseView.layer.shadowPath = calculateShadowPath()
-//            component.shadow = nil
         }
     }
-
+    
+    private func applyComponentFrame() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self, let component else {return}
+            component.baseView.layer.shadowPath = calculateShadowPath()
+            component.shadow = nil
+        }
+    }
+    
+    private func applyShadowFrame() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            shadow.shadowPath = calculateShadowPath()
+        }
+    }
+    
     private func getCornerRadius() -> CGFloat {
         guard let component else {return .zero}
         if let cornerRadius { return cornerRadius }
