@@ -3,7 +3,7 @@
 
 import Foundation
 
-extension Double {
+public extension Double {
     var degreesToPI: Double { self * (Double.pi/180) }
     
     var piToDegrees: Double { self * (180/Double.pi) }
