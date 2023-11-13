@@ -170,7 +170,13 @@ open class NeumorphismBuilder: Neumorphism {
         calculateShadoweColorByColorReference()
         applyShadow()
         applyShape()
+        freeMemory()
         return self
+    }
+    
+    private func freeMemory() {
+        darkShadowBuilder = nil
+        lightShadowBuilder = nil
     }
     
     
@@ -234,7 +240,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func applyDarkShadow(_ offSetDarkShadow: CGSize) {
         guard let component else {return}
-        _ = ShadowBuilder(component)
+        darkShadowBuilder = ShadowBuilder(component)
             .setColor( darkShadowColor ?? .clear)
             .setOffset(offSetDarkShadow)
             .setOpacity(darkShadowIntensity)
@@ -246,7 +252,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func applyLightShadow(_ offSetLightShadow: CGSize) {
         guard let component else {return}
-        _ = ShadowBuilder(component)
+        lightShadowBuilder = ShadowBuilder(component)
             .setColor( lightShadowColor ?? .clear)
             .setOffset(offSetLightShadow)
             .setOpacity(lightShadowIntensity)
