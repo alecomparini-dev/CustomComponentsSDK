@@ -10,7 +10,6 @@ open class BaseBuilder: NSObject {
     private var _shadow: ShadowBuilder?
     private var _gradient: GradientBuilder?
     private var _skeleton: SkeletonBuilder?
-    private var neumorphism: NeumorphismBuilder?
     
     private weak var _baseView: UIView?
     
