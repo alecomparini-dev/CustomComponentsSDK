@@ -144,7 +144,7 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    public func setSkeleton(_ build: (_ build: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
+    public func setNeumorphism(_ build: (_ build: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
         _ = build(NeumorphismBuilder(self))
         return self
     }
