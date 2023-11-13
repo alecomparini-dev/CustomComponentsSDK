@@ -142,6 +142,12 @@ open class BaseBuilder: NSObject {
         skeleton = build(SkeletonBuilder(component: self))
         return self
     }
+    
+    @discardableResult
+    public func setNeumorphism(_ build: (_ build: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
+        _ = build(NeumorphismBuilder(self))
+        return self
+    }
 
     
 //  MARK: - CONSTRAINTS AREA
