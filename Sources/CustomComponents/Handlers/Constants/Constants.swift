@@ -53,6 +53,16 @@ extension K {
 }
 
 
+//  MARK: - EXTENSION - Axis
+
+extension K {
+    public enum Axis: Int {
+        case horizontal = 0
+        case vertical = 1
+    }
+}
+
+
 //  MARK: - EXTENSION - Weight
 
 extension K {
@@ -333,6 +343,31 @@ extension K {
     }
 }
 
+
+
+//  MARK: - EXTENSION - Skeleton
+extension K {
+    public struct StackView {
+        public enum Distribution : Int {
+            case fill = 0
+            case fillEqually = 1
+            case fillProportionally = 2
+            case equalSpacing = 3
+            case equalCentering = 4
+        }
+        
+        public enum Alignment : Int {
+            case fill = 0
+            case leading = 1
+            case firstBaseline = 2
+            case center = 3
+            case trailing = 4
+            case lastBaseline = 5
+            case top
+            case bottom
+        }
+    }
+}
 
 //  MARK: - EXTENSION - Neumorphism
 extension K {
