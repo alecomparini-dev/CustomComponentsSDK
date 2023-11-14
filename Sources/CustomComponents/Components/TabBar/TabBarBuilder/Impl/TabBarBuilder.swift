@@ -41,7 +41,7 @@ public class TabBarBuilder: TabBar {
     }
     
     @discardableResult
-    public func setTintColor(color: UIColor?) -> Self {
+    public func setTintColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         tabBar.tabBar.tintColor = color
         return self
@@ -50,12 +50,12 @@ public class TabBarBuilder: TabBar {
     @discardableResult
     public func setTintColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setTintColor(color: UIColor.HEX(color))
+        setTintColor(UIColor.HEX(color))
         return self
     }
     
     @discardableResult
-    public func setBackGroundColor(color: UIColor?) -> Self {
+    public func setBackGroundColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         tabBar.tabBar.backgroundColor = color
         return self
@@ -64,12 +64,12 @@ public class TabBarBuilder: TabBar {
     @discardableResult
     public func setBackGroundColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setBackGroundColor(color: UIColor.HEX(color))
+        setBackGroundColor(UIColor.HEX(color))
         return self
     }
     
     @discardableResult
-    public func setUnselectedItemTintColor(color: UIColor?) -> Self {
+    public func setUnselectedItemTintColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         tabBar.tabBar.unselectedItemTintColor = color
         return self
@@ -78,7 +78,7 @@ public class TabBarBuilder: TabBar {
     @discardableResult
     public func setUnselectedItemTintColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setUnselectedItemTintColor(color: UIColor.HEX(color))
+        setUnselectedItemTintColor(UIColor.HEX(color))
         return self
     }
     

@@ -21,7 +21,7 @@ open class BorderBuilder: Border {
     }
     
     @discardableResult
-    public func setColor(color: UIColor?) -> Self {
+    public func setColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         component.layer.borderColor = color.cgColor
         return self
@@ -30,14 +30,14 @@ open class BorderBuilder: Border {
     @discardableResult
     public func setColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setColor(color: UIColor.HEX(color))
+        setColor(UIColor.HEX(color))
         return self
     }
     
     @discardableResult
     public func setColor(named color: String?) -> Self {
         guard let color, let namedColor = UIColor(named: color) else {return self}
-        setColor(color: namedColor)
+        setColor(namedColor)
         return self
     }
     

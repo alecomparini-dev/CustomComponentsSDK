@@ -50,7 +50,7 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
     }
     
     @discardableResult
-    public func setTintColor(color: UIColor?) -> Self {
+    public func setTintColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         imageView.image = self.imageView.image?.withRenderingMode(.alwaysTemplate)
         imageView.image?.withTintColor(color)
@@ -61,14 +61,14 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
     @discardableResult
     public func setTintColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setTintColor(color: UIColor.HEX(color))
+        setTintColor(UIColor.HEX(color))
         return self
     }
     
     @discardableResult
     public func setTintColor(named color: String?) -> Self {
         guard let color, let namedColor = UIColor(named: color) else {return self}
-        setTintColor(color: namedColor)
+        setTintColor(namedColor)
         return self
     }
         
