@@ -3,7 +3,7 @@
 
 import UIKit
 
-open class StackViewBuilder: StackView {
+open class StackViewBuilder: BaseBuilder, StackView {
     public typealias T = UIStackView
     
     public var get: UIStackView { self.stackView }
@@ -12,6 +12,7 @@ open class StackViewBuilder: StackView {
     
     public init() {
         self.stackView = UIStackView()
+        super.init(stackView)
     }
     
 
