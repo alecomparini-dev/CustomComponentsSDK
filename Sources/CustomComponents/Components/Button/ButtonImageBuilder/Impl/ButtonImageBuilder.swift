@@ -10,6 +10,7 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     public init(_ imageViewBuilder: ImageViewBuilder) {
         self.imageView = imageViewBuilder
         super.init()
+        self.setImageButton(imageViewBuilder)
     }
     
     public convenience override init() {
