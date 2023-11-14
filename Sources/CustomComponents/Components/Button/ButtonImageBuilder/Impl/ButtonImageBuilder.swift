@@ -6,10 +6,18 @@ import UIKit
 open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     public var imageView: ImageViewBuilder
 
-    public override init() {
-        self.imageView = ImageViewBuilder()
+    
+    public init(_ imageViewBuilder: ImageViewBuilder) {
+        self.imageView = imageViewBuilder
+        super.init()
     }
     
+    public convenience override init() {
+        self.init(ImageViewBuilder())
+    }
+    
+    
+//  MARK: - SET PROPERTIES
     @discardableResult
     public func setImageButton(_ image: ImageViewBuilder) -> Self {
         self.imageView = image
