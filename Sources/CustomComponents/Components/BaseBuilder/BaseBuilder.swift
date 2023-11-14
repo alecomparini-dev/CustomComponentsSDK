@@ -12,7 +12,7 @@ open class BaseBuilder: NSObject {
     
     private weak var _baseView: UIView?
     
-    var baseView: UIView {
+    public var baseView: UIView {
         get { self._baseView ?? UIView() }
         set { self._baseView = newValue }
     }
