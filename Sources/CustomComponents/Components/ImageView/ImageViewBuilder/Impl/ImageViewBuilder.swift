@@ -12,10 +12,13 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
     
 //  MARK: - INITIALIZERS
 
-    public init(systemName: String) {
-        self.imageView = UIImageView()
+    public init(_ image: UIImageView) {
+        self.imageView = image
         super.init(imageView)
-        self.setImage(systemName: systemName)
+    }
+
+    public convenience init(systemName: String) {
+        self.init(UIImageView(image: UIImage(systemName: systemName)))
     }
 
     public convenience init() {
