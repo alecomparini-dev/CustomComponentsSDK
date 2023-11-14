@@ -77,9 +77,9 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setTitleAlignment(_ textAlignment: K.Text.Alignment?) -> Self {
+    public func setTitleAlignment(_ textAlignment: K.Text.ContentHorizontalAlignment?) -> Self {
         guard let textAlignment else {return self}
-        button.titleLabel?.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .center
+        button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment(rawValue: textAlignment.rawValue) ?? .center
         return self
     }
     

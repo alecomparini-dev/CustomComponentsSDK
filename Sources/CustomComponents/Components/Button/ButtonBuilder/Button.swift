@@ -23,7 +23,7 @@ public protocol Button {
     func setTintColor(named color: String?) -> Self
     
     @discardableResult
-    func setTitleAlignment(_ textAlignment: K.Text.Alignment?) -> Self
+    func setTitleAlignment(_ textAlignment: K.Text.ContentHorizontalAlignment?) -> Self
     
     @discardableResult
     func setTitleSize(_ fontSize: CGFloat? ) -> Self
