@@ -53,7 +53,7 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    public func setBackgroundColor(color: UIColor?) -> Self {
+    public func setBackgroundColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         baseView.backgroundColor = color
         return self
@@ -62,14 +62,14 @@ open class BaseBuilder: NSObject {
     @discardableResult
     public func setBackgroundColor(hexColor: String?) -> Self {
         guard let hexColor, hexColor.isHexColor() else {return self}
-        setBackgroundColor(color: UIColor.HEX(hexColor))
+        setBackgroundColor(UIColor.HEX(hexColor))
         return self
     }
     
     @discardableResult
     public func setBackgroundColor(named: String?) -> Self {
         guard let named, let namedColor = UIColor(named: named) else {return self}
-        setBackgroundColor(color: namedColor)
+        setBackgroundColor(namedColor)
         return self
     }
     
