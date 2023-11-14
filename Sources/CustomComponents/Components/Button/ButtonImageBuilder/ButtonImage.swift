@@ -19,4 +19,7 @@ public protocol ButtonImage {
     @discardableResult
     func setImageWeight(_ weight: K.Weight) -> Self
     
+    @discardableResult
+    func setImageSize( _ size: CGFloat? ) -> Self 
+    
 }

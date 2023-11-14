@@ -23,23 +23,30 @@ public protocol Button {
     func setTintColor(named color: String?) -> Self
     
     @discardableResult
-    func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
-    
-    @discardableResult
-    func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat? ) -> Self
-    
-    @discardableResult
-    func setItalicFont() -> Self
+    func setTitleAlignment(_ textAlignment: K.Text.Alignment?) -> Self
     
     @discardableResult
     func setTitleSize(_ fontSize: CGFloat? ) -> Self
     
     @discardableResult
+    func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat? ) -> Self
+        
+    @discardableResult
+    func setItalicFont() -> Self
+        
+    @discardableResult
     func setTitleWeight(_ weight: K.Weight? ) -> Self
     
     
+    
+//  MARK: - LOADING INDICATOR
+    @discardableResult
     func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self
+    
+    @discardableResult
     func setShowLoadingIndicator(_ styleIndicator: K.ActivityIndicator.Style) -> Self
+    
+    @discardableResult
     func setHideLoadingIndicator() -> Self
     
 }

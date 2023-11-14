@@ -4,6 +4,7 @@
 import UIKit
 
 open class ButtonBuilder: BaseBuilder, Button {
+    
     public typealias T = UIButton
     public var get: UIButton {self.button}
     
@@ -76,11 +77,13 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self {
+    public func setTitleAlignment(_ textAlignment: K.Text.Alignment?) -> Self {
         guard let textAlignment else {return self}
         button.titleLabel?.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .center
         return self
     }
+    
+    
     
     @discardableResult
     public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
