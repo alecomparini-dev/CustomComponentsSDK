@@ -83,8 +83,6 @@ open class ButtonBuilder: BaseBuilder, Button {
         return self
     }
     
-    
-    
     @discardableResult
     public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
         guard let fontFamily else {return self}
