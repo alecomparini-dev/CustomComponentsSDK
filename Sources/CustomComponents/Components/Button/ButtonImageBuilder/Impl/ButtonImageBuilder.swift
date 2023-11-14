@@ -20,7 +20,7 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     }
 
     @discardableResult
-    public func setImageColor(color: UIColor?) -> Self {
+    public func setImageColor(_ color: UIColor?) -> Self {
         super.get.tintColor = color
         return self
     }
@@ -28,14 +28,14 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     @discardableResult
     public func setImageColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setImageColor(color: UIColor.HEX(color))
+        setImageColor(UIColor.HEX(color))
         return self
     }
     
     @discardableResult
     public func setImageColor(named color: String?) -> Self {
         guard let color, let namedColor = UIColor(named: color) else {return self}
-        setImageColor(color: namedColor)
+        setImageColor( namedColor)
         return self
     }
     

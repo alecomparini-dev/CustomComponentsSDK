@@ -55,7 +55,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     @discardableResult
-    public func setColorSkeleton(color: UIColor?) -> Self {
+    public func setColorSkeleton(_ color: UIColor?) -> Self {
         self.color = color
         return self
     }
@@ -69,7 +69,7 @@ open class SkeletonBuilder: Skeleton {
     @discardableResult
     public func setColorSkeleton(hexColor: String?) -> Self {
         guard let hexColor, hexColor.isHexColor() else {return self}
-        setColorSkeleton(color: UIColor.HEX(hexColor))
+        setColorSkeleton(UIColor.HEX(hexColor))
         return self
     }
     

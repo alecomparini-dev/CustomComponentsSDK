@@ -34,7 +34,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setTitleColor(color: UIColor?) -> Self {
+    public func setTitleColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         button.setTitleColor(color, for: .normal)
         button.setTitleColor(color.withAlphaComponent(0.7), for: .disabled)
@@ -44,19 +44,19 @@ open class ButtonBuilder: BaseBuilder, Button {
     @discardableResult
     public func setTitleColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setTitleColor(color: UIColor.HEX(color))
+        setTitleColor(UIColor.HEX(color))
         return self
     }
     
     @discardableResult
     public func setTitleColor(named color: String?) -> Self {
         guard let color, let namedColor = UIColor(named: color) else {return self}
-        setTitleColor(color: namedColor)
+        setTitleColor(namedColor)
         return self
     }
     
     @discardableResult
-    public func setTintColor(color: UIColor?) -> Self {
+    public func setTintColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         button.tintColor = color
         return self
@@ -65,14 +65,14 @@ open class ButtonBuilder: BaseBuilder, Button {
     @discardableResult
     public func setTintColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setTintColor(color: UIColor.HEX(color))
+        setTintColor(UIColor.HEX(color))
         return self
     }
     
     @discardableResult
     public func setTintColor(named color: String?) -> Self {
         guard let color, let namedColor = UIColor(named: color) else {return self}
-        setTintColor(color: namedColor)
+        setTintColor(namedColor)
         return self
     }
     
@@ -124,7 +124,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     public func setShowLoadingIndicator(_ styleIndicator: K.ActivityIndicator.Style = .medium) -> Self {
         self.loading = LoadingBuilder()
             .setStyle(styleIndicator)
-            .setColor(color: .darkGray)
+            .setColor(.darkGray)
             .setHideWhenStopped(true)
         configLoadingIndicator()
         return self

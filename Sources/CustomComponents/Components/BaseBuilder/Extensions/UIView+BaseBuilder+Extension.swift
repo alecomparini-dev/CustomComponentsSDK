@@ -20,14 +20,14 @@ extension UIView {
     }
     
     @discardableResult
-    public func setBackgroundColor(color: String?) -> Self {
-        guard let color else {return self}
-        self.backgroundColor = UIColor(named: color)
+    public func setBackgroundColor(named: String?) -> Self {
+        guard let named else {return self}
+        self.backgroundColor = UIColor(named: named)
         return self
     }
     
     @discardableResult
-    public func setBackgroundColor(color: UIColor?) -> Self {
+    public func setBackgroundColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         self.backgroundColor = color
         return self

@@ -41,7 +41,7 @@ open class TextViewBuilder: BaseBuilder, TextView {
     }
     
     @discardableResult
-    public func setTextColor(color: UIColor?) -> Self {
+    public func setTextColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         textView.textColor = color
         return self
@@ -50,7 +50,7 @@ open class TextViewBuilder: BaseBuilder, TextView {
     @discardableResult
     public func setTextColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setTextColor(color: UIColor.HEX(color))
+        setTextColor(UIColor.HEX(color))
         return self
     }
     

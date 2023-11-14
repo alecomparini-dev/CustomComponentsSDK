@@ -71,15 +71,15 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     @discardableResult
-    public func setTintColor(color: UIColor) -> Self {
-        profileImage.setTintColor(color: color)
+    public func setTintColor(_ color: UIColor) -> Self {
+        profileImage.setTintColor(color)
         return self
     }
     
     @discardableResult
     public func setTintColor(_ hexColor: String) -> Self {
         guard hexColor.isHexColor() else {return self}
-        setTintColor(color: UIColor.HEX(hexColor))
+        setTintColor(UIColor.HEX(hexColor))
         return self
     }
     

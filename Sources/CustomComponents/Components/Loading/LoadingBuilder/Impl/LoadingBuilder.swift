@@ -17,7 +17,7 @@ public class LoadingBuilder: BaseBuilder , Loading {
 
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setColor(color: UIColor?) -> Self {
+    public func setColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         loading.color = color
         return self
@@ -26,7 +26,7 @@ public class LoadingBuilder: BaseBuilder , Loading {
     @discardableResult
     public func setColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
-        setColor(color: UIColor.HEX(color))
+        setColor(UIColor.HEX(color))
         return self
     }
     

@@ -83,7 +83,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
 
     @discardableResult
-    public func setTintColor(color: UIColor?) -> Self {
+    public func setTintColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
         toolbar?.tintColor = color
         return self
@@ -92,7 +92,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setTintColor(hexColor: String?) -> Self {
         guard let hexColor, hexColor.isHexColor() else {return self}
-        setTintColor(color: UIColor.HEX(hexColor))
+        setTintColor(UIColor.HEX(hexColor))
         return self
     }
 
@@ -147,10 +147,10 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
         if ThemeIOS.isDarkMode() {
-            setTintColor(color: .white)
+            setTintColor(.white)
             return
         }
-        setTintColor(color: self.textFieldBuilder?.get.textColor)
+        setTintColor(self.textFieldBuilder?.get.textColor)
     }
     
     private func addToolbarOfTextField() {

@@ -71,7 +71,7 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     @discardableResult
-    public func setShadowColor(color: UIColor?) -> Self {
+    public func setShadowColor(_ color: UIColor?) -> Self {
         lightShadowColor = color
         darkShadowColor = color
         return self
@@ -80,7 +80,7 @@ open class NeumorphismBuilder: Neumorphism {
     @discardableResult
     public func setShadowColor(hexColor: String?) -> Self {
         guard let hexColor, hexColor.isHexColor() else {return self}
-        setShadowColor(color: UIColor.HEX(hexColor))
+        setShadowColor(UIColor.HEX(hexColor))
         return self
     }
     

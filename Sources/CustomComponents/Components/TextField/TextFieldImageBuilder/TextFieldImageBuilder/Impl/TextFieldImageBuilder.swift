@@ -35,7 +35,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         case .right:
             setImageRight(image, margin)
         }
-        setTintColor(color: super.get.textColor)
+        setTintColor(super.get.textColor)
         return self
     }
     
@@ -128,9 +128,9 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     private func configure() {
         super.setPadding(K.Default.padding)
         self
-            .setPlaceHolderColor(color: UIColor.systemGray)
-            .setTextColor(color: .black)
-            .setTintColor(color: .black)
+            .setPlaceHolderColor(UIColor.systemGray)
+            .setTextColor(.black)
+            .setTintColor(.black)
     }
     
     private func getImageView(_ position: K.Position.Horizontal) -> ImageViewBuilder? {
