@@ -135,6 +135,15 @@ extension K {
             case natural = 4
         }
         
+        public enum ContentHorizontalAlignment : Int {
+            case center = 0
+            case left = 1
+            case right = 2
+            case fill = 3
+            case leading = 4
+            case trailing = 5
+        }
+        
         public enum AutocapitalizationType: Int {
             case none = 0
             case words = 1
