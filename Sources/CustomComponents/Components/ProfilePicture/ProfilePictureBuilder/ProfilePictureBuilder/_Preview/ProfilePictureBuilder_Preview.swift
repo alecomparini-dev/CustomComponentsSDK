@@ -19,7 +19,7 @@ final class ProfilePictureBuilderPreview: UIView {
     lazy var profilePicture: ProfilePictureBuilder = {
         let img = ImageViewBuilder(systemName: "person")
             .setContentMode(.scaleAspectFill)
-            .setBackgroundColor(color: .yellow)
+            .setBackgroundColor(.yellow)
 //            .setSize(30)
             .setWeight(.ultraLight)
         let comp = ProfilePictureBuilder(size: 100, image: img )
