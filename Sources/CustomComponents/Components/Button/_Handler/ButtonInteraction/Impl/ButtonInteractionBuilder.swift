@@ -122,7 +122,7 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
             .setRadius(2)
 //            .setBringToFront()
             .setID(identifier)
-            .applyLayer()
+            .apply()
     }
     
     private func createAnimation() {
