@@ -28,7 +28,7 @@ open class ButtonBuilder: BaseBuilder, Button {
         
     
 //  MARK: - GET PROPERTIES
-    var buttonInteraction: ButtonInteractionBuilder? { _buttonInteraction }
+    public var buttonInteraction: ButtonInteractionBuilder? { _buttonInteraction }
     
     
 //  MARK: - SET PROPERTIES
