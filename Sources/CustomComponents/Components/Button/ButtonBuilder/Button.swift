@@ -37,9 +37,6 @@ public protocol Button {
     @discardableResult
     func setTitleWeight(_ weight: K.Weight? ) -> Self
     
-    @discardableResult
-    func setButtonInteraction(_ build: (_ build: ButtonInteractionBuilder) -> ButtonInteractionBuilder) -> Self
-    
     
 //  MARK: - LOADING INDICATOR
     @discardableResult
