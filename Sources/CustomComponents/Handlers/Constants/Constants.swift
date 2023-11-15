@@ -422,5 +422,13 @@ extension K {
         }
         
     }
-    
+}
+
+//  MARK: - EXTENSION - Button
+extension K {
+    public struct Button {
+        public struct Interaction {
+            public static let shadowOpacityProperty = "shadowOpacity"
+        }
+    }
 }
