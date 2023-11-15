@@ -8,7 +8,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     public typealias T = UIButton
     public var get: UIButton {self.button}
     
-    private(set) var buttonInteraction: ButtonInteractionBuilder?
+    private var _buttonInteraction: ButtonInteractionBuilder?
     
     private var loading: LoadingBuilder?
     private var titleButton: String?
@@ -26,6 +26,10 @@ open class ButtonBuilder: BaseBuilder, Button {
         self.setTitle(title)
     }
         
+    
+//  MARK: - GET PROPERTIES
+    var buttonInteraction: ButtonInteractionBuilder? { _buttonInteraction }
+    
     
 //  MARK: - SET PROPERTIES
     @discardableResult
@@ -152,7 +156,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     
     @discardableResult
     public func setButtonInteraction(_ build: (_ build: ButtonInteractionBuilder) -> ButtonInteractionBuilder) -> Self {
-        buttonInteraction = build(ButtonInteractionBuilder(button: self))
+        _buttonInteraction = build(ButtonInteractionBuilder(button: self))
         return self
     }
     
