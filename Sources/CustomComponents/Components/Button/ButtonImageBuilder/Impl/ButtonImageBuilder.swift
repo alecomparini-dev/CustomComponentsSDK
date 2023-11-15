@@ -32,6 +32,9 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     @available(iOS 15.0, *)
     @discardableResult
     public func setImagePlacement(_ alignment: NSDirectionalRectEdge ) -> Self {
+        if super.get.titleLabel != nil {
+            setImagePadding(8)
+        }
         super.get.configuration?.imagePlacement = alignment
         return self
     }
