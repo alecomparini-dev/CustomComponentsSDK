@@ -126,12 +126,11 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     }
     
     private func createAnimation() {
-        guard var animation else { return }
         animation = CABasicAnimation(keyPath: shadowOpacityProperty)
-        animation.fromValue = 1.0
-        animation.toValue = 1.0
-        animation.duration = duration
-        animation.isRemovedOnCompletion = true
+        animation?.fromValue = 1.0
+        animation?.toValue = 1.0
+        animation?.duration = duration
+        animation?.isRemovedOnCompletion = true
     }
     
     private func addAnimationOnComponent() {
