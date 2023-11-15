@@ -31,7 +31,7 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     
     @available(iOS 15.0, *)
     @discardableResult
-    func setImagePlacement(_ alignment: NSDirectionalRectEdge ) -> Self {
+    public func setImagePlacement(_ alignment: NSDirectionalRectEdge ) -> Self {
         super.get.configuration?.imagePlacement = alignment
         return self
     }
@@ -83,6 +83,13 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
             img = ImageViewBuilder().setImage(image: super.get.image(for: .normal)).setSize(size)
         }
         setImageButton(img)
+        return self
+    }
+    
+    @available(iOS 15.0, *)
+    @discardableResult
+    public func setImagePadding(_ padding: CGFloat) -> Self {
+        super.get.configuration?.imagePadding = padding
         return self
     }
     
