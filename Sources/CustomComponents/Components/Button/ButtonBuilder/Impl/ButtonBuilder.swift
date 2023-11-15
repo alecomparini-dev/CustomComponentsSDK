@@ -3,13 +3,14 @@
 
 import UIKit
 
+
 open class ButtonBuilder: BaseBuilder, Button {
-    
     public typealias T = UIButton
     public var get: UIButton {self.button}
     
     private var loading: LoadingBuilder?
     private var titleButton: String?
+    private var titleWeight: UIFont.Weight = .regular
     
     private var button: UIButton
 
@@ -17,6 +18,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     public init() {
         self.button = UIButton(type: .system)
         super.init(button)
+        configure()
     }
     
     public convenience init(_ title: String) {
@@ -24,7 +26,6 @@ open class ButtonBuilder: BaseBuilder, Button {
         self.setTitle(title)
     }
         
-    
     
 //  MARK: - SET PROPERTIES
     @discardableResult
@@ -106,6 +107,10 @@ open class ButtonBuilder: BaseBuilder, Button {
     @discardableResult
     public func setTitleSize(_ fontSize: CGFloat?) -> Self {
         guard let fontSize else {return self}
+        if #available(iOS 15.0, *) {
+            setTitleSize(fontSize)
+            return self
+        }
         if let font = button.titleLabel?.font.withSize(fontSize) {
             button.titleLabel?.font = font
         }
@@ -115,12 +120,17 @@ open class ButtonBuilder: BaseBuilder, Button {
     @discardableResult
     public func setTitleWeight(_ weight: K.Weight?) -> Self {
         guard let weight else {return self}
+        self.titleWeight = UIFont.Weight.init(CGFloat(weight.rawValue))
+        if #available(iOS 15.0, *) {
+            setTitleWeight(configuration: weight)
+            return self
+        }
         if let titleLabelFont = button.titleLabel?.font {
             button.titleLabel?.font = UIFont.systemFont(ofSize: titleLabelFont.pointSize, weight: weight.toFontWeight() )
         }
         return self
     }
-    
+
     @discardableResult
     public func setShowLoadingIndicator(_ styleIndicator: K.ActivityIndicator.Style = .medium) -> Self {
         self.loading = LoadingBuilder()
@@ -152,6 +162,13 @@ open class ButtonBuilder: BaseBuilder, Button {
     
     
 //  MARK: - PRIVATE AREA
+    
+    private func configure() {
+        if #available(iOS 15.0, *) {
+            button.configuration = UIButton.Configuration.plain()
+        }
+    }
+    
     private func configLoadingIndicator() {
         if let loading {
             loading.add(insideTo: button)
@@ -163,6 +180,26 @@ open class ButtonBuilder: BaseBuilder, Button {
             loading.setStartAnimating()
             self.titleButton = button.currentTitle
             button.setTitle("", for: .normal)
+        }
+    }
+
+    
+    @available(iOS 15.0, *)
+    private func setTitleSize(configuration fontSize: CGFloat?) {
+        button.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { [weak self] attrTransformer in
+            var attr = attrTransformer
+            attr.font = .systemFont(ofSize: fontSize ?? .zero , weight: self?.titleWeight ?? .regular)
+            return attr
+        }
+    }
+
+    @available(iOS 15.0, *)
+    private func setTitleWeight(configuration weight: K.Weight?) {
+        let fontSize = self.button.titleLabel?.font.pointSize
+        button.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { [weak self] attrTransformer in
+            var attr = attrTransformer
+            attr.font = UIFont.systemFont(ofSize: fontSize ?? .zero, weight: self?.titleWeight ?? .regular)
+            return attr
         }
     }
 
