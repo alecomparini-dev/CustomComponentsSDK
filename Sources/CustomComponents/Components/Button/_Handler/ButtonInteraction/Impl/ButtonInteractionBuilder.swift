@@ -36,8 +36,8 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
         if !enabledInteraction {return}
         createShadowTapped()
         createAnimation()
-        addAnimationOnComponent()
         setDelegate()
+        addAnimationOnComponent()
         return
     }
     
@@ -122,7 +122,7 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
             .setRadius(2)
             .setBringToFront()
             .setID(identifier)
-            .apply()
+            .applyLayer()
     }
     
     private func createAnimation() {
@@ -148,7 +148,6 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     }
     
     private func removeShadowAnimation() {
-        shadowLayer?.shadowOpacity = 0
         shadowLayer?.removeAnimation(forKey: identifier)
     }
     
@@ -162,6 +161,7 @@ extension ButtonInteractionBuilder: CAAnimationDelegate {
     
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         removeShadow()
+        shadowLayer?.shadowOpacity = 0
         removeShadowAnimation()
     }
     
