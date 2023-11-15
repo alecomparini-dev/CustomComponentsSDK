@@ -24,7 +24,6 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
         self.imageView = image
         guard let image = image.get.image else {return self}
         super.get.setImage(image, for: .normal)
-        super.get.imageView?.contentMode = .scaleAspectFit
         return self
     }
 
