@@ -20,6 +20,10 @@ public protocol ButtonImage {
     func setImageWeight(_ weight: K.Weight) -> Self
     
     @discardableResult
-    func setImageSize( _ size: CGFloat? ) -> Self 
+    func setImageSize( _ size: CGFloat? ) -> Self
+    
+    @available(iOS 15.0, *)
+    @discardableResult
+    func setImagePadding(_ padding: CGFloat) -> Self
     
 }
