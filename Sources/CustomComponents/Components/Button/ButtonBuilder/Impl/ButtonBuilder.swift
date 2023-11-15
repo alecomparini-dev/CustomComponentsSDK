@@ -120,7 +120,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     @discardableResult
     public func setTitleWeight(_ weight: K.Weight?) -> Self {
         guard let weight else {return self}
-        self.titleWeight = UIFont.Weight.init(CGFloat(weight.rawValue))
+        self.titleWeight = weight.toFontWeight()
         if #available(iOS 15.0, *) {
             setTitleWeight(configuration: weight)
             return self
