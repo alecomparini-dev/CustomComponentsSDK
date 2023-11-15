@@ -23,8 +23,7 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     public func setImageButton(_ image: ImageViewBuilder) -> Self {
         self.imageView = image
         if let image = image.get.image {
-//            super.get.setImage(image, for: .normal)
-            super.get.imageView?.image = image
+            super.get.setImage(image, for: .normal)
         }
         return self
     }
