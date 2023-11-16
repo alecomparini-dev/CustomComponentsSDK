@@ -13,12 +13,12 @@ open class ShadowBuilder: Shadow {
     private var shadowWidth: CGFloat?
     
     private let shadow: CAShapeLayer
-    private var component: BaseBuilder?
+    private var component: UIView?
     
     
 //  MARK: - INITIALIZER
     
-    public init(_ component: BaseBuilder) {
+    public init(_ component: UIView) {
         self.component = component
         shadow = CAShapeLayer()
         configure()
@@ -28,7 +28,7 @@ open class ShadowBuilder: Shadow {
 //  MARK: - GET PROPERTIES
     
     public func getShadowById(_ id: String) -> CALayer? {
-        return self.component?.baseView.layer.sublayers?.first(where: { $0.name == id })
+        return self.component?.layer.sublayers?.first(where: { $0.name == id })
     }
     
     
@@ -106,10 +106,10 @@ open class ShadowBuilder: Shadow {
     
     @discardableResult
     public func apply() -> Self {
-        component?.baseView.layer.shadowColor = shadow.shadowColor
-        component?.baseView.layer.shadowRadius = shadow.shadowRadius
-        component?.baseView.layer.shadowOpacity = shadow.opacity
-        component?.baseView.layer.shadowOffset = shadow.shadowOffset
+        component?.layer.shadowColor = shadow.shadowColor
+        component?.layer.shadowRadius = shadow.shadowRadius
+        component?.layer.shadowOpacity = shadow.opacity
+        component?.layer.shadowOffset = shadow.shadowOffset
         applyFrame()
         applyComponentFrame()
         freeMemory()
@@ -137,15 +137,15 @@ open class ShadowBuilder: Shadow {
     private func applyFrame() {
         DispatchQueue.main.async { [weak self] in
             guard let self, let component else {return}
-            shadow.frame = component.baseView.bounds
+            shadow.frame = component.bounds
         }
     }
     
     private func applyComponentFrame() {
         DispatchQueue.main.async { [weak self] in
             guard let self, let component else {return}
-            component.baseView.layer.shadowPath = calculateShadowPath()
-            component.shadow = nil
+            component.layer.shadowPath = calculateShadowPath()
+//            component.layer.shadow = nil
         }
     }
     
@@ -159,13 +159,13 @@ open class ShadowBuilder: Shadow {
     private func getCornerRadius() -> CGFloat {
         guard let component else {return .zero}
         if let cornerRadius { return cornerRadius }
-        return component.baseView.layer.cornerRadius
+        return component.layer.cornerRadius
     }
     
     private func calculateShadowPath() -> CGPath {
         guard let component else { return CGPath(ellipseIn: .zero, transform: nil) }
         
-        return component.baseView.replicateFormat(width: getShadowWidth(),
+        return component.replicateFormat(width: getShadowWidth(),
                                          height: getShadowHeight(),
                                          cornerRadius: getCornerRadius()
                                         ).cgPath
@@ -174,26 +174,26 @@ open class ShadowBuilder: Shadow {
     private func getShadowHeight() -> CGFloat {
         guard let component else {return .zero}
         if let shadowHeight { return shadowHeight }
-        return component.baseView.frame.height
+        return component.frame.height
     }
     
     private func getShadowWidth() -> CGFloat {
         guard let component else {return .zero}
         if let shadowWidth { return shadowWidth }
-        return component.baseView.frame.width
+        return component.frame.width
     }
     
     private func insertSubLayer() {
         guard let component else {return }
         if isBringToFront {
-            shadowAt = UInt32(component.baseView.countShadows().shadowLayer)
+            shadowAt = UInt32(component.countShadows().shadowLayer)
         }
-        component.baseView.layer.insertSublayer(shadow, at: shadowAt)
+        component.layer.insertSublayer(shadow, at: shadowAt)
     }
     
     private func configure() {
         setDefault()
-        component?.baseView.layer.masksToBounds = false
+        component?.layer.masksToBounds = false
         shadow.shouldRasterize = true
         shadow.rasterizationScale = UIScreen.main.scale
     }
