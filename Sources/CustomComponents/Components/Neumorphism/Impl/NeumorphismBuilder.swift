@@ -166,7 +166,8 @@ open class NeumorphismBuilder: Neumorphism {
 //  MARK: - APPLY NEUMORPHISM
     @discardableResult
     public func apply() -> Self {
-        removeNeumorphism()
+        guard let component else { return self }
+        removeNeumorphism(component.baseView)
         calculateShadoweColorByColorReference()
         applyShadow()
         applyShape()
@@ -184,10 +185,16 @@ open class NeumorphismBuilder: Neumorphism {
     
     
 //  MARK: - REMOVE NEUMORPHIS
-    public func removeNeumorphism() {
-        component?.baseView.removeShadowByID(darkShadowID)
-        component?.baseView.removeShadowByID(lightShadowID)
-        component?.baseView.removeGradientByID(shapeID)
+    public func removeNeumorphism(_ component: BaseBuilder) {
+        component.baseView.removeShadowByID(darkShadowID)
+        component.baseView.removeShadowByID(lightShadowID)
+        component.baseView.removeGradientByID(shapeID)
+    }
+    
+    public func removeNeumorphism(_ component: UIView) {
+        component.removeShadowByID(darkShadowID)
+        component.removeShadowByID(lightShadowID)
+        component.removeGradientByID(shapeID)
     }
     
 
