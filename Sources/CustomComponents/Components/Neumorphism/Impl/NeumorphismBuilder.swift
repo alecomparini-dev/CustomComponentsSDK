@@ -178,6 +178,7 @@ open class NeumorphismBuilder: Neumorphism {
         DispatchQueue.main.async {
             self.lightShadowBuilder = nil
             self.darkShadowBuilder = nil
+            self.component = nil
         }
     }
     
