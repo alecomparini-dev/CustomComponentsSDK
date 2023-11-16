@@ -32,10 +32,10 @@ open class BaseBuilder: NSObject {
         set { _skeleton = newValue}
     }
     
-    public var shadow: ShadowBuilder? {
-        get { _shadow }
-        set { _shadow = newValue}
-    }
+//    public var shadow: ShadowBuilder? {
+//        get { _shadow }
+//        set { _shadow = newValue}
+//    }
 
     
 //  MARK: - SET PROPERTIES
@@ -120,14 +120,14 @@ open class BaseBuilder: NSObject {
     }
 
     @discardableResult
-    public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
-        shadow = build(ShadowBuilder(self))
+    public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
+        skeleton = build(SkeletonBuilder(component: self))
         return self
     }
     
     @discardableResult
-    public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
-        skeleton = build(SkeletonBuilder(component: self))
+    public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
+        _ = build(ShadowBuilder(baseView))
         return self
     }
     

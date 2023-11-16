@@ -115,7 +115,7 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     
     private func createShadow() -> ShadowBuilder? {
         guard let button else { return nil}
-        return ShadowBuilder(button)
+        return ShadowBuilder(button.baseView)
             .setColor(colorInteraction)
             .setOffset(width: 0, height: 0)
             .setOpacity(1)
