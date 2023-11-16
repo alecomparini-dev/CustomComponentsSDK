@@ -112,6 +112,7 @@ open class ShadowBuilder: Shadow {
         component?.baseView.layer.shadowOffset = shadow.shadowOffset
         applyFrame()
         applyComponentFrame()
+        freeMemory()
         return self
     }
 
@@ -120,7 +121,14 @@ open class ShadowBuilder: Shadow {
         insertSubLayer()
         applyFrame()
         applyShadowFrame()
+        freeMemory()
         return self
+    }
+    
+    private func freeMemory() {
+        DispatchQueue.main.async {
+            self.component = nil
+        }
     }
 
     
