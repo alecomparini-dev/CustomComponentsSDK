@@ -6,8 +6,6 @@ import UIKit
 open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
-    private weak var border: BorderBuilder?
-    private var _shadow: ShadowBuilder?
     private var _skeleton: SkeletonBuilder?
     
     private weak var _baseView: UIView?
@@ -31,11 +29,6 @@ open class BaseBuilder: NSObject {
         get { _skeleton }
         set { _skeleton = newValue}
     }
-    
-//    public var shadow: ShadowBuilder? {
-//        get { _shadow }
-//        set { _shadow = newValue}
-//    }
 
     
 //  MARK: - SET PROPERTIES
@@ -115,7 +108,7 @@ open class BaseBuilder: NSObject {
     
     @discardableResult
     public func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
-        border = build(BorderBuilder(baseView))
+        _ = build(BorderBuilder(baseView))
         return self
     }
 
