@@ -155,7 +155,9 @@ open class ShadowBuilder: Shadow {
     }
     
     private func calculateShadowPath() -> CGPath {
-        return component!.baseView.replicateFormat(width: getShadowWidth(),
+        guard let component else { return CGPath(ellipseIn: .zero, transform: nil) }
+        
+        return component.baseView.replicateFormat(width: getShadowWidth(),
                                          height: getShadowHeight(),
                                          cornerRadius: getCornerRadius()
                                         ).cgPath
