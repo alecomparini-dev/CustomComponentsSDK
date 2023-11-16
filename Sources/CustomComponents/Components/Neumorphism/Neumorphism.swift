@@ -42,5 +42,5 @@ public protocol Neumorphism {
     @discardableResult
     func apply() -> Self
     
-    func removeNeumorphism()
+    func removeNeumorphism(_ component: BaseBuilder)
 }
