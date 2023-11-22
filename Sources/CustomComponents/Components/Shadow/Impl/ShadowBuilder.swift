@@ -110,9 +110,12 @@ open class ShadowBuilder: Shadow {
         component?.layer.shadowRadius = shadow?.shadowRadius ?? .zero
         component?.layer.shadowOpacity = shadow?.opacity ?? .zero
         component?.layer.shadowOffset = shadow?.shadowOffset ?? .zero
-        applyFrame()
-        applyComponentFrame()
-        freeMemory()
+        
+        DispatchQueue.main.async {
+            self.applyFrame()
+            self.applyComponentFrame()
+            self.freeMemory()
+        }
         return self
     }
 
