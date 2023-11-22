@@ -152,6 +152,7 @@ open class ShadowBuilder: Shadow {
 
     private func applyFrame() {
         self.shadow?.frame = self.component?.bounds ?? .zero
+        print(#function, self.component?.bounds ?? .zero)
     }
     
     private func applyComponentFrame() {
@@ -159,6 +160,7 @@ open class ShadowBuilder: Shadow {
     }
     
     private func applyShadowFrame() {
+        print(#function, self.calculateShadowPath())
         self.shadow?.shadowPath = self.calculateShadowPath()
     }
     
