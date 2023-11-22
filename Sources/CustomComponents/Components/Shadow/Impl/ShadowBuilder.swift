@@ -131,10 +131,9 @@ open class ShadowBuilder: Shadow {
     }
     
     @discardableResult
-    public func applyLayer(size: CGSize, _ cornerRadius: CGFloat = .zero) -> Self {
-        self.shadow?.shadowPath = UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: 0, y: 0),size: size),
-                                               byRoundingCorners: [.allCorners],
-                                               cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+    public func applyLayer(size: CGSize) -> Self {
+        self.shadow?.frame = CGRect(origin: .zero, size: size)
+        self.shadow?.shadowPath = self.calculateShadowPath()
         
         insertSubLayer()
         DispatchQueue.main.async {
@@ -153,7 +152,6 @@ open class ShadowBuilder: Shadow {
 
     private func applyFrame() {
         self.shadow?.frame = self.component?.bounds ?? .zero
-        print(#function, self.component?.bounds ?? .zero)
     }
     
     private func applyComponentFrame() {
@@ -161,7 +159,6 @@ open class ShadowBuilder: Shadow {
     }
     
     private func applyShadowFrame() {
-        print(#function, self.calculateShadowPath())
         self.shadow?.shadowPath = self.calculateShadowPath()
     }
     
