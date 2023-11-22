@@ -130,6 +130,10 @@ open class ShadowBuilder: Shadow {
         return self
     }
     
+    public static func apply(component: UIView, shadowLayer: CAShapeLayer) {
+        component.layer.insertSublayer(shadowLayer, at: 0)
+    }
+    
     private func freeMemory() {
         self.component = nil
         self.shadow = nil
@@ -139,11 +143,11 @@ open class ShadowBuilder: Shadow {
 //  MARK: - PRIVATE AREA
 
     private func applyFrame() {
-            self.shadow?.frame = self.component?.bounds ?? .zero
+        self.shadow?.frame = self.component?.bounds ?? .zero
     }
     
     private func applyComponentFrame() {
-            self.component?.layer.shadowPath = self.calculateShadowPath()
+        self.component?.layer.shadowPath = self.calculateShadowPath()
     }
     
     private func applyShadowFrame() {
