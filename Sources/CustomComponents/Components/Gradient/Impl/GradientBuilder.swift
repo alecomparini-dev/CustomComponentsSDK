@@ -7,6 +7,8 @@ open class GradientBuilder: Gradient {
     public typealias T = CAGradientLayer
     public var get: CAGradientLayer? {self.gradient}
     
+    private var size: CGSize?
+    
     private var isAxial = false
     private let gradient: CAGradientLayer
     private let gradientID = K.Gradient.Identifiers.gradientID.rawValue
@@ -99,9 +101,18 @@ open class GradientBuilder: Gradient {
         return self
     }
     
+    public func apply(size: CGSize) -> Self {
+        self.size = size
+        removeGradient()
+        applyMainThread()
+        freeMemory()
+        return self
+    }
+    
     private func freeMemory() {
         DispatchQueue.main.async {
             self.component = nil
+            self.size = nil
         }
     }
     
@@ -201,6 +212,9 @@ open class GradientBuilder: Gradient {
     private func setFrame() {
         guard let component else { return }
         gradient.frame = component.bounds
+        if let size {
+            gradient.frame = CGRect(origin: .zero, size: size)
+        }
         gradient.cornerRadius = component.layer.cornerRadius
         gradient.maskedCorners = component.layer.maskedCorners
     }
