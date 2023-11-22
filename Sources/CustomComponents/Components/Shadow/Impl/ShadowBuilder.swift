@@ -119,38 +119,32 @@ open class ShadowBuilder: Shadow {
     @discardableResult
     public func applyLayer() -> Self {
         insertSubLayer()
-        applyFrame()
-        applyShadowFrame()
-        freeMemory()
+        DispatchQueue.main.async {
+            self.applyFrame()
+            self.applyShadowFrame()
+            self.freeMemory()
+        }
         return self
     }
     
     private func freeMemory() {
-        ExecThreadMain().exec {
-            self.component = nil
-            self.shadow = nil
-        }
+        self.component = nil
+        self.shadow = nil
     }
     
     
 //  MARK: - PRIVATE AREA
 
     private func applyFrame() {
-        ExecThreadMain().exec {
             self.shadow?.frame = self.component?.bounds ?? .zero
-        }
     }
     
     private func applyComponentFrame() {
-        ExecThreadMain().exec {
             self.component?.layer.shadowPath = self.calculateShadowPath()
-        }
     }
     
     private func applyShadowFrame() {
-        ExecThreadMain().exec {
-            self.shadow?.shadowPath = self.calculateShadowPath()
-        }
+        self.shadow?.shadowPath = self.calculateShadowPath()
     }
     
     private func getCornerRadius() -> CGFloat {
