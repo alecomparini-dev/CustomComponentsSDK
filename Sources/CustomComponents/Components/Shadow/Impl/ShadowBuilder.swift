@@ -132,8 +132,9 @@ open class ShadowBuilder: Shadow {
     
     @discardableResult
     public func applyLayer(size: CGSize, _ cornerRadius: CGFloat = .zero) -> Self {
-        self.shadow?.shadowPath = CGPath(rect: CGRect(origin: .zero, size: size), transform: .none)
-        self.shadow?.shadowRadius = cornerRadius
+        self.shadow?.shadowPath = UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: 0, y: 0),size: size),
+                                               byRoundingCorners: [.allCorners],
+                                               cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
         
         insertSubLayer()
         DispatchQueue.main.async {
