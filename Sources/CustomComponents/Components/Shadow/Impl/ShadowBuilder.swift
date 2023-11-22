@@ -126,7 +126,7 @@ open class ShadowBuilder: Shadow {
     }
     
     private func freeMemory() {
-        DispatchQueue.main.async {
+        ExecThreadMain().exec {
             self.component = nil
             self.shadow = nil
         }
