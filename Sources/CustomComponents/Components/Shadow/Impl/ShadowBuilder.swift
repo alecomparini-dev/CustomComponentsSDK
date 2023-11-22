@@ -130,8 +130,16 @@ open class ShadowBuilder: Shadow {
         return self
     }
     
-    public static func apply(component: UIView, shadowLayer: CAShapeLayer) {
-        component.layer.insertSublayer(shadowLayer, at: 0)
+    @discardableResult
+    public func applyLayer(size: CGSize, _ cornerRadius: CGFloat = .zero) -> Self {
+        self.shadow?.shadowPath = CGPath(rect: CGRect(origin: .zero, size: size), transform: .none)
+        self.shadow?.shadowRadius = cornerRadius
+        
+        insertSubLayer()
+        DispatchQueue.main.async {
+            self.freeMemory()
+        }
+        return self
     }
     
     private func freeMemory() {
