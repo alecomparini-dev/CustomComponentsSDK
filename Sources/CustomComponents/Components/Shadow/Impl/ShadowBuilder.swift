@@ -12,7 +12,7 @@ open class ShadowBuilder: Shadow {
     private var shadowHeight: CGFloat?
     private var shadowWidth: CGFloat?
     
-    private let shadow: CAShapeLayer
+    private var shadow: CAShapeLayer?
     private var component: UIView?
     
     
@@ -36,7 +36,7 @@ open class ShadowBuilder: Shadow {
     @discardableResult
     public func setColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
-        shadow.shadowColor = color.cgColor
+        shadow?.shadowColor = color.cgColor
         return self
     }
     
@@ -49,31 +49,31 @@ open class ShadowBuilder: Shadow {
     
     @discardableResult
     public func setOffset(width: Int, height: Int) -> Self {
-        shadow.shadowOffset = CGSize(width: width, height: height)
+        shadow?.shadowOffset = CGSize(width: width, height: height)
         return self
     }
     
     @discardableResult
     public func setOffset(_ offSet: CGSize) -> Self {
-        shadow.shadowOffset = offSet
+        shadow?.shadowOffset = offSet
         return self
     }
     
     @discardableResult
     public func setOpacity(_ opacity: Float) -> Self {
-        shadow.shadowOpacity = opacity
+        shadow?.shadowOpacity = opacity
         return self
     }
     
     @discardableResult
     public func setRadius(_ radius: CGFloat) -> Self {
-        shadow.shadowRadius = radius
+        shadow?.shadowRadius = radius
         return self
     }
     
     @discardableResult
     public func setCornerRadius(_ cornerRadius: CGFloat) -> Self {
-        shadow.cornerRadius = cornerRadius
+        shadow?.cornerRadius = cornerRadius
         return self
     }
     
@@ -97,7 +97,7 @@ open class ShadowBuilder: Shadow {
     
     @discardableResult
     public func setID(_ id: String) -> Self {
-        shadow.name = id
+        shadow?.name = id
         return self
     }
     
@@ -106,10 +106,10 @@ open class ShadowBuilder: Shadow {
     
     @discardableResult
     public func apply() -> Self {
-        component?.layer.shadowColor = shadow.shadowColor
-        component?.layer.shadowRadius = shadow.shadowRadius
-        component?.layer.shadowOpacity = shadow.opacity
-        component?.layer.shadowOffset = shadow.shadowOffset
+        component?.layer.shadowColor = shadow?.shadowColor ?? UIColor().cgColor
+        component?.layer.shadowRadius = shadow?.shadowRadius ?? .zero
+        component?.layer.shadowOpacity = shadow?.opacity ?? .zero
+        component?.layer.shadowOffset = shadow?.shadowOffset ?? .zero
         applyFrame()
         applyComponentFrame()
         freeMemory()
@@ -128,31 +128,28 @@ open class ShadowBuilder: Shadow {
     private func freeMemory() {
         DispatchQueue.main.async {
             self.component = nil
+            self.shadow = nil
         }
     }
-
+    
     
 //  MARK: - PRIVATE AREA
 
     private func applyFrame() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self, let component else {return}
-            shadow.frame = component.bounds
+        ExecThreadMain().exec {
+            self.shadow?.frame = self.component?.bounds ?? .zero
         }
     }
     
     private func applyComponentFrame() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self, let component else {return}
-            component.layer.shadowPath = calculateShadowPath()
-//            component.layer.shadow = nil
+        ExecThreadMain().exec {
+            self.component?.layer.shadowPath = self.calculateShadowPath()
         }
     }
     
     private func applyShadowFrame() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            shadow.shadowPath = calculateShadowPath()
+        ExecThreadMain().exec {
+            self.shadow?.shadowPath = self.calculateShadowPath()
         }
     }
     
@@ -184,7 +181,7 @@ open class ShadowBuilder: Shadow {
     }
     
     private func insertSubLayer() {
-        guard let component else {return }
+        guard let component, let shadow else {return }
         if isBringToFront {
             shadowAt = UInt32(component.countShadows().shadowLayer)
         }
@@ -194,8 +191,8 @@ open class ShadowBuilder: Shadow {
     private func configure() {
         setDefault()
         component?.layer.masksToBounds = false
-        shadow.shouldRasterize = true
-        shadow.rasterizationScale = UIScreen.main.scale
+        shadow?.shouldRasterize = true
+        shadow?.rasterizationScale = UIScreen.main.scale
     }
     
     private func setDefault(){
