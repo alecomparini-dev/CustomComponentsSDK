@@ -27,6 +27,15 @@ public extension UIView {
                             cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
     }
     
+    func setBackgroundColor(_ color: UIColor) -> Self {
+        if self.countShadows().shadowLayer > 0 {
+            setBackgroundColorLayer(color)
+            return self
+        }
+        self.backgroundColor = color
+        return self
+    }
+    
 //  MARK: - SHADOWS
     func removeShadowByID(_ id: String) {
         if let layerToRemove = self.layer.sublayers?.first(where: { $0.name == id }) {
@@ -85,6 +94,18 @@ public extension UIView {
         })
     }
     
+    
+//  MARK: - PRIVATE AREA
+    private func setBackgroundColorLayer(_ color: UIColor) {
+        let layer = CAShapeLayer()
+        layer.frame = self.bounds
+        layer.cornerRadius = self.layer.cornerRadius
+        layer.maskedCorners = self.layer.maskedCorners
+        layer.fillColor = color.cgColor
+        layer.backgroundColor = color.cgColor
+        let position = UInt32(countShadows().shadowLayer)
+        self.layer.insertSublayer(layer, at: position )
+    }
     
 //  MARK: - PREVIEW SWIFTUI
     private struct SwiftUIViewWrapper: UIViewRepresentable {
