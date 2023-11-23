@@ -67,6 +67,20 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
+    func setBackgroundColorLayer(_ color: UIColor) -> Self {
+        let layer = CAShapeLayer()
+        layer.fillColor = color.cgColor
+        layer.backgroundColor = color.cgColor
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            let position = UInt32(self.baseView.countShadows().shadowLayer)
+            self.baseView.layer.insertSublayer(layer, at: position )
+            layer.path = self.baseView.replicateFormat().cgPath
+        }
+        return self
+    }
+    
+    @discardableResult
     func setIsUserInteractionEnabled(_ interactionEnabled: Bool?) -> Self {
         guard let interactionEnabled else {return self}
         baseView.isUserInteractionEnabled = interactionEnabled
