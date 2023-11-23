@@ -27,6 +27,7 @@ public extension UIView {
                             cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
     }
     
+    @discardableResult
     func setBackgroundColor(_ color: UIColor) -> Self {
         if self.countShadows().shadowLayer > 0 {
             setBackgroundColorLayer(color)
