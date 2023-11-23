@@ -52,7 +52,15 @@ public extension UIView {
             gradientLayer.removeFromSuperlayer()
         }
     }
+
     
+//  MARK: - NEUMORPHISM
+    func removeNeumorphism() {
+        self.removeShadowByID(K.Neumorphism.Identifiers.darkShadowID.rawValue)
+        self.removeShadowByID(K.Neumorphism.Identifiers.lightShadowID.rawValue)
+        self.removeGradientByID(K.Neumorphism.Identifiers.shapeID.rawValue)
+    }
+
     
 //  MARK: - RESIZE
     func layersResizeIfNeeded() {

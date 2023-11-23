@@ -122,11 +122,12 @@ open class ShadowBuilder: Shadow {
     @discardableResult
     public func applyLayer() -> Self {
         insertSubLayer()
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
             self.applyFrame()
             self.applyShadowFrame()
-            self.freeMemory()
         }
+        freeMemory()
         return self
     }
     
@@ -134,21 +135,19 @@ open class ShadowBuilder: Shadow {
     public func applyLayer(size: CGSize) -> Self {
         self.shadow?.frame = CGRect(origin: .zero, size: size)
         let replicateCornerRadius = component?.layer.cornerRadius ?? 0
-        
         self.shadow?.shadowPath =  UIBezierPath(roundedRect: CGRect(origin: .zero, size: size),
                                                 byRoundingCorners: component?.layer.maskedCorners.toRectCorner ?? .allCorners,
                                                 cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius)).cgPath
-        
         insertSubLayer()
-        DispatchQueue.main.async {
-            self.freeMemory()
-        }
+        freeMemory()
         return self
     }
     
     private func freeMemory() {
-        self.component = nil
-        self.shadow = nil
+        DispatchQueue.main.async {
+            self.component = nil
+            self.shadow = nil
+        }
     }
     
     
