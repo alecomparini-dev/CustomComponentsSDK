@@ -20,11 +20,11 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     
 //  MARK: - INITIALIZERS
     
-    private weak var button: ButtonBuilder?
+    private weak var button: UIButton?
     
-    public init(button: ButtonBuilder) {
+    public init(button: UIButton) {
         self.button = button
-        super.init(button.get)
+        super.init(button)
     }
     
     
@@ -115,7 +115,7 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     
     private func createShadow() -> ShadowBuilder? {
         guard let button else { return nil}
-        return ShadowBuilder(button.baseView)
+        return ShadowBuilder(button)
             .setColor(colorInteraction)
             .setOffset(width: 0, height: 0)
             .setOpacity(1)
@@ -143,7 +143,7 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     }
     
     private func removeShadow() {
-        button?.get.removeShadowByID(identifier)
+        button?.removeShadowByID(identifier)
     }
     
     private func removeShadowAnimation() {
