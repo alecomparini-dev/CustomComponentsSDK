@@ -67,7 +67,7 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    func setBackgroundColorLayer(_ color: UIColor) -> Self {
+    public func setBackgroundColorLayer(_ color: UIColor) -> Self {
         let layer = CAShapeLayer()
         layer.fillColor = color.cgColor
         layer.backgroundColor = color.cgColor
