@@ -10,10 +10,7 @@ public protocol Dock: AnyObject {
     
     var get: T { get }
     var collection: C { get }
-    
-    var show: Void { get }
-    
-    var hide: Void { get }
+
             
     var isShowing: Bool { get }
     
@@ -51,6 +48,11 @@ public protocol Dock: AnyObject {
     
     
 //  MARK: - SET ACTIONS
+    
+    func show()
+    
+    func hide()
+    
     func reload()
         
     func selectItem(_ indexCell: Int, at: K.Dock.ScrollPosition)
