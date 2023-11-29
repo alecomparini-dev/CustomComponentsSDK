@@ -3,8 +3,7 @@
 
 import UIKit
 
-internal class DockCell: UICollectionViewCell {
-    
+class DockCell: UICollectionViewCell {
     static let identifier: String = String(describing: DockCell.self)
     
     private var isUserInteraction: Bool = false

@@ -12,9 +12,17 @@ public protocol Dock: AnyObject {
     var show: Void { get }
     
     var hide: Void { get }
+            
+    var isShowing: Bool { get }
+    
+    func getCellSelected() -> T?
+    
+    func getIndexSelected() -> Int?
+
+    func isSelected(_ indexCell: Int) -> Bool
     
     
-//  MARK: - SET Properties
+//  MARK: - SET PROPERTIES
     
     @discardableResult
     func setCustomCellSize(indexCell: Int, _ size: CGSize) -> Self
@@ -43,13 +51,13 @@ public protocol Dock: AnyObject {
 //  MARK: - SET ACTIONS
     func reload()
         
-    func selectItem(_ indexItem: Int, at: K.Dock.ScrollPosition)
+    func selectItem(_ indexCell: Int, at: K.Dock.ScrollPosition)
     
-    func deselect(_ indexItem: Int)
+    func deselect(_ indexCell: Int)
     
-    func removeItem(_ indexItem: Int)
+    func removeItem(_ indexCell: Int)
     
-    func insertItem(_ indexItem: Int)
+    func insertItem(_ indexCell: Int)
     
 
     
