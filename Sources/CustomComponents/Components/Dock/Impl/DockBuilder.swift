@@ -263,7 +263,7 @@ extension DockBuilder: UICollectionViewDataSource {
 
 
 //  MARK: - Extension Delegate Flow Layout
-extension DockBuilder: UICollectionViewDelegate {
+extension DockBuilder: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return customItemSize[indexPath.row] ?? cellSize
