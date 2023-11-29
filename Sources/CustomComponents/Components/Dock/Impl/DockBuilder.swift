@@ -120,25 +120,25 @@ open class DockBuilder: BaseBuilder, Dock {
     
     
 //  MARK: - ACTIONS AREA
-    public var show: Void {
-        if isShow {return}
+    public func show() {
+        if isShow { return }
         isShow = true
         applyOnceConfig()
         dock.setHidden(false)
     }
     
-    public var hide: Void {
+    public func hide() {
         isShow = false
         dock.setHidden(true)
     }
     
     public func reload() {
-        if !isShow {return}
+        if !isShow { return }
         collection.reloadData()
     }
     
     public func selectItem(_ indexCell: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
-        if isSelected(indexCell) {return}
+        if isSelected(indexCell) { return }
         
         if !(delegate?.shouldSelectItemAt(indexCell) ?? true) { return }
         
