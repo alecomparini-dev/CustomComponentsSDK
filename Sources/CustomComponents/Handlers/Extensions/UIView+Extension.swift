@@ -9,6 +9,16 @@ import SwiftUI
 
 public extension UIView {
     
+    func add(insideTo element: UIView) {
+        if element.isKind(of: UIStackView.self) {
+            let element = element as! UIStackView
+            element.addArrangedSubview(self)
+            return
+        }
+        element.addSubview(self)
+    }
+    
+    
     func hideKeyboardWhenViewTapped() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
@@ -25,6 +35,45 @@ public extension UIView {
                                                              height: replicateHeight)),
                             byRoundingCorners: self.layer.maskedCorners.toRectCorner ,
                             cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
+    }
+    
+//  MARK: - SET PROPERTIES ON UIVIEW
+    
+    @discardableResult
+    func makeConstraints(_ buildConstraintFlow: (_ make: StartOfConstraintsFlow) -> StartOfConstraintsFlow) -> Self {
+        _ = buildConstraintFlow(StartOfConstraintsFlow(self))
+        return self
+    }
+    
+    @discardableResult
+    func makeBorder(_ border: (_ make: BorderBuilder) -> BorderBuilder) -> Self {
+        _ = border(BorderBuilder(self))
+        return self
+    }
+    
+    @discardableResult
+    func makeShadow(_ shadow: (_ make: ShadowBuilder) -> ShadowBuilder) -> Self {
+        _ = shadow(ShadowBuilder(self))
+        return self
+    }
+    
+    @discardableResult
+    func makeNeumorphism(_ neumorphism: (_ make: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
+        _ = neumorphism(NeumorphismBuilder(self))
+        return self
+    }
+    
+    @discardableResult
+    func makeGradient(_ gradient: (_ make: GradientBuilder) -> GradientBuilder) -> Self {
+        _ = gradient(GradientBuilder(self))
+        return self
+    }
+    
+    
+    @discardableResult
+    func makeTapGesture(_ tapGesture: (_ make: TapGestureBuilder) -> TapGestureBuilder) -> Self {
+        _ = tapGesture(TapGestureBuilder(self))
+        return self
     }
     
     @discardableResult

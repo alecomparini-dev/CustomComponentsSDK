@@ -29,10 +29,9 @@ open class NeumorphismBuilder: Neumorphism {
     private var shape: K.Neumorphism.Shape = .flat
     private var lightPosition: K.Neumorphism.LightPosition = .leftTop
     
+    private weak var component: UIView?
     
-    private weak var component: BaseBuilder?
-    
-    public init(_ component: BaseBuilder) {
+    public init(_ component: UIView) {
         self.component = component
     }
 
@@ -167,7 +166,7 @@ open class NeumorphismBuilder: Neumorphism {
     @discardableResult
     public func apply() -> Self {
         guard let component else { return self }
-        removeNeumorphism(component.baseView)
+        removeNeumorphism(component)
         calculateShadoweColorByColorReference()
         applyShadow()
         applyShape()
@@ -248,7 +247,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func applyDarkShadow(_ offSetDarkShadow: CGSize) {
         guard let component else {return}
-        darkShadowBuilder = ShadowBuilder(component.baseView)
+        darkShadowBuilder = ShadowBuilder(component)
             .setColor( darkShadowColor ?? .clear)
             .setOffset(offSetDarkShadow)
             .setOpacity(darkShadowIntensity)
@@ -260,7 +259,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func applyLightShadow(_ offSetLightShadow: CGSize) {
         guard let component else {return}
-        lightShadowBuilder = ShadowBuilder(component.baseView)
+        lightShadowBuilder = ShadowBuilder(component)
             .setColor( lightShadowColor ?? .clear)
             .setOffset(offSetLightShadow)
             .setOpacity(lightShadowIntensity)
@@ -317,7 +316,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func addShapeOnComponent(_ color: [UIColor]) {
         guard let component else {return}
-        _ = GradientBuilder(component.baseView)
+        _ = GradientBuilder(component)
             .setGradientColors(color)
             .setAxialGradient(calculateGradientDirection())
             .setID(shapeID)

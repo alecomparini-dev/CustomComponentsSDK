@@ -31,7 +31,7 @@ public class BaseActionBuilder: BaseAction {
     @discardableResult
     public func setTapGesture(_ build: (_ build: TapGestureBuilder) -> TapGestureBuilder) -> Self {
         guard let component else {return self}
-        _ = build(TapGestureBuilder(component))
+        _ = build(TapGestureBuilder(component.baseView))
         return self
     }
     
