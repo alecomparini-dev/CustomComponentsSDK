@@ -136,7 +136,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func configTapGesture() {
-        TapGestureBuilder(profileImage)
+        TapGestureBuilder(profileImage.get)
             .setTap { [weak self] tapGesture in
                 self?.chooseSource?.show()
             }

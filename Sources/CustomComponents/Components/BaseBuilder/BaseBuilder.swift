@@ -146,7 +146,7 @@ open class BaseBuilder: NSObject {
     
     @discardableResult
     public func setNeumorphism(_ build: (_ build: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
-        _ = build(NeumorphismBuilder(self))
+        _ = build(NeumorphismBuilder(baseView))
         return self
     }
     

@@ -19,9 +19,9 @@ public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     private var touchMoved: [touchGestureAlias] = []
     private var touchCancelled: [touchGestureAlias] = []
     
-    private weak var component: BaseBuilder?
+    private weak var component: UIView?
     
-    public init(_ component: BaseBuilder ) {
+    public init(_ component: UIView ) {
         self.component = component
         super.init(target: nil, action: nil)
         self.initialization()
@@ -91,18 +91,18 @@ public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     }
     
     public func removeTapGesture() {
-        component?.baseView.removeGestureRecognizer(self)
+        component?.removeGestureRecognizer(self)
     }
     
     
 //  MARK: - PRIVATE AREA
     private func enableUserInteractionComponent() {
-        component?.baseView.isUserInteractionEnabled = true
+        component?.isUserInteractionEnabled = true
     }
     
     private func addTargetOnComponent() {
         self.addTarget(self, action: #selector(objcTapGesture))
-        component?.baseView.addGestureRecognizer(self)
+        component?.addGestureRecognizer(self)
     }
     
     private func performTap(_ completion: [touchGestureAlias]) {
@@ -115,8 +115,8 @@ public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     
     private func setTouchPositions() {
         _touchPositionWindow = self.location(in: nil)
-        _touchPositionSuperView = self.location(in: component?.baseView.superview)
-        _touchPositionComponent = self.location(in: component?.baseView)
+        _touchPositionSuperView = self.location(in: component?.superview)
+        _touchPositionComponent = self.location(in: component)
     }
     
     

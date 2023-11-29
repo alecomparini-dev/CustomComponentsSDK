@@ -159,10 +159,16 @@ open class ButtonBuilder: BaseBuilder, Button {
         return self
     }
     
+    @discardableResult
+    public func setFloatButton() -> Self {
+        self.button.layer.zPosition = K.Button.hierarchyFloatButton
+        bringToFront()
+        return self
+    }
+    
     
     
 //  MARK: - PRIVATE AREA
-    
     private func configure() {
         if #available(iOS 15.0, *) {
             button.configuration = UIButton.Configuration.plain()
@@ -183,6 +189,10 @@ open class ButtonBuilder: BaseBuilder, Button {
         }
     }
 
+    private func bringToFront() {
+        guard let superview = self.button.superview else {return}
+        superview.bringSubviewToFront(self.button)
+    }
     
     @available(iOS 15.0, *)
     private func setTitleSize(configuration fontSize: CGFloat?) {
@@ -202,5 +212,5 @@ open class ButtonBuilder: BaseBuilder, Button {
             return attr
         }
     }
-
+    
 }

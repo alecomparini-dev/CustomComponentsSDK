@@ -427,8 +427,42 @@ extension K {
 //  MARK: - EXTENSION - Button
 extension K {
     public struct Button {
+        
+        public static let hierarchyFloatButton: CGFloat = 10000
+        
         public struct Interaction {
             public static let shadowOpacityProperty = "shadowOpacity"
         }
     }
 }
+
+
+//  MARK: - EXTENSION - Dock
+extension K {
+    public struct Dock {
+        
+        public struct Default {
+            public static let cellSize = CGSize(width: 50, height: 50)
+        }
+        
+        public enum ScrollPosition {
+            case none
+            case top
+            case centeredVertically
+            case bottom
+            case left
+            case centeredHorizontally
+            case right
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
