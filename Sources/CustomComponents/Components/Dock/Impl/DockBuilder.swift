@@ -21,6 +21,7 @@ open class DockBuilder: BaseBuilder, Dock {
     private weak var delegate: DockDelegate?
     public typealias T = UIView
     public typealias C = UICollectionView
+    public typealias D = UICollectionViewCell
     
     private var isUserInteractionEnabledItems = false
     private var alreadyApplied = false
@@ -51,18 +52,18 @@ open class DockBuilder: BaseBuilder, Dock {
     
     public var isShowing: Bool { isShow }
     
-    public func getCellSelected() -> T? {
-        guard let indexSelected = getIndexSelected() else {return nil}
-        if let cell = getCellByIndex(indexSelected) {
-            return cell
-        }
-        return nil
-    }
-    
     public func getIndexSelected() -> Int? {
         if let selectedIndexPaths = collection.indexPathsForSelectedItems?.first {
             let selectedIndex = selectedIndexPaths.item
             return selectedIndex
+        }
+        return nil
+    }
+
+    public func getCellSelected() -> UICollectionViewCell? {
+        guard let indexSelected = getIndexSelected() else {return nil}
+        if let cell = getCellByIndex(indexSelected) {
+            return cell
         }
         return nil
     }
@@ -213,7 +214,7 @@ open class DockBuilder: BaseBuilder, Dock {
         collection.register(DockCell.self, forCellWithReuseIdentifier: DockCell.identifier)
     }
     
-    private func getCellByIndex(_ index: Int?) -> UIView? {
+    private func getCellByIndex(_ index: Int?) -> UICollectionViewCell? {
         guard let index else { return nil}
         let indexPath = IndexPath(row: index, section: 0)
         if let selectedCell = collection.cellForItem(at: indexPath) {

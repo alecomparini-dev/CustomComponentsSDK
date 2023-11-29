@@ -6,6 +6,8 @@ import Foundation
 public protocol Dock: AnyObject {
     associatedtype T
     associatedtype C
+    associatedtype D
+    
     var get: T { get }
     var collection: C { get }
     
@@ -15,7 +17,7 @@ public protocol Dock: AnyObject {
             
     var isShowing: Bool { get }
     
-    func getCellSelected() -> T?
+    func getCellSelected() -> D?
     
     func getIndexSelected() -> Int?
 
