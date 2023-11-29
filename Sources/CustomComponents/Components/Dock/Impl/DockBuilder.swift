@@ -92,7 +92,6 @@ open class DockBuilder: BaseBuilder, Dock {
         return self
     }
     
-    
     @discardableResult
     public func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self {
         collection.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: rigth)
