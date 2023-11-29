@@ -191,7 +191,6 @@ open class DockBuilder: BaseBuilder, Dock {
     
     private func configDefault() {
         self.setMinimumLineSpacing(10)
-        self.setContentInset(top: 10, left: 10, bottom: 10, rigth: 10)
         self.setShowsHorizontalScrollIndicator(false)
     }
     
