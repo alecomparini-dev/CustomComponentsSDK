@@ -256,6 +256,7 @@ extension DockBuilder: UICollectionViewDataSource {
         
         return cell
     }
+    
         
 }
 
@@ -274,6 +275,12 @@ extension DockBuilder: UICollectionViewDelegate {
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return delegate?.shouldSelectItemAt(indexPath.row) ?? true
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        collectionView.reloadItems(at: [indexPath])
+        delegate?.didSelectItemAt(indexPath.row)
     }
     
 }
