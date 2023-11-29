@@ -281,7 +281,7 @@ extension DockBuilder: UICollectionViewDelegate {
 
 
 //  MARK: - EXTESION DEFAULT DOCK DELEGATE
-extension DockDelegate {
+public extension DockDelegate {
     func shouldSelectItemAt(_ indexItem: Int) -> Bool { return true }
     func didSelectItemAt(_ indexItem: Int) {}
     func didDeselectItemAt(_ indexItem: Int) {}
