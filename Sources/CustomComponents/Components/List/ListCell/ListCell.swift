@@ -15,6 +15,7 @@ class ListCell: UITableViewCell {
     }
     
     func setupCell(_ view: UIView) {
+        configure()
         removeSubViews(contentView)
         view.add(insideTo: contentView)
         view.makeConstraints { make in
@@ -30,5 +31,9 @@ class ListCell: UITableViewCell {
         view.subviews.forEach { $0.removeFromSuperview() }
     }
     
+    private func configure() {
+        selectionStyle = .none
+        backgroundColor = .clear
+    }
     
 }
