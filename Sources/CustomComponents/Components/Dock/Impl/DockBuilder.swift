@@ -243,7 +243,6 @@ extension DockBuilder: UICollectionViewDataSource {
         return delegate.numberOfItemsCallback()
     }
     
-    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DockCell.identifier, for: indexPath) as! DockCell
         
@@ -277,9 +276,10 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        selectItem(indexPath.row, at: .centeredHorizontally)
         collectionView.reloadItems(at: [indexPath])
-        delegate?.didSelectItemAt(indexPath.row)
+//        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+//        delegate?.didSelectItemAt(indexPath.row)
     }
     
 }
