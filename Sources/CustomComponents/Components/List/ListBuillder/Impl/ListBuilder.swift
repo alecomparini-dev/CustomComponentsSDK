@@ -258,11 +258,8 @@ extension ListBuilder: UITableViewDataSource {
         let view = delegate?.rowViewCallBack(section: indexPath.section, row: indexPath.row) ?? UIView()
         
         cell.setupCell(view)
-        
-        cell.selectionStyle = .none
-        cell.backgroundColor = .none
-        
-        return UITableViewCell()
+                
+        return cell
     }
     
     
