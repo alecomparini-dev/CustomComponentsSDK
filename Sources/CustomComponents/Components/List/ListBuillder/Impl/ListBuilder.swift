@@ -286,3 +286,10 @@ extension ListBuilder: UITableViewDelegate {
 
 
 
+//  MARK: - EXTESION DEFAULT LIST DELEGATE
+public extension ListDelegate {
+    func shouldSelectItemAt(_ section: Int, _ row: Int) -> Bool { return true}
+    func didSelectItemAt(_ section: Int, _ row: Int) {}
+    func didDeselectItemAt(_ section: Int, _ row: Int) {}
+}
+
