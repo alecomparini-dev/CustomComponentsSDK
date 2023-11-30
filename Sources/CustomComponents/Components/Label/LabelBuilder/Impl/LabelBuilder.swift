@@ -130,7 +130,7 @@ open class LabelBuilder: BaseBuilder, Label {
     public override func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
         let shadowLayer = build(ShadowBuilder(UIView()))
         let shadow = NSShadow()
-        shadow.shadowColor = shadowLayer.shadow.shadowColor
+        shadow.shadowColor = UIColor(cgColor: shadowLayer.shadow.shadowColor ?? UIColor.black.cgColor)
         shadow.shadowOffset = shadowLayer.shadow.shadowOffset
         shadow.shadowBlurRadius = shadowLayer.shadow.shadowRadius
 
@@ -140,6 +140,8 @@ open class LabelBuilder: BaseBuilder, Label {
                 NSAttributedString.Key.shadow: shadow
             ]
         )
+        
+        label.attributedText = attrText
         return self
     }
         
