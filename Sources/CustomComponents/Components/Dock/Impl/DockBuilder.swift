@@ -276,9 +276,9 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectItem(indexPath.row, at: .centeredHorizontally)
         collectionView.reloadItems(at: [indexPath])
-//        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        selectItem(indexPath.row, at: .centeredHorizontally)
 //        delegate?.didSelectItemAt(indexPath.row)
     }
     
