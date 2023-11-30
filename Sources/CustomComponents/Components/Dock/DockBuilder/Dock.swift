@@ -9,9 +9,9 @@ public protocol Dock: AnyObject {
     associatedtype D
     
     var get: T { get }
+    
     var collection: C { get }
-
-            
+        
     var isShowing: Bool { get }
     
     func getCellSelected() -> D?
@@ -19,6 +19,8 @@ public protocol Dock: AnyObject {
     func getIndexSelected() -> Int?
 
     func isSelected(_ indexCell: Int) -> Bool
+    
+    func getIndexForVisibleItems() -> [Int]
     
     
 //  MARK: - SET PROPERTIES
@@ -44,7 +46,7 @@ public protocol Dock: AnyObject {
     
 //  MARK: - DELEGATE
     @discardableResult
-    func setDelegate(delegate: DockDelegate ) -> Self
+    func setDelegate(delegate: DockDelegate) -> Self
     
     
 //  MARK: - SET ACTIONS
@@ -59,9 +61,9 @@ public protocol Dock: AnyObject {
     
     func deselect(_ indexCell: Int)
     
-    func removeItem(_ indexCell: Int)
+    func removeCell(_ indexCell: Int)
     
-    func insertItem(_ indexCell: Int)
+    func insertCell(_ indexCell: Int)
     
 
     

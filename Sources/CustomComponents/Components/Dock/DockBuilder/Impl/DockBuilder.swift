@@ -67,6 +67,10 @@ open class DockBuilder: BaseBuilder, Dock {
         }
         return nil
     }
+    
+    public func getIndexForVisibleItems() -> [Int] {
+        return collection.indexPathsForVisibleItems.compactMap({ $0.row })
+    }
 
     public func isSelected(_ indexCell: Int) -> Bool {
         return getIndexSelected() == indexCell
@@ -160,11 +164,11 @@ open class DockBuilder: BaseBuilder, Dock {
         delegate?.didDeselectItemAt(indexCell)
     }
     
-    public func removeItem(_ indexItem: Int) {
+    public func removeCell(_ indexItem: Int) {
         //TODO: - Implements after
     }
     
-    public func insertItem(_ indexItem: Int) {
+    public func insertCell(_ indexItem: Int) {
         //TODO: - Implements after
     }
 
@@ -256,9 +260,7 @@ extension DockBuilder: UICollectionViewDataSource {
         }
         
         return cell
-    }
-    
-        
+    }        
 }
 
 
