@@ -34,6 +34,7 @@ open class ListBuilder: BaseBuilder, List {
     public init() {
         self.list = UITableView()
         super.init(list)
+        configure()
     }
     
     
@@ -202,6 +203,10 @@ open class ListBuilder: BaseBuilder, List {
     
 
 //  MARK: - PRIVATE AREA
+    private func configure() {
+        setSeparatorStyle(.none)
+    }
+    
     private func configureTableViewDelegate() {
         list.delegate = self
         list.dataSource = self
@@ -253,6 +258,9 @@ extension ListBuilder: UITableViewDataSource {
         let view = delegate?.rowViewCallBack(section: indexPath.section, row: indexPath.row) ?? UIView()
         
         cell.setupCell(view)
+        
+        cell.selectionStyle = .none
+        cell.backgroundColor = .none
         
         return UITableViewCell()
     }

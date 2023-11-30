@@ -8,7 +8,6 @@ class ListCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -31,9 +30,5 @@ class ListCell: UITableViewCell {
         view.subviews.forEach { $0.removeFromSuperview() }
     }
     
-    private func configure() {
-        selectionStyle = .none
-        backgroundColor = .clear
-    }
     
 }
