@@ -138,7 +138,7 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     public func selectItem(_ indexCell: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
-        if isSelected(indexCell) { return }
+//        if isSelected(indexCell) { return }
         
         if !(delegate?.shouldSelectItemAt(indexCell) ?? true) { return }
         
