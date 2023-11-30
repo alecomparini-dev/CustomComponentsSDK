@@ -138,7 +138,10 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     public func selectItem(_ indexCell: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
-//        if isSelected(indexCell) { return }
+        if isSelected(indexCell) {
+            delegate?.didSelectItemAt(indexCell)
+            return
+        }
         
         if !(delegate?.shouldSelectItemAt(indexCell) ?? true) { return }
         
@@ -276,10 +279,9 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.reloadItems(at: [indexPath])
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        collectionView.reloadItems(at: [indexPath])
         selectItem(indexPath.row, at: .centeredHorizontally)
-//        delegate?.didSelectItemAt(indexPath.row)
     }
     
 }
