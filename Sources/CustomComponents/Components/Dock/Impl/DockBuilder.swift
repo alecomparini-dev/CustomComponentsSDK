@@ -203,7 +203,7 @@ open class DockBuilder: BaseBuilder, Dock {
         collection.makeConstraints { make in
             make
                 .setTop.setBottom.equalToSuperView
-                .setLeading.setTrailing.equalToSuperView(8)
+                .setLeading.setTrailing.equalToSuperView
                 .apply()
         }
     }
