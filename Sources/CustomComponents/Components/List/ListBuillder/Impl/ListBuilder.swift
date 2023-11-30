@@ -249,7 +249,14 @@ extension ListBuilder: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return delegate?.sectionViewCallback(section: section)
+        
+        if let view = delegate?.sectionViewCallback(section: section) {
+            let cell = ListCell()
+            cell.setupCell(view)
+            return cell
+        }
+        
+        return nil
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
