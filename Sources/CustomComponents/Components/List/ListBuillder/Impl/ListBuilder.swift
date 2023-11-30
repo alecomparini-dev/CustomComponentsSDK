@@ -22,6 +22,7 @@ open class ListBuilder: BaseBuilder, List {
     
     public var get: UITableView { list }
     
+    private var alreadyApplied = false
     private var listModel = ListModel()
     private var isShow = false
     
@@ -33,13 +34,12 @@ open class ListBuilder: BaseBuilder, List {
     public init() {
         self.list = UITableView()
         super.init(list)
-        configure()
     }
     
     
 //  MARK: - GET AREA
 
-    public var isShowing: Bool { isShow }
+    public var isShowing: Bool { !list.isHidden }
     
     public func getRowSelected() -> UITableViewCell? {
         guard let indexSelected = getIndexSelected() else {return nil}
@@ -158,13 +158,17 @@ open class ListBuilder: BaseBuilder, List {
 //  MARK: - ACTIONS AREA
     public func show() {
         if isShow { return }
-        isShow = true
-//        applyOnceConfig()
+        applyOnceConfig()
         list.setHidden(false)
     }
     
+    private func applyOnceConfig() {
+        if alreadyApplied { return }
+        configureTableViewDelegate()
+        registerCell()
+    }
+    
     public func hide() {
-        isShow = false
         list.setHidden(true)
     }
     
@@ -198,11 +202,6 @@ open class ListBuilder: BaseBuilder, List {
     
 
 //  MARK: - PRIVATE AREA
-    private func configure() {
-        configureTableViewDelegate()
-        registerCell()
-    }
-    
     private func configureTableViewDelegate() {
         list.delegate = self
         list.dataSource = self
