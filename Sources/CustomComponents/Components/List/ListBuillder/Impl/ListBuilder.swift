@@ -150,7 +150,7 @@ open class ListBuilder: BaseBuilder, List {
 
     
 //  MARK: - SET DELEGATE
-    public func setHeaderView(delegate: ListDelegate ) {
+    public func setDelegate(delegate: ListDelegate ) {
         self.delegate = delegate
     }
     
