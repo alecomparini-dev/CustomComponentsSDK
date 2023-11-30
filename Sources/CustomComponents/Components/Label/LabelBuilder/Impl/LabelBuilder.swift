@@ -5,7 +5,6 @@
 import UIKit
 
 open class LabelBuilder: BaseBuilder, Label {
-    public typealias T = UILabel
     public var get: UILabel {self.label}
     
     private var label: UILabel
@@ -39,6 +38,24 @@ open class LabelBuilder: BaseBuilder, Label {
     @discardableResult
     public func setText(_ text: String?) -> Self {
         label.text = text
+        return self
+    }
+    
+    @discardableResult
+    public func setTextAttributed(_ attributedText: NSMutableAttributedString) -> Self {
+        label.attributedText = attributedText
+        
+        // Criar uma NSMutableAttributedString
+        let attributedString = NSMutableAttributedString(string: "Texto Atribuído")
+
+        // Adicionar atributos para personalizar a aparência
+        attributedString.addAttribute(.foregroundColor, value: UIColor.red, range: NSRange(location: 0, length: 5)) // Cor vermelha para os primeiros 5 caracteres
+        attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 18), range: NSRange(location: 6, length: 9)) // Fonte negrito e tamanho 18 para os próximos 9 caracteres
+
+        // Criar um UILabel para exibir o texto atribuído
+        let label = UILabel()
+        label.attributedText = attributedString
+            
         return self
     }
 
@@ -109,6 +126,22 @@ open class LabelBuilder: BaseBuilder, Label {
         return self
     }
     
+    @discardableResult
+    public override func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
+        let shadowLayer = build(ShadowBuilder(UIView()))
+        let shadow = NSShadow()
+        shadow.shadowColor = shadowLayer.shadow.shadowColor
+        shadow.shadowOffset = shadowLayer.shadow.shadowOffset
+        shadow.shadowBlurRadius = shadowLayer.shadow.shadowRadius
+
+        let attrText = NSMutableAttributedString(
+            string: label.text ?? "",
+            attributes: [
+                NSAttributedString.Key.shadow: shadow
+            ]
+        )
+        return self
+    }
         
 }
 
@@ -139,3 +172,54 @@ public extension K.Weight {
         }
     }
 }
+
+
+//  MARK: - EXTENSION ATTRIBUTEDSTRING.KEY
+public extension K.AttributedString.Key {
+    
+    func toNSAttributedStringKey() -> NSAttributedString.Key {
+        switch self {
+            case .font:
+                return .font
+            case .paragraphStyle:
+                return .paragraphStyle
+            case .foregroundColor:
+                return .foregroundColor
+            case .backgroundColor:
+                return .backgroundColor
+            case .ligature:
+                return .ligature
+            case .kern:
+                return .kern
+            case .tracking:
+                return .tracking
+            case .strikethroughStyle:
+                return .strikethroughStyle
+            case .underlineStyle:
+                return .underlineStyle
+            case .strokeColor:
+                return .strokeColor
+            case .strokeWidth:
+                return .strokeWidth
+            case .shadow:
+                return .shadow
+            case .textEffect:
+                return .textEffect
+            case .attachment:
+                return .attachment
+            case .link:
+                return .link
+            case .baselineOffset:
+                return .baselineOffset
+            case .underlineColor:
+                return .underlineColor
+            case .strikethroughColor:
+                return .strikethroughColor
+            case .writingDirection:
+                return .writingDirection
+        }
+    }
+    
+}
+
+

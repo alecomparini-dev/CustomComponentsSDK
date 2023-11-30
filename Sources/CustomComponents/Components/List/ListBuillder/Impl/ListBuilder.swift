@@ -19,10 +19,8 @@ public protocol ListDelegate: AnyObject {
 
 open class ListBuilder: BaseBuilder, List {
     private weak var delegate: ListDelegate?
-    public typealias T = UITableView
-    public typealias C = UITableViewCell
     
-    public var get: T { list }
+    public var get: UITableView { list }
     
     private var listModel = ListModel()
     private var isShow = false
