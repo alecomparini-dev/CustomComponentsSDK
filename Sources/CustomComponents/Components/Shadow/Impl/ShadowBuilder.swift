@@ -109,9 +109,9 @@ open class ShadowBuilder: Shadow {
     @discardableResult
     public func apply() -> Self {
         component?.layer.shadowColor = _shadow.shadowColor ?? UIColor().cgColor
-        component?.layer.shadowRadius = _shadow.shadowRadius ?? .zero
-        component?.layer.shadowOpacity = _shadow.opacity ?? .zero
-        component?.layer.shadowOffset = _shadow.shadowOffset ?? .zero
+        component?.layer.shadowRadius = _shadow.shadowRadius
+        component?.layer.shadowOpacity = _shadow.opacity
+        component?.layer.shadowOffset = _shadow.shadowOffset
         
         DispatchQueue.main.async {
             self.applyFrame()
@@ -148,7 +148,6 @@ open class ShadowBuilder: Shadow {
     private func freeMemory() {
         DispatchQueue.main.async {
             self.component = nil
-            self._shadow = nil
         }
     }
     
@@ -195,7 +194,7 @@ open class ShadowBuilder: Shadow {
     }
     
     private func insertSubLayer() {
-        guard let component, let _shadow else {return }
+        guard let component else {return }
         if isBringToFront {
             shadowAt = UInt32(component.countShadows().shadowLayer)
         }
