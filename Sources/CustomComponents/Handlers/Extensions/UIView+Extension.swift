@@ -146,7 +146,7 @@ public extension UIView {
     
     
 //  MARK: - PRIVATE AREA
-    private func setBackgroundColorLayer(_ color: UIColor) {
+    func setBackgroundColorLayer(_ color: UIColor) {
         let layer = CAShapeLayer()
         layer.frame = self.bounds
         layer.cornerRadius = self.layer.cornerRadius
