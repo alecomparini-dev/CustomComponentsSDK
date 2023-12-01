@@ -5,7 +5,7 @@ import UIKit
 
 public protocol DockDelegate: AnyObject {
     //REQUIRED
-    func numberOfCellsCallback() -> Int
+    func numberOfItemsCallback() -> Int
     func cellItemCallback(_ indexItem: Int) -> UIView
     
     //OPTIONAL
@@ -247,7 +247,7 @@ extension DockBuilder: UICollectionViewDataSource {
         guard let delegate else {
             fatalError("Dock delegate has not been implemented")
         }
-        return delegate.numberOfCellsCallback()
+        return delegate.numberOfItemsCallback()
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
