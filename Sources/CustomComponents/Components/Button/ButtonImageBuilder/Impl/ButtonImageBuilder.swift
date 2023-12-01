@@ -13,7 +13,12 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
         self.setImageButton(imageViewBuilder)
     }
     
-    public convenience override init() {
+    public override init(_ title: String) {
+        self.imageView = ImageViewBuilder()
+        super.init(title)
+    }
+    
+    public override convenience init() {
         self.init(ImageViewBuilder())
     }
     
