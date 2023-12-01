@@ -150,7 +150,7 @@ open class ListBuilder: BaseBuilder, List {
     }
     
     @discardableResult
-    public func setAutoScrolling() -> Self {
+    public func setAutoScrollPosition() -> Self {
         listModel.autoScrollPosition = true
         return self
     }
