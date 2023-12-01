@@ -40,7 +40,7 @@ public extension UIView {
     
 //  MARK: - GET PROPERTIES
     
-    var getTag: Int { self.tag  }
+    func getView(tag: Int) -> UIView? { self.viewWithTag(tag)  }
     
 //  MARK: - SET PROPERTIES ON UIVIEW
     
