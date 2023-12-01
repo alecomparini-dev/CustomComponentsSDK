@@ -304,7 +304,7 @@ extension ListBuilder: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        list.scrollToRow(at: indexPath, at: .middle, animated: true)
+        selectRow(indexPath)
         selectItem(indexPath.section, indexPath.row)
     }
     
