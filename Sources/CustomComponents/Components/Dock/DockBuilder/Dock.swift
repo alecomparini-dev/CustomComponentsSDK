@@ -22,6 +22,8 @@ public protocol Dock: AnyObject {
     
     func getIndexForVisibleItems() -> [Int]
     
+    func getCellByIndex(_ indexItem: Int) -> D?
+    
     
 //  MARK: - SET PROPERTIES
     

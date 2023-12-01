@@ -68,6 +68,15 @@ open class DockBuilder: BaseBuilder, Dock {
         return nil
     }
     
+    public func getCellByIndex(_ index: Int?) -> UICollectionViewCell? {
+        guard let index else { return nil}
+        let indexPath = IndexPath(row: index, section: 0)
+        if let selectedCell = collection.cellForItem(at: indexPath) {
+            return selectedCell
+        }
+        return nil
+    }
+    
     public func getIndexForVisibleItems() -> [Int] {
         return collection.indexPathsForVisibleItems.compactMap({ $0.row })
     }
@@ -223,15 +232,6 @@ open class DockBuilder: BaseBuilder, Dock {
     
     private func registerCell() {
         collection.register(DockCell.self, forCellWithReuseIdentifier: DockCell.identifier)
-    }
-    
-    private func getCellByIndex(_ index: Int?) -> UICollectionViewCell? {
-        guard let index else { return nil}
-        let indexPath = IndexPath(row: index, section: 0)
-        if let selectedCell = collection.cellForItem(at: indexPath) {
-            return selectedCell
-        }
-        return nil
     }
     
     private func applyOnceConfig() {
