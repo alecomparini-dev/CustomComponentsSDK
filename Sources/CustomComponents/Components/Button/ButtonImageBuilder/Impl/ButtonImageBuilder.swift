@@ -18,8 +18,9 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
         super.init(title)
     }
     
-    public override convenience init() {
-        self.init(ImageViewBuilder())
+    public override init() {
+        self.imageView = ImageViewBuilder()
+        super.init()
     }
     
     
