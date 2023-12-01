@@ -42,6 +42,9 @@ public protocol List {
     func setIsScrollEnabled(_ flag: Bool) -> Self
     
     @discardableResult
+    func setAutoScrollPosition() -> Self
+    
+    @discardableResult
     func setSeparatorStyle(_ separatorStyle: K.SeparatorStyle) -> Self 
     
     @discardableResult

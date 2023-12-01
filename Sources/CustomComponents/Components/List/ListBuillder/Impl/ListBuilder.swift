@@ -148,6 +148,12 @@ open class ListBuilder: BaseBuilder, List {
                                          right: right ?? 0)
         return self
     }
+    
+    @discardableResult
+    public func setAutoScrolling() -> Self {
+        listModel.autoScrollPosition = true
+        return self
+    }
 
     
 //  MARK: - SET DELEGATE
@@ -190,9 +196,17 @@ open class ListBuilder: BaseBuilder, List {
         
         let indexPath = IndexPath(row: row, section: section ?? 0)
         
-        list.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+        selectRow(indexPath)
         
         delegate?.didSelectItemAt(section ?? 0, row)
+    }
+    
+    private func selectRow(_ indexPath: IndexPath) {
+        if !listModel.autoScrollPosition {
+            list.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            return
+        }
+        list.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
     }
     
     public func deselect(_ section: Int = 0, _ row: Int) {
