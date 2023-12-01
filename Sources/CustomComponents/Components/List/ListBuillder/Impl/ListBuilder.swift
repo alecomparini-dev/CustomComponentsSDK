@@ -196,12 +196,12 @@ open class ListBuilder: BaseBuilder, List {
         
         let indexPath = IndexPath(row: row, section: section ?? 0)
         
-        selectRow(indexPath)
+        selectRowAnimated(indexPath)
         
         delegate?.didSelectItemAt(section ?? 0, row)
     }
     
-    private func selectRow(_ indexPath: IndexPath) {
+    private func selectRowAnimated(_ indexPath: IndexPath) {
         if !listModel.autoScrollPosition {
             list.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             return
@@ -304,7 +304,7 @@ extension ListBuilder: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectRow(indexPath)
+        selectRowAnimated(indexPath)
         selectItem(indexPath.section, indexPath.row)
     }
     
