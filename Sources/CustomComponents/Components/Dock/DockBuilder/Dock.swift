@@ -38,7 +38,10 @@ public protocol Dock: AnyObject {
     func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self
     
     @discardableResult
-    func setMinimumLineSpacing(_ minimumSpacing: CGFloat) -> Self
+    func setMinimumLineSpacing(_ space: CGFloat) -> Self
+    
+    @discardableResult
+    func setMinimumInteritemSpacing(_ space: CGFloat) -> Self
     
     @discardableResult
     func setIsUserInteractionEnabledItems(_ isUserInteractionEnabled: Bool) -> Self
