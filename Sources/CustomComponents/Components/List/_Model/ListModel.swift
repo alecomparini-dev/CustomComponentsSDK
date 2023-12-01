@@ -7,4 +7,5 @@ struct ListModel {
     var customSectionHeaderHeight: [Int : CGFloat] = [:]
     var customSectionFooterHeight: [Int : CGFloat] = [:]
     var customRowHeight: [Int : [Int : CGFloat]] = [:]
+    var autoScrollPosition: Bool = false
 }
