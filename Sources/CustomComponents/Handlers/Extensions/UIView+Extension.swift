@@ -37,6 +37,11 @@ public extension UIView {
                             cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
     }
     
+    
+//  MARK: - GET PROPERTIES
+    
+    var getTag: Int { self.tag  }
+    
 //  MARK: - SET PROPERTIES ON UIVIEW
     
     @discardableResult
@@ -68,7 +73,6 @@ public extension UIView {
         _ = gradient(GradientBuilder(self))
         return self
     }
-    
     
     @discardableResult
     func makeTapGesture(_ tapGesture: (_ make: TapGestureBuilder) -> TapGestureBuilder) -> Self {
