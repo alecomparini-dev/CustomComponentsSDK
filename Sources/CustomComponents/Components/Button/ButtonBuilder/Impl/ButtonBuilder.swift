@@ -21,11 +21,13 @@ open class ButtonBuilder: BaseBuilder, Button {
         configure()
     }
     
-    public convenience init(_ title: String) {
-        self.init()
+    public init(_ title: String) {
+        self.button = UIButton(type: .system)
+        super.init(button)
         self.setTitle(title)
+        configure()
     }
-        
+    
     
 //  MARK: - SET PROPERTIES
     @discardableResult
