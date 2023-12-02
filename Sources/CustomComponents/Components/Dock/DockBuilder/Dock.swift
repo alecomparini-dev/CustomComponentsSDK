@@ -18,17 +18,18 @@ public protocol Dock: AnyObject {
     
     func getIndexSelected() -> Int?
 
-    func isSelected(_ indexCell: Int) -> Bool
+    func getCellByIndex(_ index: Int?) -> D?
+
+    func isSelected(_ index: Int) -> Bool
     
     func getIndexForVisibleItems() -> [Int]
     
-    func getCellByIndex(_ indexItem: Int?) -> D?
     
     
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    func setCustomCellSize(indexCell: Int, _ size: CGSize) -> Self
+    func setCustomCellSize(index: Int, _ size: CGSize) -> Self
     
     @discardableResult
     func setCellsSize(_ size: CGSize) -> Self
@@ -62,13 +63,13 @@ public protocol Dock: AnyObject {
     
     func reload()
         
-    func selectItem(_ indexCell: Int, at: K.Dock.ScrollPosition)
+    func selectItem(_ index: Int, at: K.Dock.ScrollPosition)
     
-    func deselect(_ indexCell: Int)
+    func deselect(_ index: Int)
     
-    func removeCell(_ indexCell: Int)
+    func removeCell(_ index: Int)
     
-    func insertCell(_ indexCell: Int)
+    func insertCell(_ index: Int)
     
 
     
