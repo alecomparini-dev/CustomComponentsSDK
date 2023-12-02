@@ -179,9 +179,8 @@ open class DockBuilder: BaseBuilder, Dock {
         
         //TODO: REFACTOR
         if let indexSelect = getIndexSelected() {
-//            _collection.reloadItems(at: [IndexPath(row: indexSelect, section: 0)])
-            _collection.reloadData()
             removeIndexSelected(indexSelect)
+            _collection.reloadItems(at: [IndexPath(row: indexSelect, section: 0)])
             delegate?.didDeselectItemAt(indexSelect)
         }
         
