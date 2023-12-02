@@ -24,6 +24,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias C = UICollectionView
     public typealias D = UICollectionViewCell
     
+    private var dockCellsInactive: [Int: UICollectionViewCell]?
     private var indexActive: Int?
     private var isUserInteractionEnabledItems = false
     private var alreadyApplied = false
@@ -166,16 +167,23 @@ open class DockBuilder: BaseBuilder, Dock {
         
         if !(delegate?.shouldSelectItemAt(index) ?? true) { return }
         
-        if let indexSelect = getIndexSelected() { delegate?.didDeselectItemAt(indexSelect) }
+        if let indexSelect = getIndexSelected() {
+            if let cell = dockCellsInactive?[indexSelect] {
+                setCustomCellActiveCallback(cell: cell)
+            }
+            dockCellsInactive?.removeValue(forKey: indexSelect)
+            delegate?.didDeselectItemAt(indexSelect)
+        }
         
         let indexPath = IndexPath(row: index, section: 0)
         collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
-        setIndexActive(indexPath.row)
-        
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
+            dockCellsInactive?.updateValue(cell, forKey: index)
             setCustomCellActiveCallback(cell: cell)
         }
+        
+        setIndexActive(indexPath.row)
         
         delegate?.didSelectItemAt(index)
     }
