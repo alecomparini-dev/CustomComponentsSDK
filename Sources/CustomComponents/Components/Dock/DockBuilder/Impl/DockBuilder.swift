@@ -24,6 +24,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias C = UICollectionView
     public typealias D = UICollectionViewCell
     
+    private var indexActive: Int?
     private var isUserInteractionEnabledItems = false
     private var alreadyApplied = false
     private var isShow = false
@@ -170,6 +171,8 @@ open class DockBuilder: BaseBuilder, Dock {
         let indexPath = IndexPath(row: index, section: 0)
         collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
+        setIndexActive(indexPath.row)
+        
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             setCustomCellActiveCallback(cell: cell)
         }
@@ -254,6 +257,10 @@ open class DockBuilder: BaseBuilder, Dock {
             }
         }
     }
+    
+    private func setIndexActive(_ index: Int) {
+        self.indexActive = index
+    }
 
 }
 
@@ -271,10 +278,16 @@ extension DockBuilder: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DockCell.identifier, for: indexPath) as! DockCell
         
+        cell.isUserInteractionEnabled = isUserInteractionEnabledItems
+        
         if let delegate {
             let item = delegate.cellCallback(indexPath.row)
-            item.isUserInteractionEnabled = isUserInteractionEnabledItems
+            
             cell.setupCell(item)
+            
+            if indexPath.row == indexActive {
+                setCustomCellActiveCallback(cell: cell)
+            }
         }
         
         return cell
