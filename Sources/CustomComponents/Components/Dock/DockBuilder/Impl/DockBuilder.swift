@@ -171,12 +171,7 @@ open class DockBuilder: BaseBuilder, Dock {
         
         //TODO: REFACTOR
         if let indexSelect = getIndexSelected() {
-            if let cell = getCellByIndex(indexSelect) as? DockCell {
-                if let view = dockCellsInactive?[indexSelect] {
-                    cell.setupCell(view)
-                }
-            }
-            dockCellsInactive?.removeValue(forKey: indexSelect)
+            _collection.reloadItems(at: [IndexPath(row: indexSelect, section: 0)])
             removeIndexSelected(indexSelect)
             delegate?.didDeselectItemAt(indexSelect)
         }
