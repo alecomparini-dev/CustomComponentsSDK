@@ -278,7 +278,8 @@ extension DockBuilder: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DockCell.identifier, for: indexPath) as! DockCell
         
-        cell.isUserInteractionEnabled = isUserInteractionEnabledItems
+        //melhorar isso aqui .. deve ser as celulas específicas que ele quer q desabilite a interacao
+        //cell.isUserInteractionEnabled = isUserInteractionEnabledItems
         
         if let delegate {
             let item = delegate.cellCallback(indexPath.row)
