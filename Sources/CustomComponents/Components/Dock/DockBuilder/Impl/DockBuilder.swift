@@ -19,13 +19,14 @@ public protocol DockDelegate: AnyObject {
 
 
 open class DockBuilder: BaseBuilder, Dock {
+    
     private weak var delegate: DockDelegate?
     public typealias T = UIView
     public typealias C = UICollectionView
     public typealias D = UICollectionViewCell
     
     private var dockCellsInactive: [Int: UICollectionViewCell]?
-    private var indexActive: Int?
+    private var indexesSelected: Set<Int> = []
     private var isUserInteractionEnabledItems = false
     private var alreadyApplied = false
     private var isShow = false
@@ -56,11 +57,12 @@ open class DockBuilder: BaseBuilder, Dock {
     public var isShowing: Bool { isShow }
     
     public func getIndexSelected() -> Int? {
-        if let selectedIndexPaths = collection.indexPathsForSelectedItems?.first {
-            let selectedIndex = selectedIndexPaths.item
-            return selectedIndex
-        }
-        return nil
+        
+//        if let selectedIndexPaths = collection.indexPathsForSelectedItems?.first {
+//            let selectedIndex = selectedIndexPaths.item
+//            return selectedIndex
+//        }
+        return Array(indexesSelected).first
     }
 
     public func getCellSelected() -> UICollectionViewCell? {
@@ -167,11 +169,15 @@ open class DockBuilder: BaseBuilder, Dock {
         
         if !(delegate?.shouldSelectItemAt(index) ?? true) { return }
         
+        //TODO: REFACTOR
         if let indexSelect = getIndexSelected() {
-            if let cell = dockCellsInactive?[indexSelect] {
-                setCustomCellActiveCallback(cell: cell)
+            if let cell = getCellByIndex(indexSelect) as? DockCell {
+                if let view = dockCellsInactive?[indexSelect] {
+                    cell.setupCell(view)
+                }
             }
             dockCellsInactive?.removeValue(forKey: indexSelect)
+            removeIndexSelected(indexSelect)
             delegate?.didDeselectItemAt(indexSelect)
         }
         
@@ -183,12 +189,13 @@ open class DockBuilder: BaseBuilder, Dock {
             setCustomCellActiveCallback(cell: cell)
         }
         
-        setIndexActive(indexPath.row)
+        setIndexSelected(indexPath.row)
         
         delegate?.didSelectItemAt(index)
     }
     
     public func deselect(_ index: Int) {
+        removeIndexSelected(index)
         let indexPath = IndexPath(row: index, section: 0)
         collection.deselectItem(at: indexPath, animated: true)
         delegate?.didDeselectItemAt(index)
@@ -266,8 +273,12 @@ open class DockBuilder: BaseBuilder, Dock {
         }
     }
     
-    private func setIndexActive(_ index: Int) {
-        self.indexActive = index
+    private func setIndexSelected(_ index: Int) {
+        indexesSelected.insert(index)
+    }
+    
+    private func removeIndexSelected(_ index: Int) {
+        indexesSelected.remove(index)
     }
 
 }
@@ -286,13 +297,15 @@ extension DockBuilder: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DockCell.identifier, for: indexPath) as! DockCell
         
-        //melhorar isso aqui .. deve ser as celulas específicas que ele quer q desabilite a interacao
-        //cell.isUserInteractionEnabled = isUserInteractionEnabledItems
         if let delegate {
+            
             let item = delegate.cellCallback(indexPath.row)
+            
             item.isUserInteractionEnabled = false
+            
             cell.setupCell(item)
-            if indexPath.row == indexActive {
+            
+            if indexesSelected.contains(indexPath.row) {
                 setCustomCellActiveCallback(cell: cell)
             }
         }
