@@ -173,7 +173,7 @@ open class DockBuilder: BaseBuilder, Dock {
         if let indexSelect = getIndexSelected() {
             if let cell = getCellByIndex(indexSelect) as? DockCell {
                 if let view = dockCellsInactive?[indexSelect] {
-                    cell.setupCell(view.contentView)
+                    cell.setupCell(view.contentView.copy() as? UIView ?? UIView())
                 }
             }
             dockCellsInactive?.removeValue(forKey: indexSelect)
