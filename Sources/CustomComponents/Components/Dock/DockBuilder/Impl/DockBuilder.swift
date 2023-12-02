@@ -57,11 +57,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public var isShowing: Bool { isShow }
     
     public func getIndexSelected() -> Int? {
-        
-//        if let selectedIndexPaths = collection.indexPathsForSelectedItems?.first {
-//            let selectedIndex = selectedIndexPaths.item
-//            return selectedIndex
-//        }
+        //TODO: PREPARED TO MULTI SELECTED
         return Array(indexesSelected).first
     }
 
