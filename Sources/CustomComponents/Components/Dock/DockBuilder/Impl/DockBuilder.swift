@@ -171,7 +171,8 @@ open class DockBuilder: BaseBuilder, Dock {
         
         //TODO: REFACTOR
         if let indexSelect = getIndexSelected() {
-            if var cell = getCellByIndex(indexSelect)  {
+            if var cell = getCellByIndex(indexSelect) as? DockCell {
+                cell.setupCell(UIView())
                 if let view = dockCellsInactive?[indexSelect] {
                     dock.get.insertSubview(view, at: indexSelect)
                 }
