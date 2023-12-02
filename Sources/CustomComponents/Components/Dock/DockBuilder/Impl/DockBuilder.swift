@@ -169,19 +169,19 @@ open class DockBuilder: BaseBuilder, Dock {
         
         if !(delegate?.shouldSelectItemAt(index) ?? true) { return }
         
-        //TODO: REFACTOR
-        if let indexSelect = getIndexSelected() {
-            _collection.reloadItems(at: [IndexPath(row: indexSelect, section: 0)])
-            removeIndexSelected(indexSelect)
-            delegate?.didDeselectItemAt(indexSelect)
-        }
-        
         let indexPath = IndexPath(row: index, section: 0)
         collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             dockCellsInactive?.updateValue(cell.contentView , forKey: index)
             setCustomCellActiveCallback(cell: cell)
+        }
+        
+        //TODO: REFACTOR
+        if let indexSelect = getIndexSelected() {
+            _collection.reloadItems(at: [IndexPath(row: indexSelect, section: 0)])
+            removeIndexSelected(indexSelect)
+            delegate?.didDeselectItemAt(indexSelect)
         }
         
         setIndexSelected(indexPath.row)
