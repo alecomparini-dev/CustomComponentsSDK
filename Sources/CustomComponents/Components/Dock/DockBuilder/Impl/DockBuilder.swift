@@ -168,8 +168,10 @@ open class DockBuilder: BaseBuilder, Dock {
         if !(delegate?.shouldSelectItemAt(index) ?? true) { return }
         
         if let indexSelect = getIndexSelected() {
-            if let cell = dockCellsInactive?[indexSelect] {
-                setCustomCellActiveCallback(cell: cell)
+            if let cell = getCellByIndex(indexSelect) as? DockCell {
+                if let view = dockCellsInactive?[indexSelect] {
+                    cell.setupCell(view)
+                }
             }
             dockCellsInactive?.removeValue(forKey: indexSelect)
             delegate?.didDeselectItemAt(indexSelect)
