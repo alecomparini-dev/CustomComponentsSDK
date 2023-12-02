@@ -25,7 +25,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias D = UICollectionViewCell
     
     private var indexActive: Int?
-    private var isUserInteractionEnabledItems = true
+    private var isUserInteractionEnabledItems = false
     private var alreadyApplied = false
     private var isShow = false
     private var customItemSize: [Int:CGSize] = [:]
