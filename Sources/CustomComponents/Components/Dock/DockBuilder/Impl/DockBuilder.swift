@@ -25,7 +25,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias C = UICollectionView
     public typealias D = UICollectionViewCell
     
-    private var dockCellsInactive: [Int: UICollectionViewCell]? = [:]
+    private var dockCellsInactive: [Int: UIView]? = [:]
     private var indexesSelected: Set<Int> = []
     private var isUserInteractionEnabledItems = false
     private var alreadyApplied = false
@@ -172,9 +172,8 @@ open class DockBuilder: BaseBuilder, Dock {
         //TODO: REFACTOR
         if let indexSelect = getIndexSelected() {
             if let cell = getCellByIndex(indexSelect) as? DockCell {
-//                cell.setupCell(UIView())
                 if let view = dockCellsInactive?[indexSelect] {
-                    dock.get.insertSubview(view, at: indexSelect)
+                    cell.setupCell(view)
                 }
             }
             dockCellsInactive?.removeValue(forKey: indexSelect)
@@ -186,7 +185,7 @@ open class DockBuilder: BaseBuilder, Dock {
         collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
-            dockCellsInactive?.updateValue(cell.copy() as! UICollectionViewCell, forKey: index)
+            dockCellsInactive?.updateValue(cell.contentView , forKey: index)
             setCustomCellActiveCallback(cell: cell)
         }
         
