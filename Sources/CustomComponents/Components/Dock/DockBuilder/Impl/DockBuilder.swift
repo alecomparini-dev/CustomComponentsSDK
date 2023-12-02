@@ -25,7 +25,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias C = UICollectionView
     public typealias D = UICollectionViewCell
     
-    private var dockCellsInactive: [Int: UICollectionViewCell]?
+    private var dockCellsInactive: [Int: UICollectionViewCell]? = [:]
     private var indexesSelected: Set<Int> = []
     private var isUserInteractionEnabledItems = false
     private var alreadyApplied = false
