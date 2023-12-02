@@ -6,14 +6,15 @@ import UIKit
 public protocol DockDelegate: AnyObject {
     //REQUIRED
     func numberOfItemsCallback() -> Int
-    func cellItemCallback(_ indexItem: Int) -> UIView
+    func cellCallback(_ index: Int) -> UIView
+    func customCellActiveCallback(_ cell: UIView) -> UIView?
     
     //OPTIONAL
-    func shouldSelectItemAt(_ indexItem: Int) -> Bool
-    func didSelectItemAt(_ indexItem: Int)
-    func didDeselectItemAt(_ indexItem: Int)
-    func removeItem(_ indexItem: Int)
-    func insertItem(_ indexItem: Int)
+    func shouldSelectItemAt(_ index: Int) -> Bool
+    func didSelectItemAt(_ index: Int)
+    func didDeselectItemAt(_ index: Int)
+    func removeItem(_ index: Int)
+    func insertItem(_ index: Int)
 }
 
 
@@ -81,15 +82,15 @@ open class DockBuilder: BaseBuilder, Dock {
         return collection.indexPathsForVisibleItems.compactMap({ $0.row })
     }
 
-    public func isSelected(_ indexCell: Int) -> Bool {
-        return getIndexSelected() == indexCell
+    public func isSelected(_ index: Int) -> Bool {
+        return getIndexSelected() == index
     }
     
     
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setCustomCellSize(indexCell: Int, _ size: CGSize) -> Self {
-        customItemSize.updateValue(size, forKey: indexCell)
+    public func setCustomCellSize(index: Int, _ size: CGSize) -> Self {
+        customItemSize.updateValue(size, forKey: index)
         return self
     }
     
@@ -156,34 +157,37 @@ open class DockBuilder: BaseBuilder, Dock {
         collection.reloadData()
     }
     
-    public func selectItem(_ indexCell: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
-        if isSelected(indexCell) {
-            delegate?.didSelectItemAt(indexCell)
+    public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
+        if isSelected(index) {
+            delegate?.didSelectItemAt(index)
             return
         }
         
-        if !(delegate?.shouldSelectItemAt(indexCell) ?? true) { return }
+        if !(delegate?.shouldSelectItemAt(index) ?? true) { return }
         
         if let indexSelect = getIndexSelected() { delegate?.didDeselectItemAt(indexSelect) }
         
-        let indexPath = IndexPath(row: indexCell, section: 0)
-        
+        let indexPath = IndexPath(row: index, section: 0)
         collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
-        delegate?.didSelectItemAt(indexCell)
+        if let cell = getCellByIndex(indexPath.row) as? DockCell {
+            setCustomCellActiveCallback(cell: cell)
+        }
+        
+        delegate?.didSelectItemAt(index)
     }
     
-    public func deselect(_ indexCell: Int) {
-        let indexPath = IndexPath(row: indexCell, section: 0)
+    public func deselect(_ index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
         collection.deselectItem(at: indexPath, animated: true)
-        delegate?.didDeselectItemAt(indexCell)
+        delegate?.didDeselectItemAt(index)
     }
     
-    public func removeCell(_ indexItem: Int) {
+    public func removeCell(_ index: Int) {
         //TODO: - Implements after
     }
     
-    public func insertCell(_ indexItem: Int) {
+    public func insertCell(_ index: Int) {
         //TODO: - Implements after
     }
 
@@ -242,6 +246,14 @@ open class DockBuilder: BaseBuilder, Dock {
             self?.alreadyApplied = true
         }
     }
+    
+    private func setCustomCellActiveCallback(cell: UICollectionViewCell) {
+        if let cellDock = cell as? DockCell {
+            if let view = delegate?.customCellActiveCallback(cellDock) {
+                cellDock.setupCell(view)
+            }
+        }
+    }
 
 }
 
@@ -260,7 +272,7 @@ extension DockBuilder: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DockCell.identifier, for: indexPath) as! DockCell
         
         if let delegate {
-            let item = delegate.cellItemCallback(indexPath.row)
+            let item = delegate.cellCallback(indexPath.row)
             item.isUserInteractionEnabled = isUserInteractionEnabledItems
             cell.setupCell(item)
         }
@@ -298,9 +310,9 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
 
 //  MARK: - EXTESION DEFAULT DOCK DELEGATE
 public extension DockDelegate {
-    func shouldSelectItemAt(_ indexItem: Int) -> Bool { return true }
-    func didSelectItemAt(_ indexItem: Int) {}
-    func didDeselectItemAt(_ indexItem: Int) {}
-    func removeItem(_ indexItem: Int) {}
-    func insertItem(_ indexItem: Int) {}
+    func shouldSelectItemAt(_ index: Int) -> Bool { return true }
+    func didSelectItemAt(_ index: Int) {}
+    func didDeselectItemAt(_ index: Int) {}
+    func removeItem(_ index: Int) {}
+    func insertItem(_ index: Int) {}
 }
