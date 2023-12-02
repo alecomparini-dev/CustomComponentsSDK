@@ -110,7 +110,7 @@ open class ShadowBuilder: Shadow {
     public func apply() -> Self {
         component?.layer.shadowColor = _shadow.shadowColor ?? UIColor().cgColor
         component?.layer.shadowRadius = _shadow.shadowRadius
-        component?.layer.shadowOpacity = _shadow.opacity
+        component?.layer.shadowOpacity = _shadow.shadowOpacity
         component?.layer.shadowOffset = _shadow.shadowOffset
         
         DispatchQueue.main.async {
