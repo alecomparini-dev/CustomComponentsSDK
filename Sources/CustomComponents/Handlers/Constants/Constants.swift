@@ -458,34 +458,6 @@ extension K {
 }
 
 
-//  MARK: - EXTENSION - AttributedString
-extension K {
-    public struct AttributedString {
-        public enum Key {
-            case font
-            case paragraphStyle
-            case foregroundColor
-            case backgroundColor
-            case ligature
-            case kern
-            case tracking
-            case strikethroughStyle
-            case underlineStyle
-            case strokeColor
-            case strokeWidth
-            case shadow
-            case textEffect
-            case attachment
-            case link
-            case baselineOffset
-            case underlineColor
-            case strikethroughColor
-            case writingDirection
-        }
-    }
-}
-
-
 
 
 
