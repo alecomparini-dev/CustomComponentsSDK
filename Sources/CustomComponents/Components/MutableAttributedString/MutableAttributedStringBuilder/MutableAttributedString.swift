@@ -8,7 +8,7 @@ public protocol MutableAttributedString {
     var get: NSAttributedString { get }
     
     @discardableResult
-    func setAttributedText(text: String) -> Self
+    func setText(text: String) -> Self
     
     
     @discardableResult
