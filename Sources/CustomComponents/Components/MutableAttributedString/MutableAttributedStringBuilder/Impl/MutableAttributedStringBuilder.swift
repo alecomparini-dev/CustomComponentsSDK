@@ -16,7 +16,7 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     }
     
     @discardableResult
-    public func setText(text: String) -> Self {
+    public func setAttributedText(text: String) -> Self {
         self.text = text
         attrText.append(NSAttributedString(string: text))
         return self
