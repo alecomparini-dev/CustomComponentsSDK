@@ -5,7 +5,6 @@ import Foundation
 
 public protocol Label: AnyObject {
     associatedtype T
-    associatedtype N
     
     var get: T { get }
     
@@ -13,7 +12,10 @@ public protocol Label: AnyObject {
     func setText(_ text: String?) -> Self
     
     @discardableResult
-    func setTextAttributed(_ attributedText: N) -> Self
+    func setTextAttributed(_ attributedText: NSMutableAttributedString) -> Self
+    
+    @discardableResult
+    func setTextAttributed(_ build: (_ build: MutableAttributedStringBuilder) -> MutableAttributedStringBuilder) -> Self 
     
     @discardableResult
     func setNumberOfLines(_ number: Int ) -> Self
