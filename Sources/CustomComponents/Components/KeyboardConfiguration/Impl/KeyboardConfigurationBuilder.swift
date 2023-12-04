@@ -45,8 +45,8 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setClearButton() -> Self {
         createToolbar()
-        addButtonItemToToolbar(createClearButtonItem())
-        addButtonItemToToolbar(createFixedSpace(10))
+//        addButtonItemToToolbar(createClearButtonItem())
+//        addButtonItemToToolbar(createFixedSpace(10))
         return self
     }
     
