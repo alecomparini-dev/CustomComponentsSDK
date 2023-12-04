@@ -136,8 +136,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     private func createToolbar() {
-        if toolbar != nil {return}
-        toolbar?.translatesAutoresizingMaskIntoConstraints = true
+//        if toolbar != nil {return}
         toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         configToolbar()
         addToolbarOfTextField()
