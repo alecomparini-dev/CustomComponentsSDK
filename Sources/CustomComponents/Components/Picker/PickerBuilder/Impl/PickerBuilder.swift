@@ -31,6 +31,7 @@ open class PickerBuilder: BaseBuilder, Picker {
     
 
 //  MARK: - GET PROPERTIES
+    
     public func getRowSelected(inComponent: Int = 0) -> Int {
         return picker.selectedRow(inComponent: inComponent)
     }
@@ -70,6 +71,15 @@ open class PickerBuilder: BaseBuilder, Picker {
         delegate?.didSelectRowAt(component, row)
     }
     
+    
+//  MARK: - SET DELEGATE
+    
+    @discardableResult
+    public func setDelegate(_ delegate: PickerDelegate) -> Self {
+        self.delegate = delegate
+        return self
+    }
+
     
 //  MARK: - PRIVATE AREA
     private func applyOnceConfig() {
