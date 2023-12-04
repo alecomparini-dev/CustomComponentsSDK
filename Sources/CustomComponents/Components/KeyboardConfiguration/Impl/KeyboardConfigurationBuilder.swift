@@ -156,7 +156,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     private func addToolbarOfTextField() {
-        self.textFieldBuilder?.get.rightView = toolbar
+        self.textFieldBuilder?.get.inputAccessoryView = toolbar
     }
     
     private func addAutomaticButtonOk() {
