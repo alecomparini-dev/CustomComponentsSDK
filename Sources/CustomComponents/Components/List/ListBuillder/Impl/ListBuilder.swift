@@ -169,12 +169,6 @@ open class ListBuilder: BaseBuilder, List {
         list.setHidden(false)
     }
     
-    private func applyOnceConfig() {
-        if alreadyApplied { return }
-        configureTableViewDelegate()
-        registerCell()
-    }
-    
     public func hide() {
         list.setHidden(true)
     }
@@ -225,6 +219,12 @@ open class ListBuilder: BaseBuilder, List {
     private func configureTableViewDelegate() {
         list.delegate = self
         list.dataSource = self
+    }
+    
+    private func applyOnceConfig() {
+        if alreadyApplied { return }
+        configureTableViewDelegate()
+        registerCell()
     }
     
     private func registerCell() {

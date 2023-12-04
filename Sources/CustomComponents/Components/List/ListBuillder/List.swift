@@ -17,6 +17,8 @@ public protocol List {
     
     var isShowing: Bool { get }
     
+    func selectItem(_ section: Int?, _ row: Int)
+    
     
 //  MARK: - SET PROPERTIES
     
