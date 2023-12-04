@@ -3,3 +3,27 @@
 
 import Foundation
 
+public protocol Picker: AnyObject {
+    associatedtype T
+    
+    var get: T { get }
+    
+    var isShowing: Bool { get }
+    
+    func getRowSelected(inComponent: Int) -> Int
+    
+    @discardableResult
+    func setRowHeight(_ height: CGFloat ) -> Self
+
+    
+//  MARK: - SET ACTIONS
+    
+    func show()
+    
+    func hide()
+    
+    func reload(component: Int?)
+        
+    func selectItem(component: Int, _ row: Int)
+    
+}
