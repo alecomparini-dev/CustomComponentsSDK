@@ -14,6 +14,11 @@ public protocol Picker: AnyObject {
     
     @discardableResult
     func setRowHeight(_ height: CGFloat ) -> Self
+    
+    
+//  MARK: - SET DELEGATE
+    @discardableResult
+    func setDelegate(_ delegate:  PickerDelegate) -> Self
 
     
 //  MARK: - SET ACTIONS
