@@ -45,8 +45,8 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setClearButton() -> Self {
         createToolbar()
-//        addButtonItemToToolbar(createClearButtonItem())
-//        addButtonItemToToolbar(createFixedSpace(10))
+        addButtonItemToToolbar(createClearButtonItem())
+        addButtonItemToToolbar(createFixedSpace(10))
         return self
     }
     
@@ -138,7 +138,6 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     private func createToolbar() {
         if toolbar != nil {return}
         toolbar?.translatesAutoresizingMaskIntoConstraints = true
-        self.textFieldBuilder?.get.inputAccessoryView = nil
         toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         configToolbar()
         addToolbarOfTextField()
@@ -157,7 +156,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     private func addToolbarOfTextField() {
-        self.textFieldBuilder?.get.inputAccessoryView = toolbar
+        self.textFieldBuilder?.get.inputView = toolbar
     }
     
     private func addAutomaticButtonOk() {
