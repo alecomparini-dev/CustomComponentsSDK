@@ -173,12 +173,12 @@ open class DockBuilder: BaseBuilder, Dock {
             setCustomCellActiveCallback(cell: cell)
         }
         
-        //TODO: REFACTOR
-        if let indexSelect = getIndexSelected() {
-            removeIndexSelected(indexSelect)
-            _collection.reloadItems(at: [IndexPath(row: indexSelect, section: 0)])
-            delegate?.didDeselectItemAt(indexSelect)
-        }
+//        //TODO: REFACTOR
+//        if let indexSelect = getIndexSelected() {
+//            removeIndexSelected(indexSelect)
+//            _collection.reloadItems(at: [IndexPath(row: indexSelect, section: 0)])
+//            delegate?.didDeselectItemAt(indexSelect)
+//        }
         
         setIndexSelected(indexPath.row)
         
@@ -188,7 +188,8 @@ open class DockBuilder: BaseBuilder, Dock {
     public func deselect(_ index: Int) {
         removeIndexSelected(index)
         let indexPath = IndexPath(row: index, section: 0)
-        collection.deselectItem(at: indexPath, animated: true)
+        _collection.deselectItem(at: indexPath, animated: true)
+        _collection.reloadItems(at: [indexPath])
         delegate?.didDeselectItemAt(index)
     }
     
@@ -216,8 +217,8 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     private func configCollectionDelegate() {
-        collection.delegate = self
-        collection.dataSource = self
+        _collection.delegate = self
+        _collection.dataSource = self
     }
     
     private func configLayout() {
@@ -230,12 +231,12 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     private func configCollection() {
-        collection.setCollectionViewLayout(layout, animated: true)
-        collection.backgroundColor = .clear
+        _collection.setCollectionViewLayout(layout, animated: true)
+        _collection.backgroundColor = .clear
     }
     
     private func configConstraints() {
-        collection.makeConstraints { make in
+        _collection.makeConstraints { make in
             make
                 .setTop.setBottom.equalToSuperView
                 .setLeading.setTrailing.equalToSuperView
@@ -244,7 +245,7 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     private func registerCell() {
-        collection.register(DockCell.self, forCellWithReuseIdentifier: DockCell.identifier)
+        _collection.register(DockCell.self, forCellWithReuseIdentifier: DockCell.identifier)
     }
     
     private func applyOnceConfig() {
@@ -315,7 +316,8 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        delegate?.didDeselectItemAt(indexPath.row)
+//        delegate?.didDeselectItemAt(indexPath.row)
+        deselect(indexPath.row)
     }
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
