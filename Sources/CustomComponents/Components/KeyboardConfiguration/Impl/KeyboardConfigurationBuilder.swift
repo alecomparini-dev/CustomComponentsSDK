@@ -10,6 +10,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     private(set) var completionReturnType: CompletionKeyboardAlias?
     private var completionDoneKeyboard: CompletionKeyboardAlias?
+    private var completionCleanButton: CompletionKeyboardAlias?
     private var callBackListTextFields: CallBackListTextFieldsAlias?
     
     private var isDoneButtonAlreadyIncluded = false
@@ -43,7 +44,8 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setClearButton() -> Self {
+    public func setClearButton(_ completion: CompletionKeyboardAlias?) -> Self {
+        completionCleanButton = completion
         createToolbar()
         addButtonItemToToolbar(createClearButtonItem())
         addButtonItemToToolbar(createFixedSpace(10))
@@ -136,7 +138,6 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     private func createToolbar() {
-//        if toolbar != nil {return}
         toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         configToolbar()
         addToolbarOfTextField()
@@ -221,6 +222,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @objc private func clearButtonTapped() {
         guard let textFieldBuilder else {return}
         textFieldBuilder.get.text = ""
+        completionCleanButton?(textFieldBuilder)
     }
 
 }
