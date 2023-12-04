@@ -14,7 +14,7 @@ public protocol KeyboardConfiguration {
     func setDoneButton(_ completion: @escaping CompletionKeyboardAlias) -> Self
     
     @discardableResult
-    func setClearButton( _ completion: CompletionKeyboardAlias?) -> Self
+    func setClearButton(_ completion: CompletionKeyboardAlias?) -> Self
     
     @discardableResult
     func setNavigationButtonTextField(_ callBackListTextFields: @escaping CallBackListTextFieldsAlias ) -> Self

@@ -44,7 +44,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setClearButton(_ completion: CompletionKeyboardAlias?) -> Self {
+    public func setClearButton(_ completion: CompletionKeyboardAlias? = nil) -> Self {
         completionCleanButton = completion
         createToolbar()
         addButtonItemToToolbar(createClearButtonItem())
