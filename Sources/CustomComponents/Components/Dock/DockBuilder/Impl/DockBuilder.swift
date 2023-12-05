@@ -5,16 +5,16 @@ import UIKit
 
 public protocol DockDelegate: AnyObject {
     //REQUIRED
-    func numberOfItemsCallback(_ dockerBuilder: DockBuilder) -> Int
-    func cellCallback(_ dockerBuilder: DockBuilder, _ index: Int) -> UIView
-    func customCellActiveCallback(_ dockerBuilder: DockBuilder, _ cell: UIView) -> UIView?
+    func numberOfItemsCallback(_ dockBuilder: DockBuilder) -> Int
+    func cellCallback(_ dockBuilder: DockBuilder, _ index: Int) -> UIView
+    func customCellActiveCallback(_ dockBuilder: DockBuilder, _ cell: UIView) -> UIView?
     
     //OPTIONAL
-    func shouldSelectItemAt(_ dockerBuilder: DockBuilder, _ index: Int) -> Bool
-    func didSelectItemAt(_ dockerBuilder: DockBuilder, _ index: Int)
-    func didDeselectItemAt(_ dockerBuilder: DockBuilder, _ index: Int)
-    func removeItem(_ dockerBuilder: DockBuilder, _ index: Int)
-    func insertItem(_ dockerBuilder: DockBuilder, _ index: Int)
+    func shouldSelectItemAt(_ dockBuilder: DockBuilder, _ index: Int) -> Bool
+    func didSelectItemAt(_ dockBuilder: DockBuilder, _ index: Int)
+    func didDeselectItemAt(_ dockBuilder: DockBuilder, _ index: Int)
+    func removeItem(_ dockBuilder: DockBuilder, _ index: Int)
+    func insertItem(_ dockBuilder: DockBuilder, _ index: Int)
 }
 
 
@@ -356,9 +356,9 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
 
 //  MARK: - EXTESION DEFAULT DOCK DELEGATE
 public extension DockDelegate {
-    func shouldSelectItemAt(_ dockerBuilder: DockBuilder, _ index: Int) -> Bool { return true }
-    func didSelectItemAt(_ dockerBuilder: DockBuilder, _ index: Int) {}
-    func didDeselectItemAt(_ dockerBuilder: DockBuilder, _ index: Int) {}
-    func removeItem(_ dockerBuilder: DockBuilder, _ index: Int) {}
-    func insertItem(_ dockerBuilder: DockBuilder, _ index: Int) {}
+    func shouldSelectItemAt(_ dockBuilder: DockBuilder, _ index: Int) -> Bool { return true }
+    func didSelectItemAt(_ dockBuilder: DockBuilder, _ index: Int) {}
+    func didDeselectItemAt(_ dockBuilder: DockBuilder, _ index: Int) {}
+    func removeItem(_ dockBuilder: DockBuilder, _ index: Int) {}
+    func insertItem(_ dockBuilder: DockBuilder, _ index: Int) {}
 }
