@@ -235,7 +235,7 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     private func configCollection() {
-        _collection.setCollectionViewLayout(layout, animated: true)
+//        _collection.setCollectionViewLayout(layout, animated: true)
         _collection.backgroundColor = .clear
     }
     
