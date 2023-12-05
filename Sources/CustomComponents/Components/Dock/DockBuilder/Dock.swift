@@ -39,6 +39,9 @@ public protocol Dock: AnyObject {
     func setShowsHorizontalScrollIndicator(_ flag: Bool) -> Self
     
     @discardableResult
+    func setShowsVerticalScrollIndicator(_ flag: Bool) -> Self
+    
+    @discardableResult
     func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self
     
     @discardableResult
