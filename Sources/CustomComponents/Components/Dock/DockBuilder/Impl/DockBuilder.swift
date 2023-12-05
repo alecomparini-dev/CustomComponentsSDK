@@ -24,6 +24,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias C = UICollectionView
     public typealias D = UICollectionViewCell
     
+    private var disableUserInteraction: [Int]? = []
     private var dockCellsInactive: [Int: UIView]? = [:]
     private var indexesSelected: Set<Int> = []
     private var isUserInteractionEnabledItems = false
@@ -142,6 +143,12 @@ open class DockBuilder: BaseBuilder, Dock {
         layout.scrollDirection = direction
         return self
     }
+    
+    @discardableResult
+    public func setDisableUserInteraction(cells: [Int]) -> Self {
+        disableUserInteraction = cells
+        return self
+    }
 
     
     
@@ -171,10 +178,12 @@ open class DockBuilder: BaseBuilder, Dock {
         collection.reloadData()
     }
     
+    private func isDisableUserInteraction(_ index: Int) -> Bool {
+        return disableUserInteraction?.contains(index) ?? false
+    }
+    
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
-        let cell = getCellByIndex(index)
-        
-        if !(cell?.isUserInteractionEnabled ?? false) { return }
+        if isDisableUserInteraction(index) { return }
         
         if isSelected(index) {
             delegate?.didSelectItemAt(self, index)

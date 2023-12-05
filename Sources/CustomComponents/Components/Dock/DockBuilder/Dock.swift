@@ -54,6 +54,9 @@ public protocol Dock: AnyObject {
     func setIsUserInteractionEnabledItems(_ isUserInteractionEnabled: Bool) -> Self
     
     @discardableResult
+    func setDisableUserInteraction(cells: [Int]) -> Self
+    
+    @discardableResult
     func setScrollDirection(_ direction: S) -> Self
     
     
