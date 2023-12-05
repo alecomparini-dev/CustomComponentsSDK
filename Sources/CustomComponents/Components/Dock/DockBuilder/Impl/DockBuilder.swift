@@ -198,7 +198,6 @@ open class DockBuilder: BaseBuilder, Dock {
         } else {
             collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
         }
-            
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             dockCellsInactive?.updateValue(cell.contentView , forKey: index)
@@ -211,7 +210,9 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     public func deselect(_ index: Int) {
+        if isDisableUserInteraction(index) { return }
         removeIndexSelected(index)
+        
         let indexPath = IndexPath(row: index, section: 0)
         _collection.deselectItem(at: indexPath, animated: true)
         _collection.reloadItems(at: [indexPath])
@@ -336,7 +337,6 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        delegate?.didDeselectItemAt(indexPath.row)
         deselect(indexPath.row)
     }
     
