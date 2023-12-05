@@ -108,6 +108,12 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     @discardableResult
+    public func setShowsVerticalScrollIndicator(_ flag: Bool) -> Self {
+        collection.showsVerticalScrollIndicator = flag
+        return self
+    }
+    
+    @discardableResult
     public func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self {
         collection.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: rigth)
         return self
