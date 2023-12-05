@@ -115,12 +115,14 @@ open class DockBuilder: BaseBuilder, Dock {
     @discardableResult
     public func setMinimumLineSpacing(_ space: CGFloat) -> Self {
         layout.minimumLineSpacing = space
+        _collection.collectionViewLayout = layout
         return self
     }
     
     @discardableResult
     public func setMinimumInteritemSpacing(_ space: CGFloat) -> Self {
         layout.minimumInteritemSpacing = space
+        _collection.collectionViewLayout = layout
         return self
     }
     
