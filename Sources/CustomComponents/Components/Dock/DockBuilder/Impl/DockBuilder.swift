@@ -172,7 +172,12 @@ open class DockBuilder: BaseBuilder, Dock {
         if !(delegate?.shouldSelectItemAt(index) ?? true) { return }
         
         let indexPath = IndexPath(row: index, section: 0)
-        collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        if layout.scrollDirection == .horizontal {
+            collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        } else {
+            collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+        }
+            
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             dockCellsInactive?.updateValue(cell.contentView , forKey: index)
