@@ -183,7 +183,7 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
-//        if isDisableUserInteraction(index) { return }
+        if isDisableUserInteraction(index) { return }
         
         if isSelected(index) {
             delegate?.didSelectItemAt(self, index)
@@ -341,13 +341,11 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if isDisableUserInteraction(indexPath.row) { return false }
         return delegate?.shouldSelectItemAt(self, indexPath.row) ?? true
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if isDisableUserInteraction(indexPath.row) { return }
-//        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//        collectionView.reloadItems(at: [indexPath])
         selectItem(indexPath.row, at: .centeredHorizontally)
     }
     
