@@ -19,7 +19,6 @@ public protocol DockDelegate: AnyObject {
 
 
 open class DockBuilder: BaseBuilder, Dock {
-    
     private weak var delegate: DockDelegate?
     public typealias T = UIView
     public typealias C = UICollectionView
@@ -136,6 +135,13 @@ open class DockBuilder: BaseBuilder, Dock {
         return self
     }
     
+    @discardableResult
+    public func setScrollDirection(_ direction: UICollectionView.ScrollDirection) -> Self {
+        layout.scrollDirection = direction
+        return self
+    }
+
+    
     
 //  MARK: - SET DELEGATE
     @discardableResult
@@ -212,7 +218,6 @@ open class DockBuilder: BaseBuilder, Dock {
 //  MARK: - PRIVATE AREA
     private func configure() {
         addElements()
-        configLayout()
         configCollection()
         configDefault()
         registerCell()
@@ -227,18 +232,14 @@ open class DockBuilder: BaseBuilder, Dock {
         _collection.dataSource = self
     }
     
-    private func configLayout() {
-        layout.scrollDirection = .vertical
-    }
-    
     private func configDefault() {
         setMinimumLineSpacing(10)
         setShowsHorizontalScrollIndicator(false)
     }
     
     private func configCollection() {
-//        _collection.setCollectionViewLayout(layout, animated: true)
         _collection.backgroundColor = .clear
+        setScrollDirection(.horizontal)
     }
     
     private func configConstraints() {

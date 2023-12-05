@@ -7,6 +7,7 @@ public protocol Dock: AnyObject {
     associatedtype T
     associatedtype C
     associatedtype D
+    associatedtype S
     
     var get: T { get }
     
@@ -48,6 +49,10 @@ public protocol Dock: AnyObject {
     
     @discardableResult
     func setIsUserInteractionEnabledItems(_ isUserInteractionEnabled: Bool) -> Self
+    
+    @discardableResult
+    func setScrollDirection(_ direction: S) -> Self
+    
     
     
 //  MARK: - DELEGATE
