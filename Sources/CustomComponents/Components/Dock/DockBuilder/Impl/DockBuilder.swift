@@ -37,7 +37,7 @@ open class DockBuilder: BaseBuilder, Dock {
 //  MARK: - INITIALIZERS
     public var get: UIView { dock.get }
     
-    private let layout: UICollectionViewFlowLayout
+    private var layout: UICollectionViewFlowLayout
     private let dock: ViewBuilder
     private let _collection: UICollectionView
     
@@ -114,15 +114,17 @@ open class DockBuilder: BaseBuilder, Dock {
     
     @discardableResult
     public func setMinimumLineSpacing(_ space: CGFloat) -> Self {
-        layout.minimumLineSpacing = space
-        _collection.collectionViewLayout = layout
+        if let collectionViewFlowLayout = _collection.collectionViewLayout as? UICollectionViewFlowLayout {
+            collectionViewFlowLayout.minimumLineSpacing = space
+        }
         return self
     }
     
     @discardableResult
     public func setMinimumInteritemSpacing(_ space: CGFloat) -> Self {
-        layout.minimumInteritemSpacing = space
-        _collection.collectionViewLayout = layout
+        if let collectionViewFlowLayout = _collection.collectionViewLayout as? UICollectionViewFlowLayout {
+            collectionViewFlowLayout.minimumInteritemSpacing = space
+        }
         return self
     }
     
