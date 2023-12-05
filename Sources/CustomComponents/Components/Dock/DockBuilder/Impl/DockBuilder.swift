@@ -345,6 +345,7 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isDisableUserInteraction(indexPath.row) { return }
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         collectionView.reloadItems(at: [indexPath])
         selectItem(indexPath.row, at: .centeredHorizontally)
