@@ -113,18 +113,12 @@ open class DockBuilder: BaseBuilder, Dock {
     
     @discardableResult
     public func setMinimumLineSpacing(_ space: CGFloat) -> Self {
-//        if let collectionViewFlowLayout = _collection.collectionViewLayout as? UICollectionViewFlowLayout {
-//            collectionViewFlowLayout.minimumLineSpacing = space
-//        }
         layout.minimumLineSpacing = space
         return self
     }
     
     @discardableResult
     public func setMinimumInteritemSpacing(_ space: CGFloat) -> Self {
-//        if let collectionViewFlowLayout = _collection.collectionViewLayout as? UICollectionViewFlowLayout {
-//            collectionViewFlowLayout.minimumInteritemSpacing = space
-//        }
         layout.minimumInteritemSpacing = space
         return self
     }
@@ -184,13 +178,6 @@ open class DockBuilder: BaseBuilder, Dock {
             dockCellsInactive?.updateValue(cell.contentView , forKey: index)
             setCustomCellActiveCallback(cell: cell)
         }
-        
-//        //TODO: REFACTOR
-//        if let indexSelect = getIndexSelected() {
-//            removeIndexSelected(indexSelect)
-//            _collection.reloadItems(at: [IndexPath(row: indexSelect, section: 0)])
-//            delegate?.didDeselectItemAt(indexSelect)
-//        }
         
         setIndexSelected(indexPath.row)
         
