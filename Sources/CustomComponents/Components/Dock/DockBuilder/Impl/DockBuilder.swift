@@ -125,6 +125,7 @@ open class DockBuilder: BaseBuilder, Dock {
         if let collectionViewFlowLayout = _collection.collectionViewLayout as? UICollectionViewFlowLayout {
             collectionViewFlowLayout.minimumInteritemSpacing = space
         }
+        layout.minimumInteritemSpacing = space
         return self
     }
     
@@ -226,12 +227,12 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     private func configLayout() {
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
     }
     
     private func configDefault() {
-        self.setMinimumLineSpacing(10)
-        self.setShowsHorizontalScrollIndicator(false)
+        setMinimumLineSpacing(10)
+        setShowsHorizontalScrollIndicator(false)
     }
     
     private func configCollection() {
