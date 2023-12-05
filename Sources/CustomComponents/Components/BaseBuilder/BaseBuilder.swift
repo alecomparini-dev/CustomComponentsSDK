@@ -8,6 +8,7 @@ open class BaseBuilder: NSObject {
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private var _skeleton: SkeletonBuilder?
     
+    private var _id: String = ""
     private weak var _baseView: UIView?
     
     public var baseView: UIView {
@@ -25,6 +26,8 @@ open class BaseBuilder: NSObject {
 //  MARK: - GET PROPERTIES
     public var getTag: Int { baseView.tag  }
     
+    public var id: String { _id }
+    
     public var skeleton: SkeletonBuilder? {
         get { _skeleton }
         set { _skeleton = newValue}
@@ -32,6 +35,12 @@ open class BaseBuilder: NSObject {
 
     
 //  MARK: - SET PROPERTIES
+    @discardableResult
+    public func setID(_ id: String) -> Self {
+        _id = id
+        return self
+    }
+    
     @discardableResult
     public func setTranslatesAutoresizingMaskIntoConstraints(_ flag: Bool) -> Self {
         baseView.translatesAutoresizingMaskIntoConstraints = flag

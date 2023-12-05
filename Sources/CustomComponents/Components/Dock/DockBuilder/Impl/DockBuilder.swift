@@ -5,16 +5,16 @@ import UIKit
 
 public protocol DockDelegate: AnyObject {
     //REQUIRED
-    func numberOfItemsCallback() -> Int
-    func cellCallback(_ index: Int) -> UIView
-    func customCellActiveCallback(_ cell: UIView) -> UIView?
+    func numberOfItemsCallback(_ dockerBuilder: DockBuilder) -> Int
+    func cellCallback(_ dockerBuilder: DockBuilder, _ index: Int) -> UIView
+    func customCellActiveCallback(_ dockerBuilder: DockBuilder, _ cell: UIView) -> UIView?
     
     //OPTIONAL
-    func shouldSelectItemAt(_ index: Int) -> Bool
-    func didSelectItemAt(_ index: Int)
-    func didDeselectItemAt(_ index: Int)
-    func removeItem(_ index: Int)
-    func insertItem(_ index: Int)
+    func shouldSelectItemAt(_ dockerBuilder: DockBuilder, _ index: Int) -> Bool
+    func didSelectItemAt(_ dockerBuilder: DockBuilder, _ index: Int)
+    func didDeselectItemAt(_ dockerBuilder: DockBuilder, _ index: Int)
+    func removeItem(_ dockerBuilder: DockBuilder, _ index: Int)
+    func insertItem(_ dockerBuilder: DockBuilder, _ index: Int)
 }
 
 
@@ -31,6 +31,7 @@ open class DockBuilder: BaseBuilder, Dock {
     private var isShow = false
     private var customItemSize: [Int:CGSize] = [:]
     private var cellSize = K.Dock.Default.cellSize
+    private var _id: String = ""
     
     
 //  MARK: - INITIALIZERS
@@ -87,6 +88,7 @@ open class DockBuilder: BaseBuilder, Dock {
     
     
 //  MARK: - SET PROPERTIES
+    
     @discardableResult
     public func setCustomCellSize(index: Int, _ size: CGSize) -> Self {
         customItemSize.updateValue(size, forKey: index)
@@ -165,11 +167,11 @@ open class DockBuilder: BaseBuilder, Dock {
     
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
         if isSelected(index) {
-            delegate?.didSelectItemAt(index)
+            delegate?.didSelectItemAt(self, index)
             return
         }
         
-        if !(delegate?.shouldSelectItemAt(index) ?? true) { return }
+        if !(delegate?.shouldSelectItemAt(self, index) ?? true) { return }
         
         let indexPath = IndexPath(row: index, section: 0)
         if layout.scrollDirection == .horizontal {
@@ -186,7 +188,7 @@ open class DockBuilder: BaseBuilder, Dock {
         
         setIndexSelected(indexPath.row)
         
-        delegate?.didSelectItemAt(index)
+        delegate?.didSelectItemAt(self, index)
     }
     
     public func deselect(_ index: Int) {
@@ -194,7 +196,7 @@ open class DockBuilder: BaseBuilder, Dock {
         let indexPath = IndexPath(row: index, section: 0)
         _collection.deselectItem(at: indexPath, animated: true)
         _collection.reloadItems(at: [indexPath])
-        delegate?.didDeselectItemAt(index)
+        delegate?.didDeselectItemAt(self, index)
     }
     
     public func removeCell(_ index: Int) {
@@ -258,7 +260,7 @@ open class DockBuilder: BaseBuilder, Dock {
     
     private func setCustomCellActiveCallback(cell: UICollectionViewCell) {
         if let cellDock = cell as? DockCell {
-            if let view = delegate?.customCellActiveCallback(cellDock) {
+            if let view = delegate?.customCellActiveCallback(self, cellDock) {
                 cellDock.setupCell(view)
             }
         }
@@ -282,7 +284,7 @@ extension DockBuilder: UICollectionViewDataSource {
         guard let delegate else {
             fatalError("Dock delegate has not been implemented")
         }
-        return delegate.numberOfItemsCallback()
+        return delegate.numberOfItemsCallback(self)
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -290,7 +292,7 @@ extension DockBuilder: UICollectionViewDataSource {
         
         if let delegate {
             
-            let item = delegate.cellCallback(indexPath.row)
+            let item = delegate.cellCallback(self, indexPath.row)
             
             item.isUserInteractionEnabled = false
             
@@ -320,7 +322,7 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return delegate?.shouldSelectItemAt(indexPath.row) ?? true
+        return delegate?.shouldSelectItemAt(self, indexPath.row) ?? true
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -335,9 +337,9 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
 
 //  MARK: - EXTESION DEFAULT DOCK DELEGATE
 public extension DockDelegate {
-    func shouldSelectItemAt(_ index: Int) -> Bool { return true }
-    func didSelectItemAt(_ index: Int) {}
-    func didDeselectItemAt(_ index: Int) {}
-    func removeItem(_ index: Int) {}
-    func insertItem(_ index: Int) {}
+    func shouldSelectItemAt(_ dockerBuilder: DockBuilder, _ index: Int) -> Bool { return true }
+    func didSelectItemAt(_ dockerBuilder: DockBuilder, _ index: Int) {}
+    func didDeselectItemAt(_ dockerBuilder: DockBuilder, _ index: Int) {}
+    func removeItem(_ dockerBuilder: DockBuilder, _ index: Int) {}
+    func insertItem(_ dockerBuilder: DockBuilder, _ index: Int) {}
 }
