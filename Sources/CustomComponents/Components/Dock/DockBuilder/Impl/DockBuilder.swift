@@ -172,6 +172,10 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
+        let cell = getCellByIndex(index)
+        
+        if !(cell?.isUserInteractionEnabled ?? false) { return }
+        
         if isSelected(index) {
             delegate?.didSelectItemAt(self, index)
             return
