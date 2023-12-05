@@ -42,6 +42,7 @@ public extension UIView {
     
     func getView(tag: Int) -> UIView? { self.viewWithTag(tag)  }
     
+    
 //  MARK: - SET PROPERTIES ON UIVIEW
     
     @discardableResult
@@ -77,6 +78,12 @@ public extension UIView {
     @discardableResult
     func makeTapGesture(_ tapGesture: (_ make: TapGestureBuilder) -> TapGestureBuilder) -> Self {
         _ = tapGesture(TapGestureBuilder(self))
+        return self
+    }
+    
+    @discardableResult
+    func setTag(_ tag: Int) -> Self {
+        self.tag = tag
         return self
     }
     
