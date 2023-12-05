@@ -146,7 +146,7 @@ open class DockBuilder: BaseBuilder, Dock {
     
     @discardableResult
     public func setDisableUserInteraction(cells: [Int]) -> Self {
-        disableUserInteraction = cells
+        disableUserInteraction?.append(contentsOf: cells)
         return self
     }
 
