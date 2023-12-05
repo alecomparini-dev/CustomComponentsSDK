@@ -44,7 +44,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public init() {
         self.layout = UICollectionViewFlowLayout()
         self.dock = ViewBuilder()
-        self._collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        self._collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(dock.get)
         configure()
     }
