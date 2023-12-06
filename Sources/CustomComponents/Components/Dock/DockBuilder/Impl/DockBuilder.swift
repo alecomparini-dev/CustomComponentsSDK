@@ -206,7 +206,7 @@ open class DockBuilder: BaseBuilder, Dock {
         
         delegate?.didSelectItemAt(self, index)
         
-        _collection.reloadItems(at: [indexPath])
+//        _collection.reloadItems(at: [indexPath])
     }
     
     public func deselect(_ index: Int) {
