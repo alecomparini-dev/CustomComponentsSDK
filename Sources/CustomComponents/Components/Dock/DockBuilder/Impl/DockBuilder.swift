@@ -196,7 +196,6 @@ open class DockBuilder: BaseBuilder, Dock {
         var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
         if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
         _collection.selectItem(at: indexPath, animated: true, scrollPosition: scrollPosition)
-        _collection.reloadItems(at: [indexPath])
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             dockCellsInactive?.updateValue(cell.contentView , forKey: index)
@@ -206,6 +205,8 @@ open class DockBuilder: BaseBuilder, Dock {
         setIndexSelected(indexPath.row)
         
         delegate?.didSelectItemAt(self, index)
+        
+        _collection.reloadItems(at: [indexPath])
     }
     
     public func deselect(_ index: Int) {
