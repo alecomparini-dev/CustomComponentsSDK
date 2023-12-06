@@ -188,16 +188,14 @@ open class DockBuilder: BaseBuilder, Dock {
         
         if !(delegate?.shouldSelectItemAt(self, index) ?? true) { return }
         
-        let indexPath = IndexPath(row: index, section: 0)
+        setAnimationScrollPosition(index)
         
-        setAnimationScrollPosition(indexPath)
-        
-        if let cell = getCellByIndex(indexPath.row) as? DockCell {
+        if let cell = getCellByIndex(index) as? DockCell {
             dockCellsInactive?.updateValue(cell.contentView , forKey: index)
             setCustomCellActiveCallback(cell: cell)
         }
         
-        setIndexSelected(indexPath.row)
+        setIndexSelected(index)
         
         delegate?.didSelectItemAt(self, index)
     }
@@ -291,7 +289,9 @@ open class DockBuilder: BaseBuilder, Dock {
         return disableUserInteraction?.contains(index) ?? false
     }
     
-    private func setAnimationScrollPosition(_ indexPath: IndexPath) {
+    private func setAnimationScrollPosition(_ index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        
         var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
         
         if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
