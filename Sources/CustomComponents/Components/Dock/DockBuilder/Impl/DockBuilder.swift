@@ -178,10 +178,6 @@ open class DockBuilder: BaseBuilder, Dock {
         _collection.reloadData()
     }
     
-    private func isDisableUserInteraction(_ index: Int) -> Bool {
-        return disableUserInteraction?.contains(index) ?? false
-    }
-    
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
         if isDisableUserInteraction(index) { return }
         
@@ -193,13 +189,8 @@ open class DockBuilder: BaseBuilder, Dock {
         if !(delegate?.shouldSelectItemAt(self, index) ?? true) { return }
         
         let indexPath = IndexPath(row: index, section: 0)
-        if layout.scrollDirection == .horizontal {
-            _collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-            
-        } else {
-            _collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
-        }
-        _collection.reloadItems(at: [indexPath])
+        
+        setAnimationScrollPosition(indexPath)
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             dockCellsInactive?.updateValue(cell.contentView , forKey: index)
@@ -294,6 +285,20 @@ open class DockBuilder: BaseBuilder, Dock {
     
     private func removeIndexSelected(_ index: Int) {
         indexesSelected.remove(index)
+    }
+    
+    private func isDisableUserInteraction(_ index: Int) -> Bool {
+        return disableUserInteraction?.contains(index) ?? false
+    }
+    
+    private func setAnimationScrollPosition(_ indexPath: IndexPath) {
+        var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
+        
+        if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
+        
+        _collection.selectItem(at: indexPath, animated: true, scrollPosition: scrollPosition)
+        
+        _collection.reloadItems(at: [indexPath])
     }
 
 }
