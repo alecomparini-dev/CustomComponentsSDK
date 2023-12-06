@@ -184,20 +184,20 @@ open class DockBuilder: BaseBuilder, Dock {
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
         if isDisableUserInteraction(index) { return }
         
+        let indexPath = IndexPath(row: index, section: 0)
+        var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
+        if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
+        
         if isSelected(index) {
             delegate?.didSelectItemAt(self, index)
+            _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
             return
         }
         
         if !(delegate?.shouldSelectItemAt(self, index) ?? true) { return }
         
-        let indexPath = IndexPath(row: index, section: 0)
-        
-        var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
-        
-        if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
-        
         _collection.selectItem(at: indexPath, animated: true, scrollPosition: scrollPosition)
+        _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             setCustomCellActiveCallback(cell: cell)
