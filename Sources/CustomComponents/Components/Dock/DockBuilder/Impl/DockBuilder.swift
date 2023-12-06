@@ -25,7 +25,6 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias D = UICollectionViewCell
     
     private var disableUserInteraction: [Int]? = []
-    private var dockCellsInactive: [Int: UIView]? = [:]
     private var indexesSelected: Set<Int> = []
     private var isUserInteractionEnabledItems = false
     private var alreadyApplied = false
@@ -193,12 +192,14 @@ open class DockBuilder: BaseBuilder, Dock {
         if !(delegate?.shouldSelectItemAt(self, index) ?? true) { return }
         
         let indexPath = IndexPath(row: index, section: 0)
+        
         var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
+        
         if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
+        
         _collection.selectItem(at: indexPath, animated: true, scrollPosition: scrollPosition)
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
-            dockCellsInactive?.updateValue(cell.contentView , forKey: index)
             setCustomCellActiveCallback(cell: cell)
         }
         
@@ -210,8 +211,9 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     public func deselect(_ index: Int) {
-        if isDisableUserInteraction(index) { return }
         removeIndexSelected(index)
+        
+        if isDisableUserInteraction(index) { return }
         
         let indexPath = IndexPath(row: index, section: 0)
         _collection.deselectItem(at: indexPath, animated: true)
