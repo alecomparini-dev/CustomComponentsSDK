@@ -104,19 +104,19 @@ open class DockBuilder: BaseBuilder, Dock {
     
     @discardableResult
     public func setShowsHorizontalScrollIndicator(_ flag: Bool) -> Self {
-        collection.showsHorizontalScrollIndicator = flag
+        _collection.showsHorizontalScrollIndicator = flag
         return self
     }
     
     @discardableResult
     public func setShowsVerticalScrollIndicator(_ flag: Bool) -> Self {
-        collection.showsVerticalScrollIndicator = flag
+        _collection.showsVerticalScrollIndicator = flag
         return self
     }
     
     @discardableResult
     public func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self {
-        collection.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: rigth)
+        _collection.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: rigth)
         return self
     }
     
@@ -175,7 +175,7 @@ open class DockBuilder: BaseBuilder, Dock {
     
     public func reload() {
         if !isShow { return }
-        collection.reloadData()
+        _collection.reloadData()
     }
     
     private func isDisableUserInteraction(_ index: Int) -> Bool {
@@ -194,10 +194,12 @@ open class DockBuilder: BaseBuilder, Dock {
         
         let indexPath = IndexPath(row: index, section: 0)
         if layout.scrollDirection == .horizontal {
-            collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            _collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            
         } else {
-            collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+            _collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
         }
+        _collection.reloadItems(at: [indexPath])
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             dockCellsInactive?.updateValue(cell.contentView , forKey: index)
