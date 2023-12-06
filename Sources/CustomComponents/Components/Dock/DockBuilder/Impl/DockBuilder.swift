@@ -144,6 +144,15 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     @discardableResult
+    public func setScrollToItem(index: Int) -> Self {
+        let indexPath = IndexPath(row: index, section: 0)
+        var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
+        if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
+        _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
+        return self
+    }
+    
+    @discardableResult
     public func setDisableUserInteraction(cells: [Int]) -> Self {
         disableUserInteraction?.append(contentsOf: cells)
         return self

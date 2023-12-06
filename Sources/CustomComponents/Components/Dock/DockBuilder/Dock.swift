@@ -59,6 +59,9 @@ public protocol Dock: AnyObject {
     @discardableResult
     func setScrollDirection(_ direction: S) -> Self
     
+    @discardableResult
+    func setScrollToItem(index: Int) -> Self
+    
     
 //  MARK: - DELEGATE
     @discardableResult
