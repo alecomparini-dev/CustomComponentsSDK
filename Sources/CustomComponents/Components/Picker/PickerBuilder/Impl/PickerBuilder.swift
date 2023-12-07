@@ -126,6 +126,7 @@ extension PickerBuilder: UIPickerViewDelegate {
     
 
     public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        if let view { return view }
         return delegate?.rowViewCallBack(component: component, row: row) ?? UIView()
     }
     
