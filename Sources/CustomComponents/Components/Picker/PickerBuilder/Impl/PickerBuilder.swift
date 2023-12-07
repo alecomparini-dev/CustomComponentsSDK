@@ -82,8 +82,10 @@ open class PickerBuilder: BaseBuilder, Picker {
 
     
 //  MARK: - PRIVATE AREA
+    
     private func applyOnceConfig() {
         if alreadyApplied { return }
+        alreadyApplied = true
         configurePickerDelegate()
     }
     
