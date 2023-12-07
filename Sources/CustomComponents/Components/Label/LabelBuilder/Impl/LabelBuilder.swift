@@ -19,6 +19,11 @@ open class LabelBuilder: BaseBuilder, Label {
         super.init(label)
     }
     
+    public init(frame: CGRect) {
+        label = UILabel(frame: frame)
+        super.init(label)
+    }
+    
     public convenience init(_ text: String) {
         self.init()
         setText(text)
