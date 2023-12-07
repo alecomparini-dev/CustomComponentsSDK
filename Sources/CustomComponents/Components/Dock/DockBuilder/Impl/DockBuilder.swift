@@ -162,7 +162,7 @@ open class DockBuilder: BaseBuilder, Dock {
     
 //  MARK: - SET DELEGATE
     @discardableResult
-    public func setDelegate(delegate: DockDelegate) -> Self {
+    public func setDelegate(_ delegate: DockDelegate) -> Self {
         self.delegate = delegate
         return self
     }

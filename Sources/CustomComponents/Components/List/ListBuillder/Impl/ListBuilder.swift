@@ -5,15 +5,15 @@ import UIKit
 
 public protocol ListDelegate: AnyObject {
     //REQUIRED
-    func numberOfSections() -> Int
-    func numberOfRows(section: Int) -> Int
-    func sectionViewCallback(section: Int) -> UIView?
-    func rowViewCallBack(section: Int, row: Int) -> UIView
+    func numberOfSections(_ list: ListBuilder) -> Int
+    func numberOfRows(_ list: ListBuilder, section: Int) -> Int
+    func sectionViewCallback(_ list: ListBuilder, section: Int) -> UIView?
+    func rowViewCallBack(_ list: ListBuilder, section: Int, row: Int) -> UIView
     
     //OPTIONAL
-    func shouldSelectItemAt(_ section: Int, _ row: Int) -> Bool
-    func didSelectItemAt(_ section: Int, _ row: Int)
-    func didDeselectItemAt(_ section: Int, _ row: Int)
+    func shouldSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int) -> Bool
+    func didSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int)
+    func didDeselectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int)
 }
 
 
@@ -157,8 +157,10 @@ open class ListBuilder: BaseBuilder, List {
 
     
 //  MARK: - SET DELEGATE
-    public func setDelegate(_ delegate: ListDelegate ) {
+    @discardableResult
+    public func setDelegate(_ delegate: ListDelegate ) -> Self {
         self.delegate = delegate
+        return self
     }
     
     
@@ -180,19 +182,19 @@ open class ListBuilder: BaseBuilder, List {
     
     public func selectItem(_ section: Int? = 0, _ row: Int) {
         if isSelected(section, row) {
-            delegate?.didSelectItemAt(section ?? 0, row)
+            delegate?.didSelectItemAt(self, section ?? 0, row)
             return
         }
         
-        if !(delegate?.shouldSelectItemAt(section ?? 0, row) ?? true) { return }
+        if !(delegate?.shouldSelectItemAt(self, section ?? 0, row) ?? true) { return }
         
-        if let indexSelect = getIndexSelected() { delegate?.didDeselectItemAt(indexSelect.section , indexSelect.row) }
+        if let indexSelect = getIndexSelected() { delegate?.didDeselectItemAt(self, indexSelect.section , indexSelect.row) }
         
         let indexPath = IndexPath(row: row, section: section ?? 0)
         
         selectRowAnimated(indexPath)
         
-        delegate?.didSelectItemAt(section ?? 0, row)
+        delegate?.didSelectItemAt(self, section ?? 0, row)
     }
     
     private func selectRowAnimated(_ indexPath: IndexPath) {
@@ -206,7 +208,7 @@ open class ListBuilder: BaseBuilder, List {
     public func deselect(_ section: Int = 0, _ row: Int) {
         let indexPath = IndexPath(row: row, section: section)
         list.deselectRow(at: indexPath, animated: true)
-        delegate?.didDeselectItemAt(section, row)
+        delegate?.didDeselectItemAt(self, section, row)
     }
     
 
@@ -252,19 +254,19 @@ extension ListBuilder: UITableViewDataSource {
         guard let delegate else {
             fatalError("List delegate has not been implemented")
         }
-        return delegate.numberOfSections()
+        return delegate.numberOfSections(self)
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let delegate else {
             fatalError("List delegate has not been implemented")
         }
-        return delegate.numberOfRows(section: section)
+        return delegate.numberOfRows(self, section: section)
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if let view = delegate?.sectionViewCallback(section: section) {
+        if let view = delegate?.sectionViewCallback(self, section: section) {
             let cell = ListCell()
             cell.setupCell(view)
             return cell
@@ -277,7 +279,7 @@ extension ListBuilder: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath) as! ListCell
         
-        let view = delegate?.rowViewCallBack(section: indexPath.section, row: indexPath.row) ?? UIView()
+        let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
         
         cell.setupCell(view)
                 
@@ -315,8 +317,8 @@ extension ListBuilder: UITableViewDelegate {
 
 //  MARK: - EXTESION DEFAULT LIST DELEGATE
 public extension ListDelegate {
-    func shouldSelectItemAt(_ section: Int, _ row: Int) -> Bool { return true}
-    func didSelectItemAt(_ section: Int, _ row: Int) {}
-    func didDeselectItemAt(_ section: Int, _ row: Int) {}
+    func shouldSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int) -> Bool { return true}
+    func didSelectItemAt(_ list: ListBuilder,_ section: Int, _ row: Int) {}
+    func didDeselectItemAt(_ list: ListBuilder,_ section: Int, _ row: Int) {}
 }
 
