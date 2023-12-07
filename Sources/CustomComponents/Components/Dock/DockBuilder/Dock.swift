@@ -65,7 +65,7 @@ public protocol Dock: AnyObject {
     
 //  MARK: - DELEGATE
     @discardableResult
-    func setDelegate(delegate: DockDelegate) -> Self
+    func setDelegate(_ delegate: DockDelegate) -> Self
     
     
 //  MARK: - SET ACTIONS

@@ -59,5 +59,9 @@ public protocol List {
     func setHeaderView(_ headerView: ViewBuilder) -> Self
     
     @discardableResult
-    func setShowsScroll(_ flag: Bool, _ showsScroll: K.ShowsScroll) -> Self 
+    func setShowsScroll(_ flag: Bool, _ showsScroll: K.ShowsScroll) -> Self
+    
+//  MARK: - DELEGATE
+    @discardableResult
+    func setDelegate(_ delegate: ListDelegate) -> Self
 }
