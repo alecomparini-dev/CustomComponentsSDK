@@ -157,7 +157,7 @@ open class ListBuilder: BaseBuilder, List {
 
     
 //  MARK: - SET DELEGATE
-    public func setDelegate(delegate: ListDelegate ) {
+    public func setDelegate(_ delegate: ListDelegate ) {
         self.delegate = delegate
     }
     
