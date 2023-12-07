@@ -44,17 +44,19 @@ open class PickerBuilder: BaseBuilder, Picker {
         return self
     }
     
-    public var isShowing: Bool { !picker.isHidden }
+    public var isShowing: Bool { isShow }
     
     
 //  MARK: - ACTION AREA
     public func show() {
         if isShow { return }
+        isShow = true
         applyOnceConfig()
         picker.setHidden(false)
     }
     
     public func hide() {
+        isShow = false
         picker.setHidden(true)
     }
     
