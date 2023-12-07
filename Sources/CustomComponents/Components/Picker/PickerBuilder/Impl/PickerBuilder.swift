@@ -6,7 +6,8 @@ import UIKit
 public protocol PickerDelegate: AnyObject {
     func numberOfComponents() -> Int
     func numberOfRows(forComponent: Int) -> Int
-    func rowViewCallBack(component: Int, row: Int, reusing: UIView?) -> UIView
+//    func rowViewCallBack(component: Int, row: Int) -> UIView
+    func attributedStringCallBack(component: Int, row: Int) -> NSAttributedString?
     func didSelectRowAt(_ component: Int, _ row: Int)
 }
 
@@ -126,11 +127,11 @@ extension PickerBuilder: UIPickerViewDelegate {
     
 
     public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        return nil
+        return delegate?.attributedStringCallBack(component: component, row: row)
     }
     
-    public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        delegate?.rowViewCallBack(component: component, row: row, reusing: view) ?? UIView()
-    }
+//    public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+//        return delegate?.rowViewCallBack(component: component, row: row) ?? UIView()
+//    }
     
 }
