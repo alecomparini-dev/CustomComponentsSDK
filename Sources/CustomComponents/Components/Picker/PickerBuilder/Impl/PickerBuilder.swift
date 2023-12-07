@@ -12,7 +12,7 @@ public protocol PickerDelegate: AnyObject {
 
 
 open class PickerBuilder: BaseBuilder, Picker {
-    public weak var delegate: PickerDelegate?
+    private weak var delegate: PickerDelegate?
     
     public var get: UIPickerView { picker }
     
