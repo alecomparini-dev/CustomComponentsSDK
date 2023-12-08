@@ -182,7 +182,6 @@ open class ListBuilder: BaseBuilder, List {
     
     public func selectItem(_ section: Int? = 0, _ row: Int) {
         if isSelected(section, row) {
-//            delegate?.didSelectItemAt(self, section ?? 0, row)
             deselect(section ?? 0, row)
             return
         }
