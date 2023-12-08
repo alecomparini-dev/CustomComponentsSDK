@@ -198,7 +198,8 @@ open class DockBuilder: BaseBuilder, Dock {
         if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
         
         if isSelected(index) {
-            delegate?.didSelectItemAt(self, index)
+//            delegate?.didSelectItemAt(self, index)
+            deselect(index)
             _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
             return
         }
@@ -216,7 +217,6 @@ open class DockBuilder: BaseBuilder, Dock {
         
         delegate?.didSelectItemAt(self, index)
         
-//        _collection.reloadItems(at: [indexPath])
     }
     
     public func deselect(_ index: Int) {
