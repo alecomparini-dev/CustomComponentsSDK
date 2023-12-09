@@ -230,11 +230,9 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     public func deselect(_ index: Int) {
+        if isDisableUserInteraction(index) { return }
+
         removeIndexSelected(index)
-//        if isDisableUserInteraction(index) {
-//            delegate?.didDeselectItemAt(self, index)
-//            return
-//        }
         let indexPath = IndexPath(row: index, section: 0)
         _collection.deselectItem(at: indexPath, animated: true)
         _collection.reloadItems(at: [indexPath])
@@ -301,6 +299,7 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     private func setCustomCellActiveCallback(cell: UICollectionViewCell) {
+        
         if let cellDock = cell as? DockCell {
             if let view = delegate?.customCellActiveCallback(self, cellDock) {
                 cellDock.setupCell(view)
@@ -340,7 +339,7 @@ extension DockBuilder: UICollectionViewDataSource {
             
             cell.setupCell(item)
             
-            if indexesSelected.contains(indexPath.row) {
+            if indexesSelected.contains(indexPath.row) && !isDisableUserInteraction(indexPath.row) {
                 setCustomCellActiveCallback(cell: cell)
             }
         }
