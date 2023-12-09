@@ -231,9 +231,10 @@ open class DockBuilder: BaseBuilder, Dock {
     
     public func deselect(_ index: Int) {
         removeIndexSelected(index)
-        
-        if isDisableUserInteraction(index) { return }
-        
+//        if isDisableUserInteraction(index) {
+//            delegate?.didDeselectItemAt(self, index)
+//            return
+//        }
         let indexPath = IndexPath(row: index, section: 0)
         _collection.deselectItem(at: indexPath, animated: true)
         _collection.reloadItems(at: [indexPath])
