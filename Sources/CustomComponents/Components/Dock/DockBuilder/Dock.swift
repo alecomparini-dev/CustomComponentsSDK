@@ -62,6 +62,10 @@ public protocol Dock: AnyObject {
     @discardableResult
     func setScrollToItem(index: Int) -> Self
     
+    @discardableResult
+    func setEnableToggleItemSelection(_ flag: Bool) -> Self
+    
+    
     
 //  MARK: - DELEGATE
     @discardableResult

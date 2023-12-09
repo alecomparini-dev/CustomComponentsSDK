@@ -27,6 +27,7 @@ open class DockBuilder: BaseBuilder, Dock {
     private var disableUserInteraction: [Int]? = []
     private var indexesSelected: Set<Int> = []
     private var isUserInteractionEnabledItems = false
+    private var isEnableToggleItemSelection = true
     private var alreadyApplied = false
     private var isShow = false
     private var customItemSize: [Int:CGSize] = [:]
@@ -157,6 +158,12 @@ open class DockBuilder: BaseBuilder, Dock {
         disableUserInteraction?.append(contentsOf: cells)
         return self
     }
+    
+    @discardableResult
+    public func setEnableToggleItemSelection(_ flag: Bool) -> Self {
+        isEnableToggleItemSelection = flag
+        return self
+    }
 
     
     
@@ -198,6 +205,7 @@ open class DockBuilder: BaseBuilder, Dock {
         if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
         
         if isSelected(index) {
+            if !isEnableToggleItemSelection { return }
             deselect(index)
             _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
             return
