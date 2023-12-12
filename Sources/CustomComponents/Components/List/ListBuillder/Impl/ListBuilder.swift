@@ -169,10 +169,12 @@ open class ListBuilder: BaseBuilder, List {
         if isShow { return }
         applyOnceConfig()
         list.setHidden(false)
+        isShow = true
     }
     
     public func hide() {
         list.setHidden(true)
+        isShow = false
     }
     
     public func reload() {
@@ -183,7 +185,6 @@ open class ListBuilder: BaseBuilder, List {
     public func selectItem(_ section: Int? = 0, _ row: Int) {
         if isSelected(section, row) {
             delegate?.didSelectItemAt(self, section ?? 0, row)
-//            deselect(section ?? 1, row)
             return
         }
         
