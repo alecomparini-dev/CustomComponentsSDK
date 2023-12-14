@@ -51,7 +51,6 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
         return self
     }
 
-    
     @discardableResult
     public func setImage(named: String) -> Self {
         setImage(image: UIImage(named: named))

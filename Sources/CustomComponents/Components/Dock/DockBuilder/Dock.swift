@@ -45,6 +45,9 @@ public protocol Dock: AnyObject {
     func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self
     
     @discardableResult
+    func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self
+    
+    @discardableResult
     func setMinimumLineSpacing(_ space: CGFloat) -> Self
     
     @discardableResult
