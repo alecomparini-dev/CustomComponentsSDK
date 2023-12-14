@@ -9,6 +9,8 @@ public protocol ImageView {
     
     func setImage(systemName: String) -> Self
     
+    func setImage(systemName: [String]) -> Self
+    
     func setImage(named: String) -> Self
     
     func setContentMode(_ contentMode: K.ContentMode) -> Self
