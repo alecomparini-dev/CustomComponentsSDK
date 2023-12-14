@@ -41,11 +41,23 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
     }
     
     @discardableResult
+    public func setImage(systemName: [String]) -> Self {
+        for element in systemName {
+            if let image = UIImage(systemName: element) {
+                setImage(image: image)
+                break
+            }
+        }
+        return self
+    }
+
+    
+    @discardableResult
     public func setImage(named: String) -> Self {
         setImage(image: UIImage(named: named))
         return self
     }
-    
+        
     @discardableResult
     public func setContentMode(_ contentMode: K.ContentMode) -> Self {
         imageView.contentMode = UIView.ContentMode.init(rawValue: contentMode.rawValue) ?? .scaleAspectFill
@@ -87,6 +99,7 @@ public class ImageViewBuilder: BaseBuilder, ImageView {
         imageView.image = imageView.image?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(weight: weight))
         return self
     }
+    
     
     
 }
