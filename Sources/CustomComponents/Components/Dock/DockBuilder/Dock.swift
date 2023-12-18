@@ -54,7 +54,7 @@ public protocol Dock: AnyObject {
     func setMinimumInteritemSpacing(_ space: CGFloat) -> Self
     
     @discardableResult
-    func setIsUserInteractionEnabledItems(_ isUserInteractionEnabled: Bool) -> Self
+    func setDisableUserInteraction(_ flag: Bool ) -> Self
     
     @discardableResult
     func setDisableUserInteraction(cells: [Int]) -> Self

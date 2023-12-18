@@ -27,7 +27,6 @@ open class BottomSheetBuilder: BottomSheet {
                 return UISheetPresentationController.Detent.large()
             }
         })
-        
         return self
     }
     
