@@ -4,7 +4,7 @@
 import UIKit
 
 @available(iOS 15.0, *)
-open class BottomSheetBuilder: BottomSheets {
+open class BottomSheetBuilder: BottomSheet {
     
     private var sheet: UISheetPresentationController?
     
