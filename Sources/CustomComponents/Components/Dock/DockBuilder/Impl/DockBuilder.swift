@@ -27,7 +27,7 @@ open class DockBuilder: BaseBuilder, Dock {
     private var padding:(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) = (top: 0, left: 0, bottom: 0 , rigth: 0)
     private var disableUserInteraction: [Int]? = []
     private var indexesSelected: Set<Int> = []
-    private var isUserInteractionEnabledItems = false
+    private var isDisableUserInteraction = false
     private var isEnableToggleItemSelection = true
     private var alreadyApplied = false
     private var isShow = false
@@ -140,8 +140,8 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     @discardableResult
-    public func setIsUserInteractionEnabledItems(_ isUserInteractionEnabled: Bool) -> Self {
-        isUserInteractionEnabledItems = isUserInteractionEnabled
+    public func setDisableUserInteraction(_ flag: Bool) -> Self {
+        isDisableUserInteraction = flag
         return self
     }
     
@@ -198,10 +198,6 @@ open class DockBuilder: BaseBuilder, Dock {
     public func reload() {
         if !isShow { return }
         _collection.reloadData()
-    }
-    
-    private func isDisableUserInteraction(_ index: Int) -> Bool {
-        return disableUserInteraction?.contains(index) ?? false
     }
     
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
@@ -315,6 +311,11 @@ open class DockBuilder: BaseBuilder, Dock {
                 cellDock.setupCell(view)
             }
         }
+    }
+    
+    private func isDisableUserInteraction(_ index: Int) -> Bool {
+        if isDisableUserInteraction { return true }
+        return disableUserInteraction?.contains(index) ?? false
     }
     
     private func setIndexSelected(_ index: Int) {
