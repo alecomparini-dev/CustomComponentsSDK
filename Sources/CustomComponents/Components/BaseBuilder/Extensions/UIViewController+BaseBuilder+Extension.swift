@@ -7,8 +7,8 @@ extension UIViewController {
     
     @available(iOS 15.0, *)
     @discardableResult
-    public func setBottomSheet(_ build: (_ build: BottomSheetsBuilder) -> BottomSheetsBuilder) -> Self {
-        _ = build(BottomSheetsBuilder(viewController: self))
+    public func setBottomSheet(_ build: (_ build: BottomSheetBuilder) -> BottomSheetBuilder) -> Self {
+        _ = build(BottomSheetBuilder(viewController: self))
         return self
     }
     

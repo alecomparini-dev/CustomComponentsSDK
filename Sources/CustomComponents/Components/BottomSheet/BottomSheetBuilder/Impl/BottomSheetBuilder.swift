@@ -4,7 +4,7 @@
 import UIKit
 
 @available(iOS 15.0, *)
-open class BottomSheetsBuilder: BottomSheets {
+open class BottomSheetBuilder: BottomSheets {
     
     private var sheet: UISheetPresentationController?
     
@@ -14,6 +14,7 @@ open class BottomSheetsBuilder: BottomSheets {
         self.viewController = viewController
         configure()
     }
+    
     
 //  MARK: - SET PROPERTIES
     @discardableResult
@@ -26,6 +27,7 @@ open class BottomSheetsBuilder: BottomSheets {
                 return UISheetPresentationController.Detent.large()
             }
         })
+        
         return self
     }
     
