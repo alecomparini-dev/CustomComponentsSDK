@@ -4,7 +4,7 @@
 import UIKit
 
 @available(iOS 15.0, *)
-open class BottomSheetBuilder: BottomSheet {
+open class BottomSheetBuilder: NSObject, BottomSheet {
     
     private var sheet: UISheetPresentationController?
     
@@ -12,6 +12,7 @@ open class BottomSheetBuilder: BottomSheet {
     
     public init(viewController: UIViewController) {
         self.viewController = viewController
+        super.init()
         configure()
     }
     
@@ -76,9 +77,31 @@ open class BottomSheetBuilder: BottomSheet {
     private func configure() {
         self.sheet = viewController.sheetPresentationController
         setGrabbervisible(true)
+        viewController.transitioningDelegate = self
     }
     
     
+}
+
+class CustomPresentationController: UIPresentationController {
+    var customHeight: CGFloat = 0.7
+
+    override var frameOfPresentedViewInContainerView: CGRect {
+        guard let containerView = containerView else { return CGRect.zero }
+
+        // Defina a altura desejada (por exemplo, 70% da altura da tela)
+        let desiredHeight = containerView.bounds.height * customHeight
+
+        return CGRect(x: 0, y: containerView.bounds.height - desiredHeight, width: containerView.bounds.width, height: desiredHeight)
+    }
+}
+
+
+@available(iOS 15.0, *)
+extension BottomSheetBuilder: UIViewControllerTransitioningDelegate {
     
-    
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        let presentationController = CustomPresentationController(presentedViewController: presented, presenting: presenting)
+        return presentationController
+    }
 }
