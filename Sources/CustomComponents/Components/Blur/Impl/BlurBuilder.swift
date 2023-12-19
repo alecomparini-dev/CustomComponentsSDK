@@ -38,7 +38,7 @@ public class BlurBuilder: Blur {
     
 //  MARK: - APPLY BLUR
     @discardableResult
-    func apply() -> Self {
+    public func apply() -> Self {
         configBlur()
         return self
     }
