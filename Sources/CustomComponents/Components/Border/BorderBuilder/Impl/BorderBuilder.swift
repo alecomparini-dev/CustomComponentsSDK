@@ -13,7 +13,7 @@ open class BorderBuilder: Border {
     }
     
 
-//  MARK: - SET Properties
+//  MARK: - SET PROPERTIES
     @discardableResult
     public func setWidth(_ width: CGFloat) -> Self {
         component.layer.borderWidth = width
