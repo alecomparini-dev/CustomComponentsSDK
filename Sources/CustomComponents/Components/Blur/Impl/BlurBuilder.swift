@@ -40,7 +40,6 @@ public class BlurBuilder: Blur {
     @discardableResult
     public func apply() -> Self {
         configBlur()
-        print("teste")
         return self
     }
     
