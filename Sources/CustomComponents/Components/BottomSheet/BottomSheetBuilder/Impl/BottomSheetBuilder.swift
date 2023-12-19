@@ -77,32 +77,5 @@ open class BottomSheetBuilder: NSObject, BottomSheet {
     private func configure() {
         self.sheet = viewController.sheetPresentationController
         setGrabbervisible(true)
-        viewController.modalPresentationStyle = .custom
-        viewController.transitioningDelegate = self
-    }
-    
-    
-}
-
-class CustomPresentationController: UIPresentationController {
-    var customHeight: CGFloat = 0.7
-
-    override var frameOfPresentedViewInContainerView: CGRect {
-        guard let containerView = containerView else { return CGRect.zero }
-
-        // Defina a altura desejada (por exemplo, 70% da altura da tela)
-        let desiredHeight = containerView.bounds.height * customHeight
-
-        return CGRect(x: 0, y: containerView.bounds.height - desiredHeight, width: containerView.bounds.width, height: desiredHeight)
-    }
-}
-
-
-@available(iOS 15.0, *)
-extension BottomSheetBuilder: UIViewControllerTransitioningDelegate {
-    
-    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let presentationController = CustomPresentationController(presentedViewController: presented, presenting: presenting)
-        return presentationController
     }
 }
