@@ -77,6 +77,7 @@ open class BottomSheetBuilder: NSObject, BottomSheet {
     private func configure() {
         self.sheet = viewController.sheetPresentationController
         setGrabbervisible(true)
+        viewController.modalPresentationStyle = .custom
         viewController.transitioningDelegate = self
     }
     
