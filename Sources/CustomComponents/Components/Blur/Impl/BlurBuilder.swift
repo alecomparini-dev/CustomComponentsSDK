@@ -6,7 +6,7 @@ import UIKit
 public class BlurBuilder: BaseBuilder, Blur {
     
     private var vibrancyView: UIVisualEffectView?
-    private var opacity: CGFloat = 0.98
+    private var opacity: CGFloat = 1
     
     private var blur: ViewBuilder
         
