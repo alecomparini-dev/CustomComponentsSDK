@@ -3,7 +3,7 @@
 
 import UIKit
 
-public class BlurBuilder: Blur {
+public class BlurBuilder: BaseBuilder, Blur {
     
     private var vibrancyView: UIVisualEffectView?
     private var opacity: CGFloat = 0.98
@@ -17,6 +17,7 @@ public class BlurBuilder: Blur {
     public init(_ component: UIView, style: UIBlurEffect.Style) {
         self.component = component
         self.blurEffect = UIBlurEffect(style: style)
+        super.init(component)
         configure()
     }
     
