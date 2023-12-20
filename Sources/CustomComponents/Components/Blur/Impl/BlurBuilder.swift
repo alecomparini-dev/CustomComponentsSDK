@@ -40,30 +40,20 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
     
     
-//  MARK: - APPLY BLUR
-    @discardableResult
-    public func apply() -> Self {
-        configBlur()
-        return self
-    }
-    
 //  MARK: - Private Function Area
     
     private func configure() {
-        configBackgroundColor()
-    }
-        
-    private func configBackgroundColor() {
-        blur.setBackgroundColor(.clear)
-    }
-    
-    private func configBlur() {
         addBlurOnComponent()
         configConstraintsBlurView()
         configAutoresizingMask()
         configAlphaBlur()
+        configBackgroundColor()
     }
-    
+
+    private func configBackgroundColor() {
+        blur.setBackgroundColor(.clear)
+    }
+   
     private func addBlurOnComponent () {
         blurVisualEffectView.addSubview(blur.get)
     }
