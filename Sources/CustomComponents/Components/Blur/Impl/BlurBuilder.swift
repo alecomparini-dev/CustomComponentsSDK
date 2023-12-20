@@ -43,11 +43,11 @@ public class BlurBuilder: BaseBuilder, Blur {
 //  MARK: - Private Function Area
     
     private func configure() {
+        configBackgroundColor()
         addBlurOnComponent()
         configConstraintsBlurView()
         configAutoresizingMask()
         configAlphaBlur()
-        configBackgroundColor()
     }
 
     private func configBackgroundColor() {
@@ -55,7 +55,7 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
    
     private func addBlurOnComponent () {
-        blurVisualEffectView.addSubview(blur.get)
+        blurVisualEffectView.contentView.addSubview(blur.get)
     }
     
     private func configConstraintsBlurView() {
