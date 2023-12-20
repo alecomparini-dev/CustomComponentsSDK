@@ -8,16 +8,19 @@ public class BlurBuilder: BaseBuilder, Blur {
     private var vibrancyView: UIVisualEffectView?
     private var opacity: CGFloat = 0.98
     
+    private var blur: ViewBuilder
+        
+    public var get: ViewBuilder { blur }
+    
     
 //  MARK: - INITIALIZERS
     
-    private weak var component: UIView!
     private var blurEffect: UIBlurEffect
     
-    public init(_ component: UIView, style: UIBlurEffect.Style) {
-        self.component = component
+    public init(style: UIBlurEffect.Style) {
         self.blurEffect = UIBlurEffect(style: style)
-        super.init(component)
+        self.blur = ViewBuilder()
+        super.init(blur.get)
         configure()
     }
     
@@ -51,7 +54,7 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
         
     private func configBackgroundColor() {
-        component?.backgroundColor = .clear
+        blur.setBackgroundColor(.clear)
     }
     
     private func configBlur() {
@@ -62,7 +65,7 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
     
     private func addBlurOnComponent () {
-        component?.addSubview(blurVisualEffectView)
+        blurVisualEffectView.addSubview(blur.get)
     }
     
     private func configConstraintsBlurView() {
