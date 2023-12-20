@@ -55,7 +55,7 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
    
     private func addBlurOnComponent () {
-        blur.add(insideTo: blurVisualEffectView)
+        blur.get.addSubview(blurVisualEffectView)
     }
     
     private func configConstraintsBlurView() {
