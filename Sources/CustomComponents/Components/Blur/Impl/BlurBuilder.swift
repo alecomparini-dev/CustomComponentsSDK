@@ -59,7 +59,7 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
     
     private func configConstraintsBlurView() {
-        self.blurVisualEffectView.makeConstraints({ make in
+        self.blurVisualEffectView.contentView.makeConstraints({ make in
             make
                 .setPin.equalToSuperView
                 .apply()
