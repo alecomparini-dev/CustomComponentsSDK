@@ -55,13 +55,13 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
    
     private func addBlurOnComponent () {
-        blurVisualEffectView.contentView.addSubview(blur.get)
+        blur.add(insideTo: blurVisualEffectView)
     }
     
     private func configConstraintsBlurView() {
-        self.blurVisualEffectView.contentView.makeConstraints({ make in
+        self.blurVisualEffectView.makeConstraints({ make in
             make
-                .setPin.equalToSuperView
+                .setPin.equalTo(blur.get)
                 .apply()
         })
     }
