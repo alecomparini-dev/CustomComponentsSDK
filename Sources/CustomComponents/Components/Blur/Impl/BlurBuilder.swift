@@ -53,11 +53,11 @@ public class BlurBuilder: BaseBuilder, Blur {
     private func configBackgroundColor() {
         blur.setBackgroundColor(.clear)
     }
-   
+
     private func addBlurOnComponent () {
         blur.get.addSubview(blurVisualEffectView)
     }
-    
+
     private func configConstraintsBlurView() {
         self.blurVisualEffectView.makeConstraints({ make in
             make
@@ -65,11 +65,11 @@ public class BlurBuilder: BaseBuilder, Blur {
                 .apply()
         })
     }
-    
+
     private func configAutoresizingMask() {
         blurVisualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
-    
+
     private func configAlphaBlur() {
         blurVisualEffectView.alpha = self.opacity
     }
