@@ -20,18 +20,17 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     
 //  MARK: - INITIALIZERS
     
-    private weak var button: UIView?
+    private weak var component: UIView?
     
-    public init(button: UIView) {
-        self.button = button
-        super.init(button)
+    public init(component: UIView) {
+        self.component = component
+        super.init(component)
     }
     
     
 //  MARK: - GET PROPERTIES
     public var isPressed: Bool { _isPressed }
 
-    
     public var tapped: Void {
         if !enabledInteraction {return}
         createShadowTapped()
@@ -114,8 +113,8 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     }
     
     private func createShadow() -> ShadowBuilder? {
-        guard let button else { return nil}
-        return ShadowBuilder(button)
+        guard let component else { return nil}
+        return ShadowBuilder(component)
             .setColor(colorInteraction)
             .setOffset(width: 0, height: 0)
             .setOpacity(1)
@@ -143,7 +142,7 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     }
     
     private func removeShadow() {
-        button?.removeShadowByID(identifier)
+        component?.removeShadowByID(identifier)
     }
     
     private func removeShadowAnimation() {
