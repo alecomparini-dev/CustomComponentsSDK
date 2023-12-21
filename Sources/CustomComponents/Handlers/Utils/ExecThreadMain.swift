@@ -1,7 +1,3 @@
-//
-//  File.swift
-//  
-//
 //  Created by Alessandro Comparini on 22/11/23.
 //
 
