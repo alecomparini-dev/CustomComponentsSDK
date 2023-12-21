@@ -99,7 +99,7 @@ public extension UIView {
     
 //  MARK: - SHADOWS
     func removeShadowByID(_ id: String) {
-        ExecThreadMain().exec { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             guard let self else {return}
             if let layerToRemove = self.layer.sublayers?.first(where: { $0.name == id }) {
                 layerToRemove.removeFromSuperlayer()
@@ -121,7 +121,7 @@ public extension UIView {
     
 //  MARK: - GRADIENT
     func removeGradientByID(_ id: String) {
-        ExecThreadMain().exec { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             guard let self else {return}
             if let gradientLayer = self.layer.sublayers?.first(where: { $0.name == id }) {
                 gradientLayer.removeFromSuperlayer()
