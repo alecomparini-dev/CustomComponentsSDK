@@ -48,6 +48,19 @@ public class BlurBuilder: BaseBuilder, Blur {
         configConstraintsBlurView()
         configAutoresizingMask()
         configAlphaBlur()
+        configVibrancyEffect()
+    }
+    private func configVibrancyEffect() {
+        // Adicione vibrancy ao efeito de desfoque
+        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
+        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+        
+        blurVisualEffectView.contentView.addSubview(vibrancyEffectView)
+        vibrancyEffectView.makeConstraints({ make in
+                make
+                    .setPin.equalTo(blur.get)
+                    .apply()
+            })
     }
 
     private func configBackgroundColor() {
