@@ -20,9 +20,9 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     
 //  MARK: - INITIALIZERS
     
-    private weak var button: UIButton?
+    private weak var button: UIView?
     
-    public init(button: UIButton) {
+    public init(button: UIView) {
         self.button = button
         super.init(button)
     }
