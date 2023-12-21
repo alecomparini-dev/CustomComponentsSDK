@@ -55,12 +55,13 @@ public class BlurBuilder: BaseBuilder, Blur {
         let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
         let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
         
+        vibrancyEffectView.contentView.addSubview(blur.get)
         blurVisualEffectView.contentView.addSubview(vibrancyEffectView)
         vibrancyEffectView.makeConstraints({ make in
-                make
-                    .setPin.equalTo(blur.get)
-                    .apply()
-            })
+            make
+                .setPin.equalTo(blur.get)
+                .apply()
+        })
     }
 
     private func configBackgroundColor() {
