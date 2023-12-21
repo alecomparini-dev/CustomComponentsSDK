@@ -50,19 +50,6 @@ public class BlurBuilder: BaseBuilder, Blur {
         configAlphaBlur()
         configVibrancyEffect()
     }
-    private func configVibrancyEffect() {
-        // Adicione vibrancy ao efeito de desfoque
-        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
-        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
-        
-        vibrancyEffectView.contentView.addSubview(blur.get)
-        blurVisualEffectView.contentView.addSubview(vibrancyEffectView)
-        vibrancyEffectView.makeConstraints({ make in
-            make
-                .setPin.equalTo(blur.get)
-                .apply()
-        })
-    }
 
     private func configBackgroundColor() {
         blur.setBackgroundColor(.clear)
@@ -74,6 +61,34 @@ public class BlurBuilder: BaseBuilder, Blur {
     
     private func configConstraintsBlurView() {
         self.blurVisualEffectView.makeConstraints({ make in
+            make
+                .setPin.equalTo(blur.get)
+                .apply()
+        })
+    }
+    
+    private func configVibrancyEffect() {
+        // Adicione vibrancy ao efeito de desfoque
+        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
+        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+        
+        let label = UILabel()
+        label.text = "Alguma coisa"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 24)
+        
+        // Adicione a label à sua view
+        blur.get.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: blur.get.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: blur.get.centerYAnchor)
+        ])
+        
+        vibrancyEffectView.contentView.addSubview(label)
+        blurVisualEffectView.contentView.addSubview(vibrancyEffectView)
+        vibrancyEffectView.makeConstraints({ make in
             make
                 .setPin.equalTo(blur.get)
                 .apply()
