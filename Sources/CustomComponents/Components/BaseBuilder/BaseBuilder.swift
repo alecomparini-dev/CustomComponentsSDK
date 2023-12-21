@@ -90,7 +90,7 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
-    func setIsUserInteractionEnabled(_ interactionEnabled: Bool?) -> Self {
+    public func setIsUserInteractionEnabled(_ interactionEnabled: Bool?) -> Self {
         guard let interactionEnabled else {return self}
         baseView.isUserInteractionEnabled = interactionEnabled
         return self
