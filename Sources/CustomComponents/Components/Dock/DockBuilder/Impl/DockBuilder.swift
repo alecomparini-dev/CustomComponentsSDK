@@ -202,7 +202,7 @@ open class DockBuilder: BaseBuilder, Dock {
     
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
         if isDisableUserInteraction(index) {
-            deselect(index)
+//            deselect(index)
             return
         }
         
@@ -345,7 +345,7 @@ extension DockBuilder: UICollectionViewDataSource {
             
             let item = delegate.cellCallback(self, indexPath.row)
             
-//            item.isUserInteractionEnabled = false
+            item.isUserInteractionEnabled = false
 //            cell.isUserInteractionEnabled = false
             cell.setupCell(item)
             
@@ -373,7 +373,7 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         if isDisableUserInteraction(indexPath.row) {
-            return true
+            return false
         }
         return delegate?.shouldSelectItemAt(self, indexPath.row) ?? true
     }
