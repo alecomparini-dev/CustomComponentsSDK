@@ -4,10 +4,10 @@
 
 import Foundation
 
-public class TextFieldImageActionBuilder: BaseActionBuilder {
+public class TextFieldImageActionBuilder: ActionBuilder {
     
     public override init(component: BaseBuilder) {
-        super.init(component: component)
+        super.init(component: component.baseView)
     }
     
 }
