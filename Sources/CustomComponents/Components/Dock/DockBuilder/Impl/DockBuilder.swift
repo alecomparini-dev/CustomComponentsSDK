@@ -229,7 +229,6 @@ open class DockBuilder: BaseBuilder, Dock {
         setIndexSelected(indexPath.row)
         
         delegate?.didSelectItemAt(self, index)
-        
     }
     
     public func deselect(_ index: Int) {
@@ -373,7 +372,9 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if isDisableUserInteraction(indexPath.row) { return false }
+        if isDisableUserInteraction(indexPath.row) {
+            return true
+        }
         return delegate?.shouldSelectItemAt(self, indexPath.row) ?? true
     }
     
