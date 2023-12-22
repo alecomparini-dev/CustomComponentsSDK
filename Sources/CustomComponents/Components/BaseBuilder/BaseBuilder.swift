@@ -163,7 +163,7 @@ open class BaseBuilder: NSObject {
     
 //  MARK: - SET ACTIONS
     @discardableResult
-    func setActions(_ build: (_ build: ActionBuilder) -> ActionBuilder) -> Self {
+    public func setActions(_ build: (_ build: ActionBuilder) -> ActionBuilder) -> Self {
         if var actions {
             actions = build(actions)
             return self
@@ -172,8 +172,8 @@ open class BaseBuilder: NSObject {
         return self
     }
     
-//  MARK: - CONSTRAINTS AREA
     
+//  MARK: - CONSTRAINTS AREA
     @discardableResult
     public func setConstraints(_ builderConstraint: (_ build: StartOfConstraintsFlow) -> StartOfConstraintsFlow) -> Self {
         self.constraintsFlow = builderConstraint(StartOfConstraintsFlow(baseView))

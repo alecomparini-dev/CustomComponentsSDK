@@ -7,21 +7,18 @@ public class ActionBuilder: Action {
     public typealias T = UIView
     
     private weak var component: T?
-    
-    private var tap = [touchBaseActionAlias]()
-    
-    init(component: T) {
+        
+    public init(component: T) {
         self.component = component
     }
     
-    init(component: BaseBuilder) {
+    public init(component: BaseBuilder) {
         self.component = component.baseView
     }
     
     @discardableResult
     public func setTap(_ closure: @escaping touchBaseActionAlias, _ cancelsTouchesInView: Bool = true) -> Self {
-        guard let component else {return self}
-        self.tap.append(closure)
+        guard let component else { return self }
         self.setTapGesture { build in
             build
                 .setCancelsTouchesInView(cancelsTouchesInView)
@@ -32,10 +29,9 @@ public class ActionBuilder: Action {
         return self
     }
 
-    
     @discardableResult
     public func setTapGesture(_ build: (_ build: TapGestureBuilder) -> TapGestureBuilder) -> Self {
-        guard let component else {return self}
+        guard let component else { return self }
         _ = build(TapGestureBuilder(component))
         return self
     }
