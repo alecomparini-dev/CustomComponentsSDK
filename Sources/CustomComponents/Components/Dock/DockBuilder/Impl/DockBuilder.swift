@@ -346,7 +346,7 @@ extension DockBuilder: UICollectionViewDataSource {
             
             let item = delegate.cellCallback(self, indexPath.row)
             
-            item.isUserInteractionEnabled = false
+//            item.isUserInteractionEnabled = false
             
             cell.setupCell(item)
             
