@@ -6,6 +6,7 @@ import UIKit
 open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
+    private(set) var actions: ActionBuilder?
     private var _skeleton: SkeletonBuilder?
     
     private var _id: String = ""
@@ -160,6 +161,16 @@ open class BaseBuilder: NSObject {
     }
     
     
+//  MARK: - SET ACTIONS
+    @discardableResult
+    func setActions(_ build: (_ build: ActionBuilder) -> ActionBuilder) -> Self {
+        if var actions {
+            actions = build(actions)
+            return self
+        }
+        actions = build(ActionBuilder( component: baseView))
+        return self
+    }
     
 //  MARK: - CONSTRAINTS AREA
     

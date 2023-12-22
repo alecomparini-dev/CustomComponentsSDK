@@ -1,16 +1,21 @@
 //  Created by Alessandro Comparini on 12/09/23.
 //
 
-import Foundation
+import UIKit
 
-public class BaseActionBuilder: BaseAction {
+public class ActionBuilder: Action {
+    public typealias T = UIView
     
-    private weak var component: BaseBuilder?
+    private weak var component: T?
     
     private var tap = [touchBaseActionAlias]()
     
-    init(component: BaseBuilder) {
+    init(component: T) {
         self.component = component
+    }
+    
+    init(component: BaseBuilder) {
+        self.component = component.baseView
     }
     
     @discardableResult
@@ -31,7 +36,7 @@ public class BaseActionBuilder: BaseAction {
     @discardableResult
     public func setTapGesture(_ build: (_ build: TapGestureBuilder) -> TapGestureBuilder) -> Self {
         guard let component else {return self}
-        _ = build(TapGestureBuilder(component.baseView))
+        _ = build(TapGestureBuilder(component))
         return self
     }
     
