@@ -6,7 +6,6 @@ import UIKit
 open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
-    private(set) var actions: ActionBuilder?
     private var _skeleton: SkeletonBuilder?
     
     private var _id: String = ""
@@ -21,6 +20,12 @@ open class BaseBuilder: NSObject {
         self._baseView = view
         super.init()
         self.setTranslatesAutoresizingMaskIntoConstraints(false)
+    }
+    
+    deinit {
+        baseView.gestureRecognizers?.forEach({ gesture in
+            baseView.removeGestureRecognizer(gesture)
+        })
     }
     
     
@@ -164,10 +169,6 @@ open class BaseBuilder: NSObject {
 //  MARK: - SET ACTIONS
     @discardableResult
     public func setActions(_ build: (_ build: ActionBuilder) -> ActionBuilder) -> Self {
-//        if let actions = self.actions {
-//            self.actions = build(actions)
-//            return self
-//        }
         _ = build(ActionBuilder( component: baseView))
         return self
     }
