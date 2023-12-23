@@ -62,7 +62,7 @@ open class BorderBuilder: Border {
     }
      
     @discardableResult
-    public func setWhichCornersWillBeRounded(_ cornes: [K.Corner]) -> Self {
+    public func setRoundedCorners(_ cornes: [K.Corner]) -> Self {
         component?.layer.maskedCorners = selectCorners(cornes)
         return self
     }
