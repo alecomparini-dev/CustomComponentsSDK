@@ -24,6 +24,6 @@ public protocol Border {
     func setMasksToBounds(_ flag: Bool) -> Self
     
     @discardableResult
-    func setWhichCornersWillBeRounded(_ cornes: [K.Corner]) -> Self
+    func setRoundedCorners(_ cornes: [K.Corner]) -> Self
     
 }
