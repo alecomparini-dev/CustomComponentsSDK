@@ -24,10 +24,10 @@ public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     public init(_ component: UIView ) {
         self.component = component
         super.init(target: nil, action: nil)
-        self.initialization()
+        configure()
     }
     
-    private func initialization() {
+    private func configure() {
         enableUserInteractionComponent()
         addTargetOnComponent()
     }
