@@ -164,8 +164,8 @@ open class BaseBuilder: NSObject {
 //  MARK: - SET ACTIONS
     @discardableResult
     public func setActions(_ build: (_ build: ActionBuilder) -> ActionBuilder) -> Self {
-        if var actions {
-            actions = build(actions)
+        if let actions = self.actions {
+            self.actions = build(actions)
             return self
         }
         actions = build(ActionBuilder( component: baseView))
