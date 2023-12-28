@@ -19,6 +19,9 @@ public protocol Skeleton {
     @discardableResult
     func setTransition(_ duration: CGFloat) -> Self
     
+    @discardableResult
+    func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self
+    
     func showSkeleton()
     
     func hideSkeleton()
