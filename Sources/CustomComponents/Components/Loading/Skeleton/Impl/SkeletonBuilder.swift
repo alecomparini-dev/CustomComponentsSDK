@@ -9,12 +9,14 @@ open class SkeletonBuilder: Skeleton {
     private var skeletonGradient: GradientBuilder?
     private var skeletonLayerGradient: GradientBuilder?
     
+    private var padding:(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) = (top: 0, left: 0, bottom: 0 , rigth: 0)
     private var transitionDuration: CGFloat?
     private var speed: K.Skeleton.SpeedAnimation?
     private var color: UIColor?
     private var radius: CGFloat?
     private var widthComponent: CGFloat?
     
+//  MARK: - INITIALIZER
     private weak var component: BaseBuilder?
     
     public init(component: BaseBuilder) {
@@ -26,9 +28,10 @@ open class SkeletonBuilder: Skeleton {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-//                    .setPin.equalTo(component?.baseView ?? UIView())
-                    .setTop.setLeading.equalTo(component?.baseView ?? UIView())
-                    .setHeight.setWidth.equalTo(component?.baseView ?? UIView())
+                    .setTop.equalTo(component?.baseView ?? UIView(), .top, padding.top)
+                    .setLeading.equalTo(component?.baseView ?? UIView(), .leading, padding.left)
+                    .setTrailing.equalTo(component?.baseView ?? UIView(), .trailing, -padding.rigth)
+                    .setBottom.equalTo(component?.baseView ?? UIView(), .bottom, -padding.bottom)
             }
         return comp
     }()
@@ -70,6 +73,12 @@ open class SkeletonBuilder: Skeleton {
     public func setColorSkeleton(hexColor: String?) -> Self {
         guard let hexColor, hexColor.isHexColor() else {return self}
         setColorSkeleton(UIColor.HEX(hexColor))
+        return self
+    }
+    
+    @discardableResult
+    public func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self {
+        padding = (top: top, left: left, bottom: bottom , rigth: rigth)
         return self
     }
     
