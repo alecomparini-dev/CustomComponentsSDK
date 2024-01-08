@@ -4,6 +4,8 @@
 import UIKit
 
 open class MutableAttributedStringBuilder: MutableAttributedString {
+    public typealias T = UIImage
+    
     public var get: NSAttributedString { attrText }
     
     private var attributes: [NSAttributedString.Key : Any] = [:]
@@ -23,14 +25,14 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     }
     
     @discardableResult
-    public func setImage(systemName: String) -> Self {
+    public func setImage(image: UIImage) -> Self {
         let attachment = NSTextAttachment()
-        attachment.image = UIImage(systemName: systemName)
+        attachment.image = image
         let attributedString = NSAttributedString(attachment: attachment)
         attrText.append(attributedString)
         return self
     }
-    
+       
     @discardableResult
     public func setAttributed(key: NSAttributedString.Key, value: Any ) -> Self {
         attributes.updateValue(value, forKey: key)

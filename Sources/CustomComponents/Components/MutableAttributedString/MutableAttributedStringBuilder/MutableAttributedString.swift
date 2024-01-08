@@ -4,12 +4,15 @@
 import Foundation
 
 public protocol MutableAttributedString {
+    associatedtype T
     
     var get: NSAttributedString { get }
     
     @discardableResult
     func setText(text: String) -> Self
     
+    @discardableResult
+    func setImage(image: T) -> Self
     
     @discardableResult
     func setAttributed(key: NSAttributedString.Key, value: Any ) -> Self
