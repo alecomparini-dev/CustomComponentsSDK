@@ -12,7 +12,7 @@ public protocol MutableAttributedString {
     func setText(text: String) -> Self
     
     @discardableResult
-    func setImage(image: T) -> Self
+    func setImage(image: T, hexColor: String) -> Self
     
     @discardableResult
     func setAttributed(key: NSAttributedString.Key, value: Any ) -> Self

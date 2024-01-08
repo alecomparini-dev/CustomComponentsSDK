@@ -25,14 +25,15 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     }
     
     @discardableResult
-    public func setImage(image: UIImage) -> Self {
+    public func setImage(image: UIImage, hexColor: String = "#ffffff") -> Self {
         let attachment = NSTextAttachment()
-        attachment.image = image
+        attachment.image = image.withRenderingMode(.alwaysTemplate)
+        attachment.image = attachment.image?.withTintColor(UIColor.HEX(hexColor))
         let attributedString = NSAttributedString(attachment: attachment)
         attrText.append(attributedString)
         return self
     }
-       
+    
     @discardableResult
     public func setAttributed(key: NSAttributedString.Key, value: Any ) -> Self {
         attributes.updateValue(value, forKey: key)
