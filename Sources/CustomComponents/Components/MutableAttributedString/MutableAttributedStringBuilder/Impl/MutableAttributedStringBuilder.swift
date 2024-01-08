@@ -1,7 +1,7 @@
 //  Created by Alessandro Comparini on 03/12/23.
 //
 
-import Foundation
+import UIKit
 
 open class MutableAttributedStringBuilder: MutableAttributedString {
     public var get: NSAttributedString { attrText }
@@ -19,6 +19,15 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     public func setText(text: String) -> Self {
         self.text = text
         attrText.append(NSAttributedString(string: text))
+        return self
+    }
+    
+    @discardableResult
+    public func setImage(systemName: String) -> Self {
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(systemName: systemName)
+        let attributedString = NSAttributedString(attachment: attachment)
+        attrText.append(attributedString)
         return self
     }
     
