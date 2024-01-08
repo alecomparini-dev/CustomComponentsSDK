@@ -13,10 +13,10 @@ public protocol MutableAttributedString {
     func setText(text: String) -> Self
     
     @discardableResult
-    func setImage(image: T, color: C) -> Self
+    func setImage(image img: T, color: C) -> Self
     
     @discardableResult
-    func setImage(systemName: String, color: C) -> Self 
+    func setImage(systemName img: String, color: C) -> Self
     
     @discardableResult
     func setAttributed(key: NSAttributedString.Key, value: Any ) -> Self
