@@ -35,6 +35,15 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     }
     
     @discardableResult
+    public func setImage(systemName: String, hexColor: String = "#ffffff") -> Self {
+        if let img = UIImage(systemName: systemName) {
+            setImage(image: img, hexColor: hexColor)
+        }
+        return self
+    }
+    
+    
+    @discardableResult
     public func setAttributed(key: NSAttributedString.Key, value: Any ) -> Self {
         attributes.updateValue(value, forKey: key)
         attrText.addAttributes(attributes, range: NSRange(location: attrText.string.count-text.count, length: text.count))
