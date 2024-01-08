@@ -4,6 +4,9 @@
 import UIKit
 
 open class MutableAttributedStringBuilder: MutableAttributedString {
+    public typealias T = UIImage
+    public typealias C = UIColor
+
     public var get: NSAttributedString { attrText }
     
     private var attributes: [NSAttributedString.Key : Any] = [:]
@@ -23,9 +26,9 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     }
     
     @discardableResult
-    public func setImage(image: UIImage, color: UIColor = .white) -> Self {
+    public func setImage(image img: UIImage, color: UIColor = .white) -> Self {
         let attachment = NSTextAttachment()
-        attachment.image = image.withRenderingMode(.alwaysTemplate)
+        attachment.image = img.withRenderingMode(.alwaysTemplate)
         attachment.image = attachment.image?.withTintColor(color)
         let attributedString = NSAttributedString(attachment: attachment)
         attrText.append(attributedString)
@@ -33,8 +36,8 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     }
     
     @discardableResult
-    public func setImage(systemName: String, color: UIColor = .white) -> Self {
-        if let img = UIImage(systemName: systemName) {
+    public func setImage(systemName img: String, color: UIColor = .white) -> Self {
+        if let img = UIImage(systemName: img) {
             setImage(image: img, color: color)
         }
         return self
