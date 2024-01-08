@@ -5,6 +5,7 @@ import Foundation
 
 public protocol MutableAttributedString {
     associatedtype T
+    associatedtype C
     
     var get: NSAttributedString { get }
     
@@ -12,7 +13,10 @@ public protocol MutableAttributedString {
     func setText(text: String) -> Self
     
     @discardableResult
-    func setImage(image: T, hexColor: String) -> Self
+    func setImage(image: T, color: C) -> Self
+    
+    @discardableResult
+    func setImage(systemName: String, color: C) -> Self 
     
     @discardableResult
     func setAttributed(key: NSAttributedString.Key, value: Any ) -> Self
