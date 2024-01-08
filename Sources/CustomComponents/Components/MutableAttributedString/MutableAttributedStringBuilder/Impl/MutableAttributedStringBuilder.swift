@@ -4,9 +4,6 @@
 import UIKit
 
 open class MutableAttributedStringBuilder: MutableAttributedString {
-    public typealias T = UIImage
-    public typealias C = UIColor
-    
     public var get: NSAttributedString { attrText }
     
     private var attributes: [NSAttributedString.Key : Any] = [:]
