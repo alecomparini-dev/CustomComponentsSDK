@@ -26,7 +26,6 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
     
     
-    
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setOpacity(_ opacity: CGFloat) -> Self {
@@ -39,21 +38,12 @@ public class BlurBuilder: BaseBuilder, Blur {
     
     private func configure() {
         configBackgroundColor()
-        configConstraintsBlurView()
         configAutoresizingMask()
         configAlphaBlur()
     }
 
     private func configBackgroundColor() {
         blur.setBackgroundColor(.clear)
-    }
-
-    private func configConstraintsBlurView() {
-        self.blur.makeConstraints({ make in
-            make
-                .setPin.equalTo(blur)
-                .apply()
-        })
     }
 
     private func configAutoresizingMask() {
