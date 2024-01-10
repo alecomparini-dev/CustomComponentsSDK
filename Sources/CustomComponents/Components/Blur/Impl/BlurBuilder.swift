@@ -38,7 +38,7 @@ public class BlurBuilder: BaseBuilder, Blur {
     
     private func configure() {
         configBackgroundColor()
-        configAutoresizingMask()
+//        configAutoresizingMask()
         configAlphaBlur()
     }
 
@@ -46,9 +46,9 @@ public class BlurBuilder: BaseBuilder, Blur {
         blur.setBackgroundColor(.clear)
     }
 
-    private func configAutoresizingMask() {
-        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    }
+//    private func configAutoresizingMask() {
+//        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//    }
 
     private func configAlphaBlur() {
         blur.alpha = self.opacity
