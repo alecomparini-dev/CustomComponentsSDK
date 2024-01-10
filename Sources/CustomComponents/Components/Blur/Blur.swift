@@ -4,7 +4,9 @@
 import Foundation
 
 public protocol Blur {
-    var get: ViewBuilder  { get }
+    associatedtype T
+    
+    var get: T  { get }
     
     @discardableResult
     func setOpacity(_ opacity: CGFloat) -> Self 
