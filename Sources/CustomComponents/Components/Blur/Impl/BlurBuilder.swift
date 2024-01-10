@@ -4,13 +4,14 @@
 import UIKit
 
 public class BlurBuilder: BaseBuilder, Blur {
+    public typealias T = UIVisualEffectView
     
     private var vibrancyView: UIVisualEffectView?
     private var opacity: CGFloat = 1
     
-    private var blur: ViewBuilder
+    private var blur: UIVisualEffectView
         
-    public var get: ViewBuilder { blur }
+    public var get: UIVisualEffectView { blur }
     
     
 //  MARK: - INITIALIZERS
@@ -19,17 +20,11 @@ public class BlurBuilder: BaseBuilder, Blur {
     
     public init(style: UIBlurEffect.Style) {
         self.blurEffect = UIBlurEffect(style: style)
-        self.blur = ViewBuilder()
-        super.init(blur.get)
+        self.blur = UIVisualEffectView(effect: self.blurEffect)
+        super.init(blur)
         configure()
     }
     
-    
-//  MARK: - LAZY AREA
-    lazy var blurVisualEffectView: UIVisualEffectView = {
-        let comp = UIVisualEffectView(effect: self.blurEffect)
-        return comp
-    }()
     
     
 //  MARK: - SET PROPERTIES
@@ -44,7 +39,6 @@ public class BlurBuilder: BaseBuilder, Blur {
     
     private func configure() {
         configBackgroundColor()
-        addBlurOnComponent()
         configConstraintsBlurView()
         configAutoresizingMask()
         configAlphaBlur()
@@ -54,24 +48,20 @@ public class BlurBuilder: BaseBuilder, Blur {
         blur.setBackgroundColor(.clear)
     }
 
-    private func addBlurOnComponent () {
-        blur.get.addSubview(blurVisualEffectView)
-    }
-
     private func configConstraintsBlurView() {
-        self.blurVisualEffectView.makeConstraints({ make in
+        self.blur.makeConstraints({ make in
             make
-                .setPin.equalTo(blur.get)
+                .setPin.equalTo(blur)
                 .apply()
         })
     }
 
     private func configAutoresizingMask() {
-        blurVisualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
     private func configAlphaBlur() {
-        blurVisualEffectView.alpha = self.opacity
+        blur.alpha = self.opacity
     }
     
 }
