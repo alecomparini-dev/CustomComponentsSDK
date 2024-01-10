@@ -38,17 +38,22 @@ public class BlurBuilder: BaseBuilder, Blur {
     
     private func configure() {
         configBackgroundColor()
-//        configAutoresizingMask()
+        configAutoresizingMask()
         configAlphaBlur()
+        removeInteraction()
     }
 
     private func configBackgroundColor() {
         blur.setBackgroundColor(.clear)
     }
+    
+    private func removeInteraction() {
+        blur.isUserInteractionEnabled = false
+    }
 
-//    private func configAutoresizingMask() {
-//        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//    }
+    private func configAutoresizingMask() {
+        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
 
     private func configAlphaBlur() {
         blur.alpha = self.opacity
