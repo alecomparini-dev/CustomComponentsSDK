@@ -1,7 +1,6 @@
 # CustomComponentsSDK
 - Responsável por todos os componentes de UI dos meus Projetos
 
-<br>
 
 #### Alguns componentes já utilizados em meus Projetos:
 - BaseBuilder
