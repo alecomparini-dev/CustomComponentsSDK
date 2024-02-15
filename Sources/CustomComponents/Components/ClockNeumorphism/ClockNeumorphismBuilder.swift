@@ -4,7 +4,7 @@
 import UIKit
 
 
-public class ClockNeumorphism: ViewBuilder {
+public class ClockNeumorphismBuilder: ViewBuilder {
     
     enum Weight {
         case ultraLight
@@ -109,13 +109,13 @@ public class ClockNeumorphism: ViewBuilder {
     
 //  MARK: - SET Properties
     @discardableResult
-    func setWeight(_ weight: CGFloat) -> Self {
+    public func setWeight(_ weight: CGFloat) -> Self {
         self.weight = weight
         return self
     }
     
     @discardableResult
-    func setEnabledDay(_ enabled: Bool) -> Self {
+    public func setEnabledDay(_ enabled: Bool) -> Self {
         self.enabledDay = enabled
         return self
     }
