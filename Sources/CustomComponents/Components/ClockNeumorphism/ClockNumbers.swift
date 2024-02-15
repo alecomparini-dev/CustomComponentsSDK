@@ -107,7 +107,7 @@ class ClockNumbers: ViewBuilder {
     
     private func configNeumorphism(_ component: UIView, _ lightPosition: K.Neumorphism.LightPosition = .leftTop) {
         NeumorphismBuilder(component)
-            .setReferenceColor(Theme.shared.currentTheme.surfaceContainerHigh)
+            .setReferenceColor(UIColor.HEX("#00e0c7"))
             .setShape(.concave)
             .setLightPosition(lightPosition)
             .setIntensity(to:.light,percent: 50)
