@@ -1,14 +1,10 @@
-//
-//  ClockNeumorphism.swift
-//  Smaapper
-//
 //  Created by Alessandro Comparini on 19/05/23.
 //
 
 import UIKit
 
 
-class ClockNeumorphism: ViewBuilder {
+public class ClockNeumorphism: ViewBuilder {
     
     enum Weight {
         case ultraLight
@@ -30,7 +26,7 @@ class ClockNeumorphism: ViewBuilder {
     private var minute1: Int = 0
     private var minute2: Int = 0
     
-    override init() {
+    override public init() {
         super.init()
         self.initialization()
     }
