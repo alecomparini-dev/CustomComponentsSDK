@@ -215,7 +215,7 @@ public class ClockNeumorphismBuilder: ViewBuilder {
             }
             .setNeumorphism { build in
                 build
-                    .setReferenceColor(Theme.shared.currentTheme.primary)
+                    .setReferenceColor(UIColor.HEX("#ff6f26"))
                     .setShape(.flat)
                     .setLightPosition(.leftTop)
                     .setShadowColor(to: .dark, color: .black)
