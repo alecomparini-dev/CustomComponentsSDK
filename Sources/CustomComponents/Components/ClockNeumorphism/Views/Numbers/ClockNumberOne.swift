@@ -14,7 +14,7 @@ class ClockNumberOne: ClockNumber  {
         let comp = Stroke(strokeModel: strokeModel)
             .setConstraints { build in
                 build
-                    .setLeading.equalToSuperView
+                    .setPin.equalToSuperView
             }
         return comp
     }()
