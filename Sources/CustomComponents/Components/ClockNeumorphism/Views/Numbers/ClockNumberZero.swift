@@ -40,6 +40,7 @@ class ClockNumberZero: ClockNumber  {
     private func addElement() {
         leftTopStroke.add(insideTo: clockNumberContainer.leftColumn.topView.get)
         leftBottomStroke.add(insideTo: clockNumberContainer.leftColumn.bottomView.get)
+        
         rightTopStroke.add(insideTo: clockNumberContainer.rightColumn.topView.get)
         rightBottomStroke.add(insideTo: clockNumberContainer.rightColumn.bottomView.get)
     }
