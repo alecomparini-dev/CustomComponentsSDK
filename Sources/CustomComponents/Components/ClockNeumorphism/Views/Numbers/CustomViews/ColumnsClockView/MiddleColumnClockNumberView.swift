@@ -14,18 +14,49 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
     
 //  MARK: - LAZY AREA
 
+    lazy private var top: ViewBuilder = {
+        return ViewBuilder()
+    }()
+
+    lazy private var middle: ViewBuilder = {
+        return ViewBuilder()
+    }()
+
+    lazy private var bottom: ViewBuilder = {
+        return ViewBuilder()
+    }()
+
+    
     lazy var topView: ViewBuilder = {
         return ViewBuilder()
+            .setConstraints { build in
+                build
+                    .setPinTop.equalToSuperView
+                    .setHeight.equalToConstant(4)
+            }
     }()
 
     lazy var middleView: ViewBuilder = {
         return ViewBuilder()
+            .setConstraints { build in
+                build
+                    .setLeading.setTrailing.equalToSuperView
+                    .setVerticalAlignmentY.equalToSuperView
+                    .setHeight.equalToConstant(3)
+            }
     }()
 
     lazy var bottomView: ViewBuilder = {
         return ViewBuilder()
+            .setConstraints { build in
+                build
+                    .setPinBottom.equalToSuperView
+                    .setHeight.equalToConstant(4)
+            }
     }()
 
+    
+    
 
 //  MARK: - PRIVATE AREA
     private func configure() {
