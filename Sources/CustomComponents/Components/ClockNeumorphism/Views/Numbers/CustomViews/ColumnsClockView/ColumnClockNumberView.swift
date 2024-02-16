@@ -14,10 +14,9 @@ class ColumnClockNumberView: ViewBuilder {
 //  MARK: - LAZY AREA
     lazy var stackView: StackViewBuilder = {
         let st = StackViewBuilder()
-            .setAxis(.horizontal)
+            .setAxis(.vertical)
             .setAlignment(.fill)
             .setDistribution(.fillEqually)
-            .setSpacing(4)
             .setConstraints { build in
                 build
                     .setPin.equalToSuperView

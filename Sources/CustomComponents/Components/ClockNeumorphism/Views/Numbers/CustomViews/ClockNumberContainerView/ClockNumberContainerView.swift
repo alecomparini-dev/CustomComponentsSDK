@@ -14,7 +14,7 @@ class ClockNumberContainer: ViewBuilder {
 //  MARK: - LAZY AREA
     lazy var stackContainer: StackViewBuilder = {
         let st = StackViewBuilder()
-            .setAxis(.vertical)
+            .setAxis(.horizontal)
             .setAlignment(.fill)
             .setDistribution(.fillEqually)
             .setConstraints({ build in
