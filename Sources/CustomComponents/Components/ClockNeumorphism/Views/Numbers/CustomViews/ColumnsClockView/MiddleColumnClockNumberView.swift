@@ -6,7 +6,7 @@ import Foundation
 
 class MiddleColumnClockNumberView: ColumnClockNumberView {
     
-    private let constant:CGFloat = 3
+    private let constant:CGFloat = 4
     
     override init() {
         super.init()
