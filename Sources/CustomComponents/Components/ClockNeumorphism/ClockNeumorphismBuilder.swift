@@ -145,7 +145,7 @@ public class ClockNeumorphismBuilder: ViewBuilder {
         removeSubviews()
         let hourView1 = ClockNumbers(number: getHour(firstPosition: true), weight: weight)
         let hourView2 = ClockNumbers(number: getHour(firstPosition: false), weight: weight)
-        let minuteView1 = ClockNumbers(number: getMinute(firstPosition: true), weight: weight)
+        let minuteView1 = ClockNumberZero()
         let minuteView2 = ClockNumberOne()
         hourView1.add(insideTo: stackHours.get)
         hourView2.add(insideTo: stackHours.get)
