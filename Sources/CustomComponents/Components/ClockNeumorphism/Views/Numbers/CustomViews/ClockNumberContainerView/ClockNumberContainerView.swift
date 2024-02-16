@@ -17,7 +17,7 @@ class ClockNumberContainer: ViewBuilder {
             .setAxis(.horizontal)
             .setAlignment(.fill)
             .setDistribution(.fillEqually)
-            .setSpacing(2)
+            .setSpacing(4)
             .setConstraints({ build in
                 build
                     .setPin.equalToSuperView
