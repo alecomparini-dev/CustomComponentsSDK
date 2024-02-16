@@ -33,7 +33,7 @@ class Stroke: ViewBuilder {
         self.neumorphism
             .setIntensity(to:.light,percent: 50)
             .setIntensity(to:.dark,percent: 100)
-            .setBlur(to:.light, percent: 1)
+            .setBlur(to:.light, percent: 0)
             .setBlur(to:.dark, percent: 5)
             .setDistance(to:.light, percent: (strokeModel.shadowDistance * 0.3))
             .setDistance(to:.dark, percent: strokeModel.shadowDistance)
