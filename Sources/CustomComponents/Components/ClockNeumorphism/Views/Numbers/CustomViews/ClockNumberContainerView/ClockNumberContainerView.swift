@@ -55,6 +55,9 @@ class ClockNumberContainer: ViewBuilder {
     
     private func configConstraints() {
         stackContainer.applyConstraint()
+        
+        middleColumn.middleView.setBackgroundColor(.red)
+        leftColumn.topView.setBackgroundColor(.yellow)
     }
     
 }
