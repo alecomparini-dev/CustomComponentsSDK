@@ -32,7 +32,7 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
         return ViewBuilder()
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView
+                    .setTop.equalToSuperView(-2)
                     .setLeading.equalToSuperView(-constant)
                     .setTrailing.equalToSuperView(constant)
                     .setHeight.equalToConstant(4)
@@ -54,7 +54,7 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
         return ViewBuilder()
             .setConstraints { build in
                 build
-                    .setBottom.equalToSuperView
+                    .setBottom.equalToSuperView(-2)
                     .setLeading.equalToSuperView(-constant)
                     .setTrailing.equalToSuperView(constant)
                     .setHeight.equalToConstant(4)
