@@ -85,11 +85,11 @@ class ClockNumbers: ViewBuilder {
     
     lazy var middleBottomView: ViewBuilder = { return createView(false) }()
     
-    lazy var topMiddleStroke: ViewBuilder = { return (hasTopMiddleStroke.contains(number)) ? createView(true) : ViewBuilder() }()
+    lazy var topMiddleStroke: ViewBuilder? = { return (hasTopMiddleStroke.contains(number)) ? createView(true) : nil }()
     
-    lazy var middleStroke: ViewBuilder = { return (hasMiddleStroke.contains(number)) ? createView(true) : ViewBuilder() }()
+    lazy var middleStroke: ViewBuilder? = { return (hasMiddleStroke.contains(number)) ? createView(true) : nil }()
     
-    lazy var bottomMiddleStroke: ViewBuilder = { return (hasBottomMiddleStroke.contains(number)) ? createView(true) : ViewBuilder() }()
+    lazy var bottomMiddleStroke: ViewBuilder? = { return (hasBottomMiddleStroke.contains(number)) ? createView(true) : nil }()
     
 
 //  MARK: - RIGHT STROKE
@@ -136,9 +136,9 @@ class ClockNumbers: ViewBuilder {
         topMiddleStrokeView.add(insideTo: stackMiddle.get)
         middleStrokeView.add(insideTo: stackMiddle.get)
         middleBottomView.add(insideTo: stackMiddle.get)
-        topMiddleStroke.add(insideTo: topMiddleStrokeView.get)
-        middleStroke.add(insideTo: middleStrokeView.get)
-        bottomMiddleStroke.add(insideTo: middleBottomView.get)
+        topMiddleStroke?.add(insideTo: topMiddleStrokeView.get)
+        middleStroke?.add(insideTo: middleStrokeView.get)
+        bottomMiddleStroke?.add(insideTo: middleBottomView.get)
     }
     
     private func addStackRight(){
@@ -166,7 +166,6 @@ class ClockNumbers: ViewBuilder {
         })
     }
     
-    
     private func configStackMiddleConstraints() {
         stackMiddle.setConstraints({ build in
             build
@@ -188,7 +187,7 @@ class ClockNumbers: ViewBuilder {
     }
     
     private func configTopMiddleStrokeConstraints() {
-        topMiddleStroke.setConstraints { build in
+        topMiddleStroke?.setConstraints { build in
             build
                 .setTop.equalToSuperView
                 .setLeading.equalToSuperView
@@ -199,7 +198,7 @@ class ClockNumbers: ViewBuilder {
     }
     
     private func configMiddleStrokeConstraints() {
-        middleStroke.setConstraints({ build in
+        middleStroke?.setConstraints({ build in
             build
                 .setVerticalAlignmentY.equalToSafeArea
                 .setLeading.equalToSuperView
@@ -210,7 +209,7 @@ class ClockNumbers: ViewBuilder {
     }
     
     private func configBottomMiddleStrokeConstraints() {
-        bottomMiddleStroke.setConstraints({ build in
+        bottomMiddleStroke?.setConstraints({ build in
             build
                 .setBottom.equalToSuperView
                 .setTrailing.equalToSuperView(calculateTrailing())
