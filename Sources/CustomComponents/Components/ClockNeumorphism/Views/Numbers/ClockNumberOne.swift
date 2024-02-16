@@ -11,20 +11,12 @@ class ClockNumberOne: ClockNumber  {
     }
     
     lazy var rightTopStroke: Stroke = {
-        let comp = Stroke(strokeModel: strokeModel)
-            .setConstraints { build in
-                build
-                    .setPin.equalToSuperView
-            }
+        let comp = createStroke()
         return comp
     }()
 
     lazy var rightBottomStroke: Stroke = {
-        let comp = Stroke(strokeModel: strokeModel)
-            .setConstraints { build in
-                build
-                    .setPin.equalToSuperView
-            }
+        let comp = createStroke()
         return comp
     }()
 
@@ -43,6 +35,14 @@ class ClockNumberOne: ClockNumber  {
     private func configConstraints() {
         rightTopStroke.applyConstraint()
         rightBottomStroke.applyConstraint()
+    }
+    
+    private func createStroke() -> Stroke {
+        return Stroke(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setPin.equalToSuperView
+            }
     }
     
     
