@@ -33,6 +33,8 @@ class ClockNumberOne: ClockNumber  {
     }
     
     private func configConstraints() {
+        rightTopStroke.applyConstraint()
+        rightBottomStroke.applyConstraint()
     }
     
     private func createStroke() -> Stroke {
