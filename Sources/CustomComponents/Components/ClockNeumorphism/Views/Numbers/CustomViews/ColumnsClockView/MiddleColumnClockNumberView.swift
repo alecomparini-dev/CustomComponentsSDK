@@ -6,6 +6,8 @@ import Foundation
 
 class MiddleColumnClockNumberView: ColumnClockNumberView {
     
+    private let constant:CGFloat = 3
+    
     override init() {
         super.init()
         configure()
@@ -14,15 +16,15 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
     
 //  MARK: - LAZY AREA
 
-    lazy private var top: ViewBuilder = {
+    private lazy var top: ViewBuilder = {
         return ViewBuilder()
     }()
 
-    lazy private var middle: ViewBuilder = {
+    private lazy var middle: ViewBuilder = {
         return ViewBuilder()
     }()
 
-    lazy private var bottom: ViewBuilder = {
+    private lazy var bottom: ViewBuilder = {
         return ViewBuilder()
     }()
 
@@ -31,8 +33,8 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
             .setConstraints { build in
                 build
                     .setTop.equalToSuperView
-                    .setLeading.equalToSuperView(-4)
-                    .setTrailing.equalToSuperView(4)
+                    .setLeading.equalToSuperView(-constant)
+                    .setTrailing.equalToSuperView(constant)
                     .setHeight.equalToConstant(4)
             }
     }()
@@ -41,8 +43,8 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
         return ViewBuilder()
             .setConstraints { build in
                 build
-                    .setLeading.equalToSuperView(-4)
-                    .setTrailing.equalToSuperView(4)
+                    .setLeading.equalToSuperView(-constant)
+                    .setTrailing.equalToSuperView(constant)
                     .setVerticalAlignmentY.equalToSuperView
                     .setHeight.equalToConstant(3)
             }
@@ -53,13 +55,12 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
             .setConstraints { build in
                 build
                     .setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-4)
-                    .setTrailing.equalToSuperView(4)
+                    .setLeading.equalToSuperView(-constant)
+                    .setTrailing.equalToSuperView(constant)
                     .setHeight.equalToConstant(4)
             }
     }()
 
-    
     
 
 //  MARK: - PRIVATE AREA
@@ -72,7 +73,6 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
         top.add(insideTo: stackView.get)
         middle.add(insideTo: stackView.get)
         bottom.add(insideTo: stackView.get)
-        
         topView.add(insideTo: top.get)
         middleView.add(insideTo: middle.get)
         bottomView.add(insideTo: bottom.get)
