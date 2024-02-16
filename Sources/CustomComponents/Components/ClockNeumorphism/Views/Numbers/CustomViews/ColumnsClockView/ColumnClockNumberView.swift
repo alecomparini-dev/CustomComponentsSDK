@@ -18,6 +18,10 @@ class ColumnClockNumberView: ViewBuilder {
             .setAlignment(.fill)
             .setDistribution(.fillEqually)
             .setSpacing(4)
+            .setConstraints { build in
+                build
+                    .setPin.equalToSuperView
+            }
         return st
     }()
     
@@ -25,12 +29,15 @@ class ColumnClockNumberView: ViewBuilder {
 //  MARK: - PRIVATE AREA
     private func configure() {
         addElement()
+        configConstraints()
     }
     
     private func addElement() {
         stackView.add(insideTo: self.get)
     }
 
+    private func configConstraints() {
+        stackView.applyConstraint()
+    }
+
 }
-
-
