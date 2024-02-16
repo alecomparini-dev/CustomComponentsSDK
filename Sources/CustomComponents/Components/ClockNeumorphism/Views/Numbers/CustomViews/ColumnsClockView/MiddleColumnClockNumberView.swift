@@ -26,7 +26,6 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
         return ViewBuilder()
     }()
 
-    
     lazy var topView: ViewBuilder = {
         return ViewBuilder()
             .setConstraints { build in
@@ -61,12 +60,23 @@ class MiddleColumnClockNumberView: ColumnClockNumberView {
 //  MARK: - PRIVATE AREA
     private func configure() {
         addElement()
+        configConstraints()
     }
     
     private func addElement() {
-        topView.add(insideTo: stackView.get)
-        middleView.add(insideTo: stackView.get)
-        bottomView.add(insideTo: stackView.get)
+        top.add(insideTo: stackView.get)
+        middle.add(insideTo: stackView.get)
+        bottom.add(insideTo: stackView.get)
+        
+        topView.add(insideTo: top.get)
+        middleView.add(insideTo: middle.get)
+        bottomView.add(insideTo: bottom.get)
+    }
+    
+    private func configConstraints() {
+        topView.applyConstraint()
+        middleView.applyConstraint()
+        bottomView.applyConstraint()
     }
     
 
