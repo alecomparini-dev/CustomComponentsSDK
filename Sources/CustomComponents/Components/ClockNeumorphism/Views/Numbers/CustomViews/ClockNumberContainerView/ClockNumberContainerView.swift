@@ -17,6 +17,7 @@ class ClockNumberContainer: ViewBuilder {
             .setAxis(.horizontal)
             .setAlignment(.fill)
             .setDistribution(.fillEqually)
+            .setSpacing(2)
             .setConstraints({ build in
                 build
                     .setPin.equalToSuperView
@@ -55,11 +56,6 @@ class ClockNumberContainer: ViewBuilder {
     
     private func configConstraints() {
         stackContainer.applyConstraint()
-
-        rightColumn.setBackgroundColor(.blue)
-        rightColumn.topView.setBackgroundColor(.yellow)
-        rightColumn.bottomView.setBackgroundColor(.red)
-        
     }
     
 }
