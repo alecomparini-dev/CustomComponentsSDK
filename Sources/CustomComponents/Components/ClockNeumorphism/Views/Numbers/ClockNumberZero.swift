@@ -26,6 +26,11 @@ class ClockNumberZero: ClockNumber  {
     //  MARK: - MIDDLE
     lazy var middleTopStroke: Stroke = {
         let comp = createStroke()
+            .setConstraints { build in
+                build
+                    .setPin.equalToSuperView
+            }
+
         return comp
     }()
 
@@ -33,7 +38,7 @@ class ClockNumberZero: ClockNumber  {
         let comp = createStroke()
             .setConstraints { build in
                 build
-                
+                    .setPin.equalToSuperView
             }
         return comp
     }()
@@ -69,14 +74,8 @@ class ClockNumberZero: ClockNumber  {
     }
     
     private func configConstraints() {
-        leftTopStroke.applyConstraint()
-        leftBottomStroke.applyConstraint()
-        
-        middleTopStroke.add(insideTo: clockNumberContainer.middleColumn.topView.get)
-        middleBottomStroke.add(insideTo: clockNumberContainer.middleColumn.bottomView.get)
-        
-        rightTopStroke.applyConstraint()
-        rightBottomStroke.applyConstraint()
+        middleTopStroke.applyConstraint()
+        middleBottomStroke.applyConstraint()
     }
     
     private func createStroke() -> Stroke {
