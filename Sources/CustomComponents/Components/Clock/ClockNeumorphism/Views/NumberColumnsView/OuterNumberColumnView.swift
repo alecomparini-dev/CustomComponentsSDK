@@ -4,7 +4,7 @@
 import Foundation
 
 
-class OuterColumnClockNumberView: ColumnClockNumberView {
+class OuterNumberColumnView: NumberColumnsView {
     
     override init() {
         super.init()

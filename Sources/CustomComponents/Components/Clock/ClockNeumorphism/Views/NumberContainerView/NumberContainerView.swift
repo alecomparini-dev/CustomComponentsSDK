@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumberContainer: ViewBuilder {
+class NumberContainerView: ViewBuilder {
     
     override init() {
         super.init()
@@ -25,18 +25,18 @@ class ClockNumberContainer: ViewBuilder {
         return st
     }()
     
-    lazy var leftColumn: OuterColumnClockNumberView = {
-        let comp = OuterColumnClockNumberView()
+    lazy var leftColumn: OuterNumberColumnView = {
+        let comp = OuterNumberColumnView()
         return comp
     }()
     
-    lazy var middleColumn: MiddleColumnClockNumberView = {
-        let comp = MiddleColumnClockNumberView()
+    lazy var middleColumn: MiddleNumberColumnView = {
+        let comp = MiddleNumberColumnView()
         return comp
     }()
     
-    lazy var rightColumn: OuterColumnClockNumberView = {
-        let comp = OuterColumnClockNumberView()
+    lazy var rightColumn: OuterNumberColumnView = {
+        let comp = OuterNumberColumnView()
         return comp
     }()
     

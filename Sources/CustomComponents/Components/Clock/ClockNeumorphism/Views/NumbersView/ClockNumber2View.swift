@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumber2View: ClockNumber  {
+class ClockNumber2View: ClockNumberView  {
         
     override init(strokeModel: StrokeModel = StrokeModel()) {
         super.init(strokeModel: strokeModel)

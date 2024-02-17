@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumber: ViewBuilder {
+class ClockNumberView: ViewBuilder {
     let strokeModel: StrokeModel
     
     init(strokeModel: StrokeModel) {
@@ -12,8 +12,8 @@ class ClockNumber: ViewBuilder {
         configure()
     }
     
-    lazy var clockNumberContainer: ClockNumberContainer = {
-        let comp = ClockNumberContainer()
+    lazy var clockNumberContainer: NumberContainerView = {
+        let comp = NumberContainerView()
             .setConstraints { build in
                 build
                     .setPin.equalToSuperView

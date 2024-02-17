@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumber3View: ClockNumber  {
+class ClockNumber8View: ClockNumberView  {
         
     override init(strokeModel: StrokeModel = StrokeModel()) {
         super.init(strokeModel: strokeModel)
@@ -11,18 +11,23 @@ class ClockNumber3View: ClockNumber  {
     }
     
     
+    //  MARK: - LEFT
+    lazy var leftTopStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
+    }()
+
+    lazy var leftBottomStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
+    }()
+    
     
     //  MARK: - MIDDLE
     lazy var middleTopStroke: StrokeView = {
-        return StrokeView(strokeModel: strokeModel)
-            .setConstraints { build in
-                build
-                    .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView
-            }
+        let comp = createStroke()
+        return comp
     }()
-
 
     lazy var middleMiddleStroke: StrokeView = {
         let comp = createStroke()
@@ -30,13 +35,8 @@ class ClockNumber3View: ClockNumber  {
     }()
     
     lazy var middleBottomStroke: StrokeView = {
-        return StrokeView(strokeModel: strokeModel)
-            .setConstraints { build in
-                build
-                    .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView
-            }
+        let comp = createStroke()
+        return comp
     }()
     
     
@@ -59,6 +59,8 @@ class ClockNumber3View: ClockNumber  {
     }
     
     private func addElement() {
+        leftTopStroke.add(insideTo: clockNumberContainer.leftColumn.topView.get)
+        leftBottomStroke.add(insideTo: clockNumberContainer.leftColumn.bottomView.get)
         middleTopStroke.add(insideTo: clockNumberContainer.middleColumn.topView.get)
         middleMiddleStroke.add(insideTo: clockNumberContainer.middleColumn.middleView.get)
         middleBottomStroke.add(insideTo: clockNumberContainer.middleColumn.bottomView.get)
@@ -67,6 +69,8 @@ class ClockNumber3View: ClockNumber  {
     }
     
     private func configConstraints() {
+        leftTopStroke.applyConstraint()
+        leftBottomStroke.applyConstraint()
         middleTopStroke.applyConstraint()
         middleMiddleStroke.applyConstraint()
         middleBottomStroke.applyConstraint()

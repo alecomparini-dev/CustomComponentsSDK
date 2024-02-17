@@ -1,10 +1,10 @@
-//  Created by Alessandro Comparini on 16/02/24.
+//  Created by Alessandro Comparini on 17/02/24.
 //
 
 import Foundation
 
-class ColumnClockNumberView: ViewBuilder {
-
+class ColonsView: ViewBuilder {
+    
     override init() {
         super.init()
         configure()
@@ -12,20 +12,21 @@ class ColumnClockNumberView: ViewBuilder {
     
     
 //  MARK: - LAZY AREA
-    lazy var stackView: StackViewBuilder = {
+    lazy var stackContainer: StackViewBuilder = {
         let st = StackViewBuilder()
             .setAxis(.vertical)
             .setAlignment(.fill)
             .setDistribution(.fillEqually)
-            .setSpacing(4)
-            .setConstraints { build in
+            .setConstraints({ build in
                 build
                     .setPin.equalToSuperView
-            }
+            })
         return st
     }()
     
     
+    
+
 //  MARK: - PRIVATE AREA
     private func configure() {
         addElement()
@@ -33,11 +34,13 @@ class ColumnClockNumberView: ViewBuilder {
     }
     
     private func addElement() {
-        stackView.add(insideTo: self.get)
+        
     }
-
+    
     private func configConstraints() {
-        stackView.applyConstraint()
+        
     }
-
+    
+    
+    
 }

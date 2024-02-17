@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumber7View: ClockNumber  {
+class ClockNumber9View: ClockNumberView  {
         
     override init(strokeModel: StrokeModel = StrokeModel()) {
         super.init(strokeModel: strokeModel)
@@ -11,18 +11,25 @@ class ClockNumber7View: ClockNumber  {
     }
     
     
-    //  MARK: - MIDDLE
-    lazy var middleTopStroke: StrokeView = {
-        return StrokeView(strokeModel: strokeModel)
-            .setConstraints { build in
-                build
-                    .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView
-            }
+    //  MARK: - LEFT
+    lazy var leftTopStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
     }()
 
-        
+    
+    //  MARK: - MIDDLE
+    lazy var middleTopStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
+    }()
+
+    lazy var middleMiddleStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
+    }()
+    
+    
     //  MARK: - RIGHT
     lazy var rightTopStroke: StrokeView = {
         let comp = createStroke()
@@ -42,13 +49,17 @@ class ClockNumber7View: ClockNumber  {
     }
     
     private func addElement() {
+        leftTopStroke.add(insideTo: clockNumberContainer.leftColumn.topView.get)
         middleTopStroke.add(insideTo: clockNumberContainer.middleColumn.topView.get)
+        middleMiddleStroke.add(insideTo: clockNumberContainer.middleColumn.middleView.get)
         rightTopStroke.add(insideTo: clockNumberContainer.rightColumn.topView.get)
         rightBottomStroke.add(insideTo: clockNumberContainer.rightColumn.bottomView.get)
     }
     
     private func configConstraints() {
+        leftTopStroke.applyConstraint()
         middleTopStroke.applyConstraint()
+        middleMiddleStroke.applyConstraint()
         rightTopStroke.applyConstraint()
         rightBottomStroke.applyConstraint()
     }

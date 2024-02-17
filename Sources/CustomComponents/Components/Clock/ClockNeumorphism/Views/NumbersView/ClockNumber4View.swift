@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumber5View: ClockNumber  {
+class ClockNumber4View: ClockNumberView  {
         
     override init(strokeModel: StrokeModel = StrokeModel()) {
         super.init(strokeModel: strokeModel)
@@ -16,36 +16,21 @@ class ClockNumber5View: ClockNumber  {
         let comp = createStroke()
         return comp
     }()
-
+    
     
     //  MARK: - MIDDLE
-    lazy var middleTopStroke: StrokeView = {
-        return StrokeView(strokeModel: strokeModel)
-            .setConstraints { build in
-                build
-                    .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView
-                    .setTrailing.equalToSuperView
-            }
-    }()
-
     lazy var middleMiddleStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
     
-    lazy var middleBottomStroke: StrokeView = {
-        return StrokeView(strokeModel: strokeModel)
-            .setConstraints { build in
-                build
-                    .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView
-            }
-    }()
-    
     
     //  MARK: - RIGHT
+    lazy var rightTopStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
+    }()
+
     lazy var rightBottomStroke: StrokeView = {
         let comp = createStroke()
         return comp
@@ -60,17 +45,15 @@ class ClockNumber5View: ClockNumber  {
     
     private func addElement() {
         leftTopStroke.add(insideTo: clockNumberContainer.leftColumn.topView.get)
-        middleTopStroke.add(insideTo: clockNumberContainer.middleColumn.topView.get)
         middleMiddleStroke.add(insideTo: clockNumberContainer.middleColumn.middleView.get)
-        middleBottomStroke.add(insideTo: clockNumberContainer.middleColumn.bottomView.get)
+        rightTopStroke.add(insideTo: clockNumberContainer.rightColumn.topView.get)
         rightBottomStroke.add(insideTo: clockNumberContainer.rightColumn.bottomView.get)
     }
     
     private func configConstraints() {
         leftTopStroke.applyConstraint()
-        middleTopStroke.applyConstraint()
         middleMiddleStroke.applyConstraint()
-        middleBottomStroke.applyConstraint()
+        rightTopStroke.applyConstraint()
         rightBottomStroke.applyConstraint()
     }
     
