@@ -20,8 +20,13 @@ class ClockNumberTwo: ClockNumber  {
     
     //  MARK: - MIDDLE
     lazy var middleTopStroke: Stroke = {
-        let comp = createStroke()
-        return comp
+        return Stroke(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setTop.setBottom.equalToSuperView
+                    .setLeading.equalToSuperView(-2)
+                    .setTrailing.equalToSuperView
+            }
     }()
 
     lazy var middleMiddleStroke: Stroke = {
@@ -30,14 +35,13 @@ class ClockNumberTwo: ClockNumber  {
     }()
     
     lazy var middleBottomStroke: Stroke = {
-        let comp = Stroke(strokeModel: strokeModel)
+        return Stroke(strokeModel: strokeModel)
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
                     .setLeading.equalToSuperView
                     .setTrailing.equalToSuperView(2)
             }
-        return comp
     }()
     
     
