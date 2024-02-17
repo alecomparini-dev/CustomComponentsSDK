@@ -7,7 +7,7 @@ class ColonsView: ViewBuilder {
     
     private let colonModel: ColonModel
     
-    init(colonModel: ColonModel) {
+    init(colonModel: ColonModel = ColonModel()) {
         self.colonModel = colonModel
         super.init()
         configure()

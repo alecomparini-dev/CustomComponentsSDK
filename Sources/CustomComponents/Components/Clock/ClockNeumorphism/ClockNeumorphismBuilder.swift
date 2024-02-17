@@ -74,7 +74,7 @@ public class ClockNeumorphismBuilder: ViewBuilder {
     }()
     
     lazy var twoPoints: ViewBuilder = {
-        let comp = ColonView()
+        let comp = ColonsView()
         return comp
     }()
     
