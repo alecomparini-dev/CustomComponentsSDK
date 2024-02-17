@@ -4,7 +4,7 @@
 import Foundation
 
 
-class MiddleColumnClockNumberView: ColumnClockNumberView {
+class MiddleNumberColumnView: NumberColumnsView {
     
     private let constant: CGFloat = 4
     

@@ -4,7 +4,7 @@
 import Foundation
 
 
-class Stroke: ViewBuilder {
+class StrokeView: ViewBuilder {
     private var neumorphism: NeumorphismBuilder!
     private let strokeModel: StrokeModel
     

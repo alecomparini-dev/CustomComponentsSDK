@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumberSeven: ClockNumber  {
+class ClockNumber4View: ClockNumberView  {
         
     override init(strokeModel: StrokeModel = StrokeModel()) {
         super.init(strokeModel: strokeModel)
@@ -11,25 +11,27 @@ class ClockNumberSeven: ClockNumber  {
     }
     
     
-    //  MARK: - MIDDLE
-    lazy var middleTopStroke: Stroke = {
-        return Stroke(strokeModel: strokeModel)
-            .setConstraints { build in
-                build
-                    .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView
-            }
+    //  MARK: - LEFT
+    lazy var leftTopStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
     }()
-
-        
+    
+    
+    //  MARK: - MIDDLE
+    lazy var middleMiddleStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
+    }()
+    
+    
     //  MARK: - RIGHT
-    lazy var rightTopStroke: Stroke = {
+    lazy var rightTopStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
 
-    lazy var rightBottomStroke: Stroke = {
+    lazy var rightBottomStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
@@ -42,19 +44,21 @@ class ClockNumberSeven: ClockNumber  {
     }
     
     private func addElement() {
-        middleTopStroke.add(insideTo: clockNumberContainer.middleColumn.topView.get)
+        leftTopStroke.add(insideTo: clockNumberContainer.leftColumn.topView.get)
+        middleMiddleStroke.add(insideTo: clockNumberContainer.middleColumn.middleView.get)
         rightTopStroke.add(insideTo: clockNumberContainer.rightColumn.topView.get)
         rightBottomStroke.add(insideTo: clockNumberContainer.rightColumn.bottomView.get)
     }
     
     private func configConstraints() {
-        middleTopStroke.applyConstraint()
+        leftTopStroke.applyConstraint()
+        middleMiddleStroke.applyConstraint()
         rightTopStroke.applyConstraint()
         rightBottomStroke.applyConstraint()
     }
     
-    private func createStroke() -> Stroke {
-        return Stroke(strokeModel: strokeModel)
+    private func createStroke() -> StrokeView {
+        return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
                     .setPin.equalToSuperView
