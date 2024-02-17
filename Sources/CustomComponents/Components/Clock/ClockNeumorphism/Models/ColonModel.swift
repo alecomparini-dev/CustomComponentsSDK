@@ -4,7 +4,7 @@
 import Foundation
 
 struct ColonModel {
-    let radius: CGFloat = 8
+    let radius: CGFloat = 6
     let hexColor: String = "#00e0c6"
     let isShadow: Bool = true
     let shadowDistance: CGFloat = 10

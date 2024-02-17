@@ -20,7 +20,6 @@ class ColonsView: ViewBuilder {
             .setAxis(.vertical)
             .setAlignment(.center)
             .setDistribution(.fillEqually)
-            .setSpacing(8)
             .setConstraints({ build in
                 build
                     .setPin.equalToSuperView
