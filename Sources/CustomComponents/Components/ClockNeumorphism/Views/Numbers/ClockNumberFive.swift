@@ -25,7 +25,7 @@ class ClockNumberFive: ClockNumber  {
                 build
                     .setTop.setBottom.equalToSuperView
                     .setLeading.equalToSuperView
-                    .setTrailing.equalToSuperView(2)
+                    .setTrailing.equalToSuperView
             }
     }()
 
