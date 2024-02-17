@@ -11,13 +11,13 @@ class ClockNumberSeven: ClockNumber  {
     }
     
     
-    //  MARK: - LEFT
-    lazy var leftTopStroke: Stroke = {
+    //  MARK: - MIDDLE
+    lazy var middleTopStroke: Stroke = {
         let comp = createStroke()
         return comp
     }()
 
-    
+        
     //  MARK: - RIGHT
     lazy var rightTopStroke: Stroke = {
         let comp = createStroke()
@@ -37,13 +37,13 @@ class ClockNumberSeven: ClockNumber  {
     }
     
     private func addElement() {
-        leftTopStroke.add(insideTo: clockNumberContainer.leftColumn.topView.get)
+        middleTopStroke.add(insideTo: clockNumberContainer.middleColumn.topView.get)
         rightTopStroke.add(insideTo: clockNumberContainer.rightColumn.topView.get)
         rightBottomStroke.add(insideTo: clockNumberContainer.rightColumn.bottomView.get)
     }
     
     private func configConstraints() {
-        leftTopStroke.applyConstraint()
+        middleTopStroke.applyConstraint()
         rightTopStroke.applyConstraint()
         rightBottomStroke.applyConstraint()
     }
