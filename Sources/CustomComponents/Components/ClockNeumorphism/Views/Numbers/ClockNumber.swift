@@ -36,5 +36,4 @@ class ClockNumber: ViewBuilder {
         clockNumberContainer.applyConstraint()
     }
     
-    
 }

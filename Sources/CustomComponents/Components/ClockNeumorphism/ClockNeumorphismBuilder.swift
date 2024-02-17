@@ -1,3 +1,4 @@
+        
 //  Created by Alessandro Comparini on 19/05/23.
 //
 
@@ -43,8 +44,8 @@ public class ClockNeumorphismBuilder: ViewBuilder {
     
     lazy var stackHours: StackViewBuilder = {
         let st = StackViewBuilder()
-            .setAxis(.horizontal)
             .setDistribution(.fillEqually)
+            .setAxis(.horizontal)
             .setSpacing(8)
         return st
     }()
@@ -79,7 +80,7 @@ public class ClockNeumorphismBuilder: ViewBuilder {
             .setAxis(.vertical)
             .setDistribution(.fillEqually)
             .get
-    
+        
         stack.add(insideTo: view.get)
         stack.makeConstraints { make in
             make
@@ -93,7 +94,7 @@ public class ClockNeumorphismBuilder: ViewBuilder {
         topView.add(insideTo: stack)
         middleView.add(insideTo: stack)
         bottomView.add(insideTo: stack)
-    
+        
         DispatchQueue.main.async {
             let points = self.createTwoPoints(middleView.get.frame.height)
             points.add(insideTo: middleView.get)
@@ -107,7 +108,7 @@ public class ClockNeumorphismBuilder: ViewBuilder {
     }()
     
     
-//  MARK: - SET Properties
+    //  MARK: - SET Properties
     @discardableResult
     public func setWeight(_ weight: CGFloat) -> Self {
         self.weight = weight
@@ -121,13 +122,12 @@ public class ClockNeumorphismBuilder: ViewBuilder {
     }
     
     
-//  MARK: - Private Function Area
+    //  MARK: - Private Function Area
     
     // TODO: - CREATE METHOD START OR SHOW AND UPDATE ONLY WHEN NUMBER CHANGES
     private func startClock() {
         updateClock()
         timer = DispatchSource.makeTimerSource()
-        
         timer?.schedule(deadline: .now(), repeating: .seconds(1))
         timer?.setEventHandler { [weak self ] in
             DispatchQueue.main.async {
@@ -144,9 +144,9 @@ public class ClockNeumorphismBuilder: ViewBuilder {
     private func updateClock() {
         removeSubviews()
         let hourView1 = ClockNumbers(number: getHour(firstPosition: true), weight: weight)
-        let hourView2 = ClockNumberThree()
-        let minuteView1 = ClockNumberNine()
-        let minuteView2 = ClockNumberSix()
+        let hourView2 = ClockNumber3View()
+        let minuteView1 = ClockNumber9View()
+        let minuteView2 = ClockNumber6View()
         hourView1.add(insideTo: stackHours.get)
         hourView2.add(insideTo: stackHours.get)
         minuteView1.add(insideTo: stackMinutes.get)

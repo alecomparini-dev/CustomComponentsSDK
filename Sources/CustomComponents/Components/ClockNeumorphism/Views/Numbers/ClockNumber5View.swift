@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumberFive: ClockNumber  {
+class ClockNumber5View: ClockNumber  {
         
     override init(strokeModel: StrokeModel = StrokeModel()) {
         super.init(strokeModel: strokeModel)
@@ -12,15 +12,15 @@ class ClockNumberFive: ClockNumber  {
     
     
     //  MARK: - LEFT
-    lazy var leftTopStroke: Stroke = {
+    lazy var leftTopStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
 
     
     //  MARK: - MIDDLE
-    lazy var middleTopStroke: Stroke = {
-        return Stroke(strokeModel: strokeModel)
+    lazy var middleTopStroke: StrokeView = {
+        return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
@@ -29,13 +29,13 @@ class ClockNumberFive: ClockNumber  {
             }
     }()
 
-    lazy var middleMiddleStroke: Stroke = {
+    lazy var middleMiddleStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
     
-    lazy var middleBottomStroke: Stroke = {
-        return Stroke(strokeModel: strokeModel)
+    lazy var middleBottomStroke: StrokeView = {
+        return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
@@ -46,7 +46,7 @@ class ClockNumberFive: ClockNumber  {
     
     
     //  MARK: - RIGHT
-    lazy var rightBottomStroke: Stroke = {
+    lazy var rightBottomStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
@@ -74,8 +74,8 @@ class ClockNumberFive: ClockNumber  {
         rightBottomStroke.applyConstraint()
     }
     
-    private func createStroke() -> Stroke {
-        return Stroke(strokeModel: strokeModel)
+    private func createStroke() -> StrokeView {
+        return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
                     .setPin.equalToSuperView

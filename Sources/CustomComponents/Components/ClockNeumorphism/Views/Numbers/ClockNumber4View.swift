@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumberFour: ClockNumber  {
+class ClockNumber4View: ClockNumber  {
         
     override init(strokeModel: StrokeModel = StrokeModel()) {
         super.init(strokeModel: strokeModel)
@@ -12,26 +12,26 @@ class ClockNumberFour: ClockNumber  {
     
     
     //  MARK: - LEFT
-    lazy var leftTopStroke: Stroke = {
+    lazy var leftTopStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
     
     
     //  MARK: - MIDDLE
-    lazy var middleMiddleStroke: Stroke = {
+    lazy var middleMiddleStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
     
     
     //  MARK: - RIGHT
-    lazy var rightTopStroke: Stroke = {
+    lazy var rightTopStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
 
-    lazy var rightBottomStroke: Stroke = {
+    lazy var rightBottomStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
@@ -57,8 +57,8 @@ class ClockNumberFour: ClockNumber  {
         rightBottomStroke.applyConstraint()
     }
     
-    private func createStroke() -> Stroke {
-        return Stroke(strokeModel: strokeModel)
+    private func createStroke() -> StrokeView {
+        return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
                     .setPin.equalToSuperView
