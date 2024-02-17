@@ -215,8 +215,8 @@ public class ClockNeumorphismBuilder: ViewBuilder {
             }
             .setNeumorphism { build in
                 build
-                    .setReferenceColor(Theme.shared.currentTheme.primary)
-                    .setShape(.flat)
+                    .setReferenceColor(hexColor: "#00e0c6")
+                    .setShape(.concave)
                     .setLightPosition(.leftTop)
                     .setShadowColor(to: .dark, color: .black)
                     .setIntensity(to:.light,percent: 0)
