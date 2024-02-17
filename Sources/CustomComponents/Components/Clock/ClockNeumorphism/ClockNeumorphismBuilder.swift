@@ -74,38 +74,43 @@ public class ClockNeumorphismBuilder: ViewBuilder {
     }()
     
     lazy var twoPoints: ViewBuilder = {
-        let view = ViewBuilder()
-        
-        let stack = StackViewBuilder()
-            .setAxis(.vertical)
-            .setDistribution(.fillEqually)
-            .get
-        
-        stack.add(insideTo: view.get)
-        stack.makeConstraints { make in
-            make
-                .setPin.equalToSuperView
-                .apply()
-        }
-        let topView = ViewBuilder()
-        let middleView = ViewBuilder()
-        let bottomView = ViewBuilder()
-        
-        topView.add(insideTo: stack)
-        middleView.add(insideTo: stack)
-        bottomView.add(insideTo: stack)
-        
-        DispatchQueue.main.async {
-            let points = self.createTwoPoints(middleView.get.frame.height)
-            points.add(insideTo: middleView.get)
-            points.makeConstraints { make in
-                make
-                    .setPin.equalToSuperView
-                    .apply()
-            }
-        }
-        return view
+        let comp = ColonView()
+        return comp
     }()
+    
+//    lazy var twoPoints: ViewBuilder = {
+//        let view = ViewBuilder()
+//        
+//        let stack = StackViewBuilder()
+//            .setAxis(.vertical)
+//            .setDistribution(.fillEqually)
+//            .get
+//        
+//        stack.add(insideTo: view.get)
+//        stack.makeConstraints { make in
+//            make
+//                .setPin.equalToSuperView
+//                .apply()
+//        }
+//        let topView = ViewBuilder()
+//        let middleView = ViewBuilder()
+//        let bottomView = ViewBuilder()
+//        
+//        topView.add(insideTo: stack)
+//        middleView.add(insideTo: stack)
+//        bottomView.add(insideTo: stack)
+//        
+//        DispatchQueue.main.async {
+//            let points = self.createTwoPoints(middleView.get.frame.height)
+//            points.add(insideTo: middleView.get)
+//            points.makeConstraints { make in
+//                make
+//                    .setPin.equalToSuperView
+//                    .apply()
+//            }
+//        }
+//        return view
+//    }()
     
     
     //  MARK: - SET Properties
@@ -228,7 +233,6 @@ public class ClockNeumorphismBuilder: ViewBuilder {
                     .apply()
             }
     }
-    
     
     private func addElements() {
         stackHours.add(insideTo: self.get)
