@@ -56,8 +56,6 @@ class ClockNeumorphismView: ViewBuilder {
     
     private func configConstraints() {
         clockStackView.applyConstraint()
-        hoursContainerView.applyConstraint()
-        minutesContainerView.applyConstraint()
     }
     
 
