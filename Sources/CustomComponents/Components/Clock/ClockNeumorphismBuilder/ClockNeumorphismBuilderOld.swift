@@ -140,33 +140,49 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
         min2.get().add(insideTo: stackMinutes.get)
         min2.configure(number: 3)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-            hour1.configure(number: 3)
-            hour2.configure(number: 2)
-            min1.configure(number: 0)
-            min2.configure(number: 1)
-        })
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
             hour1.configure(number: 0)
-            hour2.configure(number: 2)
-            min2.configure(number: 2)
+            hour2.configure(number: 1)
+            min1.configure(number: 2)
+            min2.configure(number: 3)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                min2.configure(number: 3)
-            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                hour1.configure(number: 0)
+                hour2.configure(number: 2)
+                min2.configure(number: 2)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                    min2.configure(number: 3)
+                })
 
+            })
         })
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
-            hour1.configure(number: 1)
-            hour2.configure(number: 1)
-            min1.configure(number: 1)
-            min2.configure(number: 1)
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
+            hour1.configure(number: 0)
+            hour2.configure(number: 0)
+            min1.configure(number: 0)
+            min2.configure(number: 0)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                hour1.configure(number: 2)
-                hour2.configure(number: 3)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                hour1.configure(number: 1)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    hour2.configure(number: 2)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        min1.configure(number: 3)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                            min2.configure(number: 0)
+                        })
+                    })
+                    
+                })
+                
+
             })
 
         })
