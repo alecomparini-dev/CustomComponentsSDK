@@ -4,6 +4,7 @@
 import Foundation
 
 class ClockNumber8View: ClockNumberView  {
+    private let constant: CGFloat = 2
     
     let strokeModel: StrokeModel
     
@@ -19,8 +20,8 @@ class ClockNumber8View: ClockNumberView  {
         return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView(1)
-                    .setBottom.equalToSuperView(-1)
+                    .setTop.equalToSuperView(constant)
+                    .setBottom.equalToSuperView(-constant)
                     .setLeading.setTrailing.equalToSuperView
             }
     }()
@@ -29,8 +30,8 @@ class ClockNumber8View: ClockNumberView  {
         return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView(1)
-                    .setBottom.equalToSuperView(-1)
+                    .setTop.equalToSuperView(constant)
+                    .setBottom.equalToSuperView(-constant)
                     .setLeading.setTrailing.equalToSuperView
             }
     }()
@@ -42,8 +43,8 @@ class ClockNumber8View: ClockNumberView  {
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView(2)
+                    .setLeading.equalToSuperView(-constant)
+                    .setTrailing.equalToSuperView(constant)
             }
         return comp
     }()
@@ -61,8 +62,8 @@ class ClockNumber8View: ClockNumberView  {
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView(2)
+                    .setLeading.equalToSuperView(-constant)
+                    .setTrailing.equalToSuperView(constant)
             }
     }()
     
@@ -82,8 +83,8 @@ class ClockNumber8View: ClockNumberView  {
         return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView(1)
-                    .setBottom.equalToSuperView(-1)
+                    .setTop.equalToSuperView(constant)
+                    .setBottom.equalToSuperView(-constant)
                     .setLeading.setTrailing.equalToSuperView
             }
     }()
