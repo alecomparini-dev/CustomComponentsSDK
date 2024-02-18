@@ -50,7 +50,7 @@ class ClockNumber5View: ClockNumberView  {
                 build
                     .setTop.setBottom.equalToSuperView
                     .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView
+                    .setTrailing.equalToSuperView(2)
             }
     }()
     
@@ -75,11 +75,11 @@ class ClockNumber5View: ClockNumberView  {
     }
     
     private func addElement() {
-        leftTopStroke.add(insideTo: leftColumn.topView.get)
-        leftBottomStroke.add(insideTo: leftColumn.bottomView.get)
         middleTopStroke.add(insideTo: middleColumn.topView.get)
         middleMiddleStroke.add(insideTo: middleColumn.middleView.get)
         middleBottomStroke.add(insideTo: middleColumn.bottomView.get)
+        leftTopStroke.add(insideTo: leftColumn.topView.get)
+        leftBottomStroke.add(insideTo: leftColumn.bottomView.get)
         rightTopStroke.add(insideTo: rightColumn.topView.get)
         rightBottomStroke.add(insideTo: rightColumn.bottomView.get)
     }
