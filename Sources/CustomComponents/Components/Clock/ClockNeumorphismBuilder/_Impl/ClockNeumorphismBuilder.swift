@@ -15,14 +15,15 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         static var minRight: ClockNumber!
     }
     
-    private var clockNeumorphism: ClockNeumorphismView!
+    private let clockNeumorphism: ClockNeumorphismView
     private var hours: ViewBuilder?
     private var minutes: ViewBuilder?
     
-    public  init() {
+    public init() {
         self.strokeModel = StrokeModel()
         self.colonModel = ColonModel()
-        super.init(UIView())
+        self.clockNeumorphism = ClockNeumorphismView()
+        super.init(clockNeumorphism.get)
         configure()
     }
 
@@ -30,7 +31,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
 //  MARK: - PUBLIC AREA
     
     public var getClock: ViewBuilder {
-        return clockNeumorphism ?? ViewBuilder()
+        return clockNeumorphism
     }
 
     public var getHours: ViewBuilder {
@@ -92,24 +93,19 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
 //  MARK: - PRIVATE AREA
 
     private func configure() {
-        createClockView()
-        createClockNumbersBaseView()
-        addClockNumberBaseView()
+        createBaseNumberView()
+        addBaseNumberView()
         startClock()
     }
-    
-    private func createClockView() {
-        clockNeumorphism = ClockNeumorphismView()
-    }
-    
-    private func createClockNumbersBaseView() {
+        
+    private func createBaseNumberView() {
         Clock.hourLeft = ClockNumber(strokeModel: strokeModel)
         Clock.hourRight = ClockNumber(strokeModel: strokeModel)
         Clock.minLeft = ClockNumber(strokeModel: strokeModel)
         Clock.minRight = ClockNumber(strokeModel: strokeModel)
     }
 
-    private func addClockNumberBaseView() {
+    private func addBaseNumberView() {
         Clock.hourLeft.get.add(insideTo: clockNeumorphism.hoursContainerView.leftNumberView.get )
         Clock.hourRight.get.add(insideTo: clockNeumorphism.hoursContainerView.rightNumberView.get )
         Clock.minLeft.get.add(insideTo: clockNeumorphism.minutesContainerView.leftNumberView.get )
