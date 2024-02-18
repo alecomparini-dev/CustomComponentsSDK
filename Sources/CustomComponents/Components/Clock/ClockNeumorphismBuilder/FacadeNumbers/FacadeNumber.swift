@@ -5,54 +5,141 @@ import Foundation
 
 class FacadeClockNumber {
     
-    private let strokeModel: StrokeModel
+    private let clockNumberBase: ClockNumberBaseView!
     
     init(strokeModel: StrokeModel = StrokeModel()) {
-        self.strokeModel = strokeModel
+        self.clockNumberBase = ClockNumberBaseView(strokeModel: strokeModel)
     }
 
     
 //  MARK: - PUBLIC AREA
     
-    public func create(number: Int) -> ClockNumberView {
+    func create(number: Int) -> ClockNumberView {
         switch number {
             case 0:
-                return ClockNumber0View(strokeModel: strokeModel)
+                return ClockNumber0(base: self.clockNumberBase).configure()
                 
-            case 1:
-                return ClockNumber1View(strokeModel: strokeModel)
-
-            case 2:
-                return ClockNumber2View(strokeModel: strokeModel)
-
-            case 3:
-                return ClockNumber3View(strokeModel: strokeModel)
-
-            case 4:
-                return ClockNumber4View(strokeModel: strokeModel)
-
-            case 5:
-                return ClockNumber5View(strokeModel: strokeModel)
-
-            case 6:
-                return ClockNumber6View(strokeModel: strokeModel)
-
-            case 7:
-                return ClockNumber7View(strokeModel: strokeModel)
-
-            case 8:
-                return ClockNumberBaseView(strokeModel: strokeModel)
-
-            case 9:
-                return ClockNumber9View(strokeModel: strokeModel)
+//            case 1:
+//                return ClockNumber1View(strokeModel: strokeModel)
+//
+//            case 2:
+//                return ClockNumber2View(strokeModel: strokeModel)
+//
+//            case 3:
+//                return ClockNumber3View(strokeModel: strokeModel)
+//
+//            case 4:
+//                return ClockNumber4View(strokeModel: strokeModel)
+//
+//            case 5:
+//                return ClockNumber5View(strokeModel: strokeModel)
+//
+//            case 6:
+//                return ClockNumber6View(strokeModel: strokeModel)
+//
+//            case 7:
+//                return ClockNumber7View(strokeModel: strokeModel)
+//
+//            case 8:
+//                return ClockNumberBaseView(strokeModel: strokeModel)
+//
+//            case 9:
+//                return ClockNumber9View(strokeModel: strokeModel)
 
         default:
             return ClockNumberView()
         }
         
-        
     }
     
     
+}
+
+
+protocol ClockNumber {
+    func configure() -> ClockNumberBaseView
+}
+
+class ClockNumber0: ClockNumber {
+
+    private let clockNumberBase: ClockNumberBaseView
     
+    init(_ clockNumberBase: ClockNumberBaseView) {
+        self.clockNumberBase = clockNumberBase
+    }
+    
+    func configure() -> ClockNumberBaseView {
+        clockNumberBase.leftTopStroke.setHidden(true)
+        clockNumberBase.leftBottomStroke.setHidden(true)
+        clockNumberBase.middleTopStroke.setHidden(true)
+        clockNumberBase.middleMiddleStroke.setHidden(false)
+        clockNumberBase.middleBottomStroke.setHidden(true)
+        clockNumberBase.rightTopStroke.setHidden(true)
+        clockNumberBase.rightBottomStroke.setHidden(true)
+        return clockNumberBase
+    }
+
+}
+
+class ClockNumber1: ClockNumber {
+
+    private let clockNumberBase: ClockNumberBaseView
+    
+    init(_ clockNumberBase: ClockNumberBaseView) {
+        self.clockNumberBase = clockNumberBase
+    }
+    
+    func configure() -> ClockNumberBaseView {
+        clockNumberBase.leftTopStroke.setHidden(true)
+        clockNumberBase.leftBottomStroke.setHidden(true)
+        clockNumberBase.middleTopStroke.setHidden(true)
+        clockNumberBase.middleMiddleStroke.setHidden(false)
+        clockNumberBase.middleBottomStroke.setHidden(true)
+        clockNumberBase.rightTopStroke.setHidden(true)
+        clockNumberBase.rightBottomStroke.setHidden(true)
+        return clockNumberBase
+    }
+
+}
+
+class ClockNumber2: ClockNumber {
+
+    private let clockNumberBase: ClockNumberBaseView
+    
+    init(_ clockNumberBase: ClockNumberBaseView) {
+        self.clockNumberBase = clockNumberBase
+    }
+    
+    func configure() -> ClockNumberBaseView {
+        clockNumberBase.leftTopStroke.setHidden(true)
+        clockNumberBase.leftBottomStroke.setHidden(false)
+        clockNumberBase.middleTopStroke.setHidden(true)
+        clockNumberBase.middleMiddleStroke.setHidden(true)
+        clockNumberBase.middleBottomStroke.setHidden(true)
+        clockNumberBase.rightTopStroke.setHidden(false)
+        clockNumberBase.rightBottomStroke.setHidden(true)
+        return clockNumberBase
+    }
+
+}
+
+class ClockNumber3: ClockNumber {
+
+    private let clockNumberBase: ClockNumberBaseView
+    
+    init(_ clockNumberBase: ClockNumberBaseView) {
+        self.clockNumberBase = clockNumberBase
+    }
+    
+    func configure() -> ClockNumberBaseView {
+        clockNumberBase.leftTopStroke.setHidden(false)
+        clockNumberBase.leftBottomStroke.setHidden(false)
+        clockNumberBase.middleTopStroke.setHidden(true)
+        clockNumberBase.middleMiddleStroke.setHidden(true)
+        clockNumberBase.middleBottomStroke.setHidden(true)
+        clockNumberBase.rightTopStroke.setHidden(true)
+        clockNumberBase.rightBottomStroke.setHidden(true)
+        return clockNumberBase
+    }
+
 }
