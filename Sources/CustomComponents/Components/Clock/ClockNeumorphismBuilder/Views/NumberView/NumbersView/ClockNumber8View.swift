@@ -21,7 +21,7 @@ class ClockNumber8View: ClockNumberView  {
             .setConstraints { build in
                 build
                     .setTop.equalToSuperView(constant)
-                    .setBottom.equalToSuperView(-constant)
+                    .setBottom.equalToSuperView(-1)
                     .setLeading.setTrailing.equalToSuperView
             }
     }()
@@ -31,7 +31,7 @@ class ClockNumber8View: ClockNumberView  {
             .setConstraints { build in
                 build
                     .setTop.equalToSuperView(constant)
-                    .setBottom.equalToSuperView(-constant)
+                    .setBottom.equalToSuperView(-1)
                     .setLeading.setTrailing.equalToSuperView
             }
     }()
@@ -74,7 +74,7 @@ class ClockNumber8View: ClockNumberView  {
             .setConstraints { build in
                 build
                     .setTop.equalToSuperView(1)
-                    .setBottom.equalToSuperView(-1)
+                    .setBottom.equalToSuperView(-constant)
                     .setLeading.setTrailing.equalToSuperView
             }
     }()
@@ -83,7 +83,7 @@ class ClockNumber8View: ClockNumberView  {
         return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView(constant)
+                    .setTop.equalToSuperView(1)
                     .setBottom.equalToSuperView(-constant)
                     .setLeading.setTrailing.equalToSuperView
             }
