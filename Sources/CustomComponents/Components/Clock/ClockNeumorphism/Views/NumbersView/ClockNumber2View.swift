@@ -3,10 +3,12 @@
 
 import Foundation
 
-class ClockNumber2View: ClockNumberView  {
-        
-    override init(strokeModel: StrokeModel = StrokeModel()) {
-        super.init(strokeModel: strokeModel)
+class ClockNumber2View: NumberContainerView  {
+    let strokeModel: StrokeModel
+    
+    init(strokeModel: StrokeModel = StrokeModel()) {
+        self.strokeModel = strokeModel
+        super.init()
         configure()
     }
     
@@ -60,11 +62,11 @@ class ClockNumber2View: ClockNumberView  {
     }
     
     private func addElement() {
-        leftBottomStroke.add(insideTo: clockNumberContainer.leftColumn.bottomView.get)
-        middleTopStroke.add(insideTo: clockNumberContainer.middleColumn.topView.get)
-        middleMiddleStroke.add(insideTo: clockNumberContainer.middleColumn.middleView.get)
-        middleBottomStroke.add(insideTo: clockNumberContainer.middleColumn.bottomView.get)
-        rightTopStroke.add(insideTo: clockNumberContainer.rightColumn.topView.get)
+        leftBottomStroke.add(insideTo: leftColumn.bottomView.get)
+        middleTopStroke.add(insideTo: middleColumn.topView.get)
+        middleMiddleStroke.add(insideTo: middleColumn.middleView.get)
+        middleBottomStroke.add(insideTo: middleColumn.bottomView.get)
+        rightTopStroke.add(insideTo: rightColumn.topView.get)
     }
     
     private func configConstraints() {
