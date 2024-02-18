@@ -17,16 +17,16 @@ class FacadeClockNumber {
     func create(number: Int) -> ClockNumberView {
         switch number {
             case 0:
-                return ClockNumber0(base: self.clockNumberBase).configure()
+            return ClockNumber0(self.clockNumberBase).configure()
                 
-//            case 1:
-//                return ClockNumber1View(strokeModel: strokeModel)
+            case 1:
+                return ClockNumber1(self.clockNumberBase).configure()
+
+            case 2:
+                return ClockNumber2(self.clockNumberBase).configure()
 //
-//            case 2:
-//                return ClockNumber2View(strokeModel: strokeModel)
-//
-//            case 3:
-//                return ClockNumber3View(strokeModel: strokeModel)
+            case 3:
+                return ClockNumber3(self.clockNumberBase).configure()
 //
 //            case 4:
 //                return ClockNumber4View(strokeModel: strokeModel)
