@@ -3,10 +3,13 @@
 
 import Foundation
 
-class ClockNumber0View: ClockNumberView  {
-        
-    override init(strokeModel: StrokeModel = StrokeModel()) {
-        super.init(strokeModel: strokeModel)
+class ClockNumber8View: NumberContainerView  {
+    
+    let strokeModel: StrokeModel
+    
+    init(strokeModel: StrokeModel = StrokeModel()) {
+        self.strokeModel = strokeModel
+        super.init()
         configure()
     }
     
@@ -29,6 +32,11 @@ class ClockNumber0View: ClockNumberView  {
         return comp
     }()
 
+    lazy var middleMiddleStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
+    }()
+    
     lazy var middleBottomStroke: StrokeView = {
         let comp = createStroke()
         return comp
@@ -54,23 +62,21 @@ class ClockNumber0View: ClockNumberView  {
     }
     
     private func addElement() {
-        leftTopStroke.add(insideTo: clockNumberContainer.leftColumn.topView.get)
-        leftBottomStroke.add(insideTo: clockNumberContainer.leftColumn.bottomView.get)
-        
-        middleTopStroke.add(insideTo: clockNumberContainer.middleColumn.topView.get)
-        middleBottomStroke.add(insideTo: clockNumberContainer.middleColumn.bottomView.get)
-        
-        rightTopStroke.add(insideTo: clockNumberContainer.rightColumn.topView.get)
-        rightBottomStroke.add(insideTo: clockNumberContainer.rightColumn.bottomView.get)
+        leftTopStroke.add(insideTo: leftColumn.topView.get)
+        leftBottomStroke.add(insideTo: leftColumn.bottomView.get)
+        middleTopStroke.add(insideTo: middleColumn.topView.get)
+        middleMiddleStroke.add(insideTo: middleColumn.middleView.get)
+        middleBottomStroke.add(insideTo: middleColumn.bottomView.get)
+        rightTopStroke.add(insideTo: rightColumn.topView.get)
+        rightBottomStroke.add(insideTo: rightColumn.bottomView.get)
     }
     
     private func configConstraints() {
         leftTopStroke.applyConstraint()
         leftBottomStroke.applyConstraint()
-        
         middleTopStroke.applyConstraint()
+        middleMiddleStroke.applyConstraint()
         middleBottomStroke.applyConstraint()
-        
         rightTopStroke.applyConstraint()
         rightBottomStroke.applyConstraint()
     }
