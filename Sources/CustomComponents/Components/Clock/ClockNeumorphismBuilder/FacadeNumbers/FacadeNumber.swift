@@ -7,7 +7,7 @@ class FacadeClockNumber {
     
     private let strokeModel: StrokeModel
     
-    init(strokeModel: StrokeModel) {
+    init(strokeModel: StrokeModel = StrokeModel()) {
         self.strokeModel = strokeModel
     }
 
@@ -41,7 +41,7 @@ class FacadeClockNumber {
                 return ClockNumber7View(strokeModel: strokeModel)
 
             case 8:
-                return ClockNumber8View(strokeModel: strokeModel)
+                return ClockNumberBaseView(strokeModel: strokeModel)
 
             case 9:
                 return ClockNumber9View(strokeModel: strokeModel)
