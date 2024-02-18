@@ -16,31 +16,44 @@ class ClockNumber8View: ClockNumberView  {
     
     //  MARK: - LEFT
     lazy var leftTopStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setTop.equalToSuperView(-2)
+                    .setBottom.equalToSuperView(2)
+                    .setLeading.setTrailing.equalToSuperView
+            }
     }()
 
     lazy var leftBottomStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setTop.equalToSuperView(-2)
+                    .setBottom.equalToSuperView(2)
+                    .setLeading.setTrailing.equalToSuperView
+            }
     }()
     
     
     //  MARK: - MIDDLE
     lazy var middleTopStroke: StrokeView = {
-        let comp = createStroke()
+        let comp = StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView
-                    .setTrailing.equalToSuperView
+                    .setLeading.equalToSuperView(-2)
+                    .setTrailing.equalToSuperView(2)
             }
         return comp
     }()
 
     lazy var middleMiddleStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setPin.equalToSuperView
+            }
     }()
     
     lazy var middleBottomStroke: StrokeView = {
@@ -48,21 +61,31 @@ class ClockNumber8View: ClockNumberView  {
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView
-                    .setTrailing.equalToSuperView
+                    .setLeading.equalToSuperView(-2)
+                    .setTrailing.equalToSuperView(2)
             }
     }()
     
     
     //  MARK: - RIGHT
     lazy var rightTopStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setTop.equalToSuperView(-2)
+                    .setBottom.equalToSuperView(2)
+                    .setLeading.setTrailing.equalToSuperView
+            }
     }()
 
     lazy var rightBottomStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setTop.equalToSuperView(-2)
+                    .setBottom.equalToSuperView(2)
+                    .setLeading.setTrailing.equalToSuperView
+            }
     }()
 
     
@@ -92,12 +115,5 @@ class ClockNumber8View: ClockNumberView  {
         rightBottomStroke.applyConstraint()
     }
     
-    private func createStroke() -> StrokeView {
-        return StrokeView(strokeModel: strokeModel)
-            .setConstraints { build in
-                build
-                    .setPin.equalToSuperView
-            }
-    }
     
 }
