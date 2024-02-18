@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumber1View: NumberContainerView  {
+class ClockNumber1View: ClockNumberView  {
         
     let strokeModel: StrokeModel
     

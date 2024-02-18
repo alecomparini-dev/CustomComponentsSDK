@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumber8View: NumberContainerView  {
+class ClockNumber3View: ClockNumberView  {
     
     let strokeModel: StrokeModel
     
@@ -13,24 +13,17 @@ class ClockNumber8View: NumberContainerView  {
         configure()
     }
     
-    
-    //  MARK: - LEFT
-    lazy var leftTopStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
-    }()
-
-    lazy var leftBottomStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
-    }()
-    
-    
     //  MARK: - MIDDLE
     lazy var middleTopStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setTop.setBottom.equalToSuperView
+                    .setLeading.equalToSuperView(-2)
+                    .setTrailing.equalToSuperView
+            }
     }()
+
 
     lazy var middleMiddleStroke: StrokeView = {
         let comp = createStroke()
@@ -38,8 +31,13 @@ class ClockNumber8View: NumberContainerView  {
     }()
     
     lazy var middleBottomStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setTop.setBottom.equalToSuperView
+                    .setLeading.equalToSuperView(-2)
+                    .setTrailing.equalToSuperView
+            }
     }()
     
     
@@ -62,8 +60,6 @@ class ClockNumber8View: NumberContainerView  {
     }
     
     private func addElement() {
-        leftTopStroke.add(insideTo: leftColumn.topView.get)
-        leftBottomStroke.add(insideTo: leftColumn.bottomView.get)
         middleTopStroke.add(insideTo: middleColumn.topView.get)
         middleMiddleStroke.add(insideTo: middleColumn.middleView.get)
         middleBottomStroke.add(insideTo: middleColumn.bottomView.get)
@@ -72,8 +68,6 @@ class ClockNumber8View: NumberContainerView  {
     }
     
     private func configConstraints() {
-        leftTopStroke.applyConstraint()
-        leftBottomStroke.applyConstraint()
         middleTopStroke.applyConstraint()
         middleMiddleStroke.applyConstraint()
         middleBottomStroke.applyConstraint()

@@ -3,7 +3,7 @@
 
 import Foundation
 
-class NumberContainerView: ViewBuilder {
+class ClockNumberView: ViewBuilder {
     
     override init() {
         super.init()
