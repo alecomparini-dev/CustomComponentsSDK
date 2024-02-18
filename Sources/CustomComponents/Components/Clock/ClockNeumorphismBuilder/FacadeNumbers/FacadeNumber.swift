@@ -250,8 +250,8 @@ class ClockNumber8: ClockNumber {
         clockNumberBase.leftTopStroke.setHidden(false)
         clockNumberBase.leftBottomStroke.setHidden(false)
         clockNumberBase.middleTopStroke.setHidden(false)
-        clockNumberBase.middleMiddleStroke.setHidden(true)
-        clockNumberBase.middleBottomStroke.setHidden(true)
+        clockNumberBase.middleMiddleStroke.setHidden(false)
+        clockNumberBase.middleBottomStroke.setHidden(false)
         clockNumberBase.rightTopStroke.setHidden(false)
         clockNumberBase.rightBottomStroke.setHidden(false)
         return clockNumberBase
