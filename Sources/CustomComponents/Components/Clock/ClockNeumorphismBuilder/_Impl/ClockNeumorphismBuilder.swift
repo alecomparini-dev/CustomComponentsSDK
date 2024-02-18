@@ -22,7 +22,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     public  init() {
         self.strokeModel = StrokeModel()
         self.colonModel = ColonModel()
-        super.init(clockNeumorphism.get)
+        super.init(UIView())
         configure()
     }
 
