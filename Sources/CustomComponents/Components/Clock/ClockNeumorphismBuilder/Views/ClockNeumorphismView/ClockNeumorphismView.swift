@@ -27,6 +27,10 @@ class ClockNeumorphismView: ViewBuilder {
     
     lazy var hoursContainerView: HoursOrMinutesContainerView = {
         let comp = HoursOrMinutesContainerView()
+            .setConstraints { build in
+                build
+                    .setPin.equalToSuperView
+            }
         return comp
     }()
     
@@ -37,6 +41,10 @@ class ClockNeumorphismView: ViewBuilder {
     
     lazy var minutesContainerView: HoursOrMinutesContainerView = {
         let comp = HoursOrMinutesContainerView()
+            .setConstraints { build in
+                build
+                    .setPin.equalToSuperView
+            }
         return comp
     }()
     
@@ -56,6 +64,8 @@ class ClockNeumorphismView: ViewBuilder {
     
     private func configConstraints() {
         clockStackView.applyConstraint()
+        hoursContainerView.applyConstraint()
+        minutesContainerView.applyConstraint()
     }
     
 
