@@ -3,7 +3,7 @@
 
 import UIKit
 
-public class ClockNeumorphismBuilder: ClockNeumorphism {
+public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
 
     private var strokeModel: StrokeModel!
     private var colonModel: ColonModel!
@@ -22,6 +22,7 @@ public class ClockNeumorphismBuilder: ClockNeumorphism {
     public  init() {
         self.strokeModel = StrokeModel()
         self.colonModel = ColonModel()
+        super.init(clockNeumorphism.get)
         configure()
     }
 
