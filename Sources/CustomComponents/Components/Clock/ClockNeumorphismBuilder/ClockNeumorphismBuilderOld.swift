@@ -19,7 +19,7 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
         case black
     }
     
-    private var timer: DispatchSourceTimer?
+    private weak var timer: DispatchSourceTimer?
     private var weight: CGFloat = 4
     private var enabledDay: Bool = false
     private var hour1: Int = 0
@@ -124,65 +124,20 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
     private func updateClock() {
         removeSubviews()
         let hour1 = ClockNumber()
-        hour1.get().add(insideTo: stackHours.get)
+        hour1.get.add(insideTo: stackHours.get)
         hour1.configure(number: 0)
         
         let hour2 = ClockNumber()
-        hour2.get().add(insideTo: stackHours.get)
+        hour2.get.add(insideTo: stackHours.get)
         hour2.configure(number: 0)
         
         let min1 = ClockNumber()
-        min1.get().add(insideTo: stackMinutes.get)
+        min1.get.add(insideTo: stackMinutes.get)
         min1.configure(number: 0)
         
         let min2 = ClockNumber()
-        min2.get().add(insideTo: stackMinutes.get)
+        min2.get.add(insideTo: stackMinutes.get)
         min2.configure(number: 0)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-            hour1.configure(number: 1)
-            hour2.configure(number: 1)
-            min1.configure(number: 1)
-            min2.configure(number: 1)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                hour2.configure(number: 2)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                    min1.configure(number: 3)
-                })
-
-            })
-        })
-        
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: {
-            hour1.configure(number: 2)
-            hour2.configure(number: 2)
-            min1.configure(number: 2)
-            min2.configure(number: 2)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                hour1.configure(number: 0)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                    hour2.configure(number: 1)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                        min1.configure(number: 2)
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                            min2.configure(number: 3)
-                        })
-                    })
-                    
-                })
-                
-
-            })
-
-        })
     }
     
     private func removeSubviews() {

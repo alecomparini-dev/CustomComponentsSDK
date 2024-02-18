@@ -14,7 +14,7 @@ class ClockNumber {
     
 //  MARK: - PUBLIC AREA
     
-    func get() -> ClockNumberBaseView { clockNumberBase }
+    var get: ClockNumberBaseView { clockNumberBase }
 
     func configure(number: Int) {
         switch number {
