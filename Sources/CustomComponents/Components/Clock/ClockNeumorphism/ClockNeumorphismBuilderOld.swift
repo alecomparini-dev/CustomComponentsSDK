@@ -73,7 +73,7 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
         return label
     }()
     
-    lazy var twoPoints: ViewBuilder = {
+    lazy var twoPoints: ColonsView = {
         let comp = ColonsView()
         return comp
     }()
@@ -99,30 +99,34 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
     // TODO: - CREATE METHOD START OR SHOW AND UPDATE ONLY WHEN NUMBER CHANGES
     private func startClock() {
         updateClock()
+
         timer = DispatchSource.makeTimerSource()
+
         timer?.schedule(deadline: .now(), repeating: .seconds(1))
+
         timer?.setEventHandler { [weak self ] in
+
             DispatchQueue.main.async {
                 let dateFormatter = DateFormatter()
+                
                 dateFormatter.dateFormat = "ss"
+                
                 if dateFormatter.string(from: Date()) == "00" {
                     self?.updateClock()
                 }
+                
             }
         }
+        
         timer?.resume()
     }
     
     private func updateClock() {
         removeSubviews()
-        let hourView1 =  ClockNumber2View()
-        let hourView2 = ClockNumber1View()
-        let minuteView1 = ClockNumber5View()
-        let minuteView2 = ClockNumber2View()
-        hourView1.add(insideTo: stackHours.get)
-        hourView2.add(insideTo: stackHours.get)
-        minuteView1.add(insideTo: stackMinutes.get)
-        minuteView2.add(insideTo: stackMinutes.get)
+        ClockNumber2View().add(insideTo: stackHours.get)
+        ClockNumber2View().add(insideTo: stackHours.get)
+        ClockNumber2View().add(insideTo: stackMinutes.get)
+        ClockNumber2View().add(insideTo: stackMinutes.get)
     }
     
     private func removeSubviews() {
