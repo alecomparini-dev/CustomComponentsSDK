@@ -35,7 +35,6 @@ class ClockNumber5View: ClockNumberView  {
                     .setTop.setBottom.equalToSuperView
                     .setLeading.equalToSuperView(-2)
                     .setTrailing.equalToSuperView(2)
-
             }
         return comp
     }()
