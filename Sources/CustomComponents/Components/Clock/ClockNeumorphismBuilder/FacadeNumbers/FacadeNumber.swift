@@ -69,13 +69,13 @@ class ClockNumber0: ClockNumber {
     }
     
     func configure() -> ClockNumberBaseView {
-        clockNumberBase.leftTopStroke.setHidden(true)
-        clockNumberBase.leftBottomStroke.setHidden(true)
-        clockNumberBase.middleTopStroke.setHidden(true)
-        clockNumberBase.middleMiddleStroke.setHidden(false)
-        clockNumberBase.middleBottomStroke.setHidden(true)
-        clockNumberBase.rightTopStroke.setHidden(true)
-        clockNumberBase.rightBottomStroke.setHidden(true)
+        clockNumberBase.leftTopStroke.setHidden(false)
+        clockNumberBase.leftBottomStroke.setHidden(false)
+        clockNumberBase.middleTopStroke.setHidden(false)
+        clockNumberBase.middleMiddleStroke.setHidden(true)
+        clockNumberBase.middleBottomStroke.setHidden(false)
+        clockNumberBase.rightTopStroke.setHidden(false)
+        clockNumberBase.rightBottomStroke.setHidden(false)
         return clockNumberBase
     }
 
@@ -90,13 +90,13 @@ class ClockNumber1: ClockNumber {
     }
     
     func configure() -> ClockNumberBaseView {
-        clockNumberBase.leftTopStroke.setHidden(true)
-        clockNumberBase.leftBottomStroke.setHidden(true)
-        clockNumberBase.middleTopStroke.setHidden(true)
-        clockNumberBase.middleMiddleStroke.setHidden(false)
-        clockNumberBase.middleBottomStroke.setHidden(true)
-        clockNumberBase.rightTopStroke.setHidden(true)
-        clockNumberBase.rightBottomStroke.setHidden(true)
+        clockNumberBase.leftTopStroke.setHidden(false)
+        clockNumberBase.leftBottomStroke.setHidden(false)
+        clockNumberBase.middleTopStroke.setHidden(false)
+        clockNumberBase.middleMiddleStroke.setHidden(true)
+        clockNumberBase.middleBottomStroke.setHidden(false)
+        clockNumberBase.rightTopStroke.setHidden(false)
+        clockNumberBase.rightBottomStroke.setHidden(false)
         return clockNumberBase
     }
 
@@ -111,13 +111,13 @@ class ClockNumber2: ClockNumber {
     }
     
     func configure() -> ClockNumberBaseView {
-        clockNumberBase.leftTopStroke.setHidden(true)
-        clockNumberBase.leftBottomStroke.setHidden(false)
-        clockNumberBase.middleTopStroke.setHidden(true)
-        clockNumberBase.middleMiddleStroke.setHidden(true)
-        clockNumberBase.middleBottomStroke.setHidden(true)
-        clockNumberBase.rightTopStroke.setHidden(false)
-        clockNumberBase.rightBottomStroke.setHidden(true)
+        clockNumberBase.leftTopStroke.setHidden(false)
+        clockNumberBase.leftBottomStroke.setHidden(true)
+        clockNumberBase.middleTopStroke.setHidden(false)
+        clockNumberBase.middleMiddleStroke.setHidden(false)
+        clockNumberBase.middleBottomStroke.setHidden(false)
+        clockNumberBase.rightTopStroke.setHidden(true)
+        clockNumberBase.rightBottomStroke.setHidden(false)
         return clockNumberBase
     }
 
@@ -132,13 +132,13 @@ class ClockNumber3: ClockNumber {
     }
     
     func configure() -> ClockNumberBaseView {
-        clockNumberBase.leftTopStroke.setHidden(false)
-        clockNumberBase.leftBottomStroke.setHidden(false)
-        clockNumberBase.middleTopStroke.setHidden(true)
-        clockNumberBase.middleMiddleStroke.setHidden(true)
-        clockNumberBase.middleBottomStroke.setHidden(true)
-        clockNumberBase.rightTopStroke.setHidden(true)
-        clockNumberBase.rightBottomStroke.setHidden(true)
+        clockNumberBase.leftTopStroke.setHidden(true)
+        clockNumberBase.leftBottomStroke.setHidden(true)
+        clockNumberBase.middleTopStroke.setHidden(false)
+        clockNumberBase.middleMiddleStroke.setHidden(false)
+        clockNumberBase.middleBottomStroke.setHidden(false)
+        clockNumberBase.rightTopStroke.setHidden(false)
+        clockNumberBase.rightBottomStroke.setHidden(false)
         return clockNumberBase
     }
 
