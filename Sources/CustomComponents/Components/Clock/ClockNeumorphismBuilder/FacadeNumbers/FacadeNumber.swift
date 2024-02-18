@@ -30,23 +30,23 @@ class ClockNumber {
             case 3:
                 return ClockNumber3(self.clockNumberBase).configure()
 
-//            case 4:
-//                return ClockNumber4(self.clockNumberBase).configure()
-//
-//            case 5:
-//                return ClockNumber5(self.clockNumberBase).configure()
-//
-//            case 6:
-//                return ClockNumber6(self.clockNumberBase).configure()
-//
-//            case 7:
-//                return ClockNumber7(self.clockNumberBase).configure()
-//
-//            case 8:
-//                return ClockNumber8(self.clockNumberBase).configure()
-//
-//            case 9:
-//                return ClockNumber3(self.clockNumberBase).configure()
+            case 4:
+                return ClockNumber4(self.clockNumberBase).configure()
+
+            case 5:
+                return ClockNumber5(self.clockNumberBase).configure()
+
+            case 6:
+                return ClockNumber6(self.clockNumberBase).configure()
+
+            case 7:
+                return ClockNumber7(self.clockNumberBase).configure()
+
+            case 8:
+                return ClockNumber8(self.clockNumberBase).configure()
+
+            case 9:
+                return ClockNumber3(self.clockNumberBase).configure()
 
         default:
             break
@@ -152,7 +152,7 @@ class ClockNumber3: ClockNumberProtocol {
 
 
 
-class ClockNumber4: ClockNumber {
+class ClockNumber4: ClockNumberProtocol {
 
     private let clockNumberBase: ClockNumberBaseView
     
@@ -160,7 +160,7 @@ class ClockNumber4: ClockNumber {
         self.clockNumberBase = clockNumberBase
     }
     
-    func configure() -> ClockNumberBaseView {
+    func configure() {
         clockNumberBase.leftTopStroke.setHidden(false)
         clockNumberBase.leftBottomStroke.setHidden(true)
         clockNumberBase.middleTopStroke.setHidden(true)
@@ -168,12 +168,11 @@ class ClockNumber4: ClockNumber {
         clockNumberBase.middleBottomStroke.setHidden(true)
         clockNumberBase.rightTopStroke.setHidden(false)
         clockNumberBase.rightBottomStroke.setHidden(false)
-        return clockNumberBase
     }
 
 }
 
-class ClockNumber5: ClockNumber {
+class ClockNumber5: ClockNumberProtocol {
 
     private let clockNumberBase: ClockNumberBaseView
     
@@ -181,7 +180,7 @@ class ClockNumber5: ClockNumber {
         self.clockNumberBase = clockNumberBase
     }
     
-    func configure() -> ClockNumberBaseView {
+    func configure() {
         clockNumberBase.leftTopStroke.setHidden(false)
         clockNumberBase.leftBottomStroke.setHidden(true)
         clockNumberBase.middleTopStroke.setHidden(false)
@@ -189,12 +188,11 @@ class ClockNumber5: ClockNumber {
         clockNumberBase.middleBottomStroke.setHidden(false)
         clockNumberBase.rightTopStroke.setHidden(true)
         clockNumberBase.rightBottomStroke.setHidden(false)
-        return clockNumberBase
     }
 
 }
 
-class ClockNumber6: ClockNumber {
+class ClockNumber6: ClockNumberProtocol {
 
     private let clockNumberBase: ClockNumberBaseView
     
@@ -202,7 +200,7 @@ class ClockNumber6: ClockNumber {
         self.clockNumberBase = clockNumberBase
     }
     
-    func configure() -> ClockNumberBaseView {
+    func configure() {
         clockNumberBase.leftTopStroke.setHidden(false)
         clockNumberBase.leftBottomStroke.setHidden(false)
         clockNumberBase.middleTopStroke.setHidden(true)
@@ -210,12 +208,11 @@ class ClockNumber6: ClockNumber {
         clockNumberBase.middleBottomStroke.setHidden(false)
         clockNumberBase.rightTopStroke.setHidden(true)
         clockNumberBase.rightBottomStroke.setHidden(false)
-        return clockNumberBase
     }
 
 }
 
-class ClockNumber7: ClockNumber {
+class ClockNumber7: ClockNumberProtocol {
 
     private let clockNumberBase: ClockNumberBaseView
     
@@ -223,7 +220,7 @@ class ClockNumber7: ClockNumber {
         self.clockNumberBase = clockNumberBase
     }
     
-    func configure() -> ClockNumberBaseView {
+    func configure() {
         clockNumberBase.leftTopStroke.setHidden(true)
         clockNumberBase.leftBottomStroke.setHidden(true)
         clockNumberBase.middleTopStroke.setHidden(false)
@@ -231,12 +228,11 @@ class ClockNumber7: ClockNumber {
         clockNumberBase.middleBottomStroke.setHidden(true)
         clockNumberBase.rightTopStroke.setHidden(false)
         clockNumberBase.rightBottomStroke.setHidden(false)
-        return clockNumberBase
     }
 
 }
 
-class ClockNumber8: ClockNumber {
+class ClockNumber8: ClockNumberProtocol {
 
     private let clockNumberBase: ClockNumberBaseView
     
@@ -244,7 +240,7 @@ class ClockNumber8: ClockNumber {
         self.clockNumberBase = clockNumberBase
     }
     
-    func configure() -> ClockNumberBaseView {
+    func configure() {
         clockNumberBase.leftTopStroke.setHidden(false)
         clockNumberBase.leftBottomStroke.setHidden(false)
         clockNumberBase.middleTopStroke.setHidden(false)
@@ -252,7 +248,27 @@ class ClockNumber8: ClockNumber {
         clockNumberBase.middleBottomStroke.setHidden(false)
         clockNumberBase.rightTopStroke.setHidden(false)
         clockNumberBase.rightBottomStroke.setHidden(false)
-        return clockNumberBase
     }
 
 }
+
+class ClockNumber9: ClockNumberProtocol {
+
+    private let clockNumberBase: ClockNumberBaseView
+    
+    init(_ clockNumberBase: ClockNumberBaseView) {
+        self.clockNumberBase = clockNumberBase
+    }
+    
+    func configure() {
+        clockNumberBase.leftTopStroke.setHidden(false)
+        clockNumberBase.leftBottomStroke.setHidden(true)
+        clockNumberBase.middleTopStroke.setHidden(false)
+        clockNumberBase.middleMiddleStroke.setHidden(false)
+        clockNumberBase.middleBottomStroke.setHidden(true)
+        clockNumberBase.rightTopStroke.setHidden(false)
+        clockNumberBase.rightBottomStroke.setHidden(false)
+    }
+
+}
+
