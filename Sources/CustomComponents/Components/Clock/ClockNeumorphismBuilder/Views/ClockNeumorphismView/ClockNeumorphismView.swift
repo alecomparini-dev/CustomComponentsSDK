@@ -16,7 +16,7 @@ class ClockNeumorphismView: ViewBuilder {
         let st = StackViewBuilder()
             .setAxis(.horizontal)
             .setAlignment(.fill)
-            .setDistribution(.fillProportionally)
+            .setDistribution(.equalCentering)
             .setSpacing(8)
             .setConstraints({ build in
                 build
@@ -32,6 +32,10 @@ class ClockNeumorphismView: ViewBuilder {
     
     lazy var colonsView: ColonsView = {
         let comp = ColonsView()
+            .setConstraints { build in
+                build
+                    .setWidth.equalToConstant(8)
+            }
         return comp
     }()
     
@@ -56,6 +60,7 @@ class ClockNeumorphismView: ViewBuilder {
     
     private func configConstraints() {
         clockStackView.applyConstraint()
+        colonsView.applyConstraint()
     }
     
 
