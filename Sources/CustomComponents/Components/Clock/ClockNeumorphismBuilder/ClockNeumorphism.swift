@@ -3,7 +3,8 @@
 
 import Foundation
 
-protocol ClockNeumorphism {
+public protocol ClockNeumorphism {
+    
     
 //  MARK: - GET PROPERTIES
     
@@ -15,6 +16,7 @@ protocol ClockNeumorphism {
     
     
 //  MARK: - SET PROPERTIES
+    
     func setColor(hexColor: String) -> Self
     
     func setDisableShadow() -> Self
@@ -26,7 +28,11 @@ protocol ClockNeumorphism {
     func setShape(_ shape: K.Neumorphism.Shape) -> Self
     
     func setColonsStyle(_ build: (_ build: ColonsStyleBuilder) -> ColonsStyleBuilder) -> Self
+
+    
+//  MARK: - ACTIONS
+    
+    func stopClock()
+    
     
 }
-
-

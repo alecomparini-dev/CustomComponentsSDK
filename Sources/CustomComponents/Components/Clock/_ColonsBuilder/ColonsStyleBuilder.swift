@@ -3,48 +3,50 @@
 
 import Foundation
 
-class ColonsStyleBuilder {
+public class ColonsStyleBuilder {
     
     private var colon: ColonModel!
     
     public var get: ColonModel { colon }
     
+    public init() {   }
+    
     
 //  MARK: - SET PROPERTIES
 
     @discardableResult
-    func setShape(_ shape: K.Neumorphism.Shape) -> Self {
+    public func setShape(_ shape: K.Neumorphism.Shape) -> Self {
         colon.shape = shape
         return self
     }
 
     @discardableResult
-    func setRadius(_ radius: CGFloat) -> Self {
+    public func setRadius(_ radius: CGFloat) -> Self {
         colon.radius = radius
         return self
     }
     
     @discardableResult
-    func setColor(hexColor: String) -> Self {
+    public func setColor(hexColor: String) -> Self {
         if !hexColor.isHexColor() { return self }
         colon.hexColor = hexColor
         return self
     }
     
     @discardableResult
-    func setDisableShadow() -> Self {
+    public func setDisableShadow() -> Self {
         colon.isShadow = false
         return self
     }
     
     @discardableResult
-    func setShadowDistance(_ distance: CGFloat) -> Self {
+    public func setShadowDistance(_ distance: CGFloat) -> Self {
         colon.shadowDistance = distance
         return self
     }
     
     @discardableResult
-    func setLightPosition(_ position: K.Neumorphism.LightPosition) -> Self {
+    public func setLightPosition(_ position: K.Neumorphism.LightPosition) -> Self {
         colon.lightPosition = position
         return self
     }
