@@ -5,7 +5,7 @@
 import UIKit
 
 
-public class ClockNeumorphismBuilder: ViewBuilder {
+public class ClockNeumorphismBuilderOld: ViewBuilder {
     
     enum Weight {
         case ultraLight
@@ -78,39 +78,6 @@ public class ClockNeumorphismBuilder: ViewBuilder {
         return comp
     }()
     
-//    lazy var twoPoints: ViewBuilder = {
-//        let view = ViewBuilder()
-//        
-//        let stack = StackViewBuilder()
-//            .setAxis(.vertical)
-//            .setDistribution(.fillEqually)
-//            .get
-//        
-//        stack.add(insideTo: view.get)
-//        stack.makeConstraints { make in
-//            make
-//                .setPin.equalToSuperView
-//                .apply()
-//        }
-//        let topView = ViewBuilder()
-//        let middleView = ViewBuilder()
-//        let bottomView = ViewBuilder()
-//        
-//        topView.add(insideTo: stack)
-//        middleView.add(insideTo: stack)
-//        bottomView.add(insideTo: stack)
-//        
-//        DispatchQueue.main.async {
-//            let points = self.createTwoPoints(middleView.get.frame.height)
-//            points.add(insideTo: middleView.get)
-//            points.makeConstraints { make in
-//                make
-//                    .setPin.equalToSuperView
-//                    .apply()
-//            }
-//        }
-//        return view
-//    }()
     
     
     //  MARK: - SET Properties
@@ -148,7 +115,8 @@ public class ClockNeumorphismBuilder: ViewBuilder {
     
     private func updateClock() {
         removeSubviews()
-        let hourView1 = ClockNumbers(number: getHour(firstPosition: true), weight: weight)
+//        let hourView1 = ClockNumbers(number: getHour(firstPosition: true), weight: weight)
+        let hourView1 =  ClockNumber1View()
         let hourView2 = ClockNumber1View()
         let minuteView1 = ClockNumber5View()
         let minuteView2 = ClockNumber1View()
@@ -185,54 +153,6 @@ public class ClockNeumorphismBuilder: ViewBuilder {
         return dateFormatter.string(from: Date())
     }
     
-    private func createTwoPoints(_ width: CGFloat) -> UIView {
-        let widthPoints = width/3
-        let point1 = createPoint(widthPoints)
-        let point2 = createPoint(widthPoints)
-        
-        let view = UIView()
-        point1.add(insideTo: view)
-        point2.add(insideTo: view)
-        
-        point1.setConstraints({ build in
-            build
-                .setTop.equalToSuperView(-4)
-                .setHorizontalAlignmentX.equalTo(view)
-                .setSize.equalToConstant(widthPoints)
-                .apply()
-        })
-        
-        point2.setConstraints({ build in
-            build
-                .setBottom.equalToSuperView(4)
-                .setHorizontalAlignmentX.equalToSuperView
-                .setSize.equalToConstant(widthPoints)
-                .apply()
-        })
-
-        return view
-    }
-    
-    private func createPoint(_ widthPoints: CGFloat) -> ViewBuilder {
-        return ViewBuilder()
-            .setBorder { build in
-                build.setCornerRadius(widthPoints/2)
-            }
-            .setNeumorphism { build in
-                build
-                    .setReferenceColor(hexColor: "#00e0c6")
-                    .setShape(.concave)
-                    .setLightPosition(.leftTop)
-                    .setShadowColor(to: .dark, color: .black)
-                    .setIntensity(to:.light,percent: 0)
-                    .setIntensity(to:.dark,percent: 100)
-                    .setBlur(to:.light, percent: 0)
-                    .setBlur(to:.dark, percent: 3)
-                    .setDistance(to:.light, percent: 3)
-                    .setDistance(to:.dark, percent: 10)
-                    .apply()
-            }
-    }
     
     private func addElements() {
         stackHours.add(insideTo: self.get)
