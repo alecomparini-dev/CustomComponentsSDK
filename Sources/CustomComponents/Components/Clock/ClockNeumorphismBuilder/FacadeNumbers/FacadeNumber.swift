@@ -41,7 +41,7 @@ class FacadeClockNumber {
                 return ClockNumber7(self.clockNumberBase).configure()
 
             case 8:
-                return ClockNumber3(self.clockNumberBase).configure()
+                return ClockNumber8(self.clockNumberBase).configure()
 
             case 9:
                 return ClockNumber3(self.clockNumberBase).configure()
@@ -228,6 +228,27 @@ class ClockNumber7: ClockNumber {
     func configure() -> ClockNumberBaseView {
         clockNumberBase.leftTopStroke.setHidden(true)
         clockNumberBase.leftBottomStroke.setHidden(true)
+        clockNumberBase.middleTopStroke.setHidden(false)
+        clockNumberBase.middleMiddleStroke.setHidden(true)
+        clockNumberBase.middleBottomStroke.setHidden(true)
+        clockNumberBase.rightTopStroke.setHidden(false)
+        clockNumberBase.rightBottomStroke.setHidden(false)
+        return clockNumberBase
+    }
+
+}
+
+class ClockNumber8: ClockNumber {
+
+    private let clockNumberBase: ClockNumberBaseView
+    
+    init(_ clockNumberBase: ClockNumberBaseView) {
+        self.clockNumberBase = clockNumberBase
+    }
+    
+    func configure() -> ClockNumberBaseView {
+        clockNumberBase.leftTopStroke.setHidden(false)
+        clockNumberBase.leftBottomStroke.setHidden(false)
         clockNumberBase.middleTopStroke.setHidden(false)
         clockNumberBase.middleMiddleStroke.setHidden(true)
         clockNumberBase.middleBottomStroke.setHidden(true)
