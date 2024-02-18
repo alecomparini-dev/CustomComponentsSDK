@@ -19,7 +19,7 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
         case black
     }
     
-    private weak var timer: DispatchSourceTimer?
+    private var timer: DispatchSourceTimer?
     private var weight: CGFloat = 4
     private var enabledDay: Bool = false
     private var hour1: Int = 0
