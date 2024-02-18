@@ -42,8 +42,8 @@ class ClockNumber8View: ClockNumberView  {
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView(2)
+                    .setLeading.equalToSuperView
+                    .setTrailing.equalToSuperView
             }
         return comp
     }()
@@ -61,8 +61,8 @@ class ClockNumber8View: ClockNumberView  {
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView(2)
+                    .setLeading.equalToSuperView
+                    .setTrailing.equalToSuperView
             }
     }()
     
