@@ -125,19 +125,19 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
         removeSubviews()
         let hour1 = ClockNumber()
         hour1.get.add(insideTo: stackHours.get)
-        hour1.configure(number: 9)
+        hour1.set(number: 9)
         
         let hour2 = ClockNumber()
         hour2.get.add(insideTo: stackHours.get)
-        hour2.configure(number: 8)
+        hour2.set(number: 8)
         
         let min1 = ClockNumber()
         min1.get.add(insideTo: stackMinutes.get)
-        min1.configure(number: 7)
+        min1.set(number: 7)
         
         let min2 = ClockNumber()
         min2.get.add(insideTo: stackMinutes.get)
-        min2.configure(number: 6)
+        min2.set(number: 6)
     }
     
     private func removeSubviews() {

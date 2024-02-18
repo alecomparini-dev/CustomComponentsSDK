@@ -16,37 +16,37 @@ class ClockNumber {
     
     var get: ClockNumberBaseView { clockNumberBase }
 
-    func configure(number: Int) {
+    func set(number: Int) {
         switch number {
             case 0:
                 ClockNumber0(self.clockNumberBase).configure()
                 
             case 1:
-                return ClockNumber1(self.clockNumberBase).configure()
+                ClockNumber1(self.clockNumberBase).configure()
 
             case 2:
-                return ClockNumber2(self.clockNumberBase).configure()
+                ClockNumber2(self.clockNumberBase).configure()
 
             case 3:
-                return ClockNumber3(self.clockNumberBase).configure()
+                ClockNumber3(self.clockNumberBase).configure()
 
             case 4:
-                return ClockNumber4(self.clockNumberBase).configure()
+                ClockNumber4(self.clockNumberBase).configure()
 
             case 5:
-                return ClockNumber5(self.clockNumberBase).configure()
+                ClockNumber5(self.clockNumberBase).configure()
 
             case 6:
-                return ClockNumber6(self.clockNumberBase).configure()
+                ClockNumber6(self.clockNumberBase).configure()
 
             case 7:
-                return ClockNumber7(self.clockNumberBase).configure()
+                ClockNumber7(self.clockNumberBase).configure()
 
             case 8:
-                return ClockNumber8(self.clockNumberBase).configure()
+                ClockNumber8(self.clockNumberBase).configure()
 
             case 9:
-                return ClockNumber3(self.clockNumberBase).configure()
+                ClockNumber9(self.clockNumberBase).configure()
 
         default:
             break
