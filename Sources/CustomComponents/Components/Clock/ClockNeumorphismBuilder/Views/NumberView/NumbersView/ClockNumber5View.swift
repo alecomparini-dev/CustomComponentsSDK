@@ -16,20 +16,30 @@ class ClockNumber5View: ClockNumberView  {
     
     //  MARK: - LEFT
     lazy var leftTopStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setTop.equalToSuperView(2)
+                    .setBottom.equalToSuperView(-1)
+                    .setLeading.setTrailing.equalToSuperView
+            }
     }()
 
     lazy var leftBottomStroke: StrokeView = {
-        let comp = createStroke()
+        return StrokeView(strokeModel: strokeModel)
             .setHidden(true)
-        return comp
+            .setConstraints { build in
+                build
+                    .setTop.equalToSuperView(1)
+                    .setBottom.equalToSuperView(-2)
+                    .setLeading.setTrailing.equalToSuperView
+            }
     }()
     
     
     //  MARK: - MIDDLE
     lazy var middleTopStroke: StrokeView = {
-        let comp = createStroke()
+        let comp = StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
@@ -40,8 +50,11 @@ class ClockNumber5View: ClockNumberView  {
     }()
 
     lazy var middleMiddleStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setPin.equalToSuperView
+            }
     }()
     
     lazy var middleBottomStroke: StrokeView = {
@@ -57,14 +70,24 @@ class ClockNumber5View: ClockNumberView  {
     
     //  MARK: - RIGHT
     lazy var rightTopStroke: StrokeView = {
-        let comp = createStroke()
+        return StrokeView(strokeModel: strokeModel)
             .setHidden(true)
-        return comp
+            .setConstraints { build in
+                build
+                    .setTop.equalToSuperView(2)
+                    .setBottom.equalToSuperView(-1)
+                    .setLeading.setTrailing.equalToSuperView
+            }
     }()
 
     lazy var rightBottomStroke: StrokeView = {
-        let comp = createStroke()
-        return comp
+        return StrokeView(strokeModel: strokeModel)
+            .setConstraints { build in
+                build
+                    .setTop.equalToSuperView(1)
+                    .setBottom.equalToSuperView(-2)
+                    .setLeading.setTrailing.equalToSuperView
+            }
     }()
 
     
