@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumber5View: NumberContainerView  {
+class ClockNumber2View: ClockNumberView  {
     
     let strokeModel: StrokeModel
     
@@ -15,11 +15,11 @@ class ClockNumber5View: NumberContainerView  {
     
     
     //  MARK: - LEFT
-    lazy var leftTopStroke: StrokeView = {
+    lazy var leftBottomStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
-
+    
     
     //  MARK: - MIDDLE
     lazy var middleTopStroke: StrokeView = {
@@ -27,7 +27,7 @@ class ClockNumber5View: NumberContainerView  {
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView
+                    .setLeading.equalToSuperView(-2)
                     .setTrailing.equalToSuperView
             }
     }()
@@ -42,17 +42,18 @@ class ClockNumber5View: NumberContainerView  {
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
-                    .setLeading.equalToSuperView(-2)
-                    .setTrailing.equalToSuperView
+                    .setLeading.equalToSuperView
+                    .setTrailing.equalToSuperView(2)
             }
     }()
     
     
     //  MARK: - RIGHT
-    lazy var rightBottomStroke: StrokeView = {
+    lazy var rightTopStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
+
 
     
 //  MARK: - PRIVATE AREA
@@ -62,19 +63,19 @@ class ClockNumber5View: NumberContainerView  {
     }
     
     private func addElement() {
-        leftTopStroke.add(insideTo: leftColumn.topView.get)
+        leftBottomStroke.add(insideTo: leftColumn.bottomView.get)
         middleTopStroke.add(insideTo: middleColumn.topView.get)
         middleMiddleStroke.add(insideTo: middleColumn.middleView.get)
         middleBottomStroke.add(insideTo: middleColumn.bottomView.get)
-        rightBottomStroke.add(insideTo: rightColumn.bottomView.get)
+        rightTopStroke.add(insideTo: rightColumn.topView.get)
     }
     
     private func configConstraints() {
-        leftTopStroke.applyConstraint()
+        leftBottomStroke.applyConstraint()
         middleTopStroke.applyConstraint()
         middleMiddleStroke.applyConstraint()
         middleBottomStroke.applyConstraint()
-        rightBottomStroke.applyConstraint()
+        rightTopStroke.applyConstraint()
     }
     
     private func createStroke() -> StrokeView {

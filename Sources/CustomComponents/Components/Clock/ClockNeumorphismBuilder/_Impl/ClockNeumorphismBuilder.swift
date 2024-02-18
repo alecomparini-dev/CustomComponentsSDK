@@ -15,15 +15,11 @@ class ClockNeumorphismBuilder: ClockNeumorphism {
     init() {
         self.strokeModel = StrokeModel()
         self.colonModel = ColonModel()
+        configure()
     }
 
     
 //  MARK: - PUBLIC AREA
-    
-    public var build: Void {
-        
-        return
-    }
     
     public var getClock: ViewBuilder {
         return clockNeumorphism ?? ViewBuilder()
@@ -78,8 +74,16 @@ class ClockNeumorphismBuilder: ClockNeumorphism {
     }
     
     
+    
 //  MARK: - PRIVATE AREA
 
+    private func configure() {
+        startClock()
+    }
+    
+    private func startClock() {
+        
+    }
     
 }
 

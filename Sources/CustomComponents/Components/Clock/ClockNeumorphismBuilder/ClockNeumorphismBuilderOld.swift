@@ -124,9 +124,9 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
     private func updateClock() {
         removeSubviews()
         ClockNumber1View().add(insideTo: stackHours.get)
-        ClockNumber3View().add(insideTo: stackHours.get)
-        ClockNumber4View().add(insideTo: stackMinutes.get)
-        ClockNumber0View().add(insideTo: stackMinutes.get)
+        ClockNumber2View().add(insideTo: stackHours.get)
+        ClockNumber5View().add(insideTo: stackMinutes.get)
+        ClockNumber8View().add(insideTo: stackMinutes.get)
     }
     
     private func removeSubviews() {

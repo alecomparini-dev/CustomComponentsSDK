@@ -3,7 +3,7 @@
 
 import Foundation
 
-class ClockNumber9View: NumberContainerView  {
+class ClockNumber0View: ClockNumberView  {
     
     let strokeModel: StrokeModel
     
@@ -20,6 +20,11 @@ class ClockNumber9View: NumberContainerView  {
         return comp
     }()
 
+    lazy var leftBottomStroke: StrokeView = {
+        let comp = createStroke()
+        return comp
+    }()
+    
     
     //  MARK: - MIDDLE
     lazy var middleTopStroke: StrokeView = {
@@ -27,7 +32,7 @@ class ClockNumber9View: NumberContainerView  {
         return comp
     }()
 
-    lazy var middleMiddleStroke: StrokeView = {
+    lazy var middleBottomStroke: StrokeView = {
         let comp = createStroke()
         return comp
     }()
@@ -53,16 +58,18 @@ class ClockNumber9View: NumberContainerView  {
     
     private func addElement() {
         leftTopStroke.add(insideTo: leftColumn.topView.get)
+        leftBottomStroke.add(insideTo: leftColumn.bottomView.get)
         middleTopStroke.add(insideTo: middleColumn.topView.get)
-        middleMiddleStroke.add(insideTo: middleColumn.middleView.get)
+        middleBottomStroke.add(insideTo: middleColumn.bottomView.get)
         rightTopStroke.add(insideTo: rightColumn.topView.get)
         rightBottomStroke.add(insideTo: rightColumn.bottomView.get)
     }
     
     private func configConstraints() {
         leftTopStroke.applyConstraint()
+        leftBottomStroke.applyConstraint()
         middleTopStroke.applyConstraint()
-        middleMiddleStroke.applyConstraint()
+        middleBottomStroke.applyConstraint()
         rightTopStroke.applyConstraint()
         rightBottomStroke.applyConstraint()
     }

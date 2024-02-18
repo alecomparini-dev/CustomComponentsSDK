@@ -5,7 +5,7 @@ import Foundation
 
 protocol ClockNeumorphism {
     
-    var build: Void { get }
+//  MARK: - GET PROPERTIES
     
     var getClock: ViewBuilder { get }
 
@@ -14,6 +14,7 @@ protocol ClockNeumorphism {
     var getMinutes: ViewBuilder { get }
     
     
+//  MARK: - SET PROPERTIES
     func setColor(hexColor: String) -> Self
     
     func setDisableShadow() -> Self
