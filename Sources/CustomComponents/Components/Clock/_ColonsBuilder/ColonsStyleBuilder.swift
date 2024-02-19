@@ -54,4 +54,10 @@ public class ColonsStyleBuilder {
         return self
     }
     
+    @discardableResult
+    public func setColorShadow(hexColor: String) -> Self {
+        colon.shadowHexColor = hexColor
+        return self
+    }
+    
 }
