@@ -16,11 +16,10 @@ class ClockNeumorphismView: ViewBuilder {
         let st = StackViewBuilder()
             .setAxis(.horizontal)
             .setDistribution(.fillEqually)
-            .setSpacing(40)
             .setConstraints({ build in
                 build
                     .setPinLeft.equalToSuperView
-                    .setTrailing.equalTo(colonsView.get, .leading)
+                    .setTrailing.equalTo(colonsView.get, .leading, -4)
             })
         return st
     }()
@@ -40,11 +39,10 @@ class ClockNeumorphismView: ViewBuilder {
         let st = StackViewBuilder()
             .setAxis(.horizontal)
             .setDistribution(.fillEqually)
-            .setSpacing(40)
             .setConstraints({ build in
                 build
                     .setPinRight.equalToSuperView
-                    .setLeading.equalTo(colonsView.get, .trailing)
+                    .setLeading.equalTo(colonsView.get, .trailing, 4)
             })
         return st
     }()
