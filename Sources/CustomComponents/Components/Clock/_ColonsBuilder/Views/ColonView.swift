@@ -15,9 +15,17 @@ class ColonView: ViewBuilder {
     }
     
     private func configure() {
+        configBorder()
         configNeumorphism()
         configShadow()
         applyNeumorphism()
+    }
+    
+    private func configBorder() {
+        self.setBorder({ build in
+            build
+                .setCornerRadius(colonModel.radius / 2)
+        })
     }
     
     private func configNeumorphism() {

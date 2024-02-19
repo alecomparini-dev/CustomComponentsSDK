@@ -73,10 +73,6 @@ class ColonsView: ViewBuilder {
     
     private func createColonView() -> ColonView {
         return ColonView(colonModel: colonModel)
-            .setBorder({ build in
-                build
-                    .setCornerRadius(colonModel.radius / 2)
-            })
             .setConstraints { build in
                 build
                     .setSize.equalToConstant(colonModel.radius)
