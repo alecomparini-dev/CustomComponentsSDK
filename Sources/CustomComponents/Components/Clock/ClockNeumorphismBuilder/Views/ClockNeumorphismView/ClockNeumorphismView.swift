@@ -30,7 +30,7 @@ class ClockNeumorphismView: ViewBuilder {
                 build
                     .setTop.setBottom.equalToSuperView
                     .setHorizontalAlignmentX.equalToSuperView
-                    .setWidth.equalToConstant(8)
+                    .setWidth.equalToConstant(58)
             }
         return comp
     }()
