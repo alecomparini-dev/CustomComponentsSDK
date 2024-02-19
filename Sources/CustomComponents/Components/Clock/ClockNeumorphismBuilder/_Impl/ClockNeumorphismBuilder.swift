@@ -133,7 +133,12 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     
     private func createColonsView() {
         let colonsView = ColonsView(colonModel: colonModel)
-        clockNeumorphism.colonsView = colonsView
+            .setConstraints { build in
+                build
+                    .setPin.equalToSuperView
+            }
+        colonsView.add(insideTo: clockNeumorphism.colonsView.get)
+        colonsView.applyConstraint()
     }
     
     private func configConstraints() {
