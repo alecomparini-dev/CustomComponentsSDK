@@ -32,8 +32,8 @@ public protocol ClockNeumorphism {
     
 //  MARK: - ACTIONS
     
-    func show()
+    func startClock()
 
-    func hidde()
+    func hiddeClock()
     
 }
