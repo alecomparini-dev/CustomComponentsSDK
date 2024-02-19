@@ -158,17 +158,17 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     
 
     private func startTime() {
+        updateTime()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .common)
     }
     
     @objc 
     private func updateTime() {
-        var dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter()
+        
         dateFormatter.dateFormat = "ss"
         if dateFormatter.string(from: Date()) == "00" {
-            print("ENTROUUUUUUUUUUU")
-            
             dateFormatter.dateFormat = "HH"
             let currentHour = dateFormatter.string(from: Date())
             
@@ -189,6 +189,11 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         Clock.hourRight.set(number: hourRight)
         Clock.minLeft.set(number: minLeft)
         Clock.minRight.set(number: minRight)
+        
+        Clock.hourLeft.set(number: 1)
+        Clock.hourRight.set(number: 2)
+        Clock.minLeft.set(number: 1)
+        Clock.minRight.set(number: 4)
     }
 
 
