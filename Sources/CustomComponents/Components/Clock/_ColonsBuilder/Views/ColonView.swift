@@ -29,8 +29,7 @@ class ColonView: ViewBuilder {
     }
     
     private func configNeumorphism() {
-        self.setNeumorphism { build in
-            build
+        self.neumorphism = NeumorphismBuilder(self.get)
                 .setReferenceColor(hexColor: colonModel.hexColor)
                 .setShape(.flat)
                 .setLightPosition(.leftTop)
@@ -42,9 +41,6 @@ class ColonView: ViewBuilder {
                 .setDistance(to:.light, percent: 3)
                 .setDistance(to:.dark, percent: 10)
                 .apply()
-            
-        }
-//        self.neumorphism = NeumorphismBuilder(self.get)
             
     }
     
