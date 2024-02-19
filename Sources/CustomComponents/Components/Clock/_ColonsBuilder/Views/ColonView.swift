@@ -31,7 +31,8 @@ class ColonView: ViewBuilder {
     private func configNeumorphism() {
         self.neumorphism = NeumorphismBuilder(self.get)
                 .setReferenceColor(hexColor: colonModel.hexColor)
-                .setShadowColor(to: .dark, hexColor: colonModel.shadowHexColor)
+//                .setShadowColor(to: .dark, hexColor: colonModel.shadowHexColor)
+                .setShadowColor(to: .dark, color: .black)
                 .setShape(colonModel.shape)
                 .setLightPosition(colonModel.lightPosition)
         
