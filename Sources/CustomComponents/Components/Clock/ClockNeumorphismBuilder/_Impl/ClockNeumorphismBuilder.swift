@@ -201,7 +201,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         
         Clock.hourLeft.set(number: 1)
         Clock.hourRight.set(number: 2)
-        Clock.minLeft.set(number: 8)
+        Clock.minLeft.set(number: 4)
         Clock.minRight.set(number: 8)
     }
 
