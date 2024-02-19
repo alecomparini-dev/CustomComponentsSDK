@@ -4,7 +4,8 @@
 import UIKit
 
 public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
-
+    private var alreadyApplied = false
+    
     private var strokeModel: StrokeModel!
     private var colonModel: ColonModel!
     
@@ -15,6 +16,8 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         static var minRight: ClockNumber!
     }
     
+    private var timer: Timer?
+    
     private let clockNeumorphism: ClockNeumorphismView
     private var hours: ViewBuilder?
     private var minutes: ViewBuilder?
@@ -24,7 +27,12 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         self.colonModel = ColonModel()
         self.clockNeumorphism = ClockNeumorphismView()
         super.init(clockNeumorphism.get)
-        configure()
+    }
+    
+    
+    deinit {
+        timer?.invalidate()
+        timer = nil
     }
 
     
@@ -35,11 +43,11 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     }
 
     public var getHours: ViewBuilder {
-        return hours ?? ViewBuilder()
+        return clockNeumorphism.hoursContainerView
     }
 
     public var getMinutes: ViewBuilder {
-        return minutes ?? ViewBuilder()
+        return clockNeumorphism.minutesContainerView
     }
     
     
@@ -82,23 +90,32 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         return self
     }
     
+    
+    
 //  MARK: - ACTIONS
 
-    public func stopClock() {
-        
+    public func show() {
+        applyOnceConfig()
+        startTime()
+    }
+    
+    public func hidde() {
+        timer?.invalidate()
+        timer = nil
     }
     
 
     
 //  MARK: - PRIVATE AREA
 
-    private func configure() {
+    private func applyOnceConfig() {
+        if alreadyApplied { return }
         createBaseNumberView()
         addBaseNumberView()
         configConstraints()
-        startClock()
+        alreadyApplied = true
     }
-        
+    
     private func createBaseNumberView() {
         Clock.hourLeft = ClockNumber(strokeModel: strokeModel)
         Clock.hourRight = ClockNumber(strokeModel: strokeModel)
@@ -139,12 +156,37 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         }
     }
     
-    private func startClock() {
-        Clock.hourLeft.set(number: 1)
-        Clock.hourRight.set(number: 6)
-        Clock.minLeft.set(number: 1)
-        Clock.minRight.set(number: 1)
+
+    private func startTime() {
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        RunLoop.current.add(timer!, forMode: .common)
     }
+    
+    @objc 
+    private func updateTime() {
+        var dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "HH"
+        let currentHour = dateFormatter.string(from: Date())
+        
+        dateFormatter.dateFormat = "mm"
+        let currentMinute = dateFormatter.string(from: Date())
+
+        updateClock(currentHour,currentMinute)
+    }
+    
+    private func updateClock(_ currentHour: String, _ currentMinute: String) {
+        let hourLeft = Int(currentHour.prefix(1)) ?? 0
+        let hourRight = Int(currentHour.prefix(1)) ?? 0
+        let minLeft = Int(currentMinute.prefix(1)) ?? 0
+        let minRight = Int(currentMinute.prefix(1)) ?? 0
+        
+        Clock.hourLeft.set(number: hourLeft)
+        Clock.hourRight.set(number: hourRight)
+        Clock.minLeft.set(number: minLeft)
+        Clock.minRight.set(number: minRight)
+    }
+
 
     
 }
