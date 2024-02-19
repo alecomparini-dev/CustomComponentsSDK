@@ -41,6 +41,7 @@ class ColonView: ViewBuilder {
                 .setBlur(to:.dark, percent: 5)
                 .setDistance(to:.light, percent: (colonModel.shadowDistance * 0.3))
                 .setDistance(to:.dark, percent: colonModel.shadowDistance)
+                .apply()
             
         }
 //        self.neumorphism = NeumorphismBuilder(self.get)
@@ -61,7 +62,7 @@ class ColonView: ViewBuilder {
     }
     
     private func applyNeumorphism() {
-        self.neumorphism.apply()
+//        self.neumorphism.apply()
     }
     
 }
