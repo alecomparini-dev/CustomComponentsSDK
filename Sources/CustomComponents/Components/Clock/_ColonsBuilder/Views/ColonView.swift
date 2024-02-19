@@ -32,15 +32,15 @@ class ColonView: ViewBuilder {
         self.setNeumorphism { build in
             build
                 .setReferenceColor(hexColor: colonModel.hexColor)
-                .setShape(colonModel.shape)
-                .setLightPosition(colonModel.lightPosition)
-                .setShadowColor(to: .dark, hexColor: colonModel.shadowHexColor)
-                .setIntensity(to:.light,percent: 50)
+                .setShape(.flat)
+                .setLightPosition(.leftTop)
+                .setShadowColor(to: .dark, color: .black)
+                .setIntensity(to:.light,percent: 0)
                 .setIntensity(to:.dark,percent: 100)
                 .setBlur(to:.light, percent: 0)
-                .setBlur(to:.dark, percent: 5)
-                .setDistance(to:.light, percent: (colonModel.shadowDistance * 0.3))
-                .setDistance(to:.dark, percent: colonModel.shadowDistance)
+                .setBlur(to:.dark, percent: 3)
+                .setDistance(to:.light, percent: 3)
+                .setDistance(to:.dark, percent: 10)
                 .apply()
             
         }
