@@ -19,7 +19,7 @@ class ClockNeumorphismView: ViewBuilder {
             .setConstraints({ build in
                 build
                     .setPinLeft.equalToSuperView
-                    .setTrailing.equalTo(colonsView.get, .leading, -4)
+                    .setTrailing.equalTo(colonsView.get, .leading, -8)
             })
         return st
     }()
@@ -30,7 +30,7 @@ class ClockNeumorphismView: ViewBuilder {
                 build
                     .setTop.setBottom.equalToSuperView
                     .setHorizontalAlignmentX.equalToSuperView
-                    .setWidth.equalToConstant(58)
+                    .setWidth.equalToConstant(8)
             }
         return comp
     }()
@@ -42,7 +42,7 @@ class ClockNeumorphismView: ViewBuilder {
             .setConstraints({ build in
                 build
                     .setPinRight.equalToSuperView
-                    .setLeading.equalTo(colonsView.get, .trailing, 4)
+                    .setLeading.equalTo(colonsView.get, .trailing)
             })
         return st
     }()
