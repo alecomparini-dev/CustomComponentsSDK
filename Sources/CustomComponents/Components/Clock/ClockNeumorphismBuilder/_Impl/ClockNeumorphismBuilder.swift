@@ -94,12 +94,12 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     
 //  MARK: - ACTIONS
 
-    public func start() {
+    public func startClock() {
         applyOnceConfig()
         startTime()
     }
     
-    public func hidde() {
+    public func hiddeClock() {
         timer?.invalidate()
         timer = nil
     }
