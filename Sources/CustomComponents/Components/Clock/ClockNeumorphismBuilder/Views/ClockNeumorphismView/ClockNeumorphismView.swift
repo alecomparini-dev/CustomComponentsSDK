@@ -24,8 +24,8 @@ class ClockNeumorphismView: ViewBuilder {
         return st
     }()
 
-    lazy var colonsView: ColonsView = {
-        let comp = ColonsView()
+    lazy var colonsView: ViewBuilder = {
+        let comp = ViewBuilder()
             .setConstraints { build in
                 build
                     .setTop.setBottom.equalToSuperView
@@ -81,10 +81,4 @@ class ClockNeumorphismView: ViewBuilder {
     
 
 }
-
-
-
-
-
-
 
