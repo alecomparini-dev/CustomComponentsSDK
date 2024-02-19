@@ -140,10 +140,10 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     }
     
     private func startClock() {
-        Clock.hourLeft.set(number: 0)
+        Clock.hourLeft.set(number: 1)
         Clock.hourRight.set(number: 6)
-        Clock.minLeft.set(number: 7)
-        Clock.minRight.set(number: 1)
+        Clock.minLeft.set(number: 5)
+        Clock.minRight.set(number: 8)
     }
 
     
