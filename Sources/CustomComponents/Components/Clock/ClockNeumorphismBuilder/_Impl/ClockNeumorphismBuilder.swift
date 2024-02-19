@@ -94,7 +94,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     
 //  MARK: - ACTIONS
 
-    public func show() {
+    public func start() {
         applyOnceConfig()
         startTime()
     }
@@ -158,12 +158,13 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     
 
     private func startTime() {
-        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .common)
     }
     
     @objc 
     private func updateTime() {
+        
         var dateFormatter = DateFormatter()
         
         dateFormatter.dateFormat = "HH"
@@ -172,14 +173,16 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         dateFormatter.dateFormat = "mm"
         let currentMinute = dateFormatter.string(from: Date())
 
+        print(currentHour,currentMinute)
+        
         updateClock(currentHour,currentMinute)
     }
     
     private func updateClock(_ currentHour: String, _ currentMinute: String) {
         let hourLeft = Int(currentHour.prefix(1)) ?? 0
-        let hourRight = Int(currentHour.prefix(1)) ?? 0
+        let hourRight = Int(currentHour.suffix(1)) ?? 0
         let minLeft = Int(currentMinute.prefix(1)) ?? 0
-        let minRight = Int(currentMinute.prefix(1)) ?? 0
+        let minRight = Int(currentMinute.suffix(1)) ?? 0
         
         Clock.hourLeft.set(number: hourLeft)
         Clock.hourRight.set(number: hourRight)
