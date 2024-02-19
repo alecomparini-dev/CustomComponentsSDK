@@ -31,7 +31,7 @@ class ColonView: ViewBuilder {
         if !colonModel.isShadow { return }
 
         self.neumorphism
-            .setShadowColor(to: .dark, color: .black)
+            .setShadowColor(to: .dark, hexColor: colonModel.shadowHexColor)
             .setIntensity(to:.light,percent: 50)
             .setIntensity(to:.dark,percent: 100)
             .setBlur(to:.light, percent: 0)
