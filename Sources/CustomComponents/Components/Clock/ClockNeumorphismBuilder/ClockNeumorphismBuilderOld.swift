@@ -114,7 +114,6 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
                 if dateFormatter.string(from: Date()) == "00" {
                     self?.updateClock()
                 }
-                
             }
         }
         
