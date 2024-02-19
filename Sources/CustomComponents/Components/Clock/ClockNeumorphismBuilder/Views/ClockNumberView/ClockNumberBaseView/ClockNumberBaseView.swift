@@ -19,7 +19,7 @@ class ClockNumberBaseView: ClockNumberView  {
         return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView(1)
+                    .setTop.equalToSuperView
                     .setBottom.equalToSuperView(-1)
                     .setLeading.setTrailing.equalToSuperView
             }
@@ -29,7 +29,7 @@ class ClockNumberBaseView: ClockNumberView  {
         return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView(1)
+                    .setTop.equalToSuperView
                     .setBottom.equalToSuperView
                     .setLeading.setTrailing.equalToSuperView
             }
@@ -82,7 +82,7 @@ class ClockNumberBaseView: ClockNumberView  {
         return StrokeView(strokeModel: strokeModel)
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView(1)
+                    .setTop.equalToSuperView
                     .setBottom.equalToSuperView
                     .setLeading.setTrailing.equalToSuperView
             }
