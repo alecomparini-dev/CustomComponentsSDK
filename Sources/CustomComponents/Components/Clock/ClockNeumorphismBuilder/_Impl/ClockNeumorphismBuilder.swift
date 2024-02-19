@@ -164,18 +164,19 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     
     @objc 
     private func updateTime() {
-        
         var dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "HH"
-        let currentHour = dateFormatter.string(from: Date())
-        
-        dateFormatter.dateFormat = "mm"
-        let currentMinute = dateFormatter.string(from: Date())
-
-        print(currentHour,currentMinute)
-        
-        updateClock(currentHour,currentMinute)
+        dateFormatter.dateFormat = "ss"
+        if dateFormatter.string(from: Date()) == "00" {
+            print("ENTROUUUUUUUUUUU")
+            
+            dateFormatter.dateFormat = "HH"
+            let currentHour = dateFormatter.string(from: Date())
+            
+            dateFormatter.dateFormat = "mm"
+            let currentMinute = dateFormatter.string(from: Date())
+            
+            updateClock(currentHour,currentMinute)
+        }
     }
     
     private func updateClock(_ currentHour: String, _ currentMinute: String) {
