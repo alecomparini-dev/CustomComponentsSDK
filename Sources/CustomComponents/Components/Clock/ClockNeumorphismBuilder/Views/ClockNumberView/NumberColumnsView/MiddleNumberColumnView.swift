@@ -35,7 +35,7 @@ class MiddleNumberColumnView: NumberColumnsView {
                     .setTop.equalToSuperView(-1)
                     .setLeading.equalToSuperView(-constant)
                     .setTrailing.equalToSuperView(constant)
-                    .setHeight.equalToConstant(2)
+                    .setHeight.equalToConstant(3)
             }
     }()
 
@@ -57,7 +57,7 @@ class MiddleNumberColumnView: NumberColumnsView {
                     .setBottom.equalToSuperView(1)
                     .setLeading.equalToSuperView(-constant)
                     .setTrailing.equalToSuperView(constant)
-                    .setHeight.equalToConstant(2)
+                    .setHeight.equalToConstant(3)
             }
     }()
 
