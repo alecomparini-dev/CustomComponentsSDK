@@ -15,9 +15,8 @@ class ClockNeumorphismView: ViewBuilder {
     lazy var hourStackView: StackViewBuilder = {
         let st = StackViewBuilder()
             .setAxis(.horizontal)
-            .setAlignment(.center)
             .setDistribution(.fillEqually)
-            .setSpacing(4)
+            .setSpacing(40)
             .setConstraints({ build in
                 build
                     .setPinLeft.equalToSuperView
@@ -40,9 +39,8 @@ class ClockNeumorphismView: ViewBuilder {
     lazy var minuteStackView: StackViewBuilder = {
         let st = StackViewBuilder()
             .setAxis(.horizontal)
-            .setAlignment(.center)
             .setDistribution(.fillEqually)
-            .setSpacing(4)
+            .setSpacing(40)
             .setConstraints({ build in
                 build
                     .setPinRight.equalToSuperView
