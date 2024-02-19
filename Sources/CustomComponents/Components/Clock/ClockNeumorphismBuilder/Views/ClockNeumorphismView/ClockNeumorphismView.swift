@@ -12,7 +12,7 @@ class ClockNeumorphismView: ViewBuilder {
     
     
 //  MARK: - LAZY AREA
-    lazy var clockStackView: StackViewBuilder = {
+    lazy var hourStackView: StackViewBuilder = {
         let st = StackViewBuilder()
             .setAxis(.horizontal)
             .setAlignment(.fill)
@@ -20,7 +20,33 @@ class ClockNeumorphismView: ViewBuilder {
             .setSpacing(0)
             .setConstraints({ build in
                 build
-                    .setPin.equalToSuperView
+                    .setPinLeft.equalToSuperView
+                    .setTrailing.equalTo(colonsView.get, .leading)
+            })
+        return st
+    }()
+
+    lazy var colonsView: ColonsView = {
+        let comp = ColonsView()
+            .setConstraints { build in
+                build
+                    .setTop.setBottom.equalToSuperView
+                    .setHorizontalAlignmentX.equalToSuperView
+                    .setWidth.equalToConstant(8)
+            }
+        return comp
+    }()
+
+    lazy var minuteStackView: StackViewBuilder = {
+        let st = StackViewBuilder()
+            .setAxis(.horizontal)
+            .setAlignment(.fill)
+            .setDistribution(.fillProportionally)
+            .setSpacing(0)
+            .setConstraints({ build in
+                build
+                    .setPinRight.equalToSuperView
+                    .setLeading.equalTo(colonsView.get, .trailing)
             })
         return st
     }()
@@ -30,14 +56,6 @@ class ClockNeumorphismView: ViewBuilder {
         return comp
     }()
     
-    lazy var colonsView: ColonsView = {
-        let comp = ColonsView()
-            .setConstraints { build in
-                build
-                    .setWidth.equalToConstant(8)
-            }
-        return comp
-    }()
     
     lazy var minutesContainerView: HoursOrMinutesContainerView = {
         let comp = HoursOrMinutesContainerView()
@@ -52,15 +70,17 @@ class ClockNeumorphismView: ViewBuilder {
     }
     
     private func addElement() {
-        clockStackView.add(insideTo: self.get)
-        hoursContainerView.add(insideTo: clockStackView.get)
-        colonsView.add(insideTo: clockStackView.get)
-        minutesContainerView.add(insideTo: clockStackView.get)
+        hourStackView.add(insideTo: self.get)
+        colonsView.add(insideTo: self.get)
+        minuteStackView.add(insideTo: self.get)
+        hoursContainerView.add(insideTo: hourStackView.get)
+        minutesContainerView.add(insideTo: minuteStackView.get)
     }
     
     private func configConstraints() {
-        clockStackView.applyConstraint()
+        hourStackView.applyConstraint()
         colonsView.applyConstraint()
+        minuteStackView.applyConstraint()
     }
     
 

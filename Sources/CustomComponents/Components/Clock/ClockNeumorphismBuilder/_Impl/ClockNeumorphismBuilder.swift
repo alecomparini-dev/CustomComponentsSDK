@@ -114,29 +114,29 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     }
     
     private func configConstraints() {
-//        Clock.hourLeft.get.setConstraints { build in
-//            build
-//                .setPin.equalToSuperView
-//                .apply()
-//        }
-//        
-//        Clock.hourRight.get.setConstraints { build in
-//            build
-//                .setPin.equalToSuperView
-//                .apply()
-//        }
-//        
-//        Clock.minLeft.get.setConstraints { build in
-//            build
-//                .setPin.equalToSuperView
-//                .apply()
-//        }
-//        
-//        Clock.minRight.get.setConstraints { build in
-//            build
-//                .setPin.equalToSuperView
-//                .apply()
-//        }
+        Clock.hourLeft.get.setConstraints { build in
+            build
+                .setPin.equalToSuperView
+                .apply()
+        }
+        
+        Clock.hourRight.get.setConstraints { build in
+            build
+                .setPin.equalToSuperView
+                .apply()
+        }
+        
+        Clock.minLeft.get.setConstraints { build in
+            build
+                .setPin.equalToSuperView
+                .apply()
+        }
+        
+        Clock.minRight.get.setConstraints { build in
+            build
+                .setPin.equalToSuperView
+                .apply()
+        }
     }
     
     private func startClock() {
