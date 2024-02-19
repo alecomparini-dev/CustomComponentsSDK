@@ -167,7 +167,6 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         }
     }
     
-
     private func startTime() {
         let hours = getHour()
         updateClock(hours.currentHour, hours.currentMinute)
@@ -209,16 +208,6 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         Clock.hourRight.set(number: hourRight)
         Clock.minLeft.set(number: minLeft)
         Clock.minRight.set(number: minRight)
-        
-        Clock.hourLeft.set(number: 1)
-        Clock.hourRight.set(number: 2)
-        Clock.minLeft.set(number: 4)
-        Clock.minRight.set(number: 8)
     }
-
-
     
 }
-
-
-
