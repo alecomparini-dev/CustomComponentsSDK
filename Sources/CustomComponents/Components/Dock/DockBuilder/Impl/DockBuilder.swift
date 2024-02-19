@@ -298,8 +298,9 @@ open class DockBuilder: BaseBuilder, Dock {
         if alreadyApplied { return }
         configCollectionDelegate()
         DispatchQueue.main.async { [weak self] in
-            self?.configConstraints()
-            self?.alreadyApplied = true
+            guard let self else {return}
+            configConstraints()
+            alreadyApplied = true
         }
     }
     
