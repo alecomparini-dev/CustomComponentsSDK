@@ -15,9 +15,8 @@ class HoursOrMinutesContainerView: ViewBuilder {
     lazy var stackView: StackViewBuilder = {
         let st = StackViewBuilder()
             .setAxis(.horizontal)
-            .setAlignment(.fill)
             .setDistribution(.fillEqually)
-            .setSpacing(4)
+            .setSpacing(8)
             .setConstraints({ build in
                 build
                     .setPin.equalToSuperView
