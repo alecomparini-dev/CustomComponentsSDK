@@ -5,11 +5,14 @@ import Foundation
 
 public class ColonsStyleBuilder {
     
-    private var colon: ColonModel!
     
     public var get: ColonModel { colon }
     
-    public init() {   }
+    private var colon: ColonModel
+    
+    public init() {
+        self.colon = ColonModel()
+    }
     
     
 //  MARK: - SET PROPERTIES
