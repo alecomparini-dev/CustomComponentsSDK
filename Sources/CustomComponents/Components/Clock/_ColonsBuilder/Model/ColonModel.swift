@@ -16,7 +16,7 @@ public struct ColonModel {
                 hexColor: String = "#00e0c6",
                 isShadow: Bool = true,
                 shadowDistance: CGFloat = 6,
-                shadowHexColor: String = "282828",
+                shadowHexColor: String = "#282828",
                 lightPosition: K.Neumorphism.LightPosition = .leftTop,
                 shape: K.Neumorphism.Shape = .flat) {
         self.radius = radius
