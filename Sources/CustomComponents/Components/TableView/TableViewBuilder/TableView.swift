@@ -20,7 +20,10 @@ public protocol TableView {
     func setRegisterCell(_ cell: AnyClass ) -> Self
     
     @discardableResult
-    func setTableFooter(_ tableFooter: ViewBuilder ) -> Self
+    func setTableFooterView(_ tableFooter: ViewBuilder ) -> Self
+    
+    @discardableResult
+    func setTableHeaderView(_ tableFooter: ViewBuilder ) -> Self
     
     @discardableResult
     func setPadding(top: CGFloat?, left: CGFloat?, bottom: CGFloat?, right: CGFloat?) -> Self
