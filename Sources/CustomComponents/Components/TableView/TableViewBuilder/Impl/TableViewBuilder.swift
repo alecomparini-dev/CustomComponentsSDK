@@ -4,7 +4,6 @@
 import UIKit
 
 open class TableViewBuilder: BaseBuilder, TableView {
-    
     public typealias T = UITableView
     
     public var get: UITableView { self.tableView }
@@ -54,8 +53,14 @@ open class TableViewBuilder: BaseBuilder, TableView {
     }
     
     @discardableResult
-    public func setTableFooter(_ tableFooter: ViewBuilder) -> Self {
-        tableView.tableFooterView = tableFooter.get
+    public func setTableHeaderView(_ headerView: ViewBuilder) -> Self {
+        tableView.tableHeaderView = headerView.get
+        return self
+    }
+
+    @discardableResult
+    public func setTableFooterView(_ footerView: ViewBuilder) -> Self {
+        tableView.tableFooterView = footerView.get
         return self
     }
     
