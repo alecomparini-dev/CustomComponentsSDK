@@ -24,17 +24,17 @@ open class LabelBuilder: BaseBuilder, Label {
         super.init(label)
     }
     
-    public convenience init(_ text: String) {
+    public convenience init(_ text: String?) {
         self.init()
         setText(text)
     }
     
-    public convenience init(_ text: String, _ hexColor: String ) {
+    public convenience init(_ text: String?, _ hexColor: String ) {
         self.init(text)
         setColor(hexColor: hexColor)
     }
     
-    public convenience init(_ text: String, _ hexColor: String, _ aligment: K.Text.Alignment) {
+    public convenience init(_ text: String?, _ hexColor: String, _ aligment: K.Text.Alignment) {
         self.init(text, hexColor)
         setTextAlignment(aligment)
     }

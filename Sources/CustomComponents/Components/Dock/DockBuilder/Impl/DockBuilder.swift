@@ -201,10 +201,7 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
-        if isDisableUserInteraction(index) {
-//            deselect(index)
-            return
-        }
+        if isDisableUserInteraction(index) { return }
         
         let indexPath = IndexPath(row: index, section: 0)
         var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
