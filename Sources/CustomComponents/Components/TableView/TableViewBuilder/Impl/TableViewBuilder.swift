@@ -55,11 +55,6 @@ open class TableViewBuilder: BaseBuilder, TableView {
     @discardableResult
     public func setTableHeaderView(_ headerView: ViewBuilder) -> Self {
         tableView.tableHeaderView = headerView.get
-        headerView.setConstraints { build in
-            build
-                .setPin.equalToSuperView
-                .apply()
-        }
         return self
     }
 
