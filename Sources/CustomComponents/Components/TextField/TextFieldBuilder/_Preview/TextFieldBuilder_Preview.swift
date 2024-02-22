@@ -18,7 +18,7 @@ final class TextFieldBuilderPreview: UIView {
     
 //  MARK: - LAZY AREA
     lazy var textField: TextFieldBuilder = {
-        let component = TextFieldBuilder("Place Holder")
+        let component = TextFieldBuilder(placeHolder: "Place Holder")
             .setBackgroundColor(hexColor: "#ffffff")
             .setBorder { build in
                 build
