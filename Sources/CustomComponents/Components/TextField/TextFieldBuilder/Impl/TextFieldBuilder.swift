@@ -34,9 +34,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         configure()
     }
     
-    public init(placeHolder: String) {
-        self.textField = UITextField(frame: .zero)
-        super.init(textField)
+    public convenience init(placeHolder: String) {
+        self.init()
         setPlaceHolder(placeHolder)
         configure()
     }
