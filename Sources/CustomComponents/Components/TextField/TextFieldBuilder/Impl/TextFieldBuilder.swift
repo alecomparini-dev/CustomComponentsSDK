@@ -10,6 +10,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     public var get: UITextField { self.textField }
 
     static private var currentMainWindow: UIWindow?
+    
     static private func hideKeyboardWhenViewTapped() {
         let mainWindow = CurrentWindow.get
         if (mainWindow == currentMainWindow) { return }
@@ -33,12 +34,14 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         configure()
     }
     
-    convenience init(_ placeHolder: String) {
-        self.init()
+    public init(placeHolder: String) {
+        self.textField = UITextField(frame: .zero)
+        super.init(textField)
         setPlaceHolder(placeHolder)
+        configure()
     }
     
-    
+        
 //  MARK: - SET PROPERTIES
     
     @discardableResult
@@ -231,11 +234,10 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-//        setBackgroundColor(hexColor: K.Default.backgroundColor)
         setPadding(K.Default.padding)
         configDelegate()
-        TextFieldBuilder.hideKeyboardWhenViewTapped()
         setAutoCorrectionType(.no)
+        addHideKeyboardWhenTouchReturn()
     }
     
     private func configDelegate() {
@@ -265,9 +267,14 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         return true
     }
     
-
+    private func addHideKeyboardWhenTouchReturn(){
+        self.textField.addTarget(self, action: #selector(textFieldEditingDidEndOnExit), for: .editingDidEndOnExit)
+        TextFieldBuilder.hideKeyboardWhenViewTapped()
+    }
+    
     
 //  MARK: - @OBJC FUNCTION AREA
+    @objc
     public func textFieldEditingDidEndOnExit(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
