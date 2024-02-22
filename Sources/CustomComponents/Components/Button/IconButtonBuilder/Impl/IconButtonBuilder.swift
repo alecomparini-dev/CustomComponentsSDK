@@ -5,14 +5,14 @@ import UIKit
 
 public class IconButtonBuilder: ButtonImageBuilder {
     
-    override init(_ image: ImageViewBuilder) {
+    public override init(_ image: ImageViewBuilder) {
         super.init(image)
         if #available(iOS 15.0, *) {
             configure()
         }
     }
 
-    convenience init(_ image: ImageViewBuilder, _ title: String) {
+    public convenience init(_ image: ImageViewBuilder, _ title: String) {
         self.init(image)
         _ = setTitle(title)
     }
