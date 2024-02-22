@@ -69,6 +69,9 @@ public protocol TextField {
 
     @discardableResult
     func setMask(_ configMask: (_ build: MaskBuilder) -> MaskBuilder ) -> Self
+    
+    @discardableResult
+    func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self
 
 
 }
