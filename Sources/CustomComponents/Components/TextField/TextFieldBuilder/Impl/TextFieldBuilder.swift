@@ -15,7 +15,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         let mainWindow = CurrentWindow.get
         if (mainWindow == currentMainWindow) { return }
         mainWindow?.hideKeyboardWhenViewTapped()
-//        mainWindow?.rootViewController?.view?.hideKeyboardWhenViewTapped()
         currentMainWindow = mainWindow
     }
 
@@ -198,6 +197,17 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
 
+    @discardableResult
+    public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
+        guard let fontFamily else {return self}
+        if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
+            textField.font = font
+        }
+        return self
+    }
+
+
+    
 // MARK: - PADDING
     @discardableResult
     public func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal? = nil) -> Self {
@@ -218,7 +228,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         addPaddingToTextField(paddingView, .right)
         return self
     }
-
+    
     
 
 // MARK: - PADDING
