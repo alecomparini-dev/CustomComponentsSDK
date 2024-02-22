@@ -15,7 +15,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         let mainWindow = CurrentWindow.get
         if (mainWindow == currentMainWindow) { return }
         mainWindow?.hideKeyboardWhenViewTapped()
-        RootView.get?.hideKeyboardWhenViewTapped()
+        mainWindow?.rootViewController?.view?.hideKeyboardWhenViewTapped()
         currentMainWindow = mainWindow
     }
 
