@@ -256,8 +256,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 
                             
 
-    
-
 // MARK: - DELEGATE
     @discardableResult
     public func setDelegate(_ delegate: UITextFieldDelegate) -> Self {
