@@ -19,7 +19,7 @@ final class SkeletonBuilderPreview: UIView {
     
 //  MARK: - LAZY AREA
     lazy var textField: TextFieldBuilder = {
-        let component = TextFieldBuilder("Place Holder")
+        let component = TextFieldBuilder(placeHolder: "Place Holder")
             .setText("Teste do Skeleton")
             .setBackgroundColor(hexColor: "#ffffff")
             .setBorder { build in
