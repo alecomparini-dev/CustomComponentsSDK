@@ -37,7 +37,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     public convenience init(placeHolder: String) {
         self.init()
         setPlaceHolder(placeHolder)
-        configure()
     }
     
         
