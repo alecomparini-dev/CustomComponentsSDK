@@ -72,6 +72,9 @@ public protocol TextField {
     
     @discardableResult
     func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self
+    
+    @discardableResult
+    func setClearButtonMode(size: CGSize, _ imgSystemName: String) -> Self
 
 
 }

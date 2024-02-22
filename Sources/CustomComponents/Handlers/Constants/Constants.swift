@@ -21,11 +21,12 @@ public struct K {
 
 extension K {
     public struct Images {
-        static let eye = "eye"
-        static let eyeSlash = "eye.slash"
-        static let eraserLineDashed = "eraser.line.dashed"
-        static let chevronBackward = "chevron.backward"
-        static let chevronForward = "chevron.forward"
+        public static let eye = "eye"
+        public static let eyeSlash = "eye.slash"
+        public static let eraserLineDashed = "eraser.line.dashed"
+        public static let chevronBackward = "chevron.backward"
+        public static let chevronForward = "chevron.forward"
+        public static let xCircleFill = "x.circle.fill"
     }
 }
 
