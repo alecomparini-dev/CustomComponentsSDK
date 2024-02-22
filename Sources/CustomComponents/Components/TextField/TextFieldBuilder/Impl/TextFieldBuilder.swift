@@ -3,9 +3,8 @@
 
 import UIKit
 
-
-
 open class TextFieldBuilder: BaseBuilder, TextField {
+    
     public typealias T = UITextField
     public var get: UITextField { self.textField }
 
@@ -230,8 +229,36 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     
+    
+//  MARK: - SET CLEAR BUTTON MODE
+    
+    @discardableResult
+    public func setClearButtonMode(size: CGSize = CGSize(width: 20, height: 20) , _ imgSystemName: String = K.Images.xCircleFill) -> Self {
+        textField.clearButtonMode = .whileEditing
+        addPaddingToTextField(createClearButtonView(size, imgSystemName), .right, .whileEditing)
+        return self
+    }
+    
+    @objc
+    private func clearButtonTapped() {
+        self.setText("")
+    }
+    
+    private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
+        let view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
+        let clearButton = UIButton(type: .custom)
+        clearButton.setImage(UIImage(systemName: imgSystemName), for: .normal)
+        clearButton.frame = CGRect(origin: .zero, size: size)
+        clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
+        view.get.addSubview(clearButton)
+        return view
+    }
 
-// MARK: - PADDING
+                            
+
+    
+
+// MARK: - DELEGATE
     @discardableResult
     public func setDelegate(_ delegate: UITextFieldDelegate) -> Self {
         textField.delegate = delegate
@@ -252,15 +279,15 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         textField.delegate = self
     }
     
-    private func addPaddingToTextField(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal ) {
+    private func addPaddingToTextField(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal, _ mode: UITextField.ViewMode = .always ) {
         switch position {
             case .left:
                 textField.leftView = paddingView.baseView
-                textField.leftViewMode = .always
+                textField.leftViewMode = mode
             
             case .right:
                 textField.rightView = paddingView.baseView
-                textField.rightViewMode = .always
+                textField.rightViewMode = mode
         }
     }
 
