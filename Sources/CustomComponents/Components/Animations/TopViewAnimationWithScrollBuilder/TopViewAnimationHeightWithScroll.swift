@@ -8,7 +8,7 @@ public protocol TopViewAnimationHeightWithScroll {
     
     func setView(_ view: BaseBuilder) -> Self
     
-    func setInitialOffsetScroll(_ initial: CGFloat) -> Self
+    func setInitialOffsetScroll(_ scrollView: T) -> Self
     
     func setAnimationDirection(_ direction: TopViewAnimationHeightWithScrollBuilder.Direction) -> Self
 
