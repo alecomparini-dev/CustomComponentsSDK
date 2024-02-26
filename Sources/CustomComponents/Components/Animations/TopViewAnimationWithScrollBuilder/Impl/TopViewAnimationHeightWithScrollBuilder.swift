@@ -106,7 +106,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         let animationInit: CGFloat = height.ini
         let animationFinal: CGFloat = height.end
         
-        let animationThreshold: CGFloat = animationInit - animationFinal
+        let animationThreshold: CGFloat = animationInit + animationFinal
         let scrolling = (currentOffset - initialOffset)
         let completed = (scrolling/animationThreshold)
         
