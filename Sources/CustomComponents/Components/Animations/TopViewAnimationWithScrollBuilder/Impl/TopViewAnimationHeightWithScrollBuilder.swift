@@ -48,26 +48,12 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
 //  MARK: - START
     public func animation(_ scrollView: UIScrollView) {
         setInitialOffSet(scrollView)
-//        setOnceHeight()
         
-        guard let initialOffset else {return}
-        
-        let currentOffset = scrollView.contentOffset.y
-        
-        let animationInit: CGFloat = height.ini
-        let animationFinal: CGFloat = -(abs(height.end))
-        
-        let animationThreshold: CGFloat = animationInit - animationFinal
-        
-        let scrolling = (currentOffset - initialOffset)
-        let completed = (scrolling/animationThreshold)
-        
-        if scrolling > 0 {
-            heightAnchor?.constant = min((animationThreshold)*completed, animationThreshold)
-        } else {
-            heightAnchor?.constant = animationInit
+        if heightChange == .decreasing {
+            decreasingAnimation()
+            return
         }
-        
+        increasingAnimation()
         
     }
     
@@ -110,6 +96,44 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
             
             heightAnchor = hgt
         }
+    }
+    
+    private func increasingAnimation() {
+        guard let initialOffset else {return}
+        
+        let currentOffset = scrollView.contentOffset.y
+        
+        let animationInit: CGFloat = height.ini
+        let animationFinal: CGFloat = -(abs(height.end))
+        
+        let animationThreshold: CGFloat = animationInit - animationFinal
+        let scrolling = (currentOffset - initialOffset)
+        let completed = (scrolling/animationThreshold)
+        
+        if scrolling > 0 {
+            heightAnchor?.constant = max( min( animationInit - (animationThreshold*completed), animationThreshold), animationFinal)
+        } else {
+            heightAnchor?.constant = animationInit
+        }
+    }
+    
+    private func decreasingAnimation() {
+        let animationInit: CGFloat = 125
+        let animationFinal: CGFloat = 0
+        
+        guard let initialOffset else {return}
+        let currentOffset = scrollView.contentOffset.y
+        let animationThreshold: CGFloat = animationInit - animationFinal
+        let scrolling = (currentOffset - initialOffset)
+        let completed = (scrolling/animationThreshold)
+
+        if scrolling > 0 {
+            heightAnchor?.constant = min((animationThreshold)*completed, animationThreshold)
+        } else {
+            heightAnchor?.constant = animationInit
+        }
+
+        return
     }
     
     
