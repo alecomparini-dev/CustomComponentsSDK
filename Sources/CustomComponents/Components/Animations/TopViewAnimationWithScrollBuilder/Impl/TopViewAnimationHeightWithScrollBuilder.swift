@@ -104,6 +104,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
                                                   multiplier: 1,
                                                   constant: height.ini)
 
+                heightAnchor?.isActive = true
                 return
             }
             
