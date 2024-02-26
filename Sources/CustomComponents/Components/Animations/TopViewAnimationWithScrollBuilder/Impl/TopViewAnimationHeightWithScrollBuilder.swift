@@ -104,7 +104,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         let currentOffset = scrollView.contentOffset.y
         
         let animationInit: CGFloat = height.ini
-        let animationFinal: CGFloat = -(abs(height.end))
+        let animationFinal: CGFloat = height.end
         
         let animationThreshold: CGFloat = animationInit - animationFinal
         let scrolling = (currentOffset - initialOffset)
@@ -118,8 +118,8 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     }
     
     private func decreasingAnimation(_ scrollView: UIScrollView) {
-        let animationInit: CGFloat = 125
-        let animationFinal: CGFloat = 0
+        let animationInit: CGFloat = height.ini
+        let animationFinal: CGFloat = height.end
         
         guard let initialOffset else {return}
         let currentOffset = scrollView.contentOffset.y
