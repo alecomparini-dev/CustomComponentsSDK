@@ -4,12 +4,11 @@
 import Foundation
 
 public protocol TopViewAnimationHeightWithScroll {
-    
-    var get: ViewBuilder { get }
+    associatedtype T
     
     func setView(_ viewBuilder: ViewBuilder) -> Self
     
     func setAnimation(_ heightChange: TopViewAnimationHeightWithScrollBuilder.HeightChange) -> Self
 
-    func start(height: (ini: CGFloat, end: CGFloat))
+    func animation(_ scrollView: T)
 }

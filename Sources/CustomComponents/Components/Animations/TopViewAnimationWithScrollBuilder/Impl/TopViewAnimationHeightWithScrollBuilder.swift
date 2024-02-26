@@ -3,30 +3,28 @@
 
 import UIKit
 
-public class TopViewAnimationHeightWithScrollBuilder: BaseBuilder, TopViewAnimationHeightWithScroll {
-    private var initialOffset: CGFloat = 0.0
+public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimationHeightWithScroll {
+    public typealias T = UIScrollView
+    
+    private var initialOffset: CGFloat?
     private var lastContentOffset: CGFloat = 0.0
     private var heightChange: TopViewAnimationHeightWithScrollBuilder.HeightChange = .increasing
-    private var heightAnchor: NSLayoutConstraint!
-    private var startHeight: (ini: CGFloat, end: CGFloat)!
-    private var currentOffset: CGFloat = 0.0
+    private var heightAnchor: NSLayoutConstraint?
+    private var scrollView: UIScrollView!
     
     public enum HeightChange {
         case increasing
         case decreasing
     }
     
-    public var get: ViewBuilder { self.view }
     
 //  MARK: - INITIALIZERS
     
-    private let scrollView: UIScrollView
-    private var view: ViewBuilder
-
-    public init(scrollView: UIScrollView) {
-        self.scrollView = scrollView
-        self.view = ViewBuilder()
-        super.init(view.get)
+    private let height: (ini: CGFloat, end: CGFloat)
+    
+    public init(height: (ini: CGFloat, end: CGFloat)) {
+        self.height = height
+        super.init()
         configure()
     }
     
@@ -34,7 +32,7 @@ public class TopViewAnimationHeightWithScrollBuilder: BaseBuilder, TopViewAnimat
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setView(_ viewBuilder: ViewBuilder) -> Self {
-        viewBuilder.add(insideTo: self.view.get)
+        viewBuilder.add(insideTo: self.get)
         viewBuilder.setConstraints { build in
             build
                 .setPin.equalToSuperView
@@ -51,9 +49,13 @@ public class TopViewAnimationHeightWithScrollBuilder: BaseBuilder, TopViewAnimat
     
     
 //  MARK: - START
-    public func start(height: (ini: CGFloat, end: CGFloat)) {
+    public func animation(_ scrollView: UIScrollView) {
+        setInitialOffSet(scrollView)
         
-        self.startHeight = height
+        guard let initialOffset else {return}
+        
+        let currentOffset = scrollView.contentOffset.y
+        
         let animationInit: CGFloat = height.ini
         let animationFinal: CGFloat = -(abs(height.end))
         
@@ -62,36 +64,43 @@ public class TopViewAnimationHeightWithScrollBuilder: BaseBuilder, TopViewAnimat
         let scrolling = (currentOffset - initialOffset)
         let completed = (scrolling/animationThreshold)
         
-        
         if scrolling > 0 {
-            heightAnchor.constant = min((animationThreshold)*completed, animationThreshold)
+            heightAnchor?.constant = min((animationThreshold)*completed, animationThreshold)
         } else {
-            heightAnchor.constant = animationInit
+            heightAnchor?.constant = animationInit
         }
         
     }
     
+    
 //  MARK: - PRIVATE AREA
     private func configure() {
-        createView()
-        currentOffset = scrollView.contentOffset.y
+        configBackgroundColor()
+        configHeightAnchor()
     }
     
-    private func createView() {
-        view = ViewBuilder()
-            .setBackgroundColor(.clear)
-            .setConstraints { build in
-                build
-                    .setTop.equalToSuperView
-            }
-        
-        heightAnchor = NSLayoutConstraint(item: view,
-                                          attribute: .height,
-                                          relatedBy: .equal,
-                                          toItem: nil,
-                                          attribute: .height,
-                                          multiplier: 1,
-                                          constant: startHeight.ini)
+    private func setInitialOffSet(_ scrollView: UIScrollView) {
+        if initialOffset == nil {
+            initialOffset = scrollView.contentOffset.y
+        }
     }
+    
+    private func configBackgroundColor() {
+        self.setBackgroundColor(.clear)
+    }
+    
+    private func configHeightAnchor() {
+//        heightAnchor = NSLayoutConstraint(item: self.get,
+//                                          attribute: .height,
+//                                          relatedBy: .equal,
+//                                          toItem: nil,
+//                                          attribute: .height,
+//                                          multiplier: 1,
+//                                          constant: height.ini)
+        heightAnchor = self.get.constraints.first(where: { $0.firstAttribute == .height })
+    }
+    
+    
+    
     
 }
