@@ -6,6 +6,7 @@ import UIKit
 public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimationHeightWithScroll {
     public typealias T = UIScrollView
     
+    private var component: BaseBuilder?
     private var initialOffset: CGFloat?
     private var lastContentOffset: CGFloat = 0.0
     private var heightChange: TopViewAnimationHeightWithScrollBuilder.HeightChange = .increasing
@@ -32,12 +33,8 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setView(_ view: BaseBuilder) -> Self {
-        view.add(insideTo: self.get)
-        view.setConstraints { build in
-            build
-                .setPin.equalToSuperView
-                .apply()
-        }
+        component = view
+        component?.add(insideTo: self.get)
         return self
     }
     
@@ -98,6 +95,11 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
 //                                          multiplier: 1,
 //                                          constant: height.ini)
         if heightAnchor == nil {
+            component?.setConstraints { build in
+                build
+                    .setPin.equalToSuperView
+                    .apply()
+            }
             heightAnchor = self.get.constraints.first(where: { $0.firstAttribute == .height })
         }
     }
