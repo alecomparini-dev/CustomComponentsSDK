@@ -51,6 +51,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
 //  MARK: - START
     public func animation(_ scrollView: UIScrollView) {
         setInitialOffSet(scrollView)
+        setOnceHeight()
         
         guard let initialOffset else {return}
         
@@ -76,7 +77,6 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
 //  MARK: - PRIVATE AREA
     private func configure() {
         configBackgroundColor()
-        configHeightAnchor()
     }
     
     private func setInitialOffSet(_ scrollView: UIScrollView) {
@@ -89,7 +89,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         self.setBackgroundColor(.clear)
     }
     
-    private func configHeightAnchor() {
+    private func setOnceHeight() {
 //        heightAnchor = NSLayoutConstraint(item: self.get,
 //                                          attribute: .height,
 //                                          relatedBy: .equal,
@@ -97,7 +97,9 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
 //                                          attribute: .height,
 //                                          multiplier: 1,
 //                                          constant: height.ini)
-        heightAnchor = self.get.constraints.first(where: { $0.firstAttribute == .height })
+        if heightAnchor == nil {
+            heightAnchor = self.get.constraints.first(where: { $0.firstAttribute == .height })
+        }
     }
     
     
