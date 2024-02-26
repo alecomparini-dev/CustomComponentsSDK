@@ -56,6 +56,11 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         let scrolling = (currentOffset - initialOffset)
         let completed = (scrolling/animationThreshold)
         
+        print("currentOffset:", currentOffset,
+              "animationThreshold:", animationThreshold,
+              "scrolling:", scrolling,
+              "completed:", completed )
+        
         if scrolling > 0 {
             if heightChange == .decreasing {
                 heightAnchor?.constant = max( min( height.ini - (animationThreshold*completed), animationThreshold), height.end)
