@@ -31,9 +31,9 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setView(_ viewBuilder: ViewBuilder) -> Self {
-        viewBuilder.add(insideTo: self.get)
-        viewBuilder.setConstraints { build in
+    public func setView(_ view: BaseBuilder) -> Self {
+        view.add(insideTo: self.get)
+        view.setConstraints { build in
             build
                 .setPin.equalToSuperView
                 .apply()
