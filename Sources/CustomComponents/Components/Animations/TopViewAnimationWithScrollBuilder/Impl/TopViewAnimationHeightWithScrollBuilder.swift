@@ -45,8 +45,8 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     }
     
     @discardableResult
-    public func setInitialOffsetScroll(_ initial: CGFloat) -> Self {
-        self.initialOffset = initial
+    public func setInitialOffsetScroll(_ scrollView: UIScrollView) -> Self {
+        self.initialOffset = scrollView.contentOffset.y
         return self
     }
     
