@@ -7,15 +7,15 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     public typealias T = UIScrollView
     
     private var component: BaseBuilder?
-    private var initialOffset: CGFloat?
-    private var heightChange: TopViewAnimationHeightWithScrollBuilder.HeightChange = .increasing
+    private var initialOffset: CGFloat = 0.0
+    private var direction: TopViewAnimationHeightWithScrollBuilder.Direction = .topToBottom
     private var heightAnchor: NSLayoutConstraint?
     private var scrollView: UIScrollView!
     private var stackView: StackViewToTopView!
     
-    public enum HeightChange {
-        case increasing
-        case decreasing
+    public enum Direction {
+        case topToBottom
+        case bottomToTop
     }
     
     
@@ -39,18 +39,20 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     }
     
     @discardableResult
-    public func setAnimation(_ heightChange: TopViewAnimationHeightWithScrollBuilder.HeightChange) -> Self {
-        self.heightChange = heightChange
+    public func setAnimationDirection(_ direction: TopViewAnimationHeightWithScrollBuilder.Direction) -> Self {
+        self.direction = direction
+        return self
+    }
+    
+    @discardableResult
+    public func setInitialOffsetScroll(_ initial: CGFloat) -> Self {
+        self.initialOffset = initial
         return self
     }
     
     
 //  MARK: - START
     public func animation(_ scrollView: UIScrollView) {
-        setInitialOffSet(scrollView)
-        
-        guard let initialOffset else {return}
-        
         let currentOffset = scrollView.contentOffset.y
         let animationThreshold: CGFloat = height.ini + height.end
         let scrolling = (currentOffset - initialOffset)
@@ -63,7 +65,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
               "completed:", completed )
         
         if scrolling > 0 {
-            if heightChange == .decreasing {
+            if direction == .bottomToTop {
                 heightAnchor?.constant = max( min( height.ini - (animationThreshold*completed), animationThreshold), height.end)
                 return
             }
@@ -82,12 +84,6 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         stackView.add(insideTo: self.get)
         stackView.applyConstraint()
         setOnceHeight()
-    }
-    
-    private func setInitialOffSet(_ scrollView: UIScrollView) {
-        if initialOffset == nil {
-            initialOffset = scrollView.contentOffset.y
-        }
     }
     
     private func configBackgroundColor() {
