@@ -93,7 +93,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     private func setOnceHeight() {
         if heightAnchor == nil {
             
-            guard let height = self.get.constraints.first(where: { $0.firstAttribute == .height }) else {
+            guard let hgt = self.get.constraints.first(where: { $0.firstAttribute == .height }) else {
                 
                 heightAnchor = NSLayoutConstraint(item: self.get,
                                                   attribute: .height,
@@ -106,7 +106,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
                 return
             }
             
-            heightAnchor = height
+            heightAnchor = hgt
         }
     }
     
