@@ -8,7 +8,6 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     
     private var component: BaseBuilder?
     private var initialOffset: CGFloat?
-    private var lastContentOffset: CGFloat = 0.0
     private var heightChange: TopViewAnimationHeightWithScrollBuilder.HeightChange = .increasing
     private var heightAnchor: NSLayoutConstraint?
     private var scrollView: UIScrollView!
@@ -48,7 +47,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     
 //  MARK: - START
     public func animation(_ scrollView: UIScrollView) {
-//        setInitialOffSet(scrollView)
+        setInitialOffSet(scrollView)
         setOnceHeight()
         
         guard let initialOffset else {return}
@@ -65,12 +64,11 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         
         if scrolling > 0 {
             heightAnchor?.constant = min((animationThreshold)*completed, animationThreshold)
-            self.get.frame = CGRect(origin: self.get.frame.origin, size: CGSize(width: self.get.frame.width, height: min((animationThreshold)*completed, animationThreshold)))
+//            self.get.frame = CGRect(origin: self.get.frame.origin, size: CGSize(width: self.get.frame.width, height: min((animationThreshold)*completed, animationThreshold)))
         } else {
             heightAnchor?.constant = animationInit
         }
         
-        lastContentOffset = currentOffset
         
     }
     
