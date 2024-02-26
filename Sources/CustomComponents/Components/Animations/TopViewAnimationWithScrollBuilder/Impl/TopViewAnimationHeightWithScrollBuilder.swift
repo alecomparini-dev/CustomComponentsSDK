@@ -7,7 +7,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     public typealias T = UIScrollView
     
     private var component: BaseBuilder?
-    private var initialOffset: CGFloat = 0.0
+    private var initialOffset: CGFloat?
     private var direction: TopViewAnimationHeightWithScrollBuilder.Direction = .topToBottom
     private var heightAnchor: NSLayoutConstraint?
     private var scrollView: UIScrollView!
@@ -46,7 +46,9 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     
     @discardableResult
     public func setInitialOffsetScroll(_ scrollView: UIScrollView) -> Self {
-        self.initialOffset = scrollView.contentOffset.y
+        if self.initialOffset == nil {
+            self.initialOffset = scrollView.contentOffset.y
+        }
         return self
     }
     
@@ -55,7 +57,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     public func animation(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let animationThreshold: CGFloat = height.ini + height.end
-        let scrolling = (currentOffset - initialOffset)
+        let scrolling = (currentOffset - (initialOffset ?? 0.0))
         let completed = (scrolling/animationThreshold)
         
         print( "initialOffset:", initialOffset,
