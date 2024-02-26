@@ -12,6 +12,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     private var heightChange: TopViewAnimationHeightWithScrollBuilder.HeightChange = .increasing
     private var heightAnchor: NSLayoutConstraint?
     private var scrollView: UIScrollView!
+    private var stackView: StackViewToTopView!
     
     public enum HeightChange {
         case increasing
@@ -74,6 +75,9 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
 //  MARK: - PRIVATE AREA
     private func configure() {
         configBackgroundColor()
+        stackView = StackViewToTopView()
+        stackView.add(insideTo: self.get)
+        stackView.applyConstraint()
     }
     
     private func setInitialOffSet(_ scrollView: UIScrollView) {
@@ -87,20 +91,22 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     }
     
     private func setOnceHeight() {
-//        heightAnchor = NSLayoutConstraint(item: self.get,
-//                                          attribute: .height,
-//                                          relatedBy: .equal,
-//                                          toItem: nil,
-//                                          attribute: .height,
-//                                          multiplier: 1,
-//                                          constant: height.ini)
         if heightAnchor == nil {
-            component?.setConstraints { build in
-                build
-                    .setPin.equalToSuperView
-                    .apply()
+            
+            guard let height = self.get.constraints.first(where: { $0.firstAttribute == .height }) else {
+                
+                heightAnchor = NSLayoutConstraint(item: self.get,
+                                                  attribute: .height,
+                                                  relatedBy: .equal,
+                                                  toItem: nil,
+                                                  attribute: .height,
+                                                  multiplier: 1,
+                                                  constant: height.ini)
+
+                return
             }
-            heightAnchor = self.get.constraints.first(where: { $0.firstAttribute == .height })
+            
+            heightAnchor = height
         }
     }
     
