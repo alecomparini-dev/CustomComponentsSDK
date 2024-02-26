@@ -48,7 +48,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     
 //  MARK: - START
     public func animation(_ scrollView: UIScrollView) {
-        setInitialOffSet(scrollView)
+//        setInitialOffSet(scrollView)
         setOnceHeight()
         
         guard let initialOffset else {return}
@@ -69,6 +69,8 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         } else {
             heightAnchor?.constant = animationInit
         }
+        
+        lastContentOffset = currentOffset
         
     }
     
