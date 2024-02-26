@@ -35,7 +35,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
     @discardableResult
     public func setView(_ view: BaseBuilder) -> Self {
         component = view
-        component?.add(insideTo: self.get)
+        component?.add(insideTo: stackView.get)
         return self
     }
     
