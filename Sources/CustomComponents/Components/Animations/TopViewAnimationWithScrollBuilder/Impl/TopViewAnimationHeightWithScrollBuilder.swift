@@ -65,6 +65,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         
         if scrolling > 0 {
             heightAnchor?.constant = min((animationThreshold)*completed, animationThreshold)
+            self.get.frame = CGRect(origin: self.get.frame.origin, size: CGSize(width: self.get.frame.width, height: min((animationThreshold)*completed, animationThreshold)))
         } else {
             heightAnchor?.constant = animationInit
         }
