@@ -56,7 +56,8 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         let scrolling = (currentOffset - initialOffset)
         let completed = (scrolling/animationThreshold)
         
-        print("currentOffset:", currentOffset,
+        print( "initialOffset:", initialOffset,
+            "currentOffset:", currentOffset,
               "animationThreshold:", animationThreshold,
               "scrolling:", scrolling,
               "completed:", completed )
