@@ -111,7 +111,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         let completed = (scrolling/animationThreshold)
         
         if scrolling > 0 {
-            heightAnchor?.constant = max( min( animationInit - (animationThreshold*completed), animationThreshold), animationFinal)
+            heightAnchor?.constant = min((animationThreshold)*completed, animationThreshold)
         } else {
             heightAnchor?.constant = animationInit
         }
@@ -128,7 +128,7 @@ public class TopViewAnimationHeightWithScrollBuilder: ViewBuilder, TopViewAnimat
         let completed = (scrolling/animationThreshold)
 
         if scrolling > 0 {
-            heightAnchor?.constant = min((animationThreshold)*completed, animationThreshold)
+            heightAnchor?.constant = max( min( animationInit - (animationThreshold*completed), animationThreshold), animationFinal)
         } else {
             heightAnchor?.constant = animationInit
         }
