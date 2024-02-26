@@ -6,7 +6,7 @@ import Foundation
 public protocol TopViewAnimationHeightWithScroll {
     associatedtype T
     
-    func setView(_ viewBuilder: ViewBuilder) -> Self
+    func setView(_ view: BaseBuilder) -> Self
     
     func setAnimation(_ heightChange: TopViewAnimationHeightWithScrollBuilder.HeightChange) -> Self
 
