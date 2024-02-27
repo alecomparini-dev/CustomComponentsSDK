@@ -8,8 +8,6 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     private var size: CGSize = CGSize(width: 20, height: 20)
     private var systemName: String = K.Images.xCircleFill
     
-    private var clearButton: ButtonBuilder!
-    private var view: ViewBuilder!
     
 //  MARK: - INITIALIAZERS
     
@@ -45,17 +43,17 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     
     
 //  MARK: - PRIVATE AREA
-    private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
-        view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
+    private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> BaseBuilder {
+        let frame = CGRect(x: 0, y: 0, width: size.width + 10, height: size.height)
+        let view = ViewBuilder(frame: frame)
         
         let img = ImageViewBuilder(systemName: imgSystemName)
             .setContentMode(.center)
-//            .setSize(22)
+            .setSize(max(size.width, size.height) * 0.9)
         
         let clearButton = ButtonImageBuilder()
             .setImageButton(img)
-            .setFrame(CGRect(origin: .zero, size: size))
-        
+            .setFrame(frame)
         
 //        let clearButton = UIButton(type: .custom)
 //        clearButton = ButtonBuilder(type: .custom)
@@ -65,7 +63,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         view.get.addSubview(clearButton.get)
         
-        return view
+        return clearButton
     }
     
     
