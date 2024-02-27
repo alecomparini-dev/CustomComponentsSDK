@@ -9,6 +9,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     private var systemName: String = K.Images.xCircleFill
     
     private var clearButton: ButtonBuilder!
+    private var view: ViewBuilder!
     
 //  MARK: - INITIALIAZERS
     
@@ -45,7 +46,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     
 //  MARK: - PRIVATE AREA
     private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
-        let view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
+        view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
         
         let img = ImageViewBuilder(systemName: imgSystemName)
             .setSize(22)
