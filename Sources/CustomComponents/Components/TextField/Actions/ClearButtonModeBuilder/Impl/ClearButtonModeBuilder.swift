@@ -41,7 +41,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     
     
 //  MARK: - PRIVATE AREA
-    private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> BaseBuilder {
+    private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
         let frame = CGRect(x: 0, y: 0, width: size.width + 10, height: size.height)
         let view = ViewBuilder(frame: frame)
         
@@ -56,7 +56,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         view.get.addSubview(clearButton.get)
         
-        return clearButton
+        return view
     }
     
     
