@@ -174,7 +174,6 @@ open class ButtonBuilder: BaseBuilder, Button {
     @discardableResult
     public func setFrame(_ frame: CGRect) -> Self {
         self.button.frame = frame
-        bringToFront()
         return self
     }
     
