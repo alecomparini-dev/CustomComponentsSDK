@@ -35,9 +35,9 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     
 //  MARK: - APPLY
     public func apply() -> Self {
-        textFieldBuilder?.get.clearButtonMode = .unlessEditing
+        textFieldBuilder?.get.clearButtonMode = .whileEditing
         let button = createClearButtonView(size, systemName)
-        textFieldBuilder?.setPadding(button, .right, .unlessEditing)
+        textFieldBuilder?.setPadding(button, .right, .whileEditing)
         return self
     }
     
@@ -54,11 +54,6 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         let clearButton = ButtonImageBuilder()
             .setImageButton(img)
             .setFrame(frame)
-        
-//        let clearButton = UIButton(type: .custom)
-//        clearButton = ButtonBuilder(type: .custom)
-//        clearButton.get.setImage(UIImage(systemName: imgSystemName), for: .normal)
-//        clearButton.get.frame = CGRect(origin: .zero, size: size)
         
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         view.get.addSubview(clearButton.get)
