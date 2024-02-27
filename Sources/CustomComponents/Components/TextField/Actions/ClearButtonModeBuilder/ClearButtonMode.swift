@@ -9,6 +9,6 @@ public protocol ClearButtonMode {
     
     func setImgButton(_ systemName: String) -> Self
     
-    func build() -> Self
+    func apply() -> Self
     
 }
