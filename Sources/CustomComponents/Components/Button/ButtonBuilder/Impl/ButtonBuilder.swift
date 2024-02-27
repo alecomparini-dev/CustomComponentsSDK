@@ -18,7 +18,8 @@ open class ButtonBuilder: BaseBuilder, Button {
 //  MARK: - INITIALIZERS
 
     public init(frame: CGRect) {
-        self.button = UIButton(frame: frame)
+        self.button = UIButton(type: .custom)
+        self.button.frame = frame
         super.init(button)
         configure()
     }

@@ -15,7 +15,7 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     
     public override init(frame: CGRect) {
         self.imageView = ImageViewBuilder()
-        super.init()
+        super.init(frame: frame)
     }
     
     public override init(_ title: String) {

@@ -36,6 +36,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
 //  MARK: - APPLY
     public func apply() -> Self {
         let button = createClearButtonView(size, systemName)
+        textFieldBuilder?.get.clearButtonMode = .whileEditing
         textFieldBuilder?.setPadding(button, .right, .whileEditing)
         return self
     }
@@ -43,7 +44,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     
 //  MARK: - PRIVATE AREA
     private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
-        let view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height + 10))
+        let view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
         
         let clearButton = ButtonImageBuilder(frame: CGRect(origin: .zero, size: size))
             .setImageButton(ImageViewBuilder(systemName: imgSystemName))
