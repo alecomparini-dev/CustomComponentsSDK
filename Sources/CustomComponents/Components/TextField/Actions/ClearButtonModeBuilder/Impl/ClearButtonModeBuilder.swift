@@ -35,9 +35,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     
 //  MARK: - APPLY
     public func apply() -> Self {
-        let button = createClearButtonView(size, systemName).setHidden(true)
-        textFieldBuilder?.setPadding(button, .right, .whileEditing)
-        button.setHidden(false)
+        textFieldBuilder?.setPadding(createClearButtonView(size, systemName), .right, .whileEditing)
         return self
     }
     
