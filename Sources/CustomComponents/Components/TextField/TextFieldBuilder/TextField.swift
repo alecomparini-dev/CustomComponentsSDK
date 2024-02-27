@@ -74,6 +74,6 @@ public protocol TextField {
     func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self
     
     @discardableResult
-    func setClearButton(_ build: (_ build: ClearButtonModeBuilder) -> ClearButtonModeBuilder ) -> Self
+    func setClearButton(_ build: ((_ build: ClearButtonModeBuilder) -> ClearButtonModeBuilder)? ) -> Self
 
 }
