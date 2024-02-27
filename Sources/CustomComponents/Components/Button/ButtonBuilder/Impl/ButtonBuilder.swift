@@ -17,6 +17,12 @@ open class ButtonBuilder: BaseBuilder, Button {
     
 //  MARK: - INITIALIZERS
 
+    public init(type: UIButton.ButtonType) {
+        self.button = UIButton(type: type)
+        super.init(button)
+        configure()
+    }
+    
     public init() {
         self.button = UIButton(type: .system)
         super.init(button)

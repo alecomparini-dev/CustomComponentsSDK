@@ -56,7 +56,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         
         
 //        let clearButton = UIButton(type: .custom)
-        let clearButton = ButtonBuilder()
+        let clearButton = ButtonBuilder(type: .custom)
         clearButton.get.setImage(UIImage(systemName: imgSystemName), for: .normal)
         clearButton.get.frame = CGRect(origin: .zero, size: size)
         
