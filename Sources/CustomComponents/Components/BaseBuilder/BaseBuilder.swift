@@ -19,7 +19,6 @@ open class BaseBuilder: NSObject {
     public init(_ view: UIView) {
         self._baseView = view
         super.init()
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
     }
     
     deinit {
