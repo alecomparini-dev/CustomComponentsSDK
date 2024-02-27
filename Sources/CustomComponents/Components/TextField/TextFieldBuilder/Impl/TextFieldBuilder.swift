@@ -17,6 +17,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         currentMainWindow = mainWindow
     }
 
+    private var clearButton: ClearButtonModeBuilder?
     private var keyboardConfiguration: KeyboardConfigurationBuilder?
     private var mask: MaskBuilder?
     
@@ -35,6 +36,12 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     public convenience init(placeHolder: String) {
         self.init()
         setPlaceHolder(placeHolder)
+    }
+    
+    
+    deinit {
+        clearButton = nil
+        keyboardConfiguration = nil
     }
     
         
@@ -257,7 +264,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
     @discardableResult
     public func setClearButton(_ build: (_ build: ClearButtonModeBuilder) -> ClearButtonModeBuilder ) -> Self {
-        _ = build(ClearButtonModeBuilder(textFieldBuilder: self))
+        clearButton = build(ClearButtonModeBuilder(textFieldBuilder: self))
         return self
     }
                             
