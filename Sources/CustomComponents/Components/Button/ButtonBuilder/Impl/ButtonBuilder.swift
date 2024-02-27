@@ -17,13 +17,6 @@ open class ButtonBuilder: BaseBuilder, Button {
     
 //  MARK: - INITIALIZERS
 
-    public init(frame: CGRect) {
-        self.button = UIButton(type: .custom)
-        self.button.frame = frame
-        super.init(button)
-        configure()
-    }
-    
     public init() {
         self.button = UIButton(type: .system)
         super.init(button)
@@ -177,6 +170,13 @@ open class ButtonBuilder: BaseBuilder, Button {
         return self
     }
     
+    
+    @discardableResult
+    public func setFrame(_ frame: CGRect) -> Self {
+        self.button.frame = frame
+        bringToFront()
+        return self
+    }
     
     
 //  MARK: - PRIVATE AREA
