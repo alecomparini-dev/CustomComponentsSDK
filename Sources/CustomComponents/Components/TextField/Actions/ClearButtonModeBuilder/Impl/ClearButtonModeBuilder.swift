@@ -50,17 +50,17 @@ public class ClearButtonModeBuilder: ClearButtonMode {
             .setSize(22)
             .setContentMode(.center)
         
-        let clearButton = ButtonImageBuilder()
-            .setImageButton(img)
-            .setFrame(CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
+//        let clearButton = ButtonImageBuilder()
+//            .setImageButton(img)
+//            .setFrame(CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
         
         
-//        let clearButton = UIButton(type: .custom)
-//        clearButton.setImage(UIImage(systemName: imgSystemName), for: .normal)
-//        clearButton.frame = CGRect(origin: .zero, size: size)
-        clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
+        let clearButton = UIButton(type: .custom)
+        clearButton.setImage(UIImage(systemName: imgSystemName), for: .normal)
+        clearButton.frame = CGRect(origin: .zero, size: size)
         
-        view.get.addSubview(clearButton.get)
+        clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
+        view.get.addSubview(clearButton)
         
         return view
     }
