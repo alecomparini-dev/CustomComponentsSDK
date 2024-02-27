@@ -12,12 +12,7 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
         super.init()
         self.setImageButton(imageViewBuilder)
     }
-    
-    public override init(frame: CGRect) {
-        self.imageView = ImageViewBuilder()
-        super.init(frame: frame)
-    }
-    
+        
     public override init(_ title: String) {
         self.imageView = ImageViewBuilder()
         super.init(title)
