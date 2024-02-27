@@ -46,8 +46,12 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
         let view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
         
-        let clearButton = ButtonImageBuilder(frame: CGRect(origin: .zero, size: size))
-            .setImageButton(ImageViewBuilder(systemName: imgSystemName))
+        let img = ImageViewBuilder(systemName: imgSystemName)
+            .setSize(22)
+            .setContentMode(.center)
+        
+        let clearButton = ButtonImageBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
+            .setImageButton(img)
         
         
 //        let clearButton = UIButton(type: .custom)
