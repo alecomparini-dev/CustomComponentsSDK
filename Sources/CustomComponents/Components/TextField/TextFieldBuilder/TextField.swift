@@ -75,7 +75,5 @@ public protocol TextField {
     
     @discardableResult
     func setClearButton(_ build: (_ build: ClearButtonModeBuilder) -> ClearButtonModeBuilder ) -> Self
-    func setClearButton(size: CGSize , _ imgSystemName: String) -> Self 
-
 
 }
