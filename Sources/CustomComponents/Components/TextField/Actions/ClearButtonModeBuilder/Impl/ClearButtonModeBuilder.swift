@@ -50,7 +50,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         
         let img = ImageViewBuilder(systemName: imgSystemName)
             .setContentMode(.center)
-//            .setSize(22)
+            .setSize(max(size.width, size.height) * 0.9)
         
         let clearButton = ButtonImageBuilder()
             .setImageButton(img)
