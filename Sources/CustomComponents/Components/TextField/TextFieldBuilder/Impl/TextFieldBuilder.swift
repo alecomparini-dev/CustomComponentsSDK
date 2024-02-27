@@ -238,27 +238,27 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
 //  MARK: - SET CLEAR BUTTON MODE
     
-//    @discardableResult
-//    public func setClearButtonMode(size: CGSize = CGSize(width: 20, height: 20) , _ imgSystemName: String = K.Images.xCircleFill) -> Self {
-//        textField.clearButtonMode = .whileEditing
-//        addPaddingToTextField(createClearButtonView(size, imgSystemName), .right, .whileEditing)
-//        return self
-//    }
-//    
-//    @objc
-//    private func clearButtonTapped() {
-//        self.setText("")
-//    }
-//    
-//    private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
-//        let view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
-//        let clearButton = UIButton(type: .custom)
-//        clearButton.setImage(UIImage(systemName: imgSystemName), for: .normal)
-//        clearButton.frame = CGRect(origin: .zero, size: size)
-//        clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
-//        view.get.addSubview(clearButton)
-//        return view
-//    }
+    @discardableResult
+    public func setClearButton(size: CGSize = CGSize(width: 20, height: 20) , _ imgSystemName: String = K.Images.xCircleFill) -> Self {
+        textField.clearButtonMode = .whileEditing
+        addPaddingToTextField(createClearButtonView(size, imgSystemName), .right, .whileEditing)
+        return self
+    }
+    
+    @objc
+    private func clearButtonTapped() {
+        self.setText("")
+    }
+    
+    private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
+        let view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
+        let clearButton = UIButton(type: .custom)
+        clearButton.setImage(UIImage(systemName: imgSystemName), for: .normal)
+        clearButton.frame = CGRect(origin: .zero, size: size)
+        clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
+        view.get.addSubview(clearButton)
+        return view
+    }
     
     
     @discardableResult
