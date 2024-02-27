@@ -55,12 +55,13 @@ public class ClearButtonModeBuilder: ClearButtonMode {
 //            .setFrame(CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
         
         
-        let clearButton = UIButton(type: .custom)
-        clearButton.setImage(UIImage(systemName: imgSystemName), for: .normal)
-        clearButton.frame = CGRect(origin: .zero, size: size)
+//        let clearButton = UIButton(type: .custom)
+        let clearButton = ButtonImageBuilder()
+        clearButton.get.setImage(UIImage(systemName: imgSystemName), for: .normal)
+        clearButton.get.frame = CGRect(origin: .zero, size: size)
         
-        clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
-        view.get.addSubview(clearButton)
+        clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
+        view.get.addSubview(clearButton.get)
         
         return view
     }
