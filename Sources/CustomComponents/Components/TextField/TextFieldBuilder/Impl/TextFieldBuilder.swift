@@ -293,7 +293,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         switch position {
             case .left:
                 textField.leftView = paddingView.baseView
-                textField.leftViewMode =  UITextField.ViewMode(rawValue: mode.rawValue) ?? .always
+                textField.leftViewMode = UITextField.ViewMode(rawValue: mode.rawValue) ?? .always
             
             case .right:
                 textField.rightView = paddingView.baseView
