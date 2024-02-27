@@ -8,6 +8,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     private var size: CGSize = CGSize(width: 20, height: 20)
     private var systemName: String = K.Images.xCircleFill
     
+    private var clearButton: ButtonBuilder!
     
 //  MARK: - INITIALIAZERS
     
@@ -56,7 +57,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         
         
 //        let clearButton = UIButton(type: .custom)
-        let clearButton = ButtonBuilder(type: .custom)
+        clearButton = ButtonBuilder(type: .custom)
         clearButton.get.setImage(UIImage(systemName: imgSystemName), for: .normal)
         clearButton.get.frame = CGRect(origin: .zero, size: size)
         
