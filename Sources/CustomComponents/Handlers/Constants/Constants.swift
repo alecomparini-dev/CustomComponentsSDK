@@ -127,6 +127,19 @@ extension K {
 //  MARK: - EXTENSION - Text
 
 extension K {
+    public struct TextField {
+        public enum ViewMode: Int{
+            case never = 0
+            case whileEditing = 1
+            case unlessEditing = 2
+            case always = 3
+        }
+    }
+}
+        
+//  MARK: - EXTENSION - Text
+
+extension K {
     public struct Text {
         public enum Alignment: Int {
             case left = 0
@@ -157,6 +170,7 @@ extension K {
             case no = 1
             case yes = 2
         }
+        
     }
 }
 

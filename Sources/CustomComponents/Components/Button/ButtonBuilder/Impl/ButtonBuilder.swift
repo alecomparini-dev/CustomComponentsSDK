@@ -16,6 +16,13 @@ open class ButtonBuilder: BaseBuilder, Button {
 
     
 //  MARK: - INITIALIZERS
+
+    public init(frame: CGRect) {
+        self.button = UIButton(frame: frame)
+        super.init(button)
+        configure()
+    }
+    
     public init() {
         self.button = UIButton(type: .system)
         super.init(button)
@@ -28,7 +35,7 @@ open class ButtonBuilder: BaseBuilder, Button {
         self.setTitle(title)
         configure()
     }
-    
+        
     
 //  MARK: - SET PROPERTIES
     @discardableResult
