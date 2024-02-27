@@ -241,7 +241,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     @discardableResult
     public func setClearButton(size: CGSize = CGSize(width: 20, height: 20) , _ imgSystemName: String = K.Images.xCircleFill) -> Self {
         textField.clearButtonMode = .whileEditing
-        addPaddingToTextField(createClearButtonView(size, imgSystemName), .right, .whileEditing)
+//        addPaddingToTextField(createClearButtonView(size, imgSystemName), .right, .whileEditing)
+        setPadding(createClearButtonView(size, imgSystemName), .right, .whileEditing)
         return self
     }
     
