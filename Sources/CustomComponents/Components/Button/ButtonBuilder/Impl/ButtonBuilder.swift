@@ -18,7 +18,7 @@ open class ButtonBuilder: BaseBuilder, Button {
 //  MARK: - INITIALIZERS
 
     public init(type: UIButton.ButtonType) {
-        self.button = UIButton(type: type)
+        self.button = UIButton(type: .custom)
         super.init(button)
         configure()
     }
@@ -186,6 +186,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     
 //  MARK: - PRIVATE AREA
     private func configure() {
+        if button.buttonType == .custom { return }
         if #available(iOS 15.0, *) {
             button.configuration = UIButton.Configuration.plain()
         }
