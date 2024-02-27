@@ -241,10 +241,10 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     @discardableResult
     public func setClearButton(_ build: ((_ build: ClearButtonModeBuilder) -> ClearButtonModeBuilder)? = nil ) -> Self {
         if let build {
-            _ = build(ClearButtonModeBuilder(textFieldBuilder: self))
+            clearButton = build(ClearButtonModeBuilder(textFieldBuilder: self))
             return self
         }
-        _ = ClearButtonModeBuilder(textFieldBuilder: self)
+        clearButton = ClearButtonModeBuilder(textFieldBuilder: self)
             .apply()
         return self
     }
