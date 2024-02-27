@@ -217,14 +217,14 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     @discardableResult
-    public func setPadding(_ paddingView: BaseBuilder?, _ position: K.Position.Horizontal? = nil) -> Self {
+    public func setPadding(_ paddingView: BaseBuilder?, _ position: K.Position.Horizontal? = nil, _ mode: K.TextField.ViewMode = .always ) -> Self {
         guard let paddingView else {return self}
         if let position {
-            addPaddingToTextField(paddingView, position)
+            addPaddingToTextField(paddingView, position, mode)
             return self
         }
-        addPaddingToTextField(paddingView, .left)
-        addPaddingToTextField(paddingView, .right)
+        addPaddingToTextField(paddingView, .left, mode)
+        addPaddingToTextField(paddingView, .right, mode)
         return self
     }
     
@@ -232,28 +232,34 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
 //  MARK: - SET CLEAR BUTTON MODE
     
+//    @discardableResult
+//    public func setClearButtonMode(size: CGSize = CGSize(width: 20, height: 20) , _ imgSystemName: String = K.Images.xCircleFill) -> Self {
+//        textField.clearButtonMode = .whileEditing
+//        addPaddingToTextField(createClearButtonView(size, imgSystemName), .right, .whileEditing)
+//        return self
+//    }
+//    
+//    @objc
+//    private func clearButtonTapped() {
+//        self.setText("")
+//    }
+//    
+//    private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
+//        let view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
+//        let clearButton = UIButton(type: .custom)
+//        clearButton.setImage(UIImage(systemName: imgSystemName), for: .normal)
+//        clearButton.frame = CGRect(origin: .zero, size: size)
+//        clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
+//        view.get.addSubview(clearButton)
+//        return view
+//    }
+    
+    
     @discardableResult
-    public func setClearButtonMode(size: CGSize = CGSize(width: 20, height: 20) , _ imgSystemName: String = K.Images.xCircleFill) -> Self {
-        textField.clearButtonMode = .whileEditing
-        addPaddingToTextField(createClearButtonView(size, imgSystemName), .right, .whileEditing)
+    public func setClearButton(_ build: (_ build: ClearButtonModeBuilder) -> ClearButtonModeBuilder ) -> Self {
+        _ = build(ClearButtonModeBuilder(textFieldBuilder: self))
         return self
     }
-    
-    @objc
-    private func clearButtonTapped() {
-        self.setText("")
-    }
-    
-    private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
-        let view = ViewBuilder(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: size.height))
-        let clearButton = UIButton(type: .custom)
-        clearButton.setImage(UIImage(systemName: imgSystemName), for: .normal)
-        clearButton.frame = CGRect(origin: .zero, size: size)
-        clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
-        view.get.addSubview(clearButton)
-        return view
-    }
-
                             
 
 // MARK: - DELEGATE
@@ -277,15 +283,15 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         textField.delegate = self
     }
     
-    private func addPaddingToTextField(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal, _ mode: UITextField.ViewMode = .always ) {
+    private func addPaddingToTextField(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal, _ mode: K.TextField.ViewMode = .always ) {
         switch position {
             case .left:
                 textField.leftView = paddingView.baseView
-                textField.leftViewMode = mode
+                textField.leftViewMode =  UITextField.ViewMode(rawValue: mode.rawValue) ?? .always
             
             case .right:
                 textField.rightView = paddingView.baseView
-                textField.rightViewMode = mode
+                textField.rightViewMode = UITextField.ViewMode(rawValue: mode.rawValue) ?? .always
         }
     }
 
@@ -320,62 +326,62 @@ extension K.Keyboard.ContentType {
     
     func toUITextContextType() -> UITextContentType {
         switch self {
-        case .name:
-            return .name
-        case .namePrefix:
-            return .namePrefix
-        case .givenName:
-            return .givenName
-        case .middleName:
-            return .middleName
-        case .familyName:
-            return .familyName
-        case .nameSuffix:
-            return .nameSuffix
-        case .nickname:
-            return .nickname
-        case .jobTitle:
-            return .jobTitle
-        case .organizationName:
-            return .organizationName
-        case .location:
-            return .location
-        case .fullStreetAddress:
-            return .fullStreetAddress
-        case .streetAddressLine1:
-            return .streetAddressLine1
-        case .streetAddressLine2:
-            return .streetAddressLine2
-        case .addressCity:
-            return .addressCity
-        case .addressState:
-            return .addressState
-        case .addressCityAndState:
-            return .addressCityAndState
-        case .sublocality:
-            return .sublocality
-        case .countryName:
-            return .countryName
-        case .postalCode:
-            return .postalCode
-        case .telephoneNumber:
-            return .telephoneNumber
-        case .emailAddress:
-            return .emailAddress
-        case .URL:
-            return .URL
-        case .creditCardNumber:
-            return .creditCardNumber
-        case .username:
-            return .username
-        case .password:
-            return .password
-        case .newPassword:
-            return .newPassword
-        case .oneTimeCode:
-            return .oneTimeCode
-        case .empty:
-            return .oneTimeCode
+            case .name:
+                return .name
+            case .namePrefix:
+                return .namePrefix
+            case .givenName:
+                return .givenName
+            case .middleName:
+                return .middleName
+            case .familyName:
+                return .familyName
+            case .nameSuffix:
+                return .nameSuffix
+            case .nickname:
+                return .nickname
+            case .jobTitle:
+                return .jobTitle
+            case .organizationName:
+                return .organizationName
+            case .location:
+                return .location
+            case .fullStreetAddress:
+                return .fullStreetAddress
+            case .streetAddressLine1:
+                return .streetAddressLine1
+            case .streetAddressLine2:
+                return .streetAddressLine2
+            case .addressCity:
+                return .addressCity
+            case .addressState:
+                return .addressState
+            case .addressCityAndState:
+                return .addressCityAndState
+            case .sublocality:
+                return .sublocality
+            case .countryName:
+                return .countryName
+            case .postalCode:
+                return .postalCode
+            case .telephoneNumber:
+                return .telephoneNumber
+            case .emailAddress:
+                return .emailAddress
+            case .URL:
+                return .URL
+            case .creditCardNumber:
+                return .creditCardNumber
+            case .username:
+                return .username
+            case .password:
+                return .password
+            case .newPassword:
+                return .newPassword
+            case .oneTimeCode:
+                return .oneTimeCode
+            case .empty:
+                return .oneTimeCode
         }
     }
     

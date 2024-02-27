@@ -59,7 +59,7 @@ public protocol TextField {
     func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal?) -> Self
     
     @discardableResult
-    func setPadding(_ paddingView: BaseBuilder?, _ position: K.Position.Horizontal?) -> Self
+    func setPadding(_ paddingView: BaseBuilder?, _ position: K.Position.Horizontal?, _ mode: K.TextField.ViewMode ) -> Self
     
     @discardableResult
     func setFocus() -> Self
@@ -74,7 +74,7 @@ public protocol TextField {
     func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self
     
     @discardableResult
-    func setClearButtonMode(size: CGSize, _ imgSystemName: String) -> Self
+    func setClearButton(_ build: (_ build: ClearButtonModeBuilder) -> ClearButtonModeBuilder ) -> Self
 
 
 }
