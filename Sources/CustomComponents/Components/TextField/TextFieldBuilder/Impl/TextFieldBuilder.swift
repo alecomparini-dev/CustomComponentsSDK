@@ -38,7 +38,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         setPlaceHolder(placeHolder)
     }
     
-    
     deinit {
         clearButton = nil
         keyboardConfiguration = nil
