@@ -13,7 +13,7 @@ public class MapBuilder: BaseBuilder, Map {
     static public let radius: Double = 500
     
     private var userLocation: CLLocation?
-    private var centerMapByUser: (flag: Bool, regionRadius: Double ) = (true, 500 )
+    private var centerMapByUser: (flag: Bool, regionRadius: Double ) = (false, 500 )
     
     private var locationManager: CLLocationManager?
     
