@@ -95,28 +95,38 @@ public class MapBuilder: BaseBuilder, Map {
     
 //  MARK: - PUBLIC AREA
 
-    public func checkLocationAuthorization() throws {
+    @discardableResult
+    public func checkLocationAuthorization() -> CLAuthorizationStatus {
         locationManager = CLLocationManager()
         
         let authorizationStatus = locationManager?.authorizationStatus
         
         switch authorizationStatus {
-            case .authorizedAlways, .authorizedWhenInUse:
-                break
-        
-            case .denied, .restricted:
-                throw(NSError(domain: "Location Authorization Denied", code: 1))
+            case .authorizedAlways:
+                return .authorizedAlways
+                
+            case .authorizedWhenInUse:
+                return .authorizedWhenInUse
+                
+            case .denied:
+                return .denied
             
+            case .restricted:
+                return .restricted
+                
             case .notDetermined:
                 locationManager?.requestWhenInUseAuthorization()
                 locationManager?.desiredAccuracy = kCLLocationAccuracyBest
                 locationManager?.startUpdatingLocation()
+                
             case .none:
-                break
-            
+                return .notDetermined
+                
             case .some(_):
-                break
+                return .notDetermined
         }
+        
+        return .notDetermined
     }
 
     
@@ -126,12 +136,8 @@ public class MapBuilder: BaseBuilder, Map {
         setShowsUserLocation(true)
         setUserTrackingMode(.follow)
         setShowsCompass(false)
+        checkLocationAuthorization()
         configDelegates()
-        do {
-            try checkLocationAuthorization()
-        } catch {
-            debugPrint("Location Authorition Denied")
-        }
     }
     
     private func configDelegates() {
