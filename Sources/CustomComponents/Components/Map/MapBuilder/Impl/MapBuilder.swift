@@ -50,6 +50,7 @@ public class MapBuilder: BaseBuilder, Map {
     @discardableResult
     public func setCenterMapByUser(_ regionRadius: Double = MapBuilder.radius) -> Self {
         centerMapByUser = (true, regionRadius)
+        startUpdatingLocation()
         return self
     }
     
@@ -135,7 +136,6 @@ public class MapBuilder: BaseBuilder, Map {
         setUserTrackingMode(.follow)
         setShowsCompass(false)
         checkLocationAuthorization()
-        startUpdatingLocation()
         configDelegates()
     }
     
