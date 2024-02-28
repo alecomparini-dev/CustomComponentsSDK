@@ -3,7 +3,7 @@
 
 import UIKit
 
-public class BlurBuilder: BaseBuilder, Blur {
+public class BlurBuilder: ViewBuilder, Blur {
     public typealias T = UIVisualEffectView
     
     private var vibrancyView: UIVisualEffectView?
@@ -11,8 +11,6 @@ public class BlurBuilder: BaseBuilder, Blur {
     
     private var blur: UIVisualEffectView
         
-    public var get: UIVisualEffectView { blur }
-    
     
 //  MARK: - INITIALIZERS
     
@@ -21,7 +19,7 @@ public class BlurBuilder: BaseBuilder, Blur {
     public init(style: UIBlurEffect.Style) {
         self.blurEffect = UIBlurEffect(style: style)
         self.blur = UIVisualEffectView(effect: self.blurEffect)
-        super.init(blur)
+        super.init()
         configure()
     }
     
@@ -38,13 +36,28 @@ public class BlurBuilder: BaseBuilder, Blur {
     
     private func configure() {
         configBackgroundColor()
+        addBlurOnComponent()
+        configConstraintsBlurView()
         configAutoresizingMask()
         configAlphaBlur()
         removeInteraction()
     }
 
     private func configBackgroundColor() {
+        self.setBackgroundColor(.clear)
         blur.setBackgroundColor(.clear)
+    }
+    
+    private func addBlurOnComponent() {
+        self.get.addSubview(blur)
+    }
+    
+    private func configConstraintsBlurView() {
+        self.blur.makeConstraints({ make in
+            make
+                .setPin.equalToSuperView
+                .apply()
+        })
     }
     
     private func removeInteraction() {
@@ -52,7 +65,7 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
 
     private func configAutoresizingMask() {
-        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleLeftMargin, .flexibleRightMargin]
+        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
     private func configAlphaBlur() {
