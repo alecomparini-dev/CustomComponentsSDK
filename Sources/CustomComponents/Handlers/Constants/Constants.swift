@@ -472,10 +472,17 @@ extension K {
     }
 }
 
+//  MARK: - EXTENSION - Dock
+extension K {
+    public struct Map {
+        
+        public enum UserTrackingMode: Int {
+            case none = 0
+            case follow = 1
+            case followWithHeading = 2
+        }
 
-
-
-
-
+    }
+}
 
 
