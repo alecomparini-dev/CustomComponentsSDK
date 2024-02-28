@@ -116,8 +116,6 @@ public class MapBuilder: BaseBuilder, Map {
                 
             case .notDetermined:
                 locationManager?.requestWhenInUseAuthorization()
-                locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-                locationManager?.startUpdatingLocation()
                 
             case .none:
                 return .notDetermined
@@ -137,6 +135,7 @@ public class MapBuilder: BaseBuilder, Map {
         setUserTrackingMode(.follow)
         setShowsCompass(false)
         checkLocationAuthorization()
+        startUpdatingLocation()
         configDelegates()
     }
     
@@ -149,6 +148,11 @@ public class MapBuilder: BaseBuilder, Map {
         if let userLocation, centerMapByUser.flag {
             setCenterMap(location: userLocation, centerMapByUser.regionRadius)
         }
+    }
+    
+    private func startUpdatingLocation() {
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.startUpdatingLocation()
     }
 }
 
