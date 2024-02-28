@@ -52,7 +52,7 @@ public class BlurBuilder: BaseBuilder, Blur {
     }
 
     private func configAutoresizingMask() {
-        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
     private func configAlphaBlur() {
