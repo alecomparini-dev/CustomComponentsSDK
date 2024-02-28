@@ -122,13 +122,17 @@ public extension UIView {
             gradientLayer.removeFromSuperlayer()
         }
     }
-
+    
     
 //  MARK: - NEUMORPHISM
     func removeNeumorphism() {
         self.removeShadowByID(K.Neumorphism.Identifiers.darkShadowID.rawValue)
         self.removeShadowByID(K.Neumorphism.Identifiers.lightShadowID.rawValue)
         self.removeGradientByID(K.Neumorphism.Identifiers.shapeID.rawValue)
+    }
+    
+    func hasNeumorphism() -> Bool {
+        return self.layer.sublayers?.first(where: { $0.name == K.Neumorphism.Identifiers.darkShadowID.rawValue }) != nil
     }
 
     
