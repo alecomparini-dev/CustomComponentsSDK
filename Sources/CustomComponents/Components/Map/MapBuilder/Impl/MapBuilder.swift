@@ -9,6 +9,13 @@ public class MapBuilder: BaseBuilder, Map {
     public typealias MKMapView = MapKit.MKMapView
     public typealias CLLocation = CoreLocation.CLLocation
     public typealias MKMapViewDelegate = MapKit.MKMapViewDelegate
+
+    static public let radius: Double = 500
+    
+    private var userLocation: CLLocation?
+    private var centerMapByUser: (flag: Bool, regionRadius: Double ) = (true, 500 )
+    
+    private var locationManager: CLLocationManager?
     
     public var get: MKMapView { mapView }
     
@@ -25,21 +32,8 @@ public class MapBuilder: BaseBuilder, Map {
     
     
 //  MARK: - SET PROPERTIES
-    
     @discardableResult
-    public func setShowsUserLocation(_ flag: Bool) -> Self {
-        mapView.showsUserLocation = flag
-        return self
-    }
-    
-    @discardableResult
-    public func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self {
-        mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
-        return self
-    }
-    
-    @discardableResult
-    public func setCenterMap(location: CLLocation, _ regionRadius: Double = 1000) -> Self {
+    public func setCenterMap(location: CLLocation, _ regionRadius: Double = MapBuilder.radius) -> Self {
         let regionRadius: CLLocationDistance = regionRadius
         
         let coordinateRegion = MKCoordinateRegion(
@@ -50,6 +44,24 @@ public class MapBuilder: BaseBuilder, Map {
         
         mapView.setRegion(coordinateRegion, animated: true)
         
+        return self
+    }
+    
+    @discardableResult
+    public func setCenterMapByUser(_ regionRadius: Double = MapBuilder.radius) -> Self {
+        centerMapByUser = (true, regionRadius)
+        return self
+    }
+    
+    @discardableResult
+    public func setShowsUserLocation(_ flag: Bool) -> Self {
+        mapView.showsUserLocation = flag
+        return self
+    }
+    
+    @discardableResult
+    public func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self {
+        mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
         return self
     }
 
@@ -63,7 +75,7 @@ public class MapBuilder: BaseBuilder, Map {
     public func setShowsPointsOfInterest(_ flag: Bool) -> Self {
         return self
     }
-    
+
     
     
 //  MARK: - SET DELEGATE
@@ -74,16 +86,64 @@ public class MapBuilder: BaseBuilder, Map {
         return self
     }
     
+
+//  MARK: - SHOW MAP
+    public func show() {
+        
+    }
+    
+    
+//  MARK: - PUBLIC AREA
+
+    public func checkLocationAuthorization() throws {
+        locationManager = CLLocationManager()
+        
+        let authorizationStatus = locationManager?.authorizationStatus
+        
+        switch authorizationStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+                break
+        
+            case .denied, .restricted:
+                throw(NSError(domain: "Location Authorization Denied", code: 1))
+            
+            case .notDetermined:
+                locationManager?.requestWhenInUseAuthorization()
+                locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+                locationManager?.startUpdatingLocation()
+            case .none:
+                break
+            
+            case .some(_):
+                break
+        }
+    }
+
+    
     
 //  MARK: - PRIVATE AREA
     private func configure() {
         setShowsUserLocation(true)
         setUserTrackingMode(.follow)
         setShowsCompass(false)
-        setDelegate(self)
+        configDelegates()
+        do {
+            try checkLocationAuthorization()
+        } catch {
+            debugPrint("Location Authorition Denied")
+        }
     }
     
+    private func configDelegates() {
+        setDelegate(self)
+        locationManager?.delegate = self
+    }
     
+    private func configCenterMapByUser() {
+        if let userLocation, centerMapByUser.flag {
+            setCenterMap(location: userLocation, centerMapByUser.regionRadius)
+        }
+    }
 }
 
 
@@ -91,12 +151,28 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("view:", view)
+       
     }
     
-    public func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
-        print("annotation:", annotation)
+    public func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        
     }
     
+    
+    
+}
+
+//  MARK: - EXTENSION - CLLocationManagerDelegate
+extension MapBuilder: CLLocationManagerDelegate {
+    
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        userLocation = locations.last
+        locationManager?.stopUpdatingLocation()
+        configCenterMapByUser()
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        debugPrint("Localization error: \(error.localizedDescription)")
+    }
     
 }

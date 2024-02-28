@@ -12,6 +12,8 @@ public protocol Map {
     
     func setCenterMap(location: CLLocation, _ regionRadius: Double) -> Self
     
+    func setCenterMapByUser(_ regionRadius: Double) -> Self
+    
     func setShowsUserLocation(_ flag: Bool) -> Self
     
     func setShowsCompass(_ flag: Bool) -> Self
@@ -20,8 +22,15 @@ public protocol Map {
     
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     
+    func checkLocationAuthorization() throws
+    
     
 //  MARK: - SET DELEGATE
     func setDelegate(_ delegate: MKMapViewDelegate) -> Self
+    
+    
+//  MARK: - SHOW / HIDE MAPS
+    func show()
+    
     
 }
