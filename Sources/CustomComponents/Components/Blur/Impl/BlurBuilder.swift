@@ -27,7 +27,7 @@ public class BlurBuilder: ViewBuilder, Blur {
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setOpacity(_ opacity: CGFloat) -> Self {
-        self.opacity = opacity
+        blur.alpha = opacity
         return self
     }
     
