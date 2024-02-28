@@ -7,6 +7,7 @@ public protocol Map {
     associatedtype MKMapView
     associatedtype CLLocation
     associatedtype MKMapViewDelegate
+    associatedtype CLAuthorizationStatus
     
     var get: MKMapView {get}
     
@@ -22,7 +23,7 @@ public protocol Map {
     
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     
-    func checkLocationAuthorization() throws
+    func checkLocationAuthorization() -> CLAuthorizationStatus
     
     
 //  MARK: - SET DELEGATE
