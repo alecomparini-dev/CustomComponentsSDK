@@ -135,6 +135,12 @@ open class BaseBuilder: NSObject {
     }
     
     @discardableResult
+    public func setOverrideUserInterfaceStyle(_ style: UIUserInterfaceStyle) -> Self {
+        baseView.overrideUserInterfaceStyle = style
+        return self
+    }
+    
+    @discardableResult
     public func setBorder(_ build: (_ build: BorderBuilder) -> BorderBuilder) -> Self {
         _ = build(BorderBuilder(baseView))
         return self
@@ -163,6 +169,7 @@ open class BaseBuilder: NSObject {
         _ = build(NeumorphismBuilder(baseView))
         return self
     }
+    
     
     
 //  MARK: - SET ACTIONS
