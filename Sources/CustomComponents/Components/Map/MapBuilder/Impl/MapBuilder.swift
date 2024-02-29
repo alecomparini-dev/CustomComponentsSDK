@@ -212,6 +212,8 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
+        configCenterMapByUser()
+        configPinPointsOfInterest()
     }
     
     public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
@@ -232,8 +234,7 @@ extension MapBuilder: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
         locationManager?.stopUpdatingLocation()
-        configCenterMapByUser()
-        configPinPointsOfInterest()
+        
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
