@@ -8,16 +8,17 @@ import CoreLocation
 
 public class MapBuilder: BaseBuilder, Map {
     
-    public typealias Location = CoreLocation.CLLocation
     public typealias D = MapKit.MKMapViewDelegate
+    public typealias PointOfInterestCategory = MKPointOfInterestCategory
+    public typealias Location = CoreLocation.CLLocation
 
     static public let radius: Double = 500
     
     private weak var mapBuilderOutput: MapBuilderOutput?
 
-    private var userLocation: Location?
-    private var centerMapByUser: (flag: Bool, regionRadius: Double ) = (false, 500 )
-    private var pinPointsOfInterest: (flag: Bool, onlyOnce: Bool) = (false, false )
+    private var userLocation: Location!
+    private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], MapBuilder.radius, false )
+    private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", MapBuilder.radius, false )
     private var locationManager: CLLocationManager?
     
     
@@ -40,10 +41,8 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setCenterMap(location: Location, _ regionRadius: Double = MapBuilder.radius) -> Self {
-        let regionRadius: CLLocationDistance = regionRadius
-        
         let coordinateRegion = MKCoordinateRegion(
-            center: location.coordinate,
+            center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude ),
             latitudinalMeters: regionRadius,
             longitudinalMeters: regionRadius
         )
@@ -72,18 +71,39 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setPinPointsOfInterest(_ regionRadius: Double) -> Self {
-        setCenterMapByUser(regionRadius)
+    public func setPinPointsOfInterest(_ categories: [MKPointOfInterestCategory], _ regionRadius: Double = MapBuilder.radius) -> Self {
         pinPointsOfInterest.flag = true
+        pinPointsOfInterest.categories = categories
+        pinPointsOfInterest.regionRadius = regionRadius
         return self
     }
     
+    @discardableResult
+    public func setPinNaturalLanguage(_ text: String, _ regionRadius: Double) -> Self {
+        pinNaturalLanguage.flag = true
+        pinNaturalLanguage.text = text
+        pinNaturalLanguage.regionRadius = regionRadius
+        return self
+    }
+        
     @discardableResult
     public func setRemoveAllPin() -> Self {
         mapView.removeAnnotations(mapView.annotations)
         return self
     }
     
+    @discardableResult
+    public func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String? = "", subTitle: String? = nil, _ centerView: Bool = false ) -> Self {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.lat, longitude: coordinate.lon)
+        annotation.title = title
+        if let subTitle { annotation.subtitle = subTitle }
+        self.mapView.addAnnotation(annotation)
+        if centerView {
+            setCenterMap(location: CLLocation(latitude: coordinate.lat, longitude: coordinate.lon))
+        }
+        return self
+    }
     
     
 //  MARK: - SET DELEGATE
@@ -147,8 +167,8 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - PRIVATE AREA
     private func configure() {
         setShowsUserLocation(true)
-        setUserTrackingMode(.follow)
         setShowsCompass(false)
+        setUserTrackingMode(.follow)
         checkLocationAuthorization()
         configDelegates()
         startUpdatingLocation()
@@ -159,13 +179,9 @@ public class MapBuilder: BaseBuilder, Map {
         locationManager?.delegate = self
     }
     
-    private func setCenterMapByUser(_ regionRadius: Double = MapBuilder.radius) {
-        centerMapByUser = (true, regionRadius)
-    }
-    
-    private func configCenterMapByUser() {
-        if let userLocation, centerMapByUser.flag {
-            setCenterMap(location: userLocation, centerMapByUser.regionRadius)
+    private func configCenterMapByUser(_ regionRadius: Double) {
+        if let userLocation {
+            setCenterMap(location: userLocation, regionRadius)
         }
     }
     
@@ -174,32 +190,68 @@ public class MapBuilder: BaseBuilder, Map {
         locationManager?.startUpdatingLocation()
     }
 
+    private func commonsConfigPin(_ radius: Double) {
+        setUserTrackingMode(.none)
+        configCenterMapByUser(radius)
+    }
+    
+    private func setAnnotationPinByResponseSearch(_ response: MKLocalSearch.Response) {
+        for item in response.mapItems {
+            setAnnotationPin(coordinate: (lat: item.placemark.coordinate.latitude, lon: item.placemark.coordinate.longitude), 
+                             title: item.name,
+                             subTitle: item.placemark.title)
+        }
+    }
+    
     private func configPinPointsOfInterest() {
-        if pinPointsOfInterest.flag && !pinPointsOfInterest.onlyOnce {
+        if !pinPointsOfInterest.flag || pinPointsOfInterest.onlyOnce { return }
+        pinPointsOfInterest.onlyOnce = true
+        
+        commonsConfigPin(pinPointsOfInterest.regionRadius)
+                    
+        let request = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
+        let poiFilter = MKPointOfInterestFilter(including: pinPointsOfInterest.categories)
+        request.pointOfInterestFilter = poiFilter
+                    
+        search(request: request) { [weak self] response in
+            self?.setAnnotationPinByResponseSearch(response)
+        }
+    }
+    
+    private func configPinNaturalLanguage() {
+        if !pinNaturalLanguage.flag || pinNaturalLanguage.onlyOnce { return }
+        pinNaturalLanguage.onlyOnce = true
+        
+        commonsConfigPin(pinNaturalLanguage.regionRadius)
             
-            pinPointsOfInterest.onlyOnce = true
-            
-            let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
-            
-            let poiFilter = MKPointOfInterestFilter(including: [.foodMarket, .restaurant, .brewery, .cafe, .bakery, .foodMarket, .nightlife, .gasStation, .store])
-            
-            requestPOI.pointOfInterestFilter = poiFilter
-            
-            let searchPOI = MKLocalSearch(request: requestPOI)
-            
-            searchPOI.start { response, error in
-                guard let response = response, error == nil else {
-                    print("Erro ao obter pontos de interesse: \(error?.localizedDescription ?? "Erro desconhecido")")
-                    return
-                }
-                
-                for item in response.mapItems {
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = item.placemark.coordinate
-                    annotation.title = item.name
-                    self.mapView.addAnnotation(annotation)
-                }
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = pinNaturalLanguage.text
+        
+        search(request: request) { [weak self] response in
+            self?.setAnnotationPinByResponseSearch(response)
+        }
+    }
+    
+    private func search(request: MKLocalSearch.Request, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+        request.region = mapView.region
+        let search = MKLocalSearch(request: request)
+        searchStart(search, completion)
+    }
+    
+    private func search(request: MKLocalPointsOfInterestRequest, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+        let search = MKLocalSearch(request: request)
+        searchStart(search, completion)
+    }
+    
+    private func searchStart(_ search: MKLocalSearch, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+        search.start { response, error in
+            guard let response = response, error == nil else {
+                //TODO: CALL OUTPUT ERROR
+                debugPrint(#function, error?.localizedDescription ?? "")
+                return
             }
+            
+            completion(response)
         }
     }
     
@@ -212,7 +264,17 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
+        configPins()
     }
+    
+    private func configPins() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            guard let self else {return}
+            configPinPointsOfInterest()
+            configPinNaturalLanguage()
+        })
+    }
+    
     
     public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
        
@@ -232,7 +294,6 @@ extension MapBuilder: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
         locationManager?.stopUpdatingLocation()
-        configPinPointsOfInterest()
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
