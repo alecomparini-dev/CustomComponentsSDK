@@ -46,7 +46,6 @@ public class MapBuilder: BaseBuilder, Map {
         )
         
         mapView.setRegion(coordinateRegion, animated: true)
-        mapView.region = coordinateRegion
         
         return self
     }
