@@ -19,7 +19,9 @@ public protocol Map {
     
     func setShowsCompass(_ flag: Bool) -> Self
     
-//    func setAnnotationPointsOfInterest() -> Self
+    func setRemoveAllPin() -> Self
+    
+    func setPinPointsOfInterest( _ regionRadius: Double) -> Self
     
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     

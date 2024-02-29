@@ -7,6 +7,7 @@ import CoreLocation
 
 
 public class MapBuilder: BaseBuilder, Map {
+    
     public typealias Location = CoreLocation.CLLocation
     public typealias D = MapKit.MKMapViewDelegate
 
@@ -16,6 +17,7 @@ public class MapBuilder: BaseBuilder, Map {
 
     private var userLocation: Location?
     private var centerMapByUser: (flag: Bool, regionRadius: Double ) = (false, 500 )
+    private var pinPointsOfInterest: (flag: Bool, regionRadius: Double, onlyOnce: Bool) = (false, 500, false )
     private var locationManager: CLLocationManager?
     
     
@@ -77,10 +79,18 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setShowsPointsOfInterest() -> Self {
+    public func setPinPointsOfInterest(_ regionRadius: Double) -> Self {
+        pinPointsOfInterest.flag = true
+        pinPointsOfInterest.regionRadius = regionRadius
         return self
     }
-
+    
+    @discardableResult
+    public func setRemoveAllPin() -> Self {
+        mapView.removeAnnotations(mapView.annotations)
+        return self
+    }
+    
     
     
 //  MARK: - SET DELEGATE
@@ -166,6 +176,42 @@ public class MapBuilder: BaseBuilder, Map {
         locationManager?.startUpdatingLocation()
     }
     
+    
+    private func configPinPointsOfInterest() {
+        if pinPointsOfInterest.flag && !pinPointsOfInterest.onlyOnce {
+            pinPointsOfInterest.onlyOnce = true
+            
+            guard let userLocation else { return }
+            
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ) , latitudinalMeters: 500, longitudinalMeters: 500)
+            
+            mapView.region = region
+            
+            let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: region)
+            
+            let poiFilter = MKPointOfInterestFilter(including: [.foodMarket, .restaurant, .brewery, .cafe, .bakery, .foodMarket, .nightlife, .gasStation, .store])
+            
+            requestPOI.pointOfInterestFilter = poiFilter
+            
+            let searchPOI = MKLocalSearch(request: requestPOI)
+            
+            searchPOI.start { response, error in
+                guard let response = response, error == nil else {
+                    print("Erro ao obter pontos de interesse: \(error?.localizedDescription ?? "Erro desconhecido")")
+                    return
+                }
+                
+                for item in response.mapItems {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = item.placemark.coordinate
+                    annotation.title = item.name
+                    self.mapView.addAnnotation(annotation)
+                }
+            }
+        }
+    }
+    
+    
 }
 
 
@@ -174,6 +220,7 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
+        configPinPointsOfInterest()
     }
     
     public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
