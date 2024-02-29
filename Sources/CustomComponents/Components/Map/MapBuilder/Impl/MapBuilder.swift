@@ -39,10 +39,8 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setCenterMap(location: Location, _ regionRadius: Double = MapBuilder.radius) -> Self {
-        let regionRadius: CLLocationDistance = regionRadius
-        
         let coordinateRegion = MKCoordinateRegion(
-            center: location.coordinate,
+            center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude ),
             latitudinalMeters: regionRadius,
             longitudinalMeters: regionRadius
         )
