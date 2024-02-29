@@ -12,9 +12,7 @@ public protocol Map {
     var get: T {get}
     
     func setCenterMap(location: Location, _ regionRadius: Double) -> Self
-    
-    func setCenterMapByUser(_ regionRadius: Double) -> Self
-    
+       
     func setShowsUserLocation(_ flag: Bool) -> Self
     
     func setShowsCompass(_ flag: Bool) -> Self
