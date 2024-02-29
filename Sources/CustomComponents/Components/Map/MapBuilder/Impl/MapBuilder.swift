@@ -170,7 +170,7 @@ public class MapBuilder: BaseBuilder, Map {
 
     private func configPinPointsOfInterest() {
         if pinPointsOfInterest.flag && !pinPointsOfInterest.onlyOnce {
-            pinPointsOfInterest.onlyOnce = true
+//            pinPointsOfInterest.onlyOnce = true
             
 //            configCenterMapByUser(pinPointsOfInterest.regionRadius)
             
