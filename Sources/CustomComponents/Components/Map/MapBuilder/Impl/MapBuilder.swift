@@ -17,7 +17,7 @@ public class MapBuilder: BaseBuilder, Map {
 
     private var userLocation: Location?
     private var centerMapByUser: (flag: Bool, regionRadius: Double ) = (false, 500 )
-    private var pinPointsOfInterest: (flag: Bool, regionRadius: Double, onlyOnce: Bool) = (false, 500, false )
+    private var pinPointsOfInterest: (flag: Bool, onlyOnce: Bool) = (false, false )
     private var locationManager: CLLocationManager?
     
     
@@ -54,13 +54,6 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setCenterMapByUser(_ regionRadius: Double = MapBuilder.radius) -> Self {
-        centerMapByUser = (true, regionRadius)
-        startUpdatingLocation()
-        return self
-    }
-    
-    @discardableResult
     public func setShowsUserLocation(_ flag: Bool) -> Self {
         mapView.showsUserLocation = flag
         return self
@@ -80,8 +73,8 @@ public class MapBuilder: BaseBuilder, Map {
     
     @discardableResult
     public func setPinPointsOfInterest(_ regionRadius: Double) -> Self {
+        setCenterMapByUser(regionRadius)
         pinPointsOfInterest.flag = true
-        pinPointsOfInterest.regionRadius = regionRadius
         return self
     }
     
@@ -165,6 +158,11 @@ public class MapBuilder: BaseBuilder, Map {
         locationManager?.delegate = self
     }
     
+    private func setCenterMapByUser(_ regionRadius: Double = MapBuilder.radius) {
+        centerMapByUser = (true, regionRadius)
+        startUpdatingLocation()
+    }
+    
     private func configCenterMapByUser() {
         if let userLocation, centerMapByUser.flag {
             setCenterMap(location: userLocation, centerMapByUser.regionRadius)
@@ -175,20 +173,13 @@ public class MapBuilder: BaseBuilder, Map {
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.startUpdatingLocation()
     }
-    
-    
+
     private func configPinPointsOfInterest() {
         if pinPointsOfInterest.flag && !pinPointsOfInterest.onlyOnce {
             
             pinPointsOfInterest.onlyOnce = true
             
-            guard let userLocation else { return }
-            
-            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ) , latitudinalMeters: 500, longitudinalMeters: 500)
-            
-            mapView.region = region
-            
-            let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: region)
+            let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
             
             let poiFilter = MKPointOfInterestFilter(including: [.foodMarket, .restaurant, .brewery, .cafe, .bakery, .foodMarket, .nightlife, .gasStation, .store])
             
