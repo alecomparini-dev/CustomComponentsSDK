@@ -6,6 +6,7 @@ import Foundation
 public protocol Map {
     associatedtype T
     associatedtype D
+    associatedtype PointOfInterestCategory
     associatedtype Location
     associatedtype AuthorizationStatus
     
@@ -19,7 +20,7 @@ public protocol Map {
     
     func setRemoveAllPin() -> Self
     
-    func setPinPointsOfInterest( _ regionRadius: Double) -> Self
+    func setPinPointsOfInterest(_ categories: [PointOfInterestCategory], _ regionRadius: Double) -> Self
     
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     

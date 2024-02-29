@@ -7,16 +7,16 @@ import CoreLocation
 
 
 public class MapBuilder: BaseBuilder, Map {
-    
-    public typealias Location = CoreLocation.CLLocation
     public typealias D = MapKit.MKMapViewDelegate
+    public typealias PointOfInterestCategory = MKPointOfInterestCategory
+    public typealias Location = CoreLocation.CLLocation
 
     static public let radius: Double = 500
     
     private weak var mapBuilderOutput: MapBuilderOutput?
 
     private var userLocation: Location!
-    private var pinPointsOfInterest: (flag: Bool, regionRadius:Double, onlyOnce: Bool) = (false, MapBuilder.radius, false )
+    private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], MapBuilder.radius, false )
     private var locationManager: CLLocationManager?
     
     
@@ -69,12 +69,13 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setPinPointsOfInterest(_ regionRadius: Double = MapBuilder.radius) -> Self {
+    public func setPinPointsOfInterest(_ categories: [MKPointOfInterestCategory], _ regionRadius: Double = MapBuilder.radius) -> Self {
         pinPointsOfInterest.flag = true
+        pinPointsOfInterest.categories = categories
         pinPointsOfInterest.regionRadius = regionRadius
         return self
     }
-    
+        
     @discardableResult
     public func setRemoveAllPin() -> Self {
         mapView.removeAnnotations(mapView.annotations)
@@ -178,7 +179,7 @@ public class MapBuilder: BaseBuilder, Map {
                         
             let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
             
-            let poiFilter = MKPointOfInterestFilter(including: [])
+            let poiFilter = MKPointOfInterestFilter(including: pinPointsOfInterest.categories)
             
             requestPOI.pointOfInterestFilter = poiFilter
             
