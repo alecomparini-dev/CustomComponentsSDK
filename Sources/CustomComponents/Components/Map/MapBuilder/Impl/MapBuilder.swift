@@ -47,6 +47,7 @@ public class MapBuilder: BaseBuilder, Map {
         
         mapView.setRegion(coordinateRegion, animated: true)
         
+        
         return self
     }
     
@@ -171,7 +172,12 @@ public class MapBuilder: BaseBuilder, Map {
         if pinPointsOfInterest.flag && !pinPointsOfInterest.onlyOnce {
             pinPointsOfInterest.onlyOnce = true
             
-            configCenterMapByUser(pinPointsOfInterest.regionRadius)
+//            configCenterMapByUser(pinPointsOfInterest.regionRadius)
+            
+            guard let userLocation else {return}
+            
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ) , latitudinalMeters: 500, longitudinalMeters: 500)
+            mapView.region = region
             
             let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
             
