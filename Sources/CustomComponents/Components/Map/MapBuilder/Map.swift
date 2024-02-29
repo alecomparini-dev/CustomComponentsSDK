@@ -22,6 +22,8 @@ public protocol Map {
     
     func setPinPointsOfInterest(_ categories: [PointOfInterestCategory], _ regionRadius: Double) -> Self
     
+    func setPinNaturalLanguage(_ text: String, _ regionRadius: Double) -> Self
+    
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     
     func checkLocationAuthorization() -> AuthorizationStatus

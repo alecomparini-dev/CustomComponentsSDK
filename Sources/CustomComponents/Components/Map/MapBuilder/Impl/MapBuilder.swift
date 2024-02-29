@@ -17,6 +17,7 @@ public class MapBuilder: BaseBuilder, Map {
 
     private var userLocation: Location!
     private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], MapBuilder.radius, false )
+    private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", MapBuilder.radius, false )
     private var locationManager: CLLocationManager?
     
     
@@ -73,6 +74,14 @@ public class MapBuilder: BaseBuilder, Map {
         pinPointsOfInterest.flag = true
         pinPointsOfInterest.categories = categories
         pinPointsOfInterest.regionRadius = regionRadius
+        return self
+    }
+    
+    @discardableResult
+    public func setPinNaturalLanguage(_ text: String, _ regionRadius: Double) -> Self {
+        pinNaturalLanguage.flag = true
+        pinNaturalLanguage.text = text
+        pinNaturalLanguage.regionRadius = regionRadius
         return self
     }
         
@@ -178,13 +187,37 @@ public class MapBuilder: BaseBuilder, Map {
             configCenterMapByUser(pinPointsOfInterest.regionRadius)
                         
             let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
-            
             let poiFilter = MKPointOfInterestFilter(including: pinPointsOfInterest.categories)
-            
             requestPOI.pointOfInterestFilter = poiFilter
             
             let searchPOI = MKLocalSearch(request: requestPOI)
+            searchPOI.start { response, error in
+                guard let response = response, error == nil else {
+                    //TODO: CALL OUTPUT ERROR
+                    return
+                }
+                
+                for item in response.mapItems {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = item.placemark.coordinate
+                    annotation.title = item.name
+                    self.mapView.addAnnotation(annotation)
+                }
+            }
+        }
+    }
+    
+    private func configPinNaturalLanguage() {
+        if pinNaturalLanguage.flag && !pinNaturalLanguage.onlyOnce {
+            pinNaturalLanguage.onlyOnce = true
             
+            let request = MKLocalSearch.Request()
+            
+            request.naturalLanguageQuery = pinNaturalLanguage.text
+            
+            request.region = mapView.region
+            
+            let searchPOI = MKLocalSearch(request: request)
             searchPOI.start { response, error in
                 guard let response = response, error == nil else {
                     //TODO: CALL OUTPUT ERROR
@@ -210,10 +243,14 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
-        
+        configPins()
+    }
+    
+    private func configPins() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             guard let self else {return}
             configPinPointsOfInterest()
+            configPinNaturalLanguage()
         })
     }
     
