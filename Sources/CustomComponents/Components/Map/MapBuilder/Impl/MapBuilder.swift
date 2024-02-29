@@ -47,7 +47,6 @@ public class MapBuilder: BaseBuilder, Map {
         
         mapView.setRegion(coordinateRegion, animated: true)
         
-        
         return self
     }
     
@@ -145,7 +144,6 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - PRIVATE AREA
     private func configure() {
         setShowsUserLocation(true)
-//        setUserTrackingMode(.follow)
         setShowsCompass(false)
         checkLocationAuthorization()
         configDelegates()
@@ -170,16 +168,11 @@ public class MapBuilder: BaseBuilder, Map {
 
     private func configPinPointsOfInterest() {
         if pinPointsOfInterest.flag && !pinPointsOfInterest.onlyOnce {
-//            pinPointsOfInterest.onlyOnce = true
             
-//            configCenterMapByUser(pinPointsOfInterest.regionRadius)
+            pinPointsOfInterest.onlyOnce = true
             
-            guard let userLocation else {return}
-//            
-//            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ) , latitudinalMeters: 500, longitudinalMeters: 500)
-//            mapView.region = region
-//            mapView.setRegion(region, animated: true)
-            
+            configCenterMapByUser(pinPointsOfInterest.regionRadius)
+                        
             let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
             
             let poiFilter = MKPointOfInterestFilter(including: [.foodMarket, .restaurant, .brewery, .cafe, .bakery, .foodMarket, .nightlife, .gasStation, .store])
@@ -190,7 +183,7 @@ public class MapBuilder: BaseBuilder, Map {
             
             searchPOI.start { response, error in
                 guard let response = response, error == nil else {
-                    print("Erro ao obter pontos de interesse: \(error?.localizedDescription ?? "Erro desconhecido")")
+                    //TODO: CALL OUTPUT ERROR
                     return
                 }
                 
@@ -213,8 +206,7 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
-//        configPinPointsOfInterest()
-        print("mapViewDidFinishLoadingMap")
+        configPinPointsOfInterest()
     }
     
     
@@ -235,19 +227,7 @@ extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
-        locationManager?.stopUpdatingLocation()
-        
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ) , latitudinalMeters: 500, longitudinalMeters: 500)
-        mapView.setRegion(region, animated: true)
-        
-       // Aguarde alguns segundos antes de definir a próxima região
-       DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in
-           guard let self else {return}
-           // Exemplo de coordenadas e região com 500 metros
-           let region500m = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ), latitudinalMeters: 50, longitudinalMeters: 50)
-           mapView.setRegion(region500m, animated: true)
-       }
-        
+        locationManager?.stopUpdatingLocation()        
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
