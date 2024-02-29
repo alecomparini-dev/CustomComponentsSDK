@@ -98,6 +98,10 @@ open class ButtonBuilder: BaseBuilder, Button {
     @discardableResult
     public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
         guard let fontFamily else {return self}
+        if #available(iOS 15.0, *) {
+            setTitleFontFamily(fontFamily, fontSize)
+            return self
+        }
         if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
             button.titleLabel?.font = font
         }
@@ -225,6 +229,18 @@ open class ButtonBuilder: BaseBuilder, Button {
         button.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { [weak self] attrTransformer in
             var attr = attrTransformer
             attr.font = UIFont.systemFont(ofSize: fontSize ?? .zero, weight: self?.titleWeight ?? .regular)
+            return attr
+        }
+    }
+    
+    @available(iOS 15.0, *)
+    private func setTitleFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) {
+        button.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { attrTransformer in
+            var attr = attrTransformer
+            guard let fontFamily else {return attr}
+            if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
+                attr.font = font
+            }
             return attr
         }
     }
