@@ -178,6 +178,7 @@ public class MapBuilder: BaseBuilder, Map {
             
             let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ) , latitudinalMeters: 500, longitudinalMeters: 500)
             mapView.region = region
+            mapView.setRegion(region, animated: true)
             
             let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
             
