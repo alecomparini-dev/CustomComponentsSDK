@@ -175,7 +175,7 @@ public class MapBuilder: BaseBuilder, Map {
                         
             let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
             
-            let poiFilter = MKPointOfInterestFilter(including: [.foodMarket, .restaurant, .brewery, .cafe, .bakery, .foodMarket, .nightlife, .gasStation, .store])
+            let poiFilter = MKPointOfInterestFilter(including: [])
             
             requestPOI.pointOfInterestFilter = poiFilter
             
