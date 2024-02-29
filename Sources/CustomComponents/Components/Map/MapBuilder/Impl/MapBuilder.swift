@@ -7,6 +7,7 @@ import CoreLocation
 
 
 public class MapBuilder: BaseBuilder, Map {
+    
     public typealias D = MapKit.MKMapViewDelegate
     public typealias PointOfInterestCategory = MKPointOfInterestCategory
     public typealias Location = CoreLocation.CLLocation
@@ -91,6 +92,18 @@ public class MapBuilder: BaseBuilder, Map {
         return self
     }
     
+    @discardableResult
+    public func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String? = "", subTitle: String? = nil, _ centerView: Bool = false ) -> Self {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.lat, longitude: coordinate.lon)
+        annotation.title = title
+        if let subTitle { annotation.subtitle = subTitle }
+        self.mapView.addAnnotation(annotation)
+        if centerView {
+            setCenterMap(location: CLLocation(latitude: coordinate.lat, longitude: coordinate.lon))
+        }
+        return self
+    }
     
     
 //  MARK: - SET DELEGATE
@@ -177,62 +190,66 @@ public class MapBuilder: BaseBuilder, Map {
         locationManager?.startUpdatingLocation()
     }
 
+    private func commonsConfigPin(_ radius: Double) {
+        setUserTrackingMode(.none)
+        configCenterMapByUser(radius)
+    }
+    
+    private func setAnnotationPinByResponseSearch(_ response: MKLocalSearch.Response) {
+        for item in response.mapItems {
+            setAnnotationPin(coordinate: (lat: item.placemark.coordinate.latitude, lon: item.placemark.coordinate.longitude), title: item.placemark.title)
+        }
+    }
+    
     private func configPinPointsOfInterest() {
-        if pinPointsOfInterest.flag && !pinPointsOfInterest.onlyOnce {
-            
-            pinPointsOfInterest.onlyOnce = true
-            
-            setUserTrackingMode(.none)
-            
-            configCenterMapByUser(pinPointsOfInterest.regionRadius)
-                        
-            let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
-            let poiFilter = MKPointOfInterestFilter(including: pinPointsOfInterest.categories)
-            requestPOI.pointOfInterestFilter = poiFilter
-            
-            let searchPOI = MKLocalSearch(request: requestPOI)
-            searchPOI.start { response, error in
-                guard let response = response, error == nil else {
-                    //TODO: CALL OUTPUT ERROR
-                    debugPrint(#function, error?.localizedDescription ?? "")
-                    return
-                }
-                
-                for item in response.mapItems {
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = item.placemark.coordinate
-                    annotation.title = item.name
-                    self.mapView.addAnnotation(annotation)
-                }
-            }
+        if !pinPointsOfInterest.flag || pinPointsOfInterest.onlyOnce { return }
+        pinPointsOfInterest.onlyOnce = true
+        
+        commonsConfigPin(pinPointsOfInterest.regionRadius)
+                    
+        let request = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
+        let poiFilter = MKPointOfInterestFilter(including: pinPointsOfInterest.categories)
+        request.pointOfInterestFilter = poiFilter
+                    
+        search(request: request) { [weak self] response in
+            self?.setAnnotationPinByResponseSearch(response)
         }
     }
     
     private func configPinNaturalLanguage() {
-        if pinNaturalLanguage.flag && !pinNaturalLanguage.onlyOnce {
-            pinNaturalLanguage.onlyOnce = true
+        if !pinNaturalLanguage.flag || pinNaturalLanguage.onlyOnce { return }
+        pinNaturalLanguage.onlyOnce = true
+        
+        commonsConfigPin(pinNaturalLanguage.regionRadius)
             
-            let request = MKLocalSearch.Request()
-            
-            request.naturalLanguageQuery = pinNaturalLanguage.text
-            
-            request.region = mapView.region
-            
-            let searchPOI = MKLocalSearch(request: request)
-            searchPOI.start { response, error in
-                guard let response = response, error == nil else {
-                    //TODO: CALL OUTPUT ERROR
-                    debugPrint(#function, error?.localizedDescription ?? "")
-                    return
-                }
-                
-                for item in response.mapItems {
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = item.placemark.coordinate
-                    annotation.title = item.name
-                    self.mapView.addAnnotation(annotation)
-                }
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = pinNaturalLanguage.text
+        
+        search(request: request) { [weak self] response in
+            self?.setAnnotationPinByResponseSearch(response)
+        }
+    }
+    
+    private func search(request: MKLocalSearch.Request, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+        request.region = mapView.region
+        let search = MKLocalSearch(request: request)
+        searchStart(search, completion)
+    }
+    
+    private func search(request: MKLocalPointsOfInterestRequest, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+        let search = MKLocalSearch(request: request)
+        searchStart(search, completion)
+    }
+    
+    private func searchStart(_ search: MKLocalSearch, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+        search.start { response, error in
+            guard let response = response, error == nil else {
+                //TODO: CALL OUTPUT ERROR
+                debugPrint(#function, error?.localizedDescription ?? "")
+                return
             }
+            
+            completion(response)
         }
     }
     

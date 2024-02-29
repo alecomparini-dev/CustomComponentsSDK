@@ -24,6 +24,8 @@ public protocol Map {
     
     func setPinNaturalLanguage(_ text: String, _ regionRadius: Double) -> Self
     
+    func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String?, subTitle: String?, _ centerView: Bool) -> Self
+        
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     
     func checkLocationAuthorization() -> AuthorizationStatus
