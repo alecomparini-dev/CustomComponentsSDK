@@ -15,7 +15,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     private weak var mapBuilderOutput: MapBuilderOutput?
 
-    private var userLocation: Location?
+    private var userLocation: Location!
     private var pinPointsOfInterest: (flag: Bool, regionRadius:Double, onlyOnce: Bool) = (false, MapBuilder.radius, false )
     private var locationManager: CLLocationManager?
     
@@ -236,6 +236,10 @@ extension MapBuilder: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
         locationManager?.stopUpdatingLocation()
+        
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ) , latitudinalMeters: 500, longitudinalMeters: 500)
+        mapView.region = region
+        mapView.setRegion(region, animated: true)
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
