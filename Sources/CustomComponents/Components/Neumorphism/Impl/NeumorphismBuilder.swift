@@ -167,7 +167,6 @@ open class NeumorphismBuilder: Neumorphism {
     public func apply() -> Self {
         guard let component else { return self }
         if component.hasNeumorphism() { return self }
-//        removeNeumorphism(component)
         calculateShadoweColorByColorReference()
         applyShadow()
         applyShape()

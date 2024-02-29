@@ -5,19 +5,18 @@ import Foundation
 import MapKit
 import CoreLocation
 
+
 public class MapBuilder: BaseBuilder, Map {
-    public typealias MKMapView = MapKit.MKMapView
-    public typealias CLLocation = CoreLocation.CLLocation
-    public typealias MKMapViewDelegate = MapKit.MKMapViewDelegate
+    public typealias Location = CoreLocation.CLLocation
+    public typealias D = MapKit.MKMapViewDelegate
 
     static public let radius: Double = 500
     
-    private var userLocation: CLLocation?
+    private weak var mapBuilderOutput: MapBuilderOutput?
+
+    private var userLocation: Location?
     private var centerMapByUser: (flag: Bool, regionRadius: Double ) = (false, 500 )
-    
     private var locationManager: CLLocationManager?
-    
-    public var get: MKMapView { mapView }
     
     
 //  MARK: - INITIALIZERS
@@ -31,9 +30,14 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
+//  MARK: - GET PROPERTIES
+    
+    public var get: MKMapView { mapView }
+    
+    
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setCenterMap(location: CLLocation, _ regionRadius: Double = MapBuilder.radius) -> Self {
+    public func setCenterMap(location: Location, _ regionRadius: Double = MapBuilder.radius) -> Self {
         let regionRadius: CLLocationDistance = regionRadius
         
         let coordinateRegion = MKCoordinateRegion(
@@ -73,21 +77,28 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setShowsPointsOfInterest(_ flag: Bool) -> Self {
+    public func setShowsPointsOfInterest() -> Self {
         return self
     }
 
     
     
 //  MARK: - SET DELEGATE
-    
     @discardableResult
-    public func setDelegate(_ delegate: MKMapViewDelegate) -> Self {
+    public func setDelegate(_ delegate: D) -> Self {
         mapView.delegate = delegate
         return self
     }
     
 
+//  MARK: - SET OUTPUT
+    @discardableResult
+    public func setOutput(_ output: MapBuilderOutput) -> Self {
+        mapBuilderOutput = output
+        return self
+    }
+    
+    
 //  MARK: - SHOW MAP
     public func show() {
         
@@ -154,17 +165,22 @@ public class MapBuilder: BaseBuilder, Map {
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.startUpdatingLocation()
     }
+    
 }
 
 
 //  MARK: - EXTENSION - MKMapViewDelegate
 extension MapBuilder: MKMapViewDelegate {
     
-    public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        mapBuilderOutput?.finishLoadingMap()
+    }
+    
+    public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
        
     }
     
-    public func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+    public func mapView(_ mapView: T, didDeselect view: MKAnnotationView) {
         
     }
     
@@ -175,7 +191,7 @@ extension MapBuilder: MKMapViewDelegate {
 //  MARK: - EXTENSION - CLLocationManagerDelegate
 extension MapBuilder: CLLocationManagerDelegate {
     
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
         locationManager?.stopUpdatingLocation()
         configCenterMapByUser()

@@ -4,14 +4,14 @@
 import Foundation
 
 public protocol Map {
-    associatedtype MKMapView
-    associatedtype CLLocation
-    associatedtype MKMapViewDelegate
-    associatedtype CLAuthorizationStatus
+    associatedtype T
+    associatedtype D
+    associatedtype Location
+    associatedtype AuthorizationStatus
     
-    var get: MKMapView {get}
+    var get: T {get}
     
-    func setCenterMap(location: CLLocation, _ regionRadius: Double) -> Self
+    func setCenterMap(location: Location, _ regionRadius: Double) -> Self
     
     func setCenterMapByUser(_ regionRadius: Double) -> Self
     
@@ -19,16 +19,20 @@ public protocol Map {
     
     func setShowsCompass(_ flag: Bool) -> Self
     
-    func setShowsPointsOfInterest(_ flag: Bool) -> Self
+//    func setAnnotationPointsOfInterest() -> Self
     
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     
-    func checkLocationAuthorization() -> CLAuthorizationStatus
+    func checkLocationAuthorization() -> AuthorizationStatus
     
     
 //  MARK: - SET DELEGATE
-    func setDelegate(_ delegate: MKMapViewDelegate) -> Self
+    func setDelegate(_ delegate: D) -> Self
+
     
+//  MARK: - SET OUTPUT
+    func setOutput(_ output: MapBuilderOutput) -> Self
+
     
 //  MARK: - SHOW / HIDE MAPS
     func show()
