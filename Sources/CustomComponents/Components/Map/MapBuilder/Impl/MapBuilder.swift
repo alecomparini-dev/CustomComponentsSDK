@@ -197,7 +197,9 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func setAnnotationPinByResponseSearch(_ response: MKLocalSearch.Response) {
         for item in response.mapItems {
-            setAnnotationPin(coordinate: (lat: item.placemark.coordinate.latitude, lon: item.placemark.coordinate.longitude), title: item.placemark.title)
+            setAnnotationPin(coordinate: (lat: item.placemark.coordinate.latitude, lon: item.placemark.coordinate.longitude), 
+                             title: item.name,
+                             subTitle: item.placemark.title)
         }
     }
     
