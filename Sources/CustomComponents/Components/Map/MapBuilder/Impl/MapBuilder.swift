@@ -16,8 +16,7 @@ public class MapBuilder: BaseBuilder, Map {
     private weak var mapBuilderOutput: MapBuilderOutput?
 
     private var userLocation: Location?
-    private var centerMapByUser: (flag: Bool, regionRadius: Double ) = (false, 500 )
-    private var pinPointsOfInterest: (flag: Bool, onlyOnce: Bool) = (false, false )
+    private var pinPointsOfInterest: (flag: Bool, regionRadius:Double, onlyOnce: Bool) = (false, MapBuilder.radius, false )
     private var locationManager: CLLocationManager?
     
     
@@ -72,8 +71,9 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setPinPointsOfInterest(_ regionRadius: Double) -> Self {
+    public func setPinPointsOfInterest(_ regionRadius: Double = MapBuilder.radius) -> Self {
         pinPointsOfInterest.flag = true
+        pinPointsOfInterest.regionRadius = regionRadius
         return self
     }
     
@@ -158,13 +158,9 @@ public class MapBuilder: BaseBuilder, Map {
         locationManager?.delegate = self
     }
     
-    private func setCenterMapByUser(_ regionRadius: Double = MapBuilder.radius) {
-        centerMapByUser = (true, regionRadius)
-    }
-    
-    private func configCenterMapByUser() {
-        if let userLocation, centerMapByUser.flag {
-            setCenterMap(location: userLocation, centerMapByUser.regionRadius)
+    private func configCenterMapByUser(_ regionRadius: Double) {
+        if let userLocation {
+            setCenterMap(location: userLocation, regionRadius)
         }
     }
     
@@ -177,7 +173,7 @@ public class MapBuilder: BaseBuilder, Map {
         if pinPointsOfInterest.flag && !pinPointsOfInterest.onlyOnce {
             pinPointsOfInterest.onlyOnce = true
             
-            configCenterMapByUser()
+            configCenterMapByUser(pinPointsOfInterest.regionRadius)
             
             let requestPOI = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
             
