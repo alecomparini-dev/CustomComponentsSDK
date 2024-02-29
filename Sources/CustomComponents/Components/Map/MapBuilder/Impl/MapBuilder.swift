@@ -145,6 +145,7 @@ public class MapBuilder: BaseBuilder, Map {
     private func configure() {
         setShowsUserLocation(true)
         setShowsCompass(false)
+        setUserTrackingMode(.follow)
         checkLocationAuthorization()
         configDelegates()
         startUpdatingLocation()
@@ -170,6 +171,8 @@ public class MapBuilder: BaseBuilder, Map {
         if pinPointsOfInterest.flag && !pinPointsOfInterest.onlyOnce {
             
             pinPointsOfInterest.onlyOnce = true
+            
+            setUserTrackingMode(.none)
             
             configCenterMapByUser(pinPointsOfInterest.regionRadius)
                         
@@ -231,7 +234,7 @@ extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
-        locationManager?.stopUpdatingLocation()        
+        locationManager?.stopUpdatingLocation()
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
