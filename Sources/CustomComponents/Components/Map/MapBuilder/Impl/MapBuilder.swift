@@ -237,7 +237,7 @@ extension MapBuilder: CLLocationManagerDelegate {
         userLocation = locations.last
         locationManager?.stopUpdatingLocation()
         
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ) , latitudinalMeters: 5000, longitudinalMeters: 5000)
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ) , latitudinalMeters: 50, longitudinalMeters: 50)
         mapView.region = region
         mapView.setRegion(region, animated: true)
     }
