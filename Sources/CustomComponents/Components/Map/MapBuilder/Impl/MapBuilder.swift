@@ -145,7 +145,7 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - PRIVATE AREA
     private func configure() {
         setShowsUserLocation(true)
-        setUserTrackingMode(.follow)
+//        setUserTrackingMode(.follow)
         setShowsCompass(false)
         checkLocationAuthorization()
         configDelegates()
