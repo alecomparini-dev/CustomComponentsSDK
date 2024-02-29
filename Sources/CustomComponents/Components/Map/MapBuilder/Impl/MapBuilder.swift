@@ -194,6 +194,7 @@ public class MapBuilder: BaseBuilder, Map {
             searchPOI.start { response, error in
                 guard let response = response, error == nil else {
                     //TODO: CALL OUTPUT ERROR
+                    debugPrint(#function, error?.localizedDescription ?? "")
                     return
                 }
                 
@@ -221,6 +222,7 @@ public class MapBuilder: BaseBuilder, Map {
             searchPOI.start { response, error in
                 guard let response = response, error == nil else {
                     //TODO: CALL OUTPUT ERROR
+                    debugPrint(#function, error?.localizedDescription ?? "")
                     return
                 }
                 
