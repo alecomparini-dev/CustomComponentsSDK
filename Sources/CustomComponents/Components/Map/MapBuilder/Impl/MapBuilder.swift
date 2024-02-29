@@ -234,6 +234,7 @@ extension MapBuilder: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
         locationManager?.stopUpdatingLocation()
+        configPinPointsOfInterest()
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
