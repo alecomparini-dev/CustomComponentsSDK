@@ -213,7 +213,7 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
-        configPinPointsOfInterest()
+//        configPinPointsOfInterest()
         print("mapViewDidFinishLoadingMap")
     }
     
@@ -241,11 +241,11 @@ extension MapBuilder: CLLocationManagerDelegate {
         mapView.setRegion(region, animated: true)
         
        // Aguarde alguns segundos antes de definir a próxima região
-       DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in 
+       DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in
            guard let self else {return}
            // Exemplo de coordenadas e região com 500 metros
            let region500m = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude ), latitudinalMeters: 50, longitudinalMeters: 50)
-           self.mapView.setRegion(region500m, animated: true)
+           mapView.setRegion(region500m, animated: true)
        }
         
     }
