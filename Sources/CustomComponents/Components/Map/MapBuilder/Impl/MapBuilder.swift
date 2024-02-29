@@ -206,7 +206,11 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
-        configPinPointsOfInterest()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            guard let self else {return}
+            configPinPointsOfInterest()
+        })
     }
     
     
