@@ -4,7 +4,6 @@
 import UIKit
 
 open class TextFieldBuilder: BaseBuilder, TextField {
-    
     public typealias T = UITextField
     public var get: UITextField { self.textField }
 
@@ -190,6 +189,12 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
+    public func setHideKeyboard() -> Self {
+        textField.resignFirstResponder()
+        return self
+    }
+    
+    @discardableResult
     public func setKeyboard(_ configKeyboard: (_ build: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self {
         keyboardConfiguration = configKeyboard(KeyboardConfigurationBuilder(textFieldBuilder: self))
         return self
@@ -201,7 +206,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         return self
     }
     
-
     @discardableResult
     public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
         guard let fontFamily else {return self}

@@ -65,6 +65,9 @@ public protocol TextField {
     func setFocus() -> Self
 
     @discardableResult
+    func setHideKeyboard() -> Self
+    
+    @discardableResult
     func setKeyboard(_ configKeyboard: (_ build: KeyboardConfigurationBuilder) -> KeyboardConfigurationBuilder ) -> Self
 
     @discardableResult
