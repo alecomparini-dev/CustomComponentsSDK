@@ -214,6 +214,13 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         }
         return self
     }
+    
+    @discardableResult
+    public func setAdjustsFontSizeToFitWidth(minimumFontSize: CGFloat) -> Self {
+        textField.adjustsFontSizeToFitWidth = true
+        textField.minimumFontSize = minimumFontSize
+        return self
+    }
 
 
     
