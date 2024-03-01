@@ -6,6 +6,7 @@ import Foundation
 public protocol StartOfConstraintsFlowProtocol {
     var setTop: StartOfConstraintsPositionFlow<ConstraintsPositionY> { get }
     var setBottom: StartOfConstraintsPositionFlow<ConstraintsPositionY> { get }
+    
     var setLeading: StartOfConstraintsPositionFlow<ConstraintsPositionX> { get }
     var setTrailing: StartOfConstraintsPositionFlow<ConstraintsPositionX> { get }
     
