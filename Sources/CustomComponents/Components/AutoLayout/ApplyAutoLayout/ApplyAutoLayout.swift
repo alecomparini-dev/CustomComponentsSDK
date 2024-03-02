@@ -29,14 +29,13 @@ class ApplyAutoLayout {
     }
     
     private func activateConstraint(_ layout: AutoLayout, _ mainAttr: NSLayoutConstraint.Attribute) {
-        guard let relationBy = layout.relationBy,
-              let toAttribute = layout.toAttribute else { return }
+        guard let relationBy = layout.relationBy else { return }
         
         let layoutConstraint = NSLayoutConstraint(item: layout.mainElement,
                                                   attribute: mainAttr,
                                                   relatedBy: relationBy,
                                                   toItem: setupToItem(layout),
-                                                  attribute: toAttribute,
+                                                  attribute: layout.toAttribute ?? mainAttr,
                                                   multiplier: layout.multiplier,
                                                   constant: setupConstant(layout, mainAttr)
         )
