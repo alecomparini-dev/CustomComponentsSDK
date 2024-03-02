@@ -68,7 +68,7 @@ public enum ConstraintsAttribute {
 }
 
 
-protocol ConstraintsAttributeProtocol {
+public protocol ConstraintsAttributeProtocol {
     func toConstraintsAttribute() -> ConstraintsAttribute
 }
 
@@ -88,7 +88,7 @@ public enum ConstraintsPositionX: ConstraintsAttributeProtocol{
     case trailing
     case centerX
     
-    func toConstraintsAttribute() -> ConstraintsAttribute {
+    public func toConstraintsAttribute() -> ConstraintsAttribute {
         switch self {
         case .leading:
             return .leading
@@ -105,7 +105,7 @@ public enum ConstraintsPositionY: ConstraintsAttributeProtocol {
     case bottom
     case centerY
     
-    func toConstraintsAttribute() -> ConstraintsAttribute {
+    public func toConstraintsAttribute() -> ConstraintsAttribute {
         switch self {
         case .top:
             return .top
@@ -121,7 +121,7 @@ public enum ConstraintsAlignment: ConstraintsAttributeProtocol {
     case horizontalX
     case verticalY
     
-    func toConstraintsAttribute() -> ConstraintsAttribute {
+    public func toConstraintsAttribute() -> ConstraintsAttribute {
         switch self {
         case .horizontalX:
             return .horizontalX
@@ -135,7 +135,7 @@ public enum ConstraintsSize: ConstraintsAttributeProtocol{
     case width
     case height
     
-    func toConstraintsAttribute() -> ConstraintsAttribute {
+    public func toConstraintsAttribute() -> ConstraintsAttribute {
         switch self {
         case .height:
             return .height
