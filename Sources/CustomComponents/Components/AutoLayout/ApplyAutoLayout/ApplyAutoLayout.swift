@@ -10,6 +10,8 @@ class ApplyAutoLayout {
         self.listAutoLayout = listAutoLayout
     }
     
+//  MARK: - APPLY AUTO LAYOUT
+    
     func apply() {
         listAutoLayout.forEach { layout in
             layout.mainElement.translatesAutoresizingMaskIntoConstraints = false
@@ -22,6 +24,8 @@ class ApplyAutoLayout {
         listAutoLayout.removeAll()
     }
     
+    
+//  MARK: - PRIVATE AREA
     private func decideWitchConstraintToCall(_ layout: AutoLayout) {
         layout.mainAttribute.forEach { mainAttr in
             activateConstraint(layout, mainAttr)
@@ -39,8 +43,10 @@ class ApplyAutoLayout {
                                                   multiplier: layout.multiplier,
                                                   constant: setupConstant(layout, mainAttr)
         )
-        
+                
         layoutConstraint.isActive = true
+        debugPrint("item: \(layout.mainElement) \nattribute: \(mainAttr.rawValue) \nrelatedBy: \(relationBy.rawValue) \ntoItem: \(setupToItem(layout) ?? "") \ntoAttribute: \(layout.toAttribute?.rawValue ?? mainAttr.rawValue) \nmultiplier: \(layout.multiplier) \nconstant: \(setupConstant(layout, mainAttr))")
+
     }
     
     private func setupConstant(_ layout: AutoLayout, _ mainAttr: NSLayoutConstraint.Attribute) -> CGFloat {
