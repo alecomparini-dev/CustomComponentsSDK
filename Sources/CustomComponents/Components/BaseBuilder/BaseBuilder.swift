@@ -202,14 +202,14 @@ open class BaseBuilder: NSObject {
 //  MARK: - AUTO LAYOUT AREA
     @discardableResult
     public func setAutoLayout(_ build: (_ build: StartAutoLayout) -> StartAutoLayout) -> Self {
-        self.constraintsFlow = build(StartAutoLayout(element: baseView))
+        self.autoLayout = build(StartAutoLayout(element: baseView))
         return self
     }
     
     @discardableResult
-    public func applyConstraint() -> Self {
-        self.constraintsFlow?.apply()
-        constraintsFlow = nil
+    public func applyAutoLayout() -> Self {
+        self.autoLayout?.apply()
+        autoLayout = nil
         return self
     }
 

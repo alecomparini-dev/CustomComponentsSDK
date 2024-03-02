@@ -88,6 +88,16 @@ public class StartAutoLayout {
         listAutoLayout.append(self.autoLayout)
     }
     
+    @discardableResult
+    public func apply() -> Self {
+        let applyAutoLayout = ApplyAutoLayout(listAutoLayout)
+        applyAutoLayout.apply()
+        listAutoLayout.removeAll()
+        autoLayout = nil
+        return self
+    }
+    
+    
         
 }
 
