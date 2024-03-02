@@ -86,6 +86,7 @@ public enum ConstraintsNotAnAttribute {
 public enum ConstraintsPositionX: ConstraintsAttributeProtocol{
     case leading
     case trailing
+    case centerX
     
     func toConstraintsAttribute() -> ConstraintsAttribute {
         switch self {
@@ -93,6 +94,8 @@ public enum ConstraintsPositionX: ConstraintsAttributeProtocol{
             return .leading
         case .trailing:
             return .trailing
+        case .centerX:
+            return .horizontalX
         }
     }
 }
@@ -100,6 +103,7 @@ public enum ConstraintsPositionX: ConstraintsAttributeProtocol{
 public enum ConstraintsPositionY: ConstraintsAttributeProtocol {
     case top
     case bottom
+    case centerY
     
     func toConstraintsAttribute() -> ConstraintsAttribute {
         switch self {
@@ -107,6 +111,8 @@ public enum ConstraintsPositionY: ConstraintsAttributeProtocol {
             return .top
         case .bottom:
             return .bottom
+        case .centerY:
+            return .verticalY
         }
     }
 }
@@ -126,8 +132,8 @@ public enum ConstraintsAlignment: ConstraintsAttributeProtocol {
 }
 
 public enum ConstraintsSize: ConstraintsAttributeProtocol{
-    case height
     case width
+    case height
     
     func toConstraintsAttribute() -> ConstraintsAttribute {
         switch self {
