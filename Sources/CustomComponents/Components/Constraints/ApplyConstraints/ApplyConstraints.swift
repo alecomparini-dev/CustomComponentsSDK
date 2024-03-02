@@ -64,8 +64,8 @@ class ApplyConstraints {
         if constraint.typeElement == .safeArea {
             return toItemSafeArea(constraint.mainElement)
         }
-        if constraint.typeElement == .superView {
-            return toItemSuperView(constraint.mainElement)
+        if constraint.typeElement == .superview {
+            return toItemSuperview(constraint.mainElement)
         }
         return constraint.toItem
     }
@@ -75,9 +75,9 @@ class ApplyConstraints {
         return safeArea
     }
     
-    private func toItemSuperView(_ mainElement: UIView) -> Any? {
-        guard let superView = mainElement.superview else { return nil}
-        return superView
+    private func toItemSuperview(_ mainElement: UIView) -> Any? {
+        guard let superview = mainElement.superview else { return nil}
+        return superview
     }
     
     

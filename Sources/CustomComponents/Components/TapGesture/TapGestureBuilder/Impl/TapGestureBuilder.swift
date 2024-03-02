@@ -12,7 +12,7 @@ public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     }
     
     private var _touchPositionComponent: CGPoint = CGPointZero
-    private var _touchPositionSuperView: CGPoint = CGPointZero
+    private var _touchPositionSuperview: CGPoint = CGPointZero
     private var _touchPositionWindow: CGPoint = CGPointZero
     
     private var tap: [touchGestureAlias] = []
@@ -40,7 +40,7 @@ public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
             case .window:
                 return _touchPositionWindow
             case .superview:
-                return _touchPositionSuperView
+                return _touchPositionSuperview
             case .component:
                 return _touchPositionComponent
         }
@@ -115,7 +115,7 @@ public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     
     private func setTouchPositions() {
         _touchPositionWindow = self.location(in: nil)
-        _touchPositionSuperView = self.location(in: component?.superview)
+        _touchPositionSuperview = self.location(in: component?.superview)
         _touchPositionComponent = self.location(in: component)
     }
     

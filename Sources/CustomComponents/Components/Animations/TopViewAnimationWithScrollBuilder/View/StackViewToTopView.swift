@@ -19,7 +19,7 @@ class StackViewToTopView: StackViewBuilder {
             .setDistribution(.fill)
             .setConstraints { build in
                 build
-                    .setPin.equalToSuperView
+                    .setPin.equalToSuperview
             }
     }
     

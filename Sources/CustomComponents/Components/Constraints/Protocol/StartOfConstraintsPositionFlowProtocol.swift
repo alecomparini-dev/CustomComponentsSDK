@@ -26,11 +26,11 @@ public protocol StartOfConstraintsPositionFlowProtocol {
     var greaterThanOrEqualToSafeArea: StartOfConstraintsFlow { get }
     func greaterThanOrEqualToSafeArea(_ constant: CGFloat) -> StartOfConstraintsFlow
     
-    var equalToSuperView: StartOfConstraintsFlow { get }
-    func equalToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow
-    var lessThanOrEqualToSuperView: StartOfConstraintsFlow { get }
-    func lessThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow
-    var greaterThanOrEqualToSuperView: StartOfConstraintsFlow { get }
-    func greaterThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow
+    var equalToSuperview: StartOfConstraintsFlow { get }
+    func equalToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow
+    var lessThanOrEqualToSuperview: StartOfConstraintsFlow { get }
+    func lessThanOrEqualToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow
+    var greaterThanOrEqualToSuperview: StartOfConstraintsFlow { get }
+    func greaterThanOrEqualToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow
     
 }

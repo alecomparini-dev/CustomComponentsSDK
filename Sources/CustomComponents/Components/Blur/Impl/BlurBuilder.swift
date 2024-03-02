@@ -55,7 +55,7 @@ public class BlurBuilder: ViewBuilder, Blur {
     private func configConstraintsBlurView() {
         self.blur.makeConstraints({ make in
             make
-                .setPin.equalToSuperView
+                .setPin.equalToSuperview
                 .apply()
         })
     }

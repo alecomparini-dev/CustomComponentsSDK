@@ -73,18 +73,18 @@ open class ConstraintsViewModel {
     
 
 //  MARK: - SUPERVIEW
-    public func equalToSuperView(_ constant: CGFloat = 0) {
-        model.typeElement = .superView
+    public func equalToSuperview(_ constant: CGFloat = 0) {
+        model.typeElement = .superview
         updateRelations(.equalTo, constant)
     }
     
-    public func lessThanOrEqualToSuperView(_ constant: CGFloat = 0) {
-        model.typeElement = .superView
+    public func lessThanOrEqualToSuperview(_ constant: CGFloat = 0) {
+        model.typeElement = .superview
         updateRelations(.lessThanOrEqualTo, constant)
     }
     
-    public func greaterThanOrEqualToSuperView(_ constant: CGFloat = 0) {
-        model.typeElement = .superView
+    public func greaterThanOrEqualToSuperview(_ constant: CGFloat = 0) {
+        model.typeElement = .superview
         updateRelations(.greaterThanOrEqualTo, constant)
     }
     

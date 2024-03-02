@@ -19,7 +19,7 @@ class HoursOrMinutesContainerView: ViewBuilder {
             .setSpacing(8)
             .setConstraints({ build in
                 build
-                    .setPin.equalToSuperView
+                    .setPin.equalToSuperview
             })
         return st
     }()

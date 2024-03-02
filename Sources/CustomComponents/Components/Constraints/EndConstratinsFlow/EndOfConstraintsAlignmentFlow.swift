@@ -1,7 +1,3 @@
-//
-//  EndOfConstraintsAlignmentFlow.swift
-//  BackFront-ChatALPC
-//
 //  Created by Alessandro Comparini on 18/04/23.
 //
 
@@ -26,8 +22,8 @@ open class EndOfConstraintsAlignmentFlow: EndOfConstraintsAlignmentFlowProtocol 
         return constraintsFlow
     }
     
-    public var equalToSuperView: StartOfConstraintsFlow {
-        constraintVM.equalToSuperView()
+    public var equalToSuperview: StartOfConstraintsFlow {
+        constraintVM.equalToSuperview()
         return constraintsFlow
     }
     

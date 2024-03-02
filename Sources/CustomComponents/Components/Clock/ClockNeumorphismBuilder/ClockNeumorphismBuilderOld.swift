@@ -67,8 +67,8 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
             .setConstraints { build in
                 build
                     .setTop.equalTo(stackMinutes.get, .bottom, 5)
-                    .setLeading.equalToSuperView(10)
-                    .setTrailing.equalToSuperView(2)
+                    .setLeading.equalToSuperview(10)
+                    .setTrailing.equalToSuperview(2)
             }
         return label
     }()
@@ -184,7 +184,7 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
     private func configStackHoursConstraint() {
         stackHours.setConstraints({ build in
             build
-                .setPinLeft.equalToSuperView
+                .setPinLeft.equalToSuperview
                 .setTrailing.equalTo(twoPoints.get, .leading, -3)
                 .apply()
         })
@@ -194,7 +194,7 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
     private func configStackMinutesConstraint() {
         stackMinutes.setConstraints({ build in
             build
-                .setPinRight.equalToSuperView
+                .setPinRight.equalToSuperview
                 .setLeading.equalTo(twoPoints.get, .trailing)
                 .apply()
         })
@@ -203,9 +203,9 @@ public class ClockNeumorphismBuilderOld: ViewBuilder {
     private func configTwoPointsConstraint() {
         twoPoints.setConstraints({ build in
             build
-                .setTop.setBottom.equalToSuperView
+                .setTop.setBottom.equalToSuperview
                 .setWidth.equalToConstant(20)
-                .setHorizontalAlignmentX.equalToSuperView
+                .setHorizontalAlignmentX.equalToSuperview
                 .apply()
         })
     }

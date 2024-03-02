@@ -71,13 +71,13 @@ open class EndOfConstraintsPositionFlow: EndOfConstraintsPositionFlowProtocol {
         return constraintsFlow
     }
     
-    public var equalToSuperView: StartOfConstraintsFlow {
-        constraintVM.equalToSuperView()
+    public var equalToSuperview: StartOfConstraintsFlow {
+        constraintVM.equalToSuperview()
         return constraintsFlow
     }
     
-    public func equalToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
-        constraintVM.equalToSuperView(constant)
+    public func equalToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow {
+        constraintVM.equalToSuperview(constant)
         return constraintsFlow
     }
     

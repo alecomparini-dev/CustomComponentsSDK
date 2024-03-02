@@ -52,13 +52,13 @@ class StartOfConstraintsAlignmentFlow: StartOfConstraintsAlignmentFlowProtocol {
         return constraintsFlow
     }
     
-    var equalToSuperView: StartOfConstraintsFlow {
-        constraintVM.equalToSuperView()
+    var equalToSuperview: StartOfConstraintsFlow {
+        constraintVM.equalToSuperview()
         return constraintsFlow
     }
     
-    func equalToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
-        constraintVM.equalToSuperView(constant)
+    func equalToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow {
+        constraintVM.equalToSuperview(constant)
         return constraintsFlow
     }
     

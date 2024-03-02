@@ -20,7 +20,7 @@ class ListCell: UITableViewCell {
         view.add(insideTo: contentView)
         view.makeConstraints { make in
             make
-                .setPin.equalToSuperView
+                .setPin.equalToSuperview
                 .apply()
         }
     }

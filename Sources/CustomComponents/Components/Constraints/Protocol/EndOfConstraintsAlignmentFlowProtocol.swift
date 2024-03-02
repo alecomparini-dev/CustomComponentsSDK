@@ -7,5 +7,5 @@ import UIKit
 public protocol EndOfConstraintsAlignmentFlowProtocol {
     func equalTo(_ element: UIView) -> StartOfConstraintsFlow
     var equalToSafeArea: StartOfConstraintsFlow { get }
-    var equalToSuperView: StartOfConstraintsFlow { get }
+    var equalToSuperview: StartOfConstraintsFlow { get }
 }

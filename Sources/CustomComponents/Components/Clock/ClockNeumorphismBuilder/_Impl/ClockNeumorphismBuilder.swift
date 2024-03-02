@@ -135,7 +135,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         let colonsView = ColonsView(colonModel: colonModel)
             .setConstraints { build in
                 build
-                    .setPin.equalToSuperView
+                    .setPin.equalToSuperview
             }
         colonsView.add(insideTo: clockNeumorphism.colonsView.get)
         colonsView.applyConstraint()
@@ -144,25 +144,25 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     private func configConstraints() {
         Clock.hourLeft.get.setConstraints { build in
             build
-                .setPin.equalToSuperView
+                .setPin.equalToSuperview
                 .apply()
         }
         
         Clock.hourRight.get.setConstraints { build in
             build
-                .setPin.equalToSuperView
+                .setPin.equalToSuperview
                 .apply()
         }
         
         Clock.minLeft.get.setConstraints { build in
             build
-                .setPin.equalToSuperView
+                .setPin.equalToSuperview
                 .apply()
         }
         
         Clock.minRight.get.setConstraints { build in
             build
-                .setPin.equalToSuperView
+                .setPin.equalToSuperview
                 .apply()
         }
     }

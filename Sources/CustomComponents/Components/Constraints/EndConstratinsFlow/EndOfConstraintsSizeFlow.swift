@@ -63,8 +63,8 @@ open class EndOfConstraintsSizeFlow: EndOfConstraintsSizeFlowProtocol {
         return constraintsFlow
     }
     
-    public var equalToSuperView: StartOfConstraintsFlow {
-        constraintVM.equalToSuperView()
+    public var equalToSuperview: StartOfConstraintsFlow {
+        constraintVM.equalToSuperview()
         return constraintsFlow
     }
 

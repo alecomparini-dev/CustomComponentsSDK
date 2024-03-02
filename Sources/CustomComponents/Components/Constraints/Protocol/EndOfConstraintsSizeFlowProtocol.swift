@@ -13,5 +13,5 @@ public protocol EndOfConstraintsSizeFlowProtocol  {
     var setHeight:  EndOfConstraintsSizeFlowProtocol { get }
     func equalTo(_ element: UIView) -> StartOfConstraintsFlow
     var equalToSafeArea: StartOfConstraintsFlow { get }
-    var equalToSuperView: StartOfConstraintsFlow { get }
+    var equalToSuperview: StartOfConstraintsFlow { get }
 }

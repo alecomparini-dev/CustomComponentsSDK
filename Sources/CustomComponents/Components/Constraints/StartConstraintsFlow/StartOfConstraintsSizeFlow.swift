@@ -123,33 +123,33 @@ class StartOfConstraintsSizeFlow: StartOfConstraintsSizeFlowProtocol {
     
     
 //  MARK: - SUPER VIEW
-    var equalToSuperView: StartOfConstraintsFlow {
-        constraintVM.equalToSuperView()
+    var equalToSuperview: StartOfConstraintsFlow {
+        constraintVM.equalToSuperview()
         return constraintsFlow
     }
     
-    func equalToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
-        constraintVM.equalToSuperView(constant)
+    func equalToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow {
+        constraintVM.equalToSuperview(constant)
         return constraintsFlow
     }
     
-    var greaterThanOrEqualToSuperView: StartOfConstraintsFlow {
-        constraintVM.greaterThanOrEqualToSuperView()
+    var greaterThanOrEqualToSuperview: StartOfConstraintsFlow {
+        constraintVM.greaterThanOrEqualToSuperview()
         return constraintsFlow
     }
     
-    func greaterThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
-        constraintVM.greaterThanOrEqualToSuperView(constant)
+    func greaterThanOrEqualToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow {
+        constraintVM.greaterThanOrEqualToSuperview(constant)
         return constraintsFlow
     }
     
-    var lessThanOrEqualToSuperView: StartOfConstraintsFlow {
-        constraintVM.lessThanOrEqualToSuperView()
+    var lessThanOrEqualToSuperview: StartOfConstraintsFlow {
+        constraintVM.lessThanOrEqualToSuperview()
         return constraintsFlow
     }
     
-    func lessThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
-        constraintVM.lessThanOrEqualToSuperView(constant)
+    func lessThanOrEqualToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow {
+        constraintVM.lessThanOrEqualToSuperview(constant)
         return constraintsFlow
     }
     
