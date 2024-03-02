@@ -96,16 +96,16 @@ open class StartAutoLayout {
 
 //  MARK: - LAYOUT ALIGNMENT
     
-    public var horizontalAlignX: StartAlignConstraintFlow<ConstraintsAlignment> {
+    public var horizontalAlignX: StartAlignConstraintFlow<ConstraintsPositionX> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.horizontalX)
-        return StartAlignConstraintFlow<ConstraintsAlignment>(self)
+        return StartAlignConstraintFlow<ConstraintsPositionX>(self)
     }
     
-    public var verticalAlignY: StartAlignConstraintFlow<ConstraintsAlignment> {
+    public var verticalAlignY: StartAlignConstraintFlow<ConstraintsPositionY> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.verticalY)
-        return StartAlignConstraintFlow<ConstraintsAlignment>(self)
+        return StartAlignConstraintFlow<ConstraintsPositionY>(self)
     }
     
     public var centerAlignXY: EndAlignConstraintFlow {
