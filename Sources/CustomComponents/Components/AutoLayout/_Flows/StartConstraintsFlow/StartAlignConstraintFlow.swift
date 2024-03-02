@@ -28,18 +28,23 @@ public class StartAlignConstraintFlow {
     
 //  MARK: - CONSTRAINTS
 
-    public func equalTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
+    public func equalTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute? = nil, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        var toAttr = toAttribute
+        if toAttr == nil {
+            guard let mainAttr = startAutoLayout.autoLayout.mainAttribute.last else {return startAutoLayout}
+            toAttr = mainAttr
+        }
+        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttr, constant: constant)
         return startAutoLayout
     }
     
-    public func greaterThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
+    public func greaterThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, constant: constant)
         return startAutoLayout
     }
 
-    public func lessThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
+    public func lessThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, constant: constant)
         return startAutoLayout
     }
     

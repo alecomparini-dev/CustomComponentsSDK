@@ -47,19 +47,19 @@ public class EndDimensionConstraintFlow {
     
 //  MARK: - CONSTRAINTS
 
-    public func equalTo(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+    public func equalTo(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, constant: constant)
         return startAutoLayout
     }
     
-    public func greaterThanOrEqualTo(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+    public func greaterThanOrEqualTo(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, constant: constant)
         return startAutoLayout
     }
 
-    public func lessThanOrEqualTo(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+    public func lessThanOrEqualTo(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         guard let toAttribute = startAutoLayout.autoLayout.mainAttribute.last else {return startAutoLayout}
-        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, constant: constant)
+        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, constant: constant)
         return startAutoLayout
     }
     
