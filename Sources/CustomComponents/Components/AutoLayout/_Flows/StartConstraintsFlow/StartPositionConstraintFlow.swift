@@ -66,7 +66,7 @@ public class StartPositionConstraintFlow<T> {
     
     
     
-    //  MARK: - SAFEAREA
+//  MARK: - SAFEAREA
     public func equalToSafeArea(_ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .equal, constant: constant)
         startAutoLayout.autoLayout.typeElement = .safeArea
