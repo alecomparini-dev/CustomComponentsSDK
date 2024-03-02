@@ -47,25 +47,25 @@ public class StartAutoLayout {
         return EndPositionConstraintFlow(self)
     }
     
-    public var setPinBottom: EndPositionConstraintFlow  {
+    public var pinBottom: EndPositionConstraintFlow  {
         configStartAutoLayout()
         _ = bottom.leading.trailing
         return EndPositionConstraintFlow(self)
     }
     
-    public var setPinTop: EndPositionConstraintFlow  {
+    public var pinTop: EndPositionConstraintFlow  {
         configStartAutoLayout()
         _ = top.leading.trailing
         return EndPositionConstraintFlow(self)
     }
     
-    public var setPinLeft: EndPositionConstraintFlow  {
+    public var pinLeft: EndPositionConstraintFlow  {
         configStartAutoLayout()
         _ = top.bottom.leading
         return EndPositionConstraintFlow(self)
     }
     
-    public var setPinRight: EndPositionConstraintFlow  {
+    public var pinRight: EndPositionConstraintFlow  {
         configStartAutoLayout()
         _ = top.bottom.trailing
         return EndPositionConstraintFlow(self)
