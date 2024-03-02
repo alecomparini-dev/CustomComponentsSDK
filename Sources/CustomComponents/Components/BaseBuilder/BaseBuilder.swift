@@ -6,6 +6,7 @@ import UIKit
 open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
+    private(set) var autoLayout: StartAutoLayout?
     private var _skeleton: SkeletonBuilder?
     
     private var _id: String = ""
@@ -25,6 +26,9 @@ open class BaseBuilder: NSObject {
         baseView.gestureRecognizers?.forEach({ gesture in
             baseView.removeGestureRecognizer(gesture)
         })
+        constraintsFlow = nil
+        autoLayout = nil
+        _skeleton = nil
     }
     
     
@@ -184,6 +188,21 @@ open class BaseBuilder: NSObject {
     @discardableResult
     public func setConstraints(_ builderConstraint: (_ build: StartOfConstraintsFlow) -> StartOfConstraintsFlow) -> Self {
         self.constraintsFlow = builderConstraint(StartOfConstraintsFlow(baseView))
+        return self
+    }
+    
+    @discardableResult
+    public func applyConstraint() -> Self {
+        self.constraintsFlow?.apply()
+        constraintsFlow = nil
+        return self
+    }
+    
+
+//  MARK: - AUTO LAYOUT AREA
+    @discardableResult
+    public func setAutoLayout(_ build: (_ build: StartAutoLayout) -> StartAutoLayout) -> Self {
+        self.constraintsFlow = build(StartAutoLayout(element: baseView))
         return self
     }
     
