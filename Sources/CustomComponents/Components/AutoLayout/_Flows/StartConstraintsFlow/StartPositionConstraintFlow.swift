@@ -13,24 +13,24 @@ public class StartPositionConstraintFlow<T> {
     
     
     //  MARK: - LAYOUT POSITION
-    public var top: EndPositionConstraintFlow<T> {
+    public var top: EndPositionConstraintFlow {
         startAutoLayout.autoLayout.mainAttribute.append(.top)
-        return EndPositionConstraintFlow<T>(startAutoLayout)
+        return EndPositionConstraintFlow(startAutoLayout)
     }
     
-    public var bottom: EndPositionConstraintFlow<T> {
+    public var bottom: EndPositionConstraintFlow {
         startAutoLayout.autoLayout.mainAttribute.append(.bottom)
-        return EndPositionConstraintFlow<T>(startAutoLayout)
+        return EndPositionConstraintFlow(startAutoLayout)
     }
     
-    public var leading: EndPositionConstraintFlow<T> {
+    public var leading: EndPositionConstraintFlow {
         startAutoLayout.autoLayout.mainAttribute.append(.leading)
-        return EndPositionConstraintFlow<T>(startAutoLayout)
+        return EndPositionConstraintFlow(startAutoLayout)
     }
     
-    public var trailing: EndPositionConstraintFlow<T> {
+    public var trailing: EndPositionConstraintFlow {
         startAutoLayout.autoLayout.mainAttribute.append(.trailing)
-        return EndPositionConstraintFlow<T>(startAutoLayout)
+        return EndPositionConstraintFlow(startAutoLayout)
     }
     
     
