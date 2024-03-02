@@ -3,7 +3,7 @@
 
 import UIKit
 
-public struct AutoLayout {
+public class AutoLayout {
     public var mainElement: UIView
     public var mainAttribute: [NSLayoutConstraint.Attribute] = []
     public var relationBy: NSLayoutConstraint.Relation?
