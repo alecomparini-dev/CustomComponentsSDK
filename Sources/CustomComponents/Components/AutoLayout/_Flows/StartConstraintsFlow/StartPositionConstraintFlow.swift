@@ -49,18 +49,18 @@ public class StartPositionConstraintFlow<T> {
     
     //  MARK: - CONSTRAINTS
     
-    public func equalTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
+    public func equalTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttribute, constant: constant)
         return startAutoLayout
     }
     
-    public func greaterThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
+    public func greaterThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, constant: constant)
         return startAutoLayout
     }
     
-    public func lessThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
+    public func lessThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, constant: constant)
         return startAutoLayout
     }
     
@@ -73,13 +73,13 @@ public class StartPositionConstraintFlow<T> {
         return startAutoLayout
     }
     
-    public func greaterThanOrEqualToSafeArea(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+    public func greaterThanOrEqualToSafeArea(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, constant: constant)
         startAutoLayout.autoLayout.typeElement = .safeArea
         return startAutoLayout
     }
     
-    public func lessThanOrEqualToSafeArea(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+    public func lessThanOrEqualToSafeArea(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, constant: constant)
         startAutoLayout.autoLayout.typeElement = .safeArea
         return startAutoLayout
@@ -94,13 +94,13 @@ public class StartPositionConstraintFlow<T> {
         return startAutoLayout
     }
     
-    public func greaterThanOrEqualToSuperview(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+    public func greaterThanOrEqualToSuperview(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, constant: constant)
         startAutoLayout.autoLayout.typeElement = .superView
         return startAutoLayout
     }
 
-    public func lessThanOrEqualToSuperview(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+    public func lessThanOrEqualToSuperview(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, constant: constant)
         startAutoLayout.autoLayout.typeElement = .superView
         return startAutoLayout
