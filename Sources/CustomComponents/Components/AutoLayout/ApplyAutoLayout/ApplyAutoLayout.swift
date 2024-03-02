@@ -62,12 +62,12 @@ class ApplyAutoLayout {
     }
     
     private func setupToItem(_ layout: AutoLayout) -> Any? {
-//        if layout.typeElement == .safeArea {
-//            return toItemSafeArea(constraint.mainElement)
-//        }
-//        if layout.typeElement == .superView {
-//            return toItemSuperView(constraint.mainElement)
-//        }
+        if layout.typeElement == .safeArea {
+            return toItemSafeArea(layout.mainElement)
+        }
+        if layout.typeElement == .superView {
+            return toItemSuperView(layout.mainElement)
+        }
         return layout.toItem
     }
     
