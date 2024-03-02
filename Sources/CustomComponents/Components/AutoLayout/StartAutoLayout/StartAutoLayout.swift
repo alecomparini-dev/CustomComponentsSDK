@@ -55,6 +55,12 @@ public class StartAutoLayout {
         return StartDimensionConstraintFlow<ConstraintsSize>(self)
     }
     
+    public var size: StartDimensionConstraintFlow<ConstraintsSize> {
+        configStartAutoLayout()
+        _ = width.height
+        return StartDimensionConstraintFlow<ConstraintsSize>(self)
+    }
+    
     
 
 //  MARK: - LAYOUT ALIGNMENT
