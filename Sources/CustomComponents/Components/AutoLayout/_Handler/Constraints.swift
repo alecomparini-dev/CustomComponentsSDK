@@ -13,7 +13,7 @@ struct Constraints {
     
     func set(relationBy: NSLayoutConstraint.Relation, relationElement: Any? = nil, toAttribute: NSLayoutConstraint.Attribute? = nil, multiplier: CGFloat = 1, constant: CGFloat = 0) {
         guard let toAtt = setToAttribute(toAttribute) else {return}
-        startAutoLayout.autoLayout.relationBy = .lessThanOrEqual
+        startAutoLayout.autoLayout.relationBy = relationBy
         startAutoLayout.autoLayout.toItem = relationElement
         startAutoLayout.autoLayout.toAttribute = toAtt
         startAutoLayout.autoLayout.multiplier = multiplier
