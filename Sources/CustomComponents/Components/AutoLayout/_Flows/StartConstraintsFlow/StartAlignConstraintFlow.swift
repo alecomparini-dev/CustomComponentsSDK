@@ -28,12 +28,7 @@ public class StartAlignConstraintFlow<T> {
     
 //  MARK: - CONSTRAINTS
 
-    public func equalTo(_ relationElement: Any, _ toAttribute: T? = nil, constant: CGFloat = 0) -> StartAutoLayout  {
-//        guard let toAttribute else {
-//            guard let mainAttr = startAutoLayout.autoLayout.mainAttribute.last else {return startAutoLayout}
-//            Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: mainAttr, constant: constant)
-//            return startAutoLayout
-//        }
+    public func equalTo(_ relationElement: Any, _ toAttribute: T, _ constant: CGFloat = 0) -> StartAutoLayout  {
         guard let toAttribute = toAttribute as? ConstraintsAttributeProtocol else {return startAutoLayout }
         Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttribute.toConstraintsAttribute(), constant: constant)
         return startAutoLayout
