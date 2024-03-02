@@ -55,6 +55,11 @@ public class StartPositionConstraintFlow<T> {
         return startAutoLayout
     }
     
+    public func equalTo(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        _ = equalTo(relationElement, nil, constant)
+        return startAutoLayout
+    }
+    
     public func greaterThanOrEqualTo(_ relationElement: Any, _ toAttribute: T, _ constant: CGFloat = 0) -> StartAutoLayout  {
         guard let toAttribute = toAttribute as? ConstraintsAttributeProtocol else {return startAutoLayout }
         Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, toAttribute: toAttribute.toConstraintsAttribute(), constant: constant)
