@@ -81,6 +81,49 @@ public class StartDimensionConstraintFlow<T> {
         Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
         return startAutoLayout
     }
+    
+
+    
+    
+//  MARK: - SAFEAREA
+    public func equalToSafeArea(_ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .equal, constant: constant)
+        startAutoLayout.autoLayout.typeElement = .safeArea
+        return startAutoLayout
+    }
+    
+    public func greaterThanOrEqualToSafeArea(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, constant: constant)
+        startAutoLayout.autoLayout.typeElement = .safeArea
+        return startAutoLayout
+    }
+    
+    public func lessThanOrEqualToSafeArea(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, constant: constant)
+        startAutoLayout.autoLayout.typeElement = .safeArea
+        return startAutoLayout
+    }
+    
+    
+    
+//  MARK: - SUPERVIEW
+    public func equalToSuperview(_ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .equal, constant: constant)
+        startAutoLayout.autoLayout.typeElement = .superview
+        return startAutoLayout
+    }
+    
+    public func greaterThanOrEqualToSuperview(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, constant: constant)
+        startAutoLayout.autoLayout.typeElement = .superview
+        return startAutoLayout
+    }
+
+    public func lessThanOrEqualToSuperview(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, constant: constant)
+        startAutoLayout.autoLayout.typeElement = .superview
+        return startAutoLayout
+    }
         
 }
 
