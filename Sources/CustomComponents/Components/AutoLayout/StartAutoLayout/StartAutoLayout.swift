@@ -3,7 +3,7 @@
 
 import UIKit
 
-public class StartAutoLayout {
+open class StartAutoLayout {
     private weak var mainElement: UIView?
     private var listAutoLayout = [AutoLayout]()
     var autoLayout: AutoLayout!

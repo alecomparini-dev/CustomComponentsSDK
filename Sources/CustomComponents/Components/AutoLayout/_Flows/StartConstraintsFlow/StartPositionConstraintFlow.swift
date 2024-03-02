@@ -4,7 +4,7 @@
 import UIKit
 
 
-public class StartPositionConstraintFlow<T> {
+open class StartPositionConstraintFlow<T> {
     private var startAutoLayout: StartAutoLayout
     
     public init(_ startAutoLayout: StartAutoLayout) {

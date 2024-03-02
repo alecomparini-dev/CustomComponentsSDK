@@ -3,7 +3,7 @@
 
 import UIKit
 
-class ApplyAutoLayout {
+open class ApplyAutoLayout {
     private var listAutoLayout = [AutoLayout]()
 
     init(_ listAutoLayout: [AutoLayout]) {
