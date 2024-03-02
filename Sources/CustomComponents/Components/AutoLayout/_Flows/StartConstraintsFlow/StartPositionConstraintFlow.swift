@@ -54,7 +54,12 @@ public class StartPositionConstraintFlow<T> {
         Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttribute.toConstraintsAttribute(), constant: constant ?? 0)
         return startAutoLayout
     }
-        
+    
+    public func equalTo(_ relationElement: Any, constant: CGFloat? = nil) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, constant: constant ?? 0)
+        return startAutoLayout
+    }
+
     public func equalTo(_ relationElement: Any) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement)
         return startAutoLayout
