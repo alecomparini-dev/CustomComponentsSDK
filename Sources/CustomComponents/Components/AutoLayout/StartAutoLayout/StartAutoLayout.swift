@@ -108,10 +108,10 @@ public class StartAutoLayout {
         return StartAlignConstraintFlow(self)
     }
     
-    public var centerAlignXY: StartAlignConstraintFlow {
+    public var centerAlignXY: EndAlignConstraintFlow {
         configStartAutoLayout()
         _ = horizontalAlignX.verticalAlignY
-        return StartAlignConstraintFlow(self)
+        return EndAlignConstraintFlow(self)
     }
     
     
