@@ -132,8 +132,8 @@ public enum ConstraintsAlignment: ConstraintsAttributeProtocol {
 }
 
 public enum ConstraintsSize: ConstraintsAttributeProtocol{
-    case height
     case width
+    case height
     
     func toConstraintsAttribute() -> ConstraintsAttribute {
         switch self {

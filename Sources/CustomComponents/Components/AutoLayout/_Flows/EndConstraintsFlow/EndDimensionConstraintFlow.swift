@@ -3,7 +3,7 @@
 
 import UIKit
 
-public class EndDimensionConstraintFlow<T> {
+public class EndDimensionConstraintFlow {
     private var startAutoLayout: StartAutoLayout
     
     public init(_ startAutoLayout: StartAutoLayout) {
@@ -11,53 +11,55 @@ public class EndDimensionConstraintFlow<T> {
     }
     
 
-//  MARK: - CONSTRAINTS POSITION FLOW
+//  MARK: - LAYOUT POSITION
     public var top: Self {
-        startAutoLayout.autoLayout.mainAttribute?.append(.top)
+        startAutoLayout.autoLayout.mainAttribute.append(.top)
         return self
     }
     
     public var bottom: Self {
-        startAutoLayout.autoLayout.mainAttribute?.append(.top)
+        startAutoLayout.autoLayout.mainAttribute.append(.bottom)
         return self
     }
     
     public var leading: Self {
-        startAutoLayout.autoLayout.mainAttribute?.append(.leading)
+        startAutoLayout.autoLayout.mainAttribute.append(.leading)
         return self
     }
     
     public var trailing: Self {
-        startAutoLayout.autoLayout.mainAttribute?.append(.trailing)
+        startAutoLayout.autoLayout.mainAttribute.append(.trailing)
         return self
     }
     
     
-//  MARK: - CONSTRAINTS SIZE FLOW
+//  MARK: - LAYOUT DIMENSION
     public var width: Self {
-        startAutoLayout.autoLayout.mainAttribute?.append(.width)
+        startAutoLayout.autoLayout.mainAttribute.append(.width)
         return self
     }
     
     public var height: Self {
-        startAutoLayout.autoLayout.mainAttribute?.append(.height)
+        startAutoLayout.autoLayout.mainAttribute.append(.height)
         return self
     }
     
-//  MARK: - CONSTRAINTS RELATIONS
+    
+//  MARK: - CONSTRAINTS
 
-    public func equalTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
+    public func equalTo(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, constant: constant)
         return startAutoLayout
     }
     
-    public func greaterThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
+    public func greaterThanOrEqualTo(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, constant: constant)
         return startAutoLayout
     }
 
-    public func lessThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, multiplier: multiplier, constant: constant)
+    public func lessThanOrEqualTo(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+        guard let toAttribute = startAutoLayout.autoLayout.mainAttribute.last else {return startAutoLayout}
+        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, constant: constant)
         return startAutoLayout
     }
     
