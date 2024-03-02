@@ -6,7 +6,7 @@ import UIKit
 class ApplyAutoLayout {
     private var listAutoLayout = [AutoLayout]()
 
-    init(_ listAutoLayout: [AutoLayout] = [AutoLayout]()) {
+    init(_ listAutoLayout: [AutoLayout]) {
         self.listAutoLayout = listAutoLayout
     }
     
