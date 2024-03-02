@@ -39,8 +39,8 @@ public class StartAlignConstraintFlow<T> {
         return startAutoLayout
     }
     
-    public func equalTo(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
-        _ = equalTo(relationElement, nil, constant)
+    public func equalTo(_ relationElement: Any) -> StartAutoLayout  {
+        _ = equalTo(relationElement, nil, 0)
         return startAutoLayout
     }
     
