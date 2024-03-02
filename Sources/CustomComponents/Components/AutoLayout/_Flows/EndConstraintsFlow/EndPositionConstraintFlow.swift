@@ -4,7 +4,7 @@
 import UIKit
 
 
-public class EndPositionConstraintFlow<T> {
+public class EndPositionConstraintFlow {
     private var startAutoLayout: StartAutoLayout
     
     public init(_ startAutoLayout: StartAutoLayout) {

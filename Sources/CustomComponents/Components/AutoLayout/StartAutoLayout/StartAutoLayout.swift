@@ -39,6 +39,37 @@ public class StartAutoLayout {
         return StartPositionConstraintFlow<ConstraintsPositionX>(self)
     }
     
+    
+//  MARK: - PIN
+    public var pin: EndPositionConstraintFlow  {
+        configStartAutoLayout()
+        _ = top.bottom.leading.trailing
+        return EndPositionConstraintFlow(self)
+    }
+    
+    public var setPinBottom: EndPositionConstraintFlow  {
+        configStartAutoLayout()
+        _ = bottom.leading.trailing
+        return EndPositionConstraintFlow(self)
+    }
+    
+    public var setPinTop: EndPositionConstraintFlow  {
+        configStartAutoLayout()
+        _ = top.leading.trailing
+        return EndPositionConstraintFlow(self)
+    }
+    
+    public var setPinLeft: EndPositionConstraintFlow  {
+        configStartAutoLayout()
+        _ = top.bottom.leading
+        return EndPositionConstraintFlow(self)
+    }
+    
+    public var setPinRight: EndPositionConstraintFlow  {
+        configStartAutoLayout()
+        _ = top.bottom.trailing
+        return EndPositionConstraintFlow(self)
+    }
 
     
 //  MARK: - LAYOUT DIMENSION
@@ -77,6 +108,11 @@ public class StartAutoLayout {
         return StartAlignConstraintFlow(self)
     }
     
+    public var centerAlignXY: StartAlignConstraintFlow {
+        configStartAutoLayout()
+        _ = horizontalAlignX.verticalAlignY
+        return StartAlignConstraintFlow(self)
+    }
     
     
 //  MARK: - PRIVATE AREA
