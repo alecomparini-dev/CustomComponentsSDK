@@ -66,9 +66,14 @@ public class StartDimensionConstraintFlow<T> {
     }
 
     
-//  MARK: - EQUALTO 
+//  MARK: - EQUALTO
     
-    public func equalTo(_ relationElement: Any, _ toAttribute: T, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
+    public func equalTo(_ relationElement: Any, _ toAttribute: T? = nil, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
+//        guard let toAttribute else {
+//            guard let mainAttr = startAutoLayout.autoLayout.mainAttribute.last else {return startAutoLayout}
+//            Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: mainAttr, multiplier: multiplier , constant: constant)
+//            return startAutoLayout
+//        }
         guard let toAttribute = toAttribute as? ConstraintsAttributeProtocol else {return startAutoLayout }
         Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttribute.toConstraintsAttribute(), multiplier: multiplier, constant: constant)
         return startAutoLayout
