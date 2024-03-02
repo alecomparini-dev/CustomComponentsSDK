@@ -134,35 +134,35 @@ open class StartOfConstraintsPositionFlow<C>: StartOfConstraintsPositionFlowProt
     
     
 //  MARK: - SUPER VIEW AREA
-    public var equalToSuperView: StartOfConstraintsFlow {
-        constraintVM.equalToSuperView()
+    public var equalToSuperview: StartOfConstraintsFlow {
+        constraintVM.equalToSuperview()
         return constraintsFlow
     }
     
-    public func equalToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
-        constraintVM.equalToSuperView(constant)
-        return constraintsFlow
-    }
-    
-    
-    public var greaterThanOrEqualToSuperView: StartOfConstraintsFlow {
-        constraintVM.greaterThanOrEqualToSuperView()
-        return constraintsFlow
-    }
-    
-    public func greaterThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
-        constraintVM.greaterThanOrEqualToSuperView(constant)
+    public func equalToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow {
+        constraintVM.equalToSuperview(constant)
         return constraintsFlow
     }
     
     
-    public var lessThanOrEqualToSuperView: StartOfConstraintsFlow{
-        constraintVM.lessThanOrEqualToSuperView()
+    public var greaterThanOrEqualToSuperview: StartOfConstraintsFlow {
+        constraintVM.greaterThanOrEqualToSuperview()
         return constraintsFlow
     }
     
-    public func lessThanOrEqualToSuperView(_ constant: CGFloat) -> StartOfConstraintsFlow {
-        constraintVM.lessThanOrEqualToSuperView(constant)
+    public func greaterThanOrEqualToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow {
+        constraintVM.greaterThanOrEqualToSuperview(constant)
+        return constraintsFlow
+    }
+    
+    
+    public var lessThanOrEqualToSuperview: StartOfConstraintsFlow{
+        constraintVM.lessThanOrEqualToSuperview()
+        return constraintsFlow
+    }
+    
+    public func lessThanOrEqualToSuperview(_ constant: CGFloat) -> StartOfConstraintsFlow {
+        constraintVM.lessThanOrEqualToSuperview(constant)
         return constraintsFlow
     }
     

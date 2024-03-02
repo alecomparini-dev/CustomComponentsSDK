@@ -18,7 +18,7 @@ class ClockNeumorphismView: ViewBuilder {
             .setDistribution(.fillEqually)
             .setConstraints({ build in
                 build
-                    .setPinLeft.equalToSuperView
+                    .setPinLeft.equalToSuperview
                     .setTrailing.equalTo(colonsView.get, .leading, -10)
             })
         return st
@@ -28,8 +28,8 @@ class ClockNeumorphismView: ViewBuilder {
         let comp = ViewBuilder()
             .setConstraints { build in
                 build
-                    .setTop.setBottom.equalToSuperView
-                    .setHorizontalAlignmentX.equalToSuperView
+                    .setTop.setBottom.equalToSuperview
+                    .setHorizontalAlignmentX.equalToSuperview
                     .setWidth.equalToConstant(8)
             }
         return comp
@@ -41,7 +41,7 @@ class ClockNeumorphismView: ViewBuilder {
             .setDistribution(.fillEqually)
             .setConstraints({ build in
                 build
-                    .setPinRight.equalToSuperView
+                    .setPinRight.equalToSuperview
                     .setLeading.equalTo(colonsView.get, .trailing, 8)
             })
         return st

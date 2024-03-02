@@ -32,9 +32,9 @@ class MiddleNumberColumnView: NumberColumnsView {
         return ViewBuilder()
             .setConstraints { build in
                 build
-                    .setTop.equalToSuperView(-1)
-                    .setLeading.equalToSuperView(-constant)
-                    .setTrailing.equalToSuperView(constant)
+                    .setTop.equalToSuperview(-1)
+                    .setLeading.equalToSuperview(-constant)
+                    .setTrailing.equalToSuperview(constant)
                     .setHeight.equalToConstant(3)
             }
     }()
@@ -43,9 +43,9 @@ class MiddleNumberColumnView: NumberColumnsView {
         return ViewBuilder()
             .setConstraints { build in
                 build
-                    .setLeading.equalToSuperView(-constant)
-                    .setTrailing.equalToSuperView(constant)
-                    .setVerticalAlignmentY.equalToSuperView
+                    .setLeading.equalToSuperview(-constant)
+                    .setTrailing.equalToSuperview(constant)
+                    .setVerticalAlignmentY.equalToSuperview
                     .setHeight.equalToConstant(2)
             }
     }()
@@ -54,9 +54,9 @@ class MiddleNumberColumnView: NumberColumnsView {
         return ViewBuilder()
             .setConstraints { build in
                 build
-                    .setBottom.equalToSuperView(1)
-                    .setLeading.equalToSuperView(-constant)
-                    .setTrailing.equalToSuperView(constant)
+                    .setBottom.equalToSuperview(1)
+                    .setLeading.equalToSuperview(-constant)
+                    .setTrailing.equalToSuperview(constant)
                     .setHeight.equalToConstant(3)
             }
     }()

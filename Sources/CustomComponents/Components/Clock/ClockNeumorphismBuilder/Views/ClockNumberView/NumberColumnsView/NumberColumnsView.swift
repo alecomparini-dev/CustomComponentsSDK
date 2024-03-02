@@ -20,7 +20,7 @@ class NumberColumnsView: ViewBuilder {
             .setSpacing(4)
             .setConstraints { build in
                 build
-                    .setPin.equalToSuperView
+                    .setPin.equalToSuperview
             }
         return st
     }()

@@ -71,8 +71,8 @@ class ApplyAutoLayout {
         if layout.typeElement == .safeArea {
             return toItemSafeArea(layout.mainElement)
         }
-        if layout.typeElement == .superView {
-            return toItemSuperView(layout.mainElement)
+        if layout.typeElement == .superview {
+            return toItemSuperview(layout.mainElement)
         }
         return layout.toItem
     }
@@ -82,9 +82,9 @@ class ApplyAutoLayout {
         return safeArea
     }
     
-    private func toItemSuperView(_ mainElement: UIView) -> Any? {
-        guard let superView = mainElement.superview else { return nil}
-        return superView
+    private func toItemSuperview(_ mainElement: UIView) -> Any? {
+        guard let superview = mainElement.superview else { return nil}
+        return superview
     }
 
 }

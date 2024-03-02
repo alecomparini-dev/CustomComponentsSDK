@@ -22,7 +22,7 @@ class ColonsView: ViewBuilder {
             .setDistribution(.fillEqually)
             .setConstraints({ build in
                 build
-                    .setPin.equalToSuperView
+                    .setPin.equalToSuperview
             })
         return st
     }()
@@ -76,7 +76,7 @@ class ColonsView: ViewBuilder {
             .setConstraints { build in
                 build
                     .setSize.equalToConstant(colonModel.radius)
-                    .setAlignmentCenterXY.equalToSuperView
+                    .setAlignmentCenterXY.equalToSuperview
             }
     }
     

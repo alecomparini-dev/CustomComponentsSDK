@@ -19,7 +19,7 @@ class DockCell: UICollectionViewCell {
         view.add(insideTo: self.contentView)
         view.makeConstraints { make in
             make
-                .setPin.equalToSuperView
+                .setPin.equalToSuperview
                 .apply()
         }
     }

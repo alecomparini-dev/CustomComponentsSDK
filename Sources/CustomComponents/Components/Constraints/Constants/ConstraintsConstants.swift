@@ -29,7 +29,7 @@ public enum ConstraintsRelations {
 public enum ConstraintsTypeElement {
     case element
     case safeArea
-    case superView
+    case superview
 }
 
 public enum ConstraintsAttribute {

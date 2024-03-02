@@ -86,19 +86,19 @@ public class EndPositionConstraintFlow {
 //  MARK: - SUPERVIEW
     public func equalToSuperview(_ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .equal, constant: constant)
-        startAutoLayout.autoLayout.typeElement = .superView
+        startAutoLayout.autoLayout.typeElement = .superview
         return startAutoLayout
     }
     
     public func greaterThanOrEqualToSuperview(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, constant: constant)
-        startAutoLayout.autoLayout.typeElement = .superView
+        startAutoLayout.autoLayout.typeElement = .superview
         return startAutoLayout
     }
 
     public func lessThanOrEqualToSuperview(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, constant: constant)
-        startAutoLayout.autoLayout.typeElement = .superView
+        startAutoLayout.autoLayout.typeElement = .superview
         return startAutoLayout
     }
 

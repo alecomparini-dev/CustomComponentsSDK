@@ -20,7 +20,7 @@ class ClockNumberView: ViewBuilder {
             .setSpacing(3)
             .setConstraints({ build in
                 build
-                    .setPin.equalToSuperView
+                    .setPin.equalToSuperview
             })
         return st
     }()
