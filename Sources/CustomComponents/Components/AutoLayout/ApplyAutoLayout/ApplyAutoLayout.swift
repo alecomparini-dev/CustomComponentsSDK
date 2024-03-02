@@ -32,14 +32,14 @@ class ApplyAutoLayout {
         }
     }
     
-    private func activateConstraint(_ layout: AutoLayout, _ mainAttr: NSLayoutConstraint.Attribute) {
+    private func activateConstraint(_ layout: AutoLayout, _ mainAttr: ConstraintsAttribute) {
         guard let relationBy = layout.relationBy else { return }
         
         let layoutConstraint = NSLayoutConstraint(item: layout.mainElement,
-                                                  attribute: mainAttr,
+                                                  attribute: mainAttr.toNSLayoutConstraintAttribute(),
                                                   relatedBy: relationBy,
                                                   toItem: setupToItem(layout),
-                                                  attribute: layout.toAttribute ?? mainAttr,
+                                                  attribute: layout.toAttribute?.toNSLayoutConstraintAttribute() ?? mainAttr.toNSLayoutConstraintAttribute(),
                                                   multiplier: layout.multiplier,
                                                   constant: setupConstant(layout, mainAttr)
         )
@@ -49,7 +49,7 @@ class ApplyAutoLayout {
 
     }
     
-    private func setupConstant(_ layout: AutoLayout, _ mainAttr: NSLayoutConstraint.Attribute) -> CGFloat {
+    private func setupConstant(_ layout: AutoLayout, _ mainAttr: ConstraintsAttribute) -> CGFloat {
         if (layout.mainAttribute.count > 1) {
             if mainAttr == .bottom || mainAttr == .trailing {
                 let const = layout.constant

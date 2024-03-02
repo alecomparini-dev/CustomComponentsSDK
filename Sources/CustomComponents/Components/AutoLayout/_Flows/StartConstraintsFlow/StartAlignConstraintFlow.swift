@@ -3,7 +3,7 @@
 
 import UIKit
 
-public class StartAlignConstraintFlow {
+public class StartAlignConstraintFlow<T> {
     private var startAutoLayout: StartAutoLayout
     
     public init(_ startAutoLayout: StartAutoLayout) {
@@ -15,12 +15,12 @@ public class StartAlignConstraintFlow {
 //  MARK: - CONSTRAINTS ALIGNMENTS
     
     var horizontalAlignX: EndAlignConstraintFlow {
-        startAutoLayout.autoLayout.mainAttribute.append(.centerX)
+        startAutoLayout.autoLayout.mainAttribute.append(.horizontalX)
         return EndAlignConstraintFlow(startAutoLayout)
     }
     
     var verticalAlignY: EndAlignConstraintFlow {
-        startAutoLayout.autoLayout.mainAttribute.append(.centerY)
+        startAutoLayout.autoLayout.mainAttribute.append(.verticalY)
         return EndAlignConstraintFlow(startAutoLayout)
     }
     
@@ -28,25 +28,30 @@ public class StartAlignConstraintFlow {
     
 //  MARK: - CONSTRAINTS
 
-    public func equalTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute? = nil, _ constant: CGFloat = 0) -> StartAutoLayout  {
-        var toAttr = toAttribute
-        if toAttr == nil {
+    public func equalTo(_ relationElement: Any, _ toAttribute: T? = nil, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        guard let toAttribute else {
             guard let mainAttr = startAutoLayout.autoLayout.mainAttribute.last else {return startAutoLayout}
-            toAttr = mainAttr
+            Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: mainAttr, constant: constant)
+            return startAutoLayout
         }
-        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttr, constant: constant)
+        guard let toAttribute = toAttribute as? ConstraintsAttributeProtocol else {return startAutoLayout }
+        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, toAttribute: toAttribute.toConstraintsAttribute(), constant: constant)
         return startAutoLayout
     }
     
-    public func greaterThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, _ constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, constant: constant)
+    public func greaterThanOrEqualTo(_ relationElement: Any, _ toAttribute: T, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        guard let toAttribute = toAttribute as? ConstraintsAttributeProtocol else {return startAutoLayout }
+        Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, toAttribute: toAttribute.toConstraintsAttribute(), constant: constant)
         return startAutoLayout
     }
 
-    public func lessThanOrEqualTo(_ relationElement: Any, _ toAttribute: NSLayoutConstraint.Attribute, _ constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute, constant: constant)
+    public func lessThanOrEqualTo(_ relationElement: Any, _ toAttribute: T, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        guard let toAttribute = toAttribute as? ConstraintsAttributeProtocol else {return startAutoLayout }
+        Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, toAttribute: toAttribute.toConstraintsAttribute(), constant: constant)
         return startAutoLayout
     }
+    
+    
     
     
     
