@@ -94,6 +94,7 @@ public class StartAutoLayout {
         applyAutoLayout.apply()
         listAutoLayout.removeAll()
         autoLayout = nil
+        mainElement = nil
         return self
     }
     
