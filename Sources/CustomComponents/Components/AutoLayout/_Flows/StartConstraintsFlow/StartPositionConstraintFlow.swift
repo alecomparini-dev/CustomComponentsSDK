@@ -4,7 +4,8 @@
 import UIKit
 
 
-open class StartPositionConstraintFlow<T> {
+open class StartPositionConstraintFlow<C> {
+    public typealias T = C
     private var startAutoLayout: StartAutoLayout
     
     public init(_ startAutoLayout: StartAutoLayout) {
@@ -55,10 +56,10 @@ open class StartPositionConstraintFlow<T> {
         return startAutoLayout
     }
     
-    public func equalTo(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, constant: constant)
-        return startAutoLayout
-    }
+//    public func equalTo(_ relationElement: Any, constant: CGFloat = 0) -> StartAutoLayout  {
+//        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, constant: constant)
+//        return startAutoLayout
+//    }
     
     public func greaterThanOrEqualTo(_ relationElement: Any, _ toAttribute: T, _ constant: CGFloat = 0) -> StartAutoLayout  {
         guard let toAttribute = toAttribute as? ConstraintsAttributeProtocol else {return startAutoLayout }
