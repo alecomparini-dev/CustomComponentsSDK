@@ -5,15 +5,15 @@ import UIKit
 
 public class AutoLayout {
     public var mainElement: UIView
-    public var mainAttribute: [NSLayoutConstraint.Attribute] = []
+    public var mainAttribute:[ConstraintsAttribute] = []
     public var relationBy: NSLayoutConstraint.Relation?
     public var typeElement: ConstraintsTypeElement?
     public var toItem: Any?
-    public var toAttribute: NSLayoutConstraint.Attribute?
+    public var toAttribute: ConstraintsAttribute? = nil
     public var multiplier: CGFloat
     public var constant: CGFloat
 
-    public init(mainElement: UIView, mainAttribute: [NSLayoutConstraint.Attribute] = [], relationBy: NSLayoutConstraint.Relation? = nil, typeElement: ConstraintsTypeElement? = nil, toItem: Any? = nil, toAttribute: NSLayoutConstraint.Attribute? = nil, multiplier: CGFloat = 1, constant: CGFloat = 0) {
+    public init(mainElement: UIView, mainAttribute: [ConstraintsAttribute] = [], relationBy: NSLayoutConstraint.Relation? = nil, typeElement: ConstraintsTypeElement? = nil, toItem: Any? = nil, toAttribute: ConstraintsAttribute? = nil, multiplier: CGFloat = 1, constant: CGFloat = 0) {
         self.mainElement = mainElement
         self.mainAttribute = mainAttribute
         self.relationBy = relationBy

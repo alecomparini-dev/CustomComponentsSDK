@@ -15,10 +15,10 @@ public class StartAutoLayout {
     
 //  MARK: - LAYOUT POSITION
     
-    public var top: StartPositionConstraintFlow<ConstraintsPositionY> {
+    public var top: StartPositionConstraintFlow<NSLayoutYAxisAnchor> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.top)
-        return StartPositionConstraintFlow<ConstraintsPositionY>(self)
+        return StartPositionConstraintFlow<NSLayoutYAxisAnchor>(self)
     }
     
     public var bottom: StartPositionConstraintFlow<ConstraintsPositionY> {
@@ -96,16 +96,16 @@ public class StartAutoLayout {
 
 //  MARK: - LAYOUT ALIGNMENT
     
-    public var horizontalAlignX: StartAlignConstraintFlow {
+    public var horizontalAlignX: StartAlignConstraintFlow<ConstraintsAlignment> {
         configStartAutoLayout()
-        autoLayout.mainAttribute.append(.centerX)
-        return StartAlignConstraintFlow(self)
+        autoLayout.mainAttribute.append(.horizontalX)
+        return StartAlignConstraintFlow<ConstraintsAlignment>(self)
     }
     
-    public var verticalAlignY: StartAlignConstraintFlow {
+    public var verticalAlignY: StartAlignConstraintFlow<ConstraintsAlignment> {
         configStartAutoLayout()
-        autoLayout.mainAttribute.append(.centerY)
-        return StartAlignConstraintFlow(self)
+        autoLayout.mainAttribute.append(.verticalY)
+        return StartAlignConstraintFlow<ConstraintsAlignment>(self)
     }
     
     public var centerAlignXY: EndAlignConstraintFlow {
