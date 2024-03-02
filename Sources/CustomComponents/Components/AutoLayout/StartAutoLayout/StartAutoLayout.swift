@@ -15,10 +15,10 @@ public class StartAutoLayout {
     
 //  MARK: - LAYOUT POSITION
     
-    public var top: StartPositionConstraintFlow<NSLayoutYAxisAnchor> {
+    public var top: StartPositionConstraintFlow<ConstraintsPositionY> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.top)
-        return StartPositionConstraintFlow<NSLayoutYAxisAnchor>(self)
+        return StartPositionConstraintFlow<ConstraintsPositionY>(self)
     }
     
     public var bottom: StartPositionConstraintFlow<ConstraintsPositionY> {
