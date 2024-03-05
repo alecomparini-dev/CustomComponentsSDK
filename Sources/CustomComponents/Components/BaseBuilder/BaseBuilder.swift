@@ -223,12 +223,7 @@ open class BaseBuilder: NSObject {
     }
     
     public func add(insideTo element: ViewBuilder) {
-        if element.get.isKind(of: UIStackView.self) {
-            let element = element.get as! UIStackView
-            element.addArrangedSubview(baseView)
-            return
-        }
-        element.get.addSubview(baseView)
+        add(insideTo: element.get)
     }
     
 }
