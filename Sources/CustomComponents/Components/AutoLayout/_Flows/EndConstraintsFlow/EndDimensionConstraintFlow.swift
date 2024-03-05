@@ -58,7 +58,6 @@ public class EndDimensionConstraintFlow {
     }
 
     public func lessThanOrEqualTo(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
-        guard let toAttribute = startAutoLayout.autoLayout.mainAttribute.last else {return startAutoLayout}
         Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, constant: constant)
         return startAutoLayout
     }
