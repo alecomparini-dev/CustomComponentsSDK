@@ -92,7 +92,7 @@ open class CollectionBuilder: BaseBuilder, Collection {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setCellsSize(index: Int, _ size: CGSize) -> Self {
+    public func setCustomCellSize(index: Int, _ size: CGSize) -> Self {
         customItemSize.updateValue(size, forKey: index)
         return self
     }
