@@ -222,8 +222,8 @@ open class BaseBuilder: NSObject {
         element.addSubview(baseView)
     }
     
-    public func add(insideTo element: ViewBuilder) {
-        add(insideTo: element.get)
+    public func add(insideTo element: BaseBuilder) {
+        add(insideTo: element.baseView)
     }
     
 }
