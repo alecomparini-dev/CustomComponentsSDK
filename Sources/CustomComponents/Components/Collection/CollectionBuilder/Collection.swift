@@ -30,7 +30,7 @@ public protocol Collection: AnyObject {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    func setCustomCellSize(index: Int, _ size: CGSize) -> Self
+    func setCellsSize(index: Int, _ size: CGSize) -> Self
     
     @discardableResult
     func setCellsSize(_ size: CGSize) -> Self
