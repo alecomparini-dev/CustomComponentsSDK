@@ -68,13 +68,8 @@ public class StartDimensionConstraintFlow<T> {
     
 //  MARK: - EQUALTO
     
-    public func equalTo(_ relationElement: Any,  multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
+    public func equalTo(_ relationElement: Any,  multiplier: CGFloat = 1, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, multiplier: multiplier, constant: constant)
-        return startAutoLayout
-    }
-    
-    public func equalTo(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
-        Constraints(startAutoLayout).set(relationBy: .equal, relationElement: relationElement, constant: constant)
         return startAutoLayout
     }
     
