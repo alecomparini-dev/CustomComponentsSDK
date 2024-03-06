@@ -73,12 +73,15 @@ public class StartDimensionConstraintFlow<T> {
         return startAutoLayout
     }
     
+    public func equalTo(_ relationElement: BaseBuilder,  multiplier: CGFloat = 1, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        return equalTo(relationElement.baseView, multiplier: multiplier, constant)
+    }
+
     public func greaterThanOrEqualTo(_ relationElement: Any, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set( relationBy: .greaterThanOrEqual, relationElement: relationElement, multiplier: multiplier, constant: constant)
         return startAutoLayout
     }
 
-    
     public func lessThanOrEqualTo(_ relationElement: Any, multiplier: CGFloat = 1, constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, relationElement: relationElement, multiplier: multiplier, constant: constant)
         return startAutoLayout
