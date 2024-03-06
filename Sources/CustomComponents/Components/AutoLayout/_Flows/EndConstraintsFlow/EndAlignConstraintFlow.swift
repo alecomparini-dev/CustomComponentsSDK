@@ -19,6 +19,10 @@ public class EndAlignConstraintFlow {
         return startAutoLayout
     }
     
+    public func equalTo(_ relationElement: BaseBuilder, _ constant: CGFloat = 0) -> StartAutoLayout  {
+        return equalTo(relationElement.baseView, constant)
+    }
+    
     public func greaterThanOrEqualTo(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, relationElement: relationElement, constant: constant)
         return startAutoLayout
