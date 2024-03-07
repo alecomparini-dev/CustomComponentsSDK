@@ -15,6 +15,9 @@ class ListCell: UITableViewCell {
     }
     
     func setupCell(_ view: UIView) {
+        configure()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.isUserInteractionEnabled = false
         removeSubViews(contentView)
         view.add(insideTo: contentView)
         view.makeConstraints { make in
@@ -22,7 +25,6 @@ class ListCell: UITableViewCell {
                 .setPin.equalToSuperview
                 .apply()
         }
-        configure()
     }
     
     
