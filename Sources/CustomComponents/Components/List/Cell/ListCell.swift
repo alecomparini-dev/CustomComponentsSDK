@@ -18,6 +18,9 @@ class ListCell: UITableViewCell {
         configure()
         removeSubViews(contentView)
         view.add(insideTo: contentView)
+        view.isUserInteractionEnabled = true
+        self.isUserInteractionEnabled = true
+        contentView.isUserInteractionEnabled = true
         view.makeConstraints { make in
             make
                 .setPin.equalToSuperview
