@@ -285,8 +285,6 @@ extension ListBuilder: UITableViewDataSource {
         
         let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
         
-        view.isUserInteractionEnabled = true
-        
         cell.setupCell(view)
                 
         return cell
@@ -312,8 +310,9 @@ extension ListBuilder: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectRowAnimated(indexPath)
-        selectItem(indexPath.section, indexPath.row)
+//        selectRowAnimated(indexPath)
+//        selectItem(indexPath.section, indexPath.row)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
