@@ -283,9 +283,9 @@ extension ListBuilder: UITableViewDataSource {
         
         let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
         
-        cell.isUserInteractionEnabled = false
-        
         cell.setupCell(view)
+        
+        cell.selectionStyle = .none
                 
         return cell
     }
