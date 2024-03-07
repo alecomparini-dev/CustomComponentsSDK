@@ -283,6 +283,8 @@ extension ListBuilder: UITableViewDataSource {
         
         let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
         
+        cell.isUserInteractionEnabled = true
+        
         cell.setupCell(view)
                 
         return cell
