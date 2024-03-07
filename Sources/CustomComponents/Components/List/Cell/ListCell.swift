@@ -16,6 +16,7 @@ class ListCell: UITableViewCell {
     
     func setupCell(_ view: UIView) {
         configure()
+        view.isUserInteractionEnabled = true
         removeSubViews(contentView)
         view.add(insideTo: contentView)
         view.makeConstraints { make in

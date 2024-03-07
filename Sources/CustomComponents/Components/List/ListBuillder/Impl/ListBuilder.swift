@@ -285,9 +285,10 @@ extension ListBuilder: UITableViewDataSource {
         
         let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
                 
-        cell.setupCell(view)
+        view.isUserInteractionEnabled = true
+        cell.contentView.isUserInteractionEnabled = true
         
-        cell.gestureRecognizers?.forEach { $0.cancelsTouchesInView = false }
+        cell.setupCell(view)
         
         return cell
     }
@@ -311,11 +312,10 @@ extension ListBuilder: UITableViewDelegate {
         return listModel.customRowHeight[indexPath.section]?[indexPath.row] ?? list.rowHeight
     }
     
-//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-////        selectRowAnimated(indexPath)
-////        selectItem(indexPath.section, indexPath.row)
-//        tableView.deselectRow(at: indexPath, animated: true)
-//    }
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectRowAnimated(indexPath)
+        selectItem(indexPath.section, indexPath.row)
+    }
     
 }
 
