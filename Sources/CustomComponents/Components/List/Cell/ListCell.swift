@@ -18,6 +18,7 @@ class ListCell: UITableViewCell {
     func setupCell(_ view: UIView) {
 //        view.add(insideTo: contentView)
         contentView.addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
 //        view.makeConstraints { make in
 //            make
 //                .setPin.equalToSuperview
