@@ -8,6 +8,7 @@ class ListCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -15,26 +16,31 @@ class ListCell: UITableViewCell {
     }
     
     func setupCell(_ view: UIView) {
-        configure()
-        view.isUserInteractionEnabled = true
-        removeSubViews(contentView)
-        view.add(insideTo: contentView)
-        view.makeConstraints { make in
-            make
-                .setPin.equalToSuperview
-                .apply()
-        }
+//        view.add(insideTo: contentView)
+        contentView.addSubview(view)
+//        view.makeConstraints { make in
+//            make
+//                .setPin.equalToSuperview
+//                .apply()
+//        }
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: super.topAnchor),
+            view.bottomAnchor.constraint(equalTo: super.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: super.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: super.trailingAnchor),
+        ])
     }
     
     
 //  MARK: - PRIVATE AREA
-    private func removeSubViews(_ view: UIView) {
-        view.subviews.forEach { $0.removeFromSuperview() }
-    }
-    
     private func configure() {
         selectionStyle = .none
         backgroundColor = .clear
+        removeSubViews(contentView)
+    }
+    
+    private func removeSubViews(_ view: UIView) {
+        view.subviews.forEach { $0.removeFromSuperview() }
     }
     
 }
