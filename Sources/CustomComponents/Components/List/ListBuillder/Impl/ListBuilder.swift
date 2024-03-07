@@ -281,12 +281,7 @@ extension ListBuilder: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath) as! ListCell
         
-        cell.selectionStyle = .none
-        
         let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
-                
-        view.isUserInteractionEnabled = true
-        cell.contentView.isUserInteractionEnabled = true
         
         cell.setupCell(view)
         
