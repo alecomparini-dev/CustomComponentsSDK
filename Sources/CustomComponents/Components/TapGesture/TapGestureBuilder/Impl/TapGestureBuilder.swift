@@ -141,7 +141,6 @@ public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
 //  MARK: - EXTENSION - UIGestureRecognizerDelegate
 extension TapGestureBuilder: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-//        return gestureRecognizer.cancelsTouchesInView
-        return true
+        return gestureRecognizer.cancelsTouchesInView
     }
 }
