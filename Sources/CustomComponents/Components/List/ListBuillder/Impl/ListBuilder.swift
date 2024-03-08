@@ -279,11 +279,15 @@ extension ListBuilder: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath) as! ListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath) as? ListCell
+        
+        guard let cell else { return UITableViewCell() }
         
         let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
         
         cell.setupCell(view)
+        
+        cell.bringSubviewToFront(cell.viewCell)  
         
         return cell
     }

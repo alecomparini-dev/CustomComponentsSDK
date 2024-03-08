@@ -6,6 +6,8 @@ import UIKit
 class ListCell: UITableViewCell {
     static let identifier: String = String(describing: ListCell.self)
     
+    var viewCell: UIView!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -16,20 +18,13 @@ class ListCell: UITableViewCell {
     }
     
     func setupCell(_ view: UIView) {
-//        view.add(insideTo: contentView)
-        contentView.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.makeConstraints { make in
-//            make
-//                .setPin.equalToSuperview
-//                .apply()
-//        }
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: super.topAnchor),
-            view.bottomAnchor.constraint(equalTo: super.bottomAnchor),
-            view.leadingAnchor.constraint(equalTo: super.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: super.trailingAnchor),
-        ])
+        self.viewCell = view
+        self.viewCell.add(insideTo: contentView)
+        self.viewCell.makeConstraints { make in
+            make
+                .setPin.equalToSuperview
+                .apply()
+        }
     }
     
     
@@ -37,11 +32,11 @@ class ListCell: UITableViewCell {
     private func configure() {
         selectionStyle = .none
         backgroundColor = .clear
-        removeSubViews(contentView)
+        removeSubViews()
     }
     
-    private func removeSubViews(_ view: UIView) {
-        view.subviews.forEach { $0.removeFromSuperview() }
+    private func removeSubViews() {
+        contentView.subviews.forEach { $0.removeFromSuperview() }
     }
     
 }
