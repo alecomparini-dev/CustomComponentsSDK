@@ -19,6 +19,8 @@ public protocol ListDelegate: AnyObject {
 
 open class ListBuilder: BaseBuilder, List {
     private weak var delegate: ListDelegate?
+    private var view: UIView?
+    
     
     public var get: UITableView { list }
     
@@ -283,11 +285,11 @@ extension ListBuilder: UITableViewDataSource {
         
         guard let cell else { return UITableViewCell() }
         
-        let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
+        view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
+        
+        guard let view else { return UITableViewCell() }
         
         cell.setupCell(view)
-        
-        cell.bringSubviewToFront(cell.viewCell)  
         
         return cell
     }
