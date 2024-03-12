@@ -296,6 +296,8 @@ extension MapBuilder: MKMapViewDelegate {
             mapBuilderOutput?.finishLoadingMap()
 //        }
         
+        configPins()
+        
     }
     
     
@@ -318,7 +320,6 @@ extension MapBuilder: CLLocationManagerDelegate {
         userLocation = locations.first
         locationManager?.stopUpdatingLocation()
         setCenterMap(location: userLocation)
-        configPins()
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
