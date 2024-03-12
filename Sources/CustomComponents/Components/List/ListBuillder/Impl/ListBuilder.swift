@@ -314,7 +314,6 @@ extension ListBuilder: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectRowAnimated(indexPath)
         selectItem(indexPath.section, indexPath.row)
-        print("passou por aqui, mas nao chamou o botao")
     }
     
 }
