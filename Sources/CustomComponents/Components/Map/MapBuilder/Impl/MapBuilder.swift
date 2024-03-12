@@ -284,7 +284,9 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        mapBuilderOutput?.finishLoadingMap()
+        ExecThreadMain().exec { [weak self] in
+            self?.mapBuilderOutput?.finishLoadingMap()
+        }
 //        configPins()
     }
     
