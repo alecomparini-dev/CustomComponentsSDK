@@ -59,7 +59,9 @@ public class MapBuilder: BaseBuilder, Map {
     
     @discardableResult
     public func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self {
-        mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now(), qos: .userInteractive) { [weak self] in
+            self?.mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
+        }
         return self
     }
     
@@ -316,8 +318,8 @@ extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
-        setUserTrackingMode(.follow)
         locationManager?.stopUpdatingLocation()
+        setUserTrackingMode(.follow)
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
