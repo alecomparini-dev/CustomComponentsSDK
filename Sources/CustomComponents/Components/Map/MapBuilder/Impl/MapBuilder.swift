@@ -169,9 +169,9 @@ public class MapBuilder: BaseBuilder, Map {
         setShowsUserLocation(true)
         setShowsCompass(false)
         setUserTrackingMode(.follow)
-        checkLocationAuthorization()
-        configDelegates()
-        startUpdatingLocation()
+//        configDelegates()
+//        checkLocationAuthorization()
+//        startUpdatingLocation()
     }
     
     private func configDelegates() {
@@ -268,11 +268,11 @@ extension MapBuilder: MKMapViewDelegate {
     }
     
     private func configPins() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-            guard let self else {return}
-            configPinPointsOfInterest()
-            configPinNaturalLanguage()
-        })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+//            guard let self else {return}
+//            configPinPointsOfInterest()
+//            configPinNaturalLanguage()
+//        })
     }
     
     
