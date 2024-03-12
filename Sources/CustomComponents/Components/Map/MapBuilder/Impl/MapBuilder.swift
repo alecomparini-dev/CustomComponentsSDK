@@ -287,10 +287,10 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         configPins()
-        ExecThreadMain().exec { [weak self] in
-            guard let self else {return}
-            mapBuilderOutput?.finishLoadingMap()
-        }
+//        ExecThreadMain().exec { [weak self] in
+//            guard let self else {return}
+//            mapBuilderOutput?.finishLoadingMap()
+//        }
     }
     
     private func configPins() {
