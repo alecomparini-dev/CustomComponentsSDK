@@ -295,10 +295,10 @@ extension MapBuilder: MKMapViewDelegate {
             configPinPointsOfInterest()
             configPinNaturalLanguage()
 //        })
-        ExecThreadMain().exec { [weak self] in
-            guard let self else {return}
+//        ExecThreadMain().exec { [weak self] in
+//            guard let self else {return}
             mapBuilderOutput?.finishLoadingMap()
-        }
+//        }
 
     }
     
