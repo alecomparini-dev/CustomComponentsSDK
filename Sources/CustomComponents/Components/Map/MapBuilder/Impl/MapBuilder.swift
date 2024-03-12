@@ -168,7 +168,9 @@ public class MapBuilder: BaseBuilder, Map {
     private func configure() {
         configDelegates()
         
-        checkLocationAuthorization()
+        let status = checkLocationAuthorization()
+        
+        if status == .notDetermined { return }
         
         if !isAuthorized(locationManager) {
             mapBuilderOutput?.localizationNotAuthorized()
