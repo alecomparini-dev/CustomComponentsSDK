@@ -291,7 +291,14 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        mapBuilderOutput?.finishLoadingMap()
+        let backgroundQueue = DispatchQueue(label: "userInteractive_queue",
+                                            qos: .userInteractive)
+                
+        backgroundQueue.async {[weak self] in
+            guard let self else {return}
+            mapBuilderOutput?.finishLoadingMap()
+        }
+        
     }
     
     
