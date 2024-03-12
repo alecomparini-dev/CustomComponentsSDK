@@ -168,10 +168,10 @@ public class MapBuilder: BaseBuilder, Map {
     private func configure() {
         setShowsUserLocation(true)
         setShowsCompass(false)
-//        setUserTrackingMode(.follow)
-//        configDelegates()
-//        checkLocationAuthorization()
-//        startUpdatingLocation()
+        configDelegates()
+        checkLocationAuthorization()
+        startUpdatingLocation()
+        setUserTrackingMode(.follow)
     }
     
     private func configDelegates() {
