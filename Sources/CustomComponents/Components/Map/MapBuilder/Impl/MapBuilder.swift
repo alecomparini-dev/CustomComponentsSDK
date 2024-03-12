@@ -7,22 +7,21 @@ import CoreLocation
 
 
 public class MapBuilder: BaseBuilder, Map {
-    
     public typealias D = MapKit.MKMapViewDelegate
     public typealias PointOfInterestCategory = MKPointOfInterestCategory
     public typealias Location = CoreLocation.CLLocation
-
-    static public let radius: Double = 500
     
+    static public let radius: Double = 500
     private weak var mapBuilderOutput: MapBuilderOutput?
-
+    
+    private var alreadyApplied = false
     private var userLocation: Location!
     private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], MapBuilder.radius, false )
     private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", MapBuilder.radius, false )
     private var locationManager: CLLocationManager?
     
     
-//  MARK: - INITIALIZERS
+    //  MARK: - INITIALIZERS
     
     private let mapView: MKMapView
     
@@ -33,12 +32,12 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-//  MARK: - GET PROPERTIES
+    //  MARK: - GET PROPERTIES
     
     public var get: MKMapView { mapView }
     
     
-//  MARK: - SET PROPERTIES
+    //  MARK: - SET PROPERTIES
     @discardableResult
     public func setCenterMap(location: Location, _ regionRadius: Double = MapBuilder.radius) -> Self {
         let coordinateRegion = MKCoordinateRegion(
@@ -60,10 +59,13 @@ public class MapBuilder: BaseBuilder, Map {
     
     @discardableResult
     public func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self {
-        mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
+//        DispatchQueue.main.asyncAfter(deadline: .now(), qos: .background) { [weak self] in
+//            guard let self else {return}
+            mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
+//        }
         return self
     }
-
+    
     @discardableResult
     public func setShowsCompass(_ flag: Bool) -> Self {
         mapView.showsCompass = flag
@@ -85,7 +87,7 @@ public class MapBuilder: BaseBuilder, Map {
         pinNaturalLanguage.regionRadius = regionRadius
         return self
     }
-        
+    
     @discardableResult
     public func setRemoveAllPin() -> Self {
         mapView.removeAnnotations(mapView.annotations)
@@ -106,15 +108,15 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-//  MARK: - SET DELEGATE
+    //  MARK: - SET DELEGATE
     @discardableResult
     public func setDelegate(_ delegate: D) -> Self {
         mapView.delegate = delegate
         return self
     }
     
-
-//  MARK: - SET OUTPUT
+    
+    //  MARK: - SET OUTPUT
     @discardableResult
     public func setOutput(_ output: MapBuilderOutput) -> Self {
         mapBuilderOutput = output
@@ -122,21 +124,36 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-//  MARK: - SHOW MAP
+    //  MARK: - SHOW MAP
     public func show() {
+        applyOnceConfig()
         
+        let status = checkLocationAuthorization()
+        
+        if status == .notDetermined { return }
+        
+        if !isAuthorized(locationManager) {
+            mapBuilderOutput?.localizationNotAuthorized()
+            return
+        }
+        
+        afterAuthorization()
+    }
+    
+    private func applyOnceConfig() {
+        if alreadyApplied { return }
+        alreadyApplied = true
+        configDelegates()
     }
     
     
-//  MARK: - PUBLIC AREA
-
+    
+    //  MARK: - PUBLIC AREA
+    
     @discardableResult
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
-        locationManager = CLLocationManager()
         
-        let authorizationStatus = locationManager?.authorizationStatus
-        
-        switch authorizationStatus {
+        switch locationManager?.authorizationStatus {
             case .authorizedAlways:
                 return .authorizedAlways
                 
@@ -145,12 +162,13 @@ public class MapBuilder: BaseBuilder, Map {
                 
             case .denied:
                 return .denied
-            
+                
             case .restricted:
                 return .restricted
                 
             case .notDetermined:
                 locationManager?.requestWhenInUseAuthorization()
+                return .notDetermined
                 
             case .none:
                 return .notDetermined
@@ -159,18 +177,19 @@ public class MapBuilder: BaseBuilder, Map {
                 return .notDetermined
         }
         
-        return .notDetermined
     }
-
     
     
-//  MARK: - PRIVATE AREA
-    private func configure() {
-        setShowsUserLocation(true)
+    
+    //  MARK: - PRIVATE AREA
+    
+    public func configure() {
+        locationManager = CLLocationManager()
         setShowsCompass(false)
-        setUserTrackingMode(.follow)
-        checkLocationAuthorization()
-        configDelegates()
+    }
+    
+    private func afterAuthorization() {
+        setShowsUserLocation(true)
         startUpdatingLocation()
     }
     
@@ -205,6 +224,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func configPinPointsOfInterest() {
         if !pinPointsOfInterest.flag || pinPointsOfInterest.onlyOnce { return }
+        
         pinPointsOfInterest.onlyOnce = true
         
         commonsConfigPin(pinPointsOfInterest.regionRadius)
@@ -255,6 +275,15 @@ public class MapBuilder: BaseBuilder, Map {
         }
     }
     
+    private func isAuthorized(_ manager: CLLocationManager?) -> Bool {
+        guard let manager else { return false }
+        return manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways
+    }
+    
+    private func configPins() {
+        configPinPointsOfInterest()
+        configPinNaturalLanguage()
+    }
     
 }
 
@@ -265,14 +294,6 @@ extension MapBuilder: MKMapViewDelegate {
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
         configPins()
-    }
-    
-    private func configPins() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-            guard let self else {return}
-            configPinPointsOfInterest()
-            configPinNaturalLanguage()
-        })
     }
     
     
@@ -294,10 +315,19 @@ extension MapBuilder: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
         locationManager?.stopUpdatingLocation()
+        setUserTrackingMode(.follow)
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         debugPrint("Localization error: \(error.localizedDescription)")
+    }
+    
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if !isAuthorized(manager) {
+            mapBuilderOutput?.localizationNotAuthorized()
+            return
+        }
+        afterAuthorization()
     }
     
 }
