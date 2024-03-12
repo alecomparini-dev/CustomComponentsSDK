@@ -314,8 +314,8 @@ extension MapBuilder: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.first
         locationManager?.stopUpdatingLocation()
-        setCenterMap(location: userLocation, 1000)
-        configPins()
+//        setCenterMap(location: userLocation, 1000)
+//        configPins()
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
