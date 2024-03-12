@@ -187,9 +187,8 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func afterAutorization() {
         setShowsUserLocation(true)
-//        setUserTrackingMode(.follow)
-//        startUpdatingLocation()
-
+        startUpdatingLocation()
+        setUserTrackingMode(.follow)
     }
     
     private func configDelegates() {
