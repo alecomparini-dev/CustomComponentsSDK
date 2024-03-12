@@ -286,11 +286,11 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        configPins()
         ExecThreadMain().exec { [weak self] in
-        guard let self else {return}
+            guard let self else {return}
             mapBuilderOutput?.finishLoadingMap()
         }
-//        self?.configPins()
     }
     
     private func configPins() {
