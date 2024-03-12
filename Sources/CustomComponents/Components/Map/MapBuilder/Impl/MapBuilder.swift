@@ -59,9 +59,9 @@ public class MapBuilder: BaseBuilder, Map {
     
     @discardableResult
     public func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self {
-        DispatchQueue.main.asyncAfter(deadline: .now(), qos: .background) { [weak self] in
-            self?.mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now(), qos: .background) { [weak self] in
+            self.mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
+//        }
         return self
     }
     
@@ -288,12 +288,12 @@ extension MapBuilder: MKMapViewDelegate {
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         ExecThreadMain().exec { [weak self] in
             self?.mapBuilderOutput?.finishLoadingMap()
+            self?.configPins()
         }
-        configPins()
     }
     
     private func configPins() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, qos: .userInteractive, execute: { [weak self] in
             guard let self else {return}
             configPinPointsOfInterest()
             configPinNaturalLanguage()
