@@ -291,8 +291,6 @@ extension ListBuilder: UITableViewDataSource {
         
         cell.setupCell(view)
         
-        
-        
         return cell
     }
     
