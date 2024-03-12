@@ -138,6 +138,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func applyOnceConfig() {
         if alreadyApplied { return }
+        alreadyApplied = true
         configDelegates()
     }
     
