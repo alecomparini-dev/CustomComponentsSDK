@@ -7,15 +7,14 @@ import CoreLocation
 
 
 public class MapBuilder: BaseBuilder, Map {
-    
     public typealias D = MapKit.MKMapViewDelegate
     public typealias PointOfInterestCategory = MKPointOfInterestCategory
     public typealias Location = CoreLocation.CLLocation
     
     static public let radius: Double = 500
-    
     private weak var mapBuilderOutput: MapBuilderOutput?
     
+    private var alreadyApplied = false
     private var userLocation: Location!
     private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], MapBuilder.radius, false )
     private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", MapBuilder.radius, false )
@@ -29,7 +28,6 @@ public class MapBuilder: BaseBuilder, Map {
     public init() {
         self.mapView = MKMapView()
         super.init(mapView)
-        configure()
     }
     
     
@@ -124,8 +122,25 @@ public class MapBuilder: BaseBuilder, Map {
     
     //  MARK: - SHOW MAP
     public func show() {
+        applyOnceConfig()
         
+        let status = checkLocationAuthorization()
+        
+        if status == .notDetermined { return }
+        
+        if !isAuthorized(locationManager) {
+            mapBuilderOutput?.localizationNotAuthorized()
+            return
+        }
+        
+        afterAutorization()
     }
+    
+    private func applyOnceConfig() {
+        if alreadyApplied { return }
+        configDelegates()
+    }
+    
     
     
     //  MARK: - PUBLIC AREA
@@ -163,21 +178,6 @@ public class MapBuilder: BaseBuilder, Map {
     
     
     //  MARK: - PRIVATE AREA
-    private func configure() {
-        configDelegates()
-        
-        let status = checkLocationAuthorization()
-        
-        if status == .notDetermined { return }
-        
-        if !isAuthorized(locationManager) {
-            mapBuilderOutput?.localizationNotAuthorized()
-            return
-        }
-        
-        afterAutorization()
-    }
-    
     private func afterAutorization() {
         setShowsUserLocation(true)
 //        setUserTrackingMode(.follow)
