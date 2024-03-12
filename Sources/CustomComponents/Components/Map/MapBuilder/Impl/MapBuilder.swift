@@ -314,7 +314,7 @@ extension MapBuilder: CLLocationManagerDelegate {
         userLocation = locations.first
         locationManager?.stopUpdatingLocation()
         setCenterMap(location: userLocation)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, qos: .background) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, qos: .userInteractive) {
             self.configPins()
         }
     }
