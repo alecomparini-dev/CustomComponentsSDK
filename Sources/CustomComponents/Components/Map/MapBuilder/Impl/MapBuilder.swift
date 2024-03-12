@@ -59,10 +59,10 @@ public class MapBuilder: BaseBuilder, Map {
     
     @discardableResult
     public func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self {
-        DispatchQueue.main.asyncAfter(deadline: .now(), qos: .background) { [weak self] in
-            guard let self else {return}
+//        DispatchQueue.main.asyncAfter(deadline: .now(), qos: .background) { [weak self] in
+//            guard let self else {return}
             mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
-        }
+//        }
         return self
     }
     
