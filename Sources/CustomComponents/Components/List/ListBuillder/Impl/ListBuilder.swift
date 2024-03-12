@@ -8,7 +8,7 @@ public protocol ListDelegate: AnyObject {
     func numberOfSections(_ list: ListBuilder) -> Int
     func numberOfRows(_ list: ListBuilder, section: Int) -> Int
     func sectionViewCallback(_ list: ListBuilder, section: Int) -> UIView?
-    func rowViewCallBack(_ list: ListBuilder, section: Int, row: Int) -> UIView
+    func rowViewCallBack(_ list: ListBuilder, section: Int, row: Int) -> Any
     
     //OPTIONAL
     func shouldSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int) -> Bool
@@ -285,9 +285,7 @@ extension ListBuilder: UITableViewDataSource {
         
         guard let cell else { return UITableViewCell() }
         
-        view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) ?? UIView()
-        
-        guard let view else { return UITableViewCell() }
+        guard let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) else { return UITableViewCell()}
         
         cell.setupCell(view)
         
@@ -316,6 +314,7 @@ extension ListBuilder: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectRowAnimated(indexPath)
         selectItem(indexPath.section, indexPath.row)
+        print("passou por aqui, mas nao chamou o botao")
     }
     
 }
