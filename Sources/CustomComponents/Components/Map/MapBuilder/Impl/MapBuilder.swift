@@ -280,6 +280,11 @@ public class MapBuilder: BaseBuilder, Map {
         return manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways
     }
     
+    private func configPins() {
+        configPinPointsOfInterest()
+        configPinNaturalLanguage()
+    }
+    
 }
 
 
@@ -287,19 +292,7 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-    }
-    
-    private func configPins() {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, qos: .userInteractive, execute: { [weak self] in
-//            guard let self else {return}
-            configPinPointsOfInterest()
-            configPinNaturalLanguage()
-//        })
-//        ExecThreadMain().exec { [weak self] in
-//            guard let self else {return}
-            mapBuilderOutput?.finishLoadingMap()
-//        }
-
+        mapBuilderOutput?.finishLoadingMap()
     }
     
     
