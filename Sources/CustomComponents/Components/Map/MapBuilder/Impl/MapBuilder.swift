@@ -161,16 +161,17 @@ public class MapBuilder: BaseBuilder, Map {
         
         return .notDetermined
     }
-
     
     
-//  MARK: - PRIVATE AREA
+    
+    //  MARK: - PRIVATE AREA
     private func configure() {
-//                setUserTrackingMode(.follow)
-        setShowsUserLocation(true)
+        configDelegates()
+        checkLocationAuthorization()
+        
+//        setUserTrackingMode(.follow)
+//        setShowsUserLocation(true)
 //        setShowsCompass(false)
-//        configDelegates()
-//        checkLocationAuthorization()
 //        startUpdatingLocation()
     }
     
