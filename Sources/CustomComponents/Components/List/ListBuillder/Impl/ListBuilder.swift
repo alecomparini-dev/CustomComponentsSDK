@@ -314,8 +314,9 @@ extension ListBuilder: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectRowAnimated(indexPath)
-        selectItem(indexPath.section, indexPath.row)
+        tableView.allowsSelection = false
+//        selectRowAnimated(indexPath)
+//        selectItem(indexPath.section, indexPath.row)
     }
     
 }

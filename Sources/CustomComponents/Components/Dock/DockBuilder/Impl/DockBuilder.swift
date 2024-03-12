@@ -348,6 +348,7 @@ extension DockBuilder: UICollectionViewDataSource {
             if indexesSelected.contains(indexPath.row) && !isDisableUserInteraction(indexPath.row) {
                 setCustomCellActiveCallback(cell: cell)
             }
+            
         }
         
         return cell
