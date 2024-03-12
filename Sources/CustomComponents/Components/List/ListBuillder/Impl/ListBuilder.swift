@@ -320,7 +320,6 @@ extension ListBuilder: UITableViewDelegate {
 
 
 
-
 //  MARK: - EXTESION DEFAULT LIST DELEGATE
 public extension ListDelegate {
     func shouldSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int) -> Bool { return true}
