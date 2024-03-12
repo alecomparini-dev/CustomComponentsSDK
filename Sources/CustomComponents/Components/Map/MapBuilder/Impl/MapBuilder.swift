@@ -294,11 +294,11 @@ extension MapBuilder: MKMapViewDelegate {
     }
     
     private func configPins() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, qos: .userInteractive, execute: { [weak self] in
-            guard let self else {return}
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, qos: .userInteractive, execute: { [weak self] in
+//            guard let self else {return}
             configPinPointsOfInterest()
             configPinNaturalLanguage()
-        })
+//        })
     }
     
     
