@@ -171,7 +171,7 @@ public class MapBuilder: BaseBuilder, Map {
         configDelegates()
         checkLocationAuthorization()
         startUpdatingLocation()
-        setUserTrackingMode(.follow)
+//        setUserTrackingMode(.follow)
     }
     
     private func configDelegates() {
