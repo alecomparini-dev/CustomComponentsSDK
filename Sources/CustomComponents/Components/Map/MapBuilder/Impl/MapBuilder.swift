@@ -15,7 +15,7 @@ public class MapBuilder: BaseBuilder, Map {
     private weak var mapBuilderOutput: MapBuilderOutput?
     
     private var alreadyApplied = false
-    private var userLocation: Location!
+    private var userLocation: Location?
     private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], MapBuilder.radius, false )
     private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", MapBuilder.radius, false )
     private var locationManager: CLLocationManager?
@@ -39,7 +39,9 @@ public class MapBuilder: BaseBuilder, Map {
     
     //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setCenterMap(location: Location, _ regionRadius: Double = MapBuilder.radius) -> Self {
+    public func setCenterMap(location: Location?, _ regionRadius: Double = MapBuilder.radius) -> Self {
+        guard let location else { return self }
+        
         let coordinateRegion = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude ),
             latitudinalMeters: regionRadius,
@@ -59,10 +61,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     @discardableResult
     public func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self {
-//        DispatchQueue.main.asyncAfter(deadline: .now(), qos: .background) { [weak self] in
-//            guard let self else {return}
-            mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
-//        }
+        mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
         return self
     }
     
@@ -292,8 +291,11 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        mapBuilderOutput?.finishLoadingMap()
-        configPins()
+        DispatchQueue.main.async {[weak self] in
+            guard let self else {return}
+            mapBuilderOutput?.finishLoadingMap()
+        }
+        
     }
     
     
@@ -313,9 +315,10 @@ extension MapBuilder: MKMapViewDelegate {
 extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
-        userLocation = locations.last
+        userLocation = locations.first
         locationManager?.stopUpdatingLocation()
-        setUserTrackingMode(.follow)
+        setCenterMap(location: userLocation)
+//        configPins()
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
