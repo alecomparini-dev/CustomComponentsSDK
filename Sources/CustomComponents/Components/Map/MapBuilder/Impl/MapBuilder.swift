@@ -28,6 +28,7 @@ public class MapBuilder: BaseBuilder, Map {
     public init() {
         self.mapView = MKMapView()
         super.init(mapView)
+        configure()
     }
     
     
@@ -148,7 +149,6 @@ public class MapBuilder: BaseBuilder, Map {
     
     @discardableResult
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
-        locationManager = CLLocationManager()
         
         switch locationManager?.authorizationStatus {
             case .authorizedAlways:
@@ -179,10 +179,15 @@ public class MapBuilder: BaseBuilder, Map {
     
     
     //  MARK: - PRIVATE AREA
+    
+    public func configure() {
+        locationManager = CLLocationManager()
+        setShowsCompass(false)
+    }
+    
     private func afterAutorization() {
         setShowsUserLocation(true)
 //        setUserTrackingMode(.follow)
-//        setShowsCompass(false)
 //        startUpdatingLocation()
 
     }
