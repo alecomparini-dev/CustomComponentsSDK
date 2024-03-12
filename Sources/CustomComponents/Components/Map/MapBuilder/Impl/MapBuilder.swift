@@ -286,10 +286,10 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-//        ExecThreadMain().exec { [weak self] in
-//        guard let self else {return}
+        ExecThreadMain().exec { [weak self] in
+        guard let self else {return}
             mapBuilderOutput?.finishLoadingMap()
-//        }
+        }
 //        self?.configPins()
     }
     
@@ -319,8 +319,8 @@ extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
-        locationManager?.stopUpdatingLocation()
         setUserTrackingMode(.follow)
+        locationManager?.stopUpdatingLocation()
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
