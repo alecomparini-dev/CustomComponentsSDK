@@ -291,11 +291,7 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        DispatchQueue.main.async {[weak self] in
-            guard let self else {return}
-            mapBuilderOutput?.finishLoadingMap()
-        }
-        
+        mapBuilderOutput?.finishLoadingMap()
     }
     
     
@@ -318,7 +314,9 @@ extension MapBuilder: CLLocationManagerDelegate {
         userLocation = locations.first
         locationManager?.stopUpdatingLocation()
         setCenterMap(location: userLocation)
-        configPins()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.configPins()
+        }
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
