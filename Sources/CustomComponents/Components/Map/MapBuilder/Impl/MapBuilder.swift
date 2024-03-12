@@ -291,10 +291,10 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        DispatchQueue.main.async {[weak self] in
-            guard let self else {return}
+//        DispatchQueue.main.async {[weak self] in
+//            guard let self else {return}
             mapBuilderOutput?.finishLoadingMap()
-        }
+//        }
         
     }
     
