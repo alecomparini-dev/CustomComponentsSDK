@@ -168,8 +168,8 @@ public class MapBuilder: BaseBuilder, Map {
     private func configure() {
         configDelegates()
         checkLocationAuthorization()
+        setLocationAccuracy()
         setShowsUserLocation(true)
-        
 //        setUserTrackingMode(.follow)
 //        setShowsCompass(false)
 //        startUpdatingLocation()
@@ -186,8 +186,11 @@ public class MapBuilder: BaseBuilder, Map {
         }
     }
     
-    private func startUpdatingLocation() {
+    private func setLocationAccuracy() {
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    private func startUpdatingLocation() {
         locationManager?.startUpdatingLocation()
     }
 
