@@ -134,9 +134,7 @@ public class MapBuilder: BaseBuilder, Map {
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
         locationManager = CLLocationManager()
         
-        let authorizationStatus = locationManager?.authorizationStatus
-        
-        switch authorizationStatus {
+        switch locationManager?.authorizationStatus {
             case .authorizedAlways:
                 return .authorizedAlways
                 
@@ -151,6 +149,7 @@ public class MapBuilder: BaseBuilder, Map {
                 
             case .notDetermined:
                 locationManager?.requestWhenInUseAuthorization()
+                return .notDetermined
                 
             case .none:
                 return .notDetermined
@@ -159,7 +158,6 @@ public class MapBuilder: BaseBuilder, Map {
                 return .notDetermined
         }
         
-        return .notDetermined
     }
     
     
