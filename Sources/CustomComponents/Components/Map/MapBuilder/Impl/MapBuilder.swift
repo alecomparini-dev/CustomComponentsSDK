@@ -264,7 +264,7 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
-        configPins()
+//        configPins()
     }
     
     private func configPins() {
