@@ -134,7 +134,7 @@ public class MapBuilder: BaseBuilder, Map {
             return
         }
         
-        afterAutorization()
+        afterAuthorization()
     }
     
     private func applyOnceConfig() {
@@ -185,7 +185,7 @@ public class MapBuilder: BaseBuilder, Map {
         setShowsCompass(false)
     }
     
-    private func afterAutorization() {
+    private func afterAuthorization() {
         setShowsUserLocation(true)
         startUpdatingLocation()
     }
@@ -221,6 +221,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func configPinPointsOfInterest() {
         if !pinPointsOfInterest.flag || pinPointsOfInterest.onlyOnce { return }
+        
         pinPointsOfInterest.onlyOnce = true
         
         commonsConfigPin(pinPointsOfInterest.regionRadius)
@@ -286,15 +287,15 @@ extension MapBuilder: MKMapViewDelegate {
         ExecThreadMain().exec { [weak self] in
             self?.mapBuilderOutput?.finishLoadingMap()
         }
-//        configPins()
+        configPins()
     }
     
     private func configPins() {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-//            guard let self else {return}
-//            configPinPointsOfInterest()
-//            configPinNaturalLanguage()
-//        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            guard let self else {return}
+            configPinPointsOfInterest()
+            configPinNaturalLanguage()
+        })
     }
     
     
@@ -328,8 +329,7 @@ extension MapBuilder: CLLocationManagerDelegate {
             mapBuilderOutput?.localizationNotAuthorized()
             return
         }
-        
-        afterAutorization()
+        afterAuthorization()
     }
     
 }
