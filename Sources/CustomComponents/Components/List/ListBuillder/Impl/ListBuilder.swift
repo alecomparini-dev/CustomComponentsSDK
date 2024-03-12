@@ -313,11 +313,11 @@ extension ListBuilder: UITableViewDelegate {
         return listModel.customRowHeight[indexPath.section]?[indexPath.row] ?? list.rowHeight
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.allowsSelection = true
-//        selectRowAnimated(indexPath)
-//        selectItem(indexPath.section, indexPath.row)
-    }
+//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.allowsSelection = true
+////        selectRowAnimated(indexPath)
+////        selectItem(indexPath.section, indexPath.row)
+//    }
     
 }
 
