@@ -6,8 +6,6 @@ import UIKit
 class ListCell: UITableViewCell {
     static let identifier: String = String(describing: ListCell.self)
     
-    var viewCell: UIView!
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -18,9 +16,8 @@ class ListCell: UITableViewCell {
     }
     
     func setupCell(_ view: UIView) {
-        self.viewCell = view
-        self.viewCell.add(insideTo: contentView)
-        self.viewCell.makeConstraints { make in
+        view.add(insideTo: contentView)
+        view.makeConstraints { make in
             make
                 .setPin.equalToSuperview
                 .apply()
