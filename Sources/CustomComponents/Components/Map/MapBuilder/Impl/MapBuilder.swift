@@ -188,7 +188,6 @@ public class MapBuilder: BaseBuilder, Map {
     private func afterAutorization() {
         setShowsUserLocation(true)
         startUpdatingLocation()
-        setUserTrackingMode(.follow)
     }
     
     private func configDelegates() {
@@ -316,6 +315,7 @@ extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.last
+        setUserTrackingMode(.follow)
         locationManager?.stopUpdatingLocation()
     }
     
