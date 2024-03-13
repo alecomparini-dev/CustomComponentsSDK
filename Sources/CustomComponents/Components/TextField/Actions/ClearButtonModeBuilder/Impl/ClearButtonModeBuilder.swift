@@ -54,7 +54,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
             .setImageButton(img)
             .setFrame(CGRect(origin: .zero, size: CGSize(width: size.width, height: size.height)))
             .setAutoLayout { build in
-                build.centerAlignXY.equalToSuperview()
+                build.centerAlignXY.equalTo(view)
             }
         
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
