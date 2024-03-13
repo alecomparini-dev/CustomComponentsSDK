@@ -273,9 +273,9 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
     private func configure() {
         setPadding(K.Default.padding)
-        configDelegate()
+//        configDelegate()
         setAutoCorrectionType(.no)
-        addHideKeyboardWhenTouchReturn()
+//        addHideKeyboardWhenTouchReturn()
     }
     
     private func configDelegate() {
