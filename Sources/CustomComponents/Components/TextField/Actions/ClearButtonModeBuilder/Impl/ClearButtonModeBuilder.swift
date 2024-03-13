@@ -45,7 +45,6 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         let frame = CGRect(x: 0, y: 0, width: size.width + 16, height: size.height)
         
         let view = ViewBuilder(frame: frame)
-            .setBackgroundColor(.yellow)
         
         let img = ImageViewBuilder(systemName: imgSystemName)
             .setContentMode(.center)
@@ -53,13 +52,17 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         
         let clearButton = ButtonImageBuilder()
             .setImageButton(img)
-            .setFrame(CGRect(x: view.get.bounds.midX - (size.width/2) , y: (view.get.bounds.midY - (size.height/2)), width: size.width, height: size.height  ))
+            .setFrame(CGRect(origin: calculateCenter(view.get), size: size ))
 
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         
         view.get.addSubview(clearButton.get)
         
         return view
+    }
+    
+    private func calculateCenter(_ view: UIView) -> CGPoint {
+        return CGPoint(x: view.bounds.midX - (size.width/2) , y: (view.bounds.midY - (size.height/2)) )
     }
     
     
