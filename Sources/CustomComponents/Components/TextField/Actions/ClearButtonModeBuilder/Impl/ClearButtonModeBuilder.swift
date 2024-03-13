@@ -45,7 +45,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         let frame = CGRect(x: 0, y: 0, width: size.width + 50, height: size.height)
         
         let view = ViewBuilder(frame: frame)
-        view.setBackgroundColor(.yellow)
+            .setBackgroundColor(.yellow)
         
         let img = ImageViewBuilder(systemName: imgSystemName)
             .setContentMode(.center)
@@ -54,18 +54,11 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         let clearButton = ButtonImageBuilder()
             .setBackgroundColor(.blue)
             .setImageButton(img)
-//            .setFrame(CGRect(origin: .zero, size: CGSize(width: size.width, height: size.height)))
-            .setAutoLayout { build in
-                build.centerAlignXY.equalTo(view)
-                    .width.equalToConstant(size.width)
-                    .height.equalToConstant(size.height)
-            }
-        
+            .setFrame(CGRect(x: view.get.bounds.midX, y: view.get.bounds.midX, width: size.width, height: size.height))
+
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         
         view.get.addSubview(clearButton.get)
-        
-        clearButton.applyAutoLayout()
         
         return view
     }
