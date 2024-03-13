@@ -392,24 +392,24 @@ extension K.Keyboard.ContentType {
 //  MARK: - EXTENSION - UITextFieldDelegate
 extension TextFieldBuilder: UITextFieldDelegate {
     
-//    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        if let completion = keyboardConfiguration?.completionReturnType {
-//            completion(self)
-//            return true
-//        }
-//        textField.resignFirstResponder()
-//        return true
-//    }
-//    
-//    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        
-//        if let mask {
-//            textField.text = mask.formatStringWithRange(range: range, string: string)
-//            return false
-//        }
-//        
-//        return true
-//    }
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let completion = keyboardConfiguration?.completionReturnType {
+            completion(self)
+            return true
+        }
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let mask {
+            textField.text = mask.formatStringWithRange(range: range, string: string)
+            return false
+        }
+        
+        return true
+    }
 }
 
 
