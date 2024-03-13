@@ -53,10 +53,15 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         let clearButton = ButtonImageBuilder()
             .setImageButton(img)
             .setFrame(CGRect(origin: .zero, size: CGSize(width: size.width, height: size.height)))
+            .setAutoLayout { build in
+                build.centerAlignXY.equalToSuperview()
+            }
         
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         
         view.get.addSubview(clearButton.get)
+        
+        clearButton.applyAutoLayout()
         
         return view
     }
