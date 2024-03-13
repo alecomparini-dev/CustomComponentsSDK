@@ -29,12 +29,12 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     public init() {
         self.textField = UITextField()
         super.init(textField)
-//        configure()
+        configure()
     }
     
     public convenience init(placeHolder: String) {
         self.init()
-//        setPlaceHolder(placeHolder)
+        setPlaceHolder(placeHolder)
     }
     
     deinit {
