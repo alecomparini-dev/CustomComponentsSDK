@@ -42,19 +42,18 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     
 //  MARK: - PRIVATE AREA
     private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
-        let frame = CGRect(x: 0, y: 0, width: size.width + 50, height: size.height)
+        let frame = CGRect(x: 0, y: 0, width: size.width + 16, height: size.height)
         
         let view = ViewBuilder(frame: frame)
             .setBackgroundColor(.yellow)
         
         let img = ImageViewBuilder(systemName: imgSystemName)
             .setContentMode(.center)
-            .setSize(max(size.width, size.height) * 0.75)
+            .setSize(max(size.width, size.height) * 0.85)
         
         let clearButton = ButtonImageBuilder()
-            .setBackgroundColor(.blue)
             .setImageButton(img)
-            .setFrame(CGRect(x: view.get.bounds.midX, y: view.get.bounds.midX, width: size.width, height: size.height))
+            .setFrame(CGRect(x: view.get.bounds.midX, y: view.get.bounds.midY, width: size.width, height: size.height  ))
 
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         
