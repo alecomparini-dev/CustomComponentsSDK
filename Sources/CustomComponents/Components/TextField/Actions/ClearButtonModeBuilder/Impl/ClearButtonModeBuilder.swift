@@ -53,7 +53,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         
         let clearButton = ButtonImageBuilder()
             .setImageButton(img)
-            .setFrame(CGRect(x: view.get.bounds.midX, y: (view.get.bounds.midY - (size.height/2)), width: size.width, height: size.height  ))
+            .setFrame(CGRect(x: view.get.bounds.midX - (size.width/2) , y: (view.get.bounds.midY - (size.height/2)), width: size.width, height: size.height  ))
 
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         
