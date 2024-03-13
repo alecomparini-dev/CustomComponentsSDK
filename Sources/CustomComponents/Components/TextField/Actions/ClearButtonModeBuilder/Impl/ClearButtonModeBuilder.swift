@@ -7,6 +7,7 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     
     private var size: CGSize = CGSize(width: 20, height: 20)
     private var systemName: String = K.Images.xCircleFill
+    private var position: K.Position.Horizontal = .right
     
     
 //  MARK: - INITIALIAZERS
@@ -19,7 +20,12 @@ public class ClearButtonModeBuilder: ClearButtonMode {
     
     
 //  MARK: - SET PROPERTIES
-    
+    @discardableResult
+    public func setPosition(_ position: K.Position.Horizontal) -> Self {
+        self.position = position
+        return self
+    }
+
     @discardableResult
     public func setSizeButton(_ size: CGSize) -> Self {
         self.size = size
@@ -31,11 +37,11 @@ public class ClearButtonModeBuilder: ClearButtonMode {
         self.systemName = systemName
         return self
     }
-    
+        
     
 //  MARK: - APPLY
     public func apply() -> Self {
-        textFieldBuilder?.setPadding(createClearButtonView(size, systemName), .right, .whileEditing)
+        textFieldBuilder?.setPadding(createClearButtonView(size, systemName), position, .whileEditing)
         return self
     }
     
