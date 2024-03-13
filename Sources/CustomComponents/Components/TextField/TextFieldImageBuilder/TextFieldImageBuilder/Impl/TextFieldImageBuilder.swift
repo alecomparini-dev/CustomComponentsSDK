@@ -29,23 +29,24 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
 //  MARK: - SET PROPERTIES
     @discardableResult
     public func setImage(_ image: ImageViewBuilder,  _ position: K.Position.Horizontal = .left, _ margin: CGFloat = K.Default.paddingWithImage) -> Self {
+        self.margin = margin
         switch position {
         case .left:
-            setImageLeft(image, margin)
+            setImageLeft(image)
         case .right:
-            setImageRight(image, margin)
+            setImageRight(image)
         }
         setTintColor(super.get.textColor)
         return self
     }
     
-    private func setImageLeft(_ newImage: ImageViewBuilder, _ margin: CGFloat = K.Default.paddingWithImage) {
+    private func setImageLeft(_ newImage: ImageViewBuilder) {
         updateImageView(newImage, .left)
         imageViewLeft?.setContentMode(.center)
         createPaddingView(.left)
     }
 
-    private func setImageRight(_ newImage: ImageViewBuilder, _ margin: CGFloat = K.Default.paddingWithImage) {
+    private func setImageRight(_ newImage: ImageViewBuilder) {
         updateImageView(newImage, .right)
         imageViewRight?.setContentMode(.center)
         createPaddingView(.right)
@@ -68,12 +69,12 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         sizeImage = size
         imageViewLeft?.get.image = imageViewLeft?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: size))
         if let imageViewLeft {
-            setImageLeft(imageViewLeft, margin)
+            setImageLeft(imageViewLeft)
         }
         
         imageViewRight?.get.image = imageViewRight?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: size))
         if let imageViewRight {
-            setImageRight(imageViewRight, margin)
+            setImageRight(imageViewRight)
         }
         return self
     }
