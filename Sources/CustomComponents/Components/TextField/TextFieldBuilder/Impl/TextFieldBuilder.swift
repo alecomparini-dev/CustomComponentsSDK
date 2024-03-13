@@ -27,19 +27,20 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 //  MARK: - INITIALIZERS
     
     public init() {
-        self.textField = UITextField(frame: .zero)
+        self.textField = UITextField()
         super.init(textField)
         configure()
     }
     
     public convenience init(placeHolder: String) {
         self.init()
-        setPlaceHolder(placeHolder)
+//        setPlaceHolder(placeHolder)
     }
     
     deinit {
         clearButton = nil
         keyboardConfiguration = nil
+        mask = nil
     }
     
         
@@ -272,10 +273,10 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-//        setPadding(K.Default.padding)
-//        configDelegate()
-//        setAutoCorrectionType(.no)
-//        addHideKeyboardWhenTouchReturn()
+        setPadding(K.Default.padding)
+        configDelegate()
+        setAutoCorrectionType(.no)
+        addHideKeyboardWhenTouchReturn()
     }
     
     private func configDelegate() {
