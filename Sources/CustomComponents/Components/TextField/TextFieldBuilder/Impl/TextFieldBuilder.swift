@@ -272,9 +272,9 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-        setPadding(K.Default.padding)
+//        setPadding(K.Default.padding)
 //        configDelegate()
-        setAutoCorrectionType(.no)
+//        setAutoCorrectionType(.no)
 //        addHideKeyboardWhenTouchReturn()
     }
     
