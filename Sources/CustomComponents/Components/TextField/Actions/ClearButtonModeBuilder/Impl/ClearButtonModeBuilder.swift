@@ -5,7 +5,7 @@ import UIKit
 
 public class ClearButtonModeBuilder: ClearButtonMode {
     
-    private var size: CGSize = CGSize(width: 20, height: 20)
+    private var size: CGSize = CGSize(width: 24, height: 24)
     private var systemName: String = K.Images.xCircleFill
     
     
