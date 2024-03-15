@@ -227,9 +227,6 @@ open class ListBuilder: BaseBuilder, List {
     private func configure() {
         setSeparatorStyle(.none)
         setBackgroundColor(.clear)
-        if #available(iOS 15.0, *) {
-            sectionHeaderTopPadding(0)
-        } 
     }
     
     private func configureTableViewDelegate() {
