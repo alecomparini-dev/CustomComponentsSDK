@@ -18,7 +18,6 @@ open class NeumorphismBuilder: Neumorphism {
     private let darkShapeColorByColorReferencePercentage: CGFloat = K.Neumorphism.Percentage.darkShapeColorByColorReference.rawValue
     
     
-    private var invertColors: Bool = false
     private var referenceColor: UIColor?
     private var lightShadowColor: UIColor?
     private var darkShadowColor: UIColor?
@@ -163,12 +162,6 @@ open class NeumorphismBuilder: Neumorphism {
         return self
     }
     
-    @discardableResult
-    public func setInvertColors() -> Self {
-        self.invertColors = true
-        return self
-    }
-
     
 //  MARK: - APPLY NEUMORPHISM
     @discardableResult
@@ -319,9 +312,6 @@ open class NeumorphismBuilder: Neumorphism {
     private func getShapeColorByColorReference() -> (UIColor,UIColor) {
         let dark = referenceColor!.adjustBrightness(darkShapeColorByColorReferencePercentage)
         let light = referenceColor!.adjustBrightness(lightShapeColorByColorReferencePercentage)
-        if invertColors {
-            return (light, dark)
-        }
         return (dark,light)
     }
     
