@@ -14,6 +14,7 @@ public protocol ListDelegate: AnyObject {
     func shouldSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int) -> Bool
     func didSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int)
     func didDeselectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int)
+    func scrollViewDidScroll(_ list: ListBuilder, _ scrollView: UIScrollView)
 }
 
 
@@ -305,6 +306,10 @@ extension ListBuilder: UITableViewDataSource {
         return cell
     }
     
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.scrollViewDidScroll(self, scrollView)
+    }
+    
     
 }
 
@@ -338,5 +343,6 @@ public extension ListDelegate {
     func shouldSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int) -> Bool { return true}
     func didSelectItemAt(_ list: ListBuilder,_ section: Int, _ row: Int) {}
     func didDeselectItemAt(_ list: ListBuilder,_ section: Int, _ row: Int) {}
+    func scrollViewDidScroll(_ list: ListBuilder, _ scrollView: UIScrollView) {}
 }
 
