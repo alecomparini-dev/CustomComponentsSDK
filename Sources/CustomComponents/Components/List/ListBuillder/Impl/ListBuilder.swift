@@ -15,6 +15,7 @@ public protocol ListDelegate: AnyObject {
     func didSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int)
     func didDeselectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int)
     func scrollViewDidScroll(_ list: ListBuilder, _ scrollView: UIScrollView)
+    func scrollViewWillBeginDragging(_ list: ListBuilder, _ scrollView: UIScrollView)
 }
 
 
@@ -306,8 +307,13 @@ extension ListBuilder: UITableViewDataSource {
         return cell
     }
     
+    
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.scrollViewDidScroll(self, scrollView)
+    }
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        delegate?.scrollViewWillBeginDragging(self, scrollView)
     }
     
     
@@ -344,5 +350,6 @@ public extension ListDelegate {
     func didSelectItemAt(_ list: ListBuilder,_ section: Int, _ row: Int) {}
     func didDeselectItemAt(_ list: ListBuilder,_ section: Int, _ row: Int) {}
     func scrollViewDidScroll(_ list: ListBuilder, _ scrollView: UIScrollView) {}
+    func scrollViewWillBeginDragging(_ list: ListBuilder, _ scrollView: UIScrollView) {}
 }
 
