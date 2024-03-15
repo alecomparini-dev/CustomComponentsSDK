@@ -39,7 +39,7 @@ open class ListBuilder: BaseBuilder, List {
         configure()
     }
     
-    public init(_ style: UITableView.Style) {
+    public init(style: UITableView.Style) {
         self.list = UITableView(frame: .zero, style: style)
         super.init(list)
         configure()
