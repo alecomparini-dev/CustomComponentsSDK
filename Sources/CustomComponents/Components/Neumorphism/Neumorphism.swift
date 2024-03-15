@@ -37,6 +37,9 @@ public protocol Neumorphism {
     @discardableResult
     func setLightPosition(_ lightPosition: K.Neumorphism.LightPosition) -> Self
     
+    @discardableResult
+    func setInvertColors() -> Self
+    
     
 //  MARK: - APPLY Neumorphis
     @discardableResult
