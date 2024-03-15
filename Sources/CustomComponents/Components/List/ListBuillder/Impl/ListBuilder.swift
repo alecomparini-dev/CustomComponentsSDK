@@ -156,6 +156,13 @@ open class ListBuilder: BaseBuilder, List {
         listModel.autoScrollPosition = true
         return self
     }
+    
+    @available(iOS 15.0, *)
+    @discardableResult
+    public func sectionHeaderTopPadding(_ padding: CGFloat) -> Self {
+        list.sectionHeaderTopPadding = padding
+        return self
+    }
 
     
 //  MARK: - SET DELEGATE
@@ -220,6 +227,9 @@ open class ListBuilder: BaseBuilder, List {
     private func configure() {
         setSeparatorStyle(.none)
         setBackgroundColor(.clear)
+        if #available(iOS 15.0, *) {
+            sectionHeaderTopPadding(0)
+        } 
     }
     
     private func configureTableViewDelegate() {
