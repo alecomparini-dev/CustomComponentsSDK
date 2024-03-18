@@ -40,6 +40,33 @@ open class StartAutoLayout {
     }
     
     
+//  MARK: - LAYOUT POSITION WITH PRIORITY
+    
+    public func top(priority: UILayoutPriority) -> EndPositionConstraintFlow {
+        configStartAutoLayout()
+        autoLayout.mainAttribute.append(.top)
+        return EndPositionConstraintFlow(self)
+    }
+    
+//    public var bottom: StartPositionConstraintFlow<ConstraintsPositionY> {
+//        configStartAutoLayout()
+//        autoLayout.mainAttribute.append(.bottom)
+//        return StartPositionConstraintFlow<ConstraintsPositionY>(self)
+//    }
+//    
+//    public var leading: StartPositionConstraintFlow<ConstraintsPositionX> {
+//        configStartAutoLayout()
+//        autoLayout.mainAttribute.append(.leading)
+//        return StartPositionConstraintFlow<ConstraintsPositionX>(self)
+//    }
+//    
+//    public var trailing: StartPositionConstraintFlow<ConstraintsPositionX> {
+//        configStartAutoLayout()
+//        autoLayout.mainAttribute.append(.trailing)
+//        return StartPositionConstraintFlow<ConstraintsPositionX>(self)
+//    }
+    
+    
 //  MARK: - PIN
     public var pin: EndPositionConstraintFlow  {
         configStartAutoLayout()

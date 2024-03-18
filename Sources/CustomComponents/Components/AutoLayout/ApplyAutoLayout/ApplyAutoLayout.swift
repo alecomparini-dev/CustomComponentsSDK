@@ -44,6 +44,7 @@ open class ApplyAutoLayout {
                                                   constant: setupConstant(layout, mainAttr)
         )
                 
+        layoutConstraint.priority = layout.priority
         layoutConstraint.isActive = true
 //        debugPrint("item: \(layout.mainElement) \nattribute: \(mainAttr.rawValue) \nrelatedBy: \(relationBy.rawValue) \ntoItem: \(setupToItem(layout) ?? "") \ntoAttribute: \(layout.toAttribute?.rawValue ?? mainAttr.rawValue) \nmultiplier: \(layout.multiplier) \nconstant: \(setupConstant(layout, mainAttr))")
 
