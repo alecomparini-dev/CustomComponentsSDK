@@ -126,18 +126,18 @@ open class StartAutoLayout {
     
 //  MARK: - LAYOUT DIMENSION - PRIORITY
     
-    public func width(priority: UILayoutPriority) -> EndDimensionConstraintFlow {
+    public func width(priority: UILayoutPriority) -> StartDimensionConstraintFlow<ConstraintsSize> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.width)
         autoLayout.priority = priority
-        return EndDimensionConstraintFlow(self)
+        return StartDimensionConstraintFlow<ConstraintsSize>(self)
     }
     
-    public func height(priority: UILayoutPriority) -> EndDimensionConstraintFlow {
+    public func height(priority: UILayoutPriority) -> StartDimensionConstraintFlow<ConstraintsSize> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.height)
         autoLayout.priority = priority
-        return EndDimensionConstraintFlow(self)
+        return StartDimensionConstraintFlow<ConstraintsSize>(self)
     }
     
 
