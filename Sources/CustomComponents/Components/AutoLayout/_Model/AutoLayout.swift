@@ -12,8 +12,17 @@ public class AutoLayout {
     public var toAttribute: ConstraintsAttribute? = nil
     public var multiplier: CGFloat
     public var constant: CGFloat
+    public var priority: UILayoutPriority = .required
 
-    public init(mainElement: UIView, mainAttribute: [ConstraintsAttribute] = [], relationBy: NSLayoutConstraint.Relation? = nil, typeElement: ConstraintsTypeElement? = nil, toItem: Any? = nil, toAttribute: ConstraintsAttribute? = nil, multiplier: CGFloat = 1, constant: CGFloat = 0) {
+    public init(mainElement: UIView, 
+                mainAttribute: [ConstraintsAttribute] = [],
+                relationBy: NSLayoutConstraint.Relation? = nil,
+                typeElement: ConstraintsTypeElement? = nil,
+                toItem: Any? = nil,
+                toAttribute: ConstraintsAttribute? = nil,
+                multiplier: CGFloat = 1,
+                constant: CGFloat = 0,
+                priority: UILayoutPriority = .required) {
         self.mainElement = mainElement
         self.mainAttribute = mainAttribute
         self.relationBy = relationBy
@@ -22,6 +31,7 @@ public class AutoLayout {
         self.toAttribute = toAttribute
         self.multiplier = multiplier
         self.constant = constant
+        self.priority = priority
     }
     
 }
