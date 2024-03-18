@@ -45,26 +45,30 @@ open class StartAutoLayout {
     public func top(priority: UILayoutPriority) -> EndPositionConstraintFlow {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.top)
+        autoLayout.priority = priority
         return EndPositionConstraintFlow(self)
     }
     
-//    public var bottom: StartPositionConstraintFlow<ConstraintsPositionY> {
-//        configStartAutoLayout()
-//        autoLayout.mainAttribute.append(.bottom)
-//        return StartPositionConstraintFlow<ConstraintsPositionY>(self)
-//    }
-//    
-//    public var leading: StartPositionConstraintFlow<ConstraintsPositionX> {
-//        configStartAutoLayout()
-//        autoLayout.mainAttribute.append(.leading)
-//        return StartPositionConstraintFlow<ConstraintsPositionX>(self)
-//    }
-//    
-//    public var trailing: StartPositionConstraintFlow<ConstraintsPositionX> {
-//        configStartAutoLayout()
-//        autoLayout.mainAttribute.append(.trailing)
-//        return StartPositionConstraintFlow<ConstraintsPositionX>(self)
-//    }
+    public func bottom(priority: UILayoutPriority) -> EndPositionConstraintFlow {
+        configStartAutoLayout()
+        autoLayout.mainAttribute.append(.bottom)
+        autoLayout.priority = priority
+        return EndPositionConstraintFlow(self)
+    }
+    
+    public func leading(priority: UILayoutPriority) -> EndPositionConstraintFlow {
+        configStartAutoLayout()
+        autoLayout.mainAttribute.append(.leading)
+        autoLayout.priority = priority
+        return EndPositionConstraintFlow(self)
+    }
+    
+    public func trailing(priority: UILayoutPriority) -> EndPositionConstraintFlow {
+        configStartAutoLayout()
+        autoLayout.mainAttribute.append(.trailing)
+        autoLayout.priority = priority
+        return EndPositionConstraintFlow(self)
+    }
     
     
 //  MARK: - PIN
@@ -118,7 +122,23 @@ open class StartAutoLayout {
         _ = width.height
         return StartDimensionConstraintFlow<ConstraintsSize>(self)
     }
+
     
+//  MARK: - LAYOUT DIMENSION - PRIORITY
+    
+    public func width(priority: UILayoutPriority) -> EndDimensionConstraintFlow {
+        configStartAutoLayout()
+        autoLayout.mainAttribute.append(.width)
+        autoLayout.priority = priority
+        return EndDimensionConstraintFlow(self)
+    }
+    
+    public func height(priority: UILayoutPriority) -> EndDimensionConstraintFlow {
+        configStartAutoLayout()
+        autoLayout.mainAttribute.append(.height)
+        autoLayout.priority = priority
+        return EndDimensionConstraintFlow(self)
+    }
     
 
 //  MARK: - LAYOUT ALIGNMENT
