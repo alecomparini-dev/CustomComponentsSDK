@@ -42,32 +42,32 @@ open class StartAutoLayout {
     
 //  MARK: - LAYOUT POSITION WITH PRIORITY
     
-    public func top(priority: UILayoutPriority) -> EndPositionConstraintFlow {
+    public func top(priority: UILayoutPriority) -> StartPositionConstraintFlow<ConstraintsPositionY> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.top)
         autoLayout.priority = priority
-        return EndPositionConstraintFlow(self)
+        return StartPositionConstraintFlow<ConstraintsPositionY>(self)
     }
     
-    public func bottom(priority: UILayoutPriority) -> EndPositionConstraintFlow {
+    public func bottom(priority: UILayoutPriority) -> StartPositionConstraintFlow<ConstraintsPositionY> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.bottom)
         autoLayout.priority = priority
-        return EndPositionConstraintFlow(self)
+        return StartPositionConstraintFlow<ConstraintsPositionY>(self)
     }
     
-    public func leading(priority: UILayoutPriority) -> EndPositionConstraintFlow {
+    public func leading(priority: UILayoutPriority) -> StartPositionConstraintFlow<ConstraintsPositionX> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.leading)
         autoLayout.priority = priority
-        return EndPositionConstraintFlow(self)
+        return StartPositionConstraintFlow<ConstraintsPositionX>(self)
     }
     
-    public func trailing(priority: UILayoutPriority) -> EndPositionConstraintFlow {
+    public func trailing(priority: UILayoutPriority) -> StartPositionConstraintFlow<ConstraintsPositionX> {
         configStartAutoLayout()
         autoLayout.mainAttribute.append(.trailing)
         autoLayout.priority = priority
-        return EndPositionConstraintFlow(self)
+        return StartPositionConstraintFlow<ConstraintsPositionX>(self)
     }
     
     
