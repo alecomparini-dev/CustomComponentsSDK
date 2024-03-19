@@ -37,6 +37,8 @@ class StrokeView: ViewBuilder {
             .setBlur(to:.dark, percent: 5)
             .setDistance(to:.light, percent: (strokeModel.shadowDistance * 0.3))
             .setDistance(to:.dark, percent: strokeModel.shadowDistance)
+        
+        self.applyNeumorphism()
     }
     
 
