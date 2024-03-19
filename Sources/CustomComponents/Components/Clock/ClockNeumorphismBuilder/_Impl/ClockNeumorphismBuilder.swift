@@ -214,8 +214,10 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     private func configStyles() {
         Clock.hourLeft.get.leftTopStroke.applyNeumorphism()
         Clock.hourLeft.get.leftBottomStroke.applyNeumorphism()
-        Clock.hourLeft.get.leftBottomStroke.applyNeumorphism()
-        Clock.hourLeft.get.leftBottomStroke.applyNeumorphism()
+        
+        Clock.minRight.get.leftBottomStroke.applyNeumorphism()
+        Clock.minRight.get.rightTopStroke.applyNeumorphism()
+        Clock.minRight.get.rightBottomStroke.applyNeumorphism()
     }
     
 }
