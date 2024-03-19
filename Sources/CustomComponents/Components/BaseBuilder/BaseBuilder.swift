@@ -8,7 +8,7 @@ open class BaseBuilder: NSObject {
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private(set) var autoLayout: StartAutoLayout?
     private var _skeleton: SkeletonBuilder?
-    private var _shadow: ShadowBuilder?
+    private var shadow: ShadowBuilder?
     
     private var _id: String = ""
     private weak var _baseView: UIView?
@@ -30,7 +30,7 @@ open class BaseBuilder: NSObject {
         constraintsFlow = nil
         autoLayout = nil
         _skeleton = nil
-        _shadow = nil
+        shadow = nil
     }
     
     
@@ -38,8 +38,6 @@ open class BaseBuilder: NSObject {
     public var getTag: Int { baseView.tag  }
     
     public var id: String { _id }
-    
-    public var shadow: ShadowBuilder? { _shadow }
     
     public var skeleton: SkeletonBuilder? { _skeleton }
     
@@ -160,19 +158,19 @@ open class BaseBuilder: NSObject {
 //  MARK: - SHADOW
     @discardableResult
     public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
-        _shadow = build(ShadowBuilder(baseView))
+        shadow = build(ShadowBuilder(baseView))
         return self
     }
     
     public func applyShadow() -> Self {
-        _shadow?.apply()
-        _shadow = nil
+        shadow?.apply()
+        shadow = nil
         return self
     }
     
     public func applyLayerShadow() -> Self {
-        _shadow?.applyLayer()
-        _shadow = nil
+        shadow?.applyLayer()
+        shadow = nil
         return self
     }
     
