@@ -162,16 +162,14 @@ open class BaseBuilder: NSObject {
         return self
     }
     
-    public func applyShadow() -> Self {
+    public func applyShadow() {
         shadow?.apply()
         shadow = nil
-        return self
     }
     
-    public func applyLayerShadow() -> Self {
+    public func applyLayerShadow() {
         shadow?.applyLayer()
         shadow = nil
-        return self
     }
     
     
