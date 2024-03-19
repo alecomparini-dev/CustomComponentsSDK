@@ -167,7 +167,7 @@ open class BaseBuilder: NSObject {
         shadow = nil
     }
     
-    public func applyLayerShadow() {
+    public func applyShadowLayer() {
         shadow?.applyLayer()
         shadow = nil
     }

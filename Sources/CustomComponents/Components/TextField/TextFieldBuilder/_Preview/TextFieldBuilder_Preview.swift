@@ -57,7 +57,6 @@ final class TextFieldBuilderPreview: UIView {
                     .setColor(.black)
                     .setOffset(width: 3, height: 3)
                     .setRadius(5)
-                    .apply()
             })
 //            .setBorder { build in
 //                build

@@ -254,8 +254,7 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(darkShadowIntensity)
             .setRadius(darkShadowBlur)
             .setID(darkShadowID)
-            .applyLayer()
-        
+        darkShadowBuilder?.applyLayer()
     }
     
     private func applyLightShadow(_ offSetLightShadow: CGSize) {
@@ -266,8 +265,8 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(lightShadowIntensity)
             .setRadius(lightShadowBlur)
             .setID(lightShadowID)
-            .applyLayer()
-        
+            
+        lightShadowBuilder?.applyLayer()
     }
     
     private func calculateShadoweColorByColorReference() {

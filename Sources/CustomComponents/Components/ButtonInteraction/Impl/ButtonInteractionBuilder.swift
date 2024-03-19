@@ -114,14 +114,15 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     
     private func createShadow() -> ShadowBuilder? {
         guard let component else { return nil}
-        return ShadowBuilder(component)
+        let shadow = ShadowBuilder(component)
             .setColor(colorInteraction)
             .setOffset(width: 0, height: 0)
             .setOpacity(1)
             .setRadius(2)
             .setBringToFront()
             .setID(identifier)
-            .applyLayer()
+        shadow.applyLayer()
+        return shadow
     }
     
     private func createAnimation() {

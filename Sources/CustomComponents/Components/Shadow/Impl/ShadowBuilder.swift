@@ -4,6 +4,7 @@
 import UIKit
 
 open class ShadowBuilder: Shadow {
+    
     public typealias T = CALayer
     
     private var shadowAt: UInt32 = .zero
@@ -13,7 +14,7 @@ open class ShadowBuilder: Shadow {
     private var shadowWidth: CGFloat?
     
     private let _shadow: CAShapeLayer
-    private var component: UIView?
+    private weak var component: UIView?
     
     
 //  MARK: - INITIALIZER
@@ -106,31 +107,21 @@ open class ShadowBuilder: Shadow {
     
 //  MARK: - APPLY SHADOW
     
-    @discardableResult
-    public func apply() -> Self {
+    public func apply() {
         component?.layer.shadowColor = _shadow.shadowColor ?? UIColor().cgColor
         component?.layer.shadowRadius = _shadow.shadowRadius
         component?.layer.shadowOpacity = _shadow.shadowOpacity
         component?.layer.shadowOffset = _shadow.shadowOffset
-        
-        DispatchQueue.main.async {
-            self.applyFrame()
-            self.applyComponentFrame()
-            self.freeMemory()
-        }
-        return self
+//        applyFrame()
+        applyComponentFrame()
+        freeMemory()
     }
 
-    @discardableResult
-    public func applyLayer() -> Self {
+    public func applyLayer() {
         insertSubLayer()
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            self.applyFrame()
-            self.applyShadowFrame()
-        }
+        applyFrame()
+        applyShadowFrame()
         freeMemory()
-        return self
     }
     
     @discardableResult
