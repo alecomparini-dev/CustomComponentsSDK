@@ -7,7 +7,8 @@ open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private(set) var autoLayout: StartAutoLayout?
-    private var _skeleton: SkeletonBuilder?
+    private(set) var skeleton: SkeletonBuilder?
+    private(set) var shadow: ShadowBuilder?
     
     private var _id: String = ""
     private weak var _baseView: UIView?
@@ -28,7 +29,8 @@ open class BaseBuilder: NSObject {
         })
         constraintsFlow = nil
         autoLayout = nil
-        _skeleton = nil
+        skeleton = nil
+        shadow = nil
     }
     
     
@@ -37,11 +39,6 @@ open class BaseBuilder: NSObject {
     
     public var id: String { _id }
     
-    public var skeleton: SkeletonBuilder? {
-        get { _skeleton }
-        set { _skeleton = newValue}
-    }
-
     
 //  MARK: - SET PROPERTIES
     @discardableResult
@@ -155,13 +152,29 @@ open class BaseBuilder: NSObject {
         skeleton = build(SkeletonBuilder(component: self))
         return self
     }
+
     
+//  MARK: - SHADOW
     @discardableResult
     public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
-        _ = build(ShadowBuilder(baseView))
+        shadow = build(ShadowBuilder(baseView))
         return self
     }
     
+    public func applyShadow() -> Self {
+        shadow?.apply()
+        shadow = nil
+        return self
+    }
+    
+    public func applyLayerShadow() -> Self {
+        shadow?.applyLayer()
+        shadow = nil
+        return self
+    }
+    
+    
+//  MARK: - GRADIENT
     @discardableResult
     public func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
         _ = build(GradientBuilder(baseView))
