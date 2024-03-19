@@ -175,7 +175,7 @@ open class NeumorphismBuilder: Neumorphism {
         calculateShadowColorByColorReference()
         applyShadow()
         applyShape()
-//        freeMemory()
+        freeMemory()
     }
     
     private func freeMemory() {

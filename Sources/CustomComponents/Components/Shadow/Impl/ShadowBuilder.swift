@@ -14,7 +14,7 @@ open class ShadowBuilder: Shadow {
     private var shadowWidth: CGFloat?
     
     private let _shadow: CAShapeLayer
-    private weak var component: UIView?
+    private var component: UIView?
     
     
 //  MARK: - INITIALIZER
