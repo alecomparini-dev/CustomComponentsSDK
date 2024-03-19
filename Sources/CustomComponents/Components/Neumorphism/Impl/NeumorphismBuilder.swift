@@ -36,6 +36,11 @@ open class NeumorphismBuilder: Neumorphism {
         self.component = component
     }
 
+    deinit {
+        darkShadowBuilder = nil
+        lightShadowBuilder = nil
+    }
+    
 
 //  MARK: - SET PROPERTIES
     
@@ -164,22 +169,18 @@ open class NeumorphismBuilder: Neumorphism {
     
     
 //  MARK: - APPLY NEUMORPHISM
-    @discardableResult
-    public func apply() -> Self {
-        guard let component else { return self }
-        if component.hasNeumorphism() { return self }
+    public func apply() {
+        guard let component else { return }
+        if component.hasNeumorphism() { return }
         calculateShadoweColorByColorReference()
         applyShadow()
         applyShape()
         freeMemory()
-        return self
     }
     
     private func freeMemory() {
-        DispatchQueue.main.async {
-            self.lightShadowBuilder = nil
-            self.darkShadowBuilder = nil
-        }
+        lightShadowBuilder = nil
+        darkShadowBuilder = nil
     }
     
     

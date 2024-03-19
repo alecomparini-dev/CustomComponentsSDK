@@ -112,7 +112,6 @@ open class ShadowBuilder: Shadow {
         component?.layer.shadowRadius = _shadow.shadowRadius
         component?.layer.shadowOpacity = _shadow.shadowOpacity
         component?.layer.shadowOffset = _shadow.shadowOffset
-//        applyFrame()
         applyComponentFrame()
         freeMemory()
     }

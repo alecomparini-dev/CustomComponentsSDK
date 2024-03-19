@@ -17,7 +17,7 @@ class StrokeView: ViewBuilder {
     private func configure() {
         configNeumorphism()
         configShadow()
-        applyNeumorphism()
+        neumorphismApply()
     }
     
     private func configNeumorphism() {
@@ -39,8 +39,8 @@ class StrokeView: ViewBuilder {
             .setDistance(to:.dark, percent: strokeModel.shadowDistance)
     }
     
-    private func applyNeumorphism() {
-        self.neumorphism.apply()
+    private func neumorphismApply() {
+        self.applyNeumorphism()
     }
     
 }

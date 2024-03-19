@@ -38,8 +38,7 @@ public protocol Neumorphism {
     func setLightPosition(_ lightPosition: K.Neumorphism.LightPosition) -> Self
     
 //  MARK: - APPLY Neumorphis
-    @discardableResult
-    func apply() -> Self
+    func apply()
     
     func removeNeumorphism(_ component: BaseBuilder)
 }
