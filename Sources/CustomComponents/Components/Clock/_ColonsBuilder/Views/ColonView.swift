@@ -5,7 +5,6 @@ import Foundation
 
 class ColonView: ViewBuilder {
     
-    private var neumorphism: NeumorphismBuilder!
     private let colonModel: ColonModel
     
     init(colonModel: ColonModel = ColonModel()) {
@@ -28,7 +27,8 @@ class ColonView: ViewBuilder {
     }
     
     private func configNeumorphism() {
-        self.neumorphism = NeumorphismBuilder(self.get)
+        self.setNeumorphism({ build in
+            build
                 .setReferenceColor(hexColor: colonModel.hexColor)
                 .setShadowColor(to: .dark, hexColor: colonModel.shadowHexColor)
                 .setShape(colonModel.shape)
@@ -39,7 +39,7 @@ class ColonView: ViewBuilder {
                 .setBlur(to:.dark, percent: 3)
                 .setDistance(to:.light, percent: 3)
                 .setDistance(to:.dark, percent: 10)
-            
+        })
     }
     
     private func configShadow() {

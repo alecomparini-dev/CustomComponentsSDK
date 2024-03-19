@@ -114,6 +114,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         addBaseNumberView()
         configConstraints()
         startTime()
+        configStyles()
         alreadyApplied = true
     }
     
@@ -208,6 +209,13 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         Clock.hourRight.set(number: hourRight)
         Clock.minLeft.set(number: minLeft)
         Clock.minRight.set(number: minRight)
+    }
+    
+    private func configStyles() {
+        Clock.hourLeft.get.leftTopStroke.applyNeumorphism()
+        Clock.hourLeft.get.leftBottomStroke.applyNeumorphism()
+        Clock.hourLeft.get.leftBottomStroke.applyNeumorphism()
+        Clock.hourLeft.get.leftBottomStroke.applyNeumorphism()
     }
     
 }
