@@ -172,10 +172,10 @@ open class NeumorphismBuilder: Neumorphism {
     public func apply() {
         guard let component else { return }
         if component.hasNeumorphism() { return }
-        calculateShadoweColorByColorReference()
+        calculateShadowColorByColorReference()
         applyShadow()
         applyShape()
-        freeMemory()
+//        freeMemory()
     }
     
     private func freeMemory() {
@@ -255,6 +255,7 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(darkShadowIntensity)
             .setRadius(darkShadowBlur)
             .setID(darkShadowID)
+        
         darkShadowBuilder?.applyLayer()
     }
     
@@ -266,11 +267,11 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(lightShadowIntensity)
             .setRadius(lightShadowBlur)
             .setID(lightShadowID)
-            
+        
         lightShadowBuilder?.applyLayer()
     }
     
-    private func calculateShadoweColorByColorReference() {
+    private func calculateShadowColorByColorReference() {
         calculateLightShadow()
         calculateDarkShadow()
     }
