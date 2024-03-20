@@ -27,6 +27,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         self.colonModel = ColonModel()
         self.clockNeumorphism = ClockNeumorphismView()
         super.init(clockNeumorphism.get)
+        createBaseNumberView()
     }
     
     
@@ -109,13 +110,13 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
 
     private func applyOnceConfig() {
         if alreadyApplied { return }
-        createBaseNumberView()
+//        createBaseNumberView()
         createColonsView()
         addBaseNumberView()
         configConstraints()
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.configStyles()
-        }
+//        }
         startTime()
         alreadyApplied = true
     }
