@@ -36,6 +36,11 @@ open class NeumorphismBuilder: Neumorphism {
         self.component = component
     }
 
+    deinit {
+        darkShadowBuilder = nil
+        lightShadowBuilder = nil
+    }
+    
 
 //  MARK: - SET PROPERTIES
     
@@ -164,22 +169,18 @@ open class NeumorphismBuilder: Neumorphism {
     
     
 //  MARK: - APPLY NEUMORPHISM
-    @discardableResult
-    public func apply() -> Self {
-        guard let component else { return self }
-        if component.hasNeumorphism() { return self }
-        calculateShadoweColorByColorReference()
+    public func apply() {
+        guard let component else { return }
+        if component.hasNeumorphism() { return }
+        calculateShadowColorByColorReference()
         applyShadow()
         applyShape()
         freeMemory()
-        return self
     }
     
     private func freeMemory() {
-        DispatchQueue.main.async {
-            self.lightShadowBuilder = nil
-            self.darkShadowBuilder = nil
-        }
+        lightShadowBuilder = nil
+        darkShadowBuilder = nil
     }
     
     
@@ -254,8 +255,8 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(darkShadowIntensity)
             .setRadius(darkShadowBlur)
             .setID(darkShadowID)
-            .applyLayer()
         
+        darkShadowBuilder?.applyLayer()
     }
     
     private func applyLightShadow(_ offSetLightShadow: CGSize) {
@@ -266,11 +267,11 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(lightShadowIntensity)
             .setRadius(lightShadowBlur)
             .setID(lightShadowID)
-            .applyLayer()
         
+        lightShadowBuilder?.applyLayer()
     }
     
-    private func calculateShadoweColorByColorReference() {
+    private func calculateShadowColorByColorReference() {
         calculateLightShadow()
         calculateDarkShadow()
     }

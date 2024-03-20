@@ -39,7 +39,7 @@ public protocol Shadow {
     @discardableResult
     func setID(_ id: String) -> Self
             
-    @discardableResult
-    func apply() -> Self
+    func apply()
+    func applyLayer()
 
 }

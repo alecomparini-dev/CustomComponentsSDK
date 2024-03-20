@@ -8,6 +8,8 @@ open class BaseBuilder: NSObject {
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private(set) var autoLayout: StartAutoLayout?
     private var _skeleton: SkeletonBuilder?
+    private var _neumorphism: NeumorphismBuilder?
+    private var shadow: ShadowBuilder?
     
     private var _id: String = ""
     private weak var _baseView: UIView?
@@ -29,6 +31,8 @@ open class BaseBuilder: NSObject {
         constraintsFlow = nil
         autoLayout = nil
         _skeleton = nil
+        shadow = nil
+        _neumorphism = nil
     }
     
     
@@ -37,11 +41,10 @@ open class BaseBuilder: NSObject {
     
     public var id: String { _id }
     
-    public var skeleton: SkeletonBuilder? {
-        get { _skeleton }
-        set { _skeleton = newValue}
-    }
-
+    public var skeleton: SkeletonBuilder? { _skeleton }
+    
+    public var neumorphism: NeumorphismBuilder? { _neumorphism }
+    
     
 //  MARK: - SET PROPERTIES
     @discardableResult
@@ -152,28 +155,48 @@ open class BaseBuilder: NSObject {
 
     @discardableResult
     public func setSkeleton(_ build: (_ build: SkeletonBuilder) -> SkeletonBuilder) -> Self {
-        skeleton = build(SkeletonBuilder(component: self))
+        _skeleton = build(SkeletonBuilder(component: self))
         return self
     }
+
     
+//  MARK: - SHADOW
     @discardableResult
     public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
-        _ = build(ShadowBuilder(baseView))
+        shadow = build(ShadowBuilder(baseView))
         return self
     }
     
+    public func applyShadow() {
+        shadow?.apply()
+        shadow = nil
+    }
+    
+    public func applyShadowLayer() {
+        shadow?.applyLayer()
+        shadow = nil
+    }
+    
+    
+//  MARK: - GRADIENT
     @discardableResult
     public func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
         _ = build(GradientBuilder(baseView))
         return self
     }
     
+    
+//  MARK: - NEUMORPHISM
     @discardableResult
     public func setNeumorphism(_ build: (_ build: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
-        _ = build(NeumorphismBuilder(baseView))
+        _neumorphism = build(NeumorphismBuilder(baseView))
         return self
     }
     
+    public func applyNeumorphism() {
+        _neumorphism?.apply()
+        _neumorphism = nil
+    }
     
     
 //  MARK: - SET ACTIONS

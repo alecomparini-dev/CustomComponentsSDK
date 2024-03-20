@@ -5,7 +5,6 @@ import Foundation
 
 class ColonView: ViewBuilder {
     
-    private var neumorphism: NeumorphismBuilder!
     private let colonModel: ColonModel
     
     init(colonModel: ColonModel = ColonModel()) {
@@ -17,8 +16,6 @@ class ColonView: ViewBuilder {
     private func configure() {
         configBorder()
         configNeumorphism()
-        configShadow()
-        applyNeumorphism()
     }
     
     private func configBorder() {
@@ -29,38 +26,21 @@ class ColonView: ViewBuilder {
     }
     
     private func configNeumorphism() {
-        self.neumorphism = NeumorphismBuilder(self.get)
+        self.setNeumorphism({ build in
+            build
                 .setReferenceColor(hexColor: colonModel.hexColor)
                 .setShadowColor(to: .dark, hexColor: colonModel.shadowHexColor)
-//                .setShadowColor(to: .dark, color: .black)
                 .setShape(colonModel.shape)
                 .setLightPosition(colonModel.lightPosition)
-        
                 .setIntensity(to:.light,percent: 0)
                 .setIntensity(to:.dark,percent: 100)
                 .setBlur(to:.light, percent: 0)
                 .setBlur(to:.dark, percent: 3)
                 .setDistance(to:.light, percent: 3)
                 .setDistance(to:.dark, percent: 10)
-                .apply()
-            
-    }
-    
-    private func configShadow() {
-        if !colonModel.isShadow { return }
+        })
 
-//        self.neumorphism
-//            .setShadowColor(to: .dark, hexColor: colonModel.shadowHexColor)
-//            .setIntensity(to:.light,percent: 50)
-//            .setIntensity(to:.dark,percent: 100)
-//            .setBlur(to:.light, percent: 0)
-//            .setBlur(to:.dark, percent: 5)
-//            .setDistance(to:.light, percent: (colonModel.shadowDistance * 0.3))
-//            .setDistance(to:.dark, percent: colonModel.shadowDistance)
     }
-    
-    private func applyNeumorphism() {
-//        self.neumorphism.apply()
-    }
+
     
 }

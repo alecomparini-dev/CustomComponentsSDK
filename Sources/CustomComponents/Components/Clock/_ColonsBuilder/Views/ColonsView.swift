@@ -37,12 +37,12 @@ class ColonsView: ViewBuilder {
         return comp
     }()
 
-    private lazy var colonTop: ColonView = {
+    lazy var colonTop: ColonView = {
         let comp = createColonView()
         return comp
     }()
 
-    private lazy var colonBottom: ColonView = {
+    lazy var colonBottom: ColonView = {
         let comp = createColonView()
         return comp
     }()
