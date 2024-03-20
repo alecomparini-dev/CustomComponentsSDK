@@ -122,6 +122,10 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         Clock.hourRight = ClockNumber(strokeModel: strokeModel)
         Clock.minLeft = ClockNumber(strokeModel: strokeModel)
         Clock.minRight = ClockNumber(strokeModel: strokeModel)
+        
+        Clock.hourLeft.get.rightTopStroke.applyNeumorphism()
+        
+        
     }
 
     private func addBaseNumberView() {
