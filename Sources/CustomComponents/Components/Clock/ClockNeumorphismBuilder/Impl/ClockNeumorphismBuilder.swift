@@ -110,10 +110,10 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     private func applyOnceConfig() {
         if alreadyApplied { return }
         createBaseNumberView()
-        configStyles()
         createColonsView()
         addBaseNumberView()
         configConstraints()
+        configStyles()
         startTime()
         alreadyApplied = true
     }
