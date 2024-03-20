@@ -8,8 +8,8 @@ open class BaseBuilder: NSObject {
     private(set) var constraintsFlow: StartOfConstraintsFlow?
     private(set) var autoLayout: StartAutoLayout?
     private var _skeleton: SkeletonBuilder?
+    private var _neumorphism: NeumorphismBuilder?
     private var shadow: ShadowBuilder?
-    private var neumorphism: NeumorphismBuilder?
     
     private var _id: String = ""
     private weak var _baseView: UIView?
@@ -32,7 +32,7 @@ open class BaseBuilder: NSObject {
         autoLayout = nil
         _skeleton = nil
         shadow = nil
-        neumorphism = nil
+        _neumorphism = nil
     }
     
     
@@ -42,6 +42,9 @@ open class BaseBuilder: NSObject {
     public var id: String { _id }
     
     public var skeleton: SkeletonBuilder? { _skeleton }
+    
+    public var neumorphism: NeumorphismBuilder? { _neumorphism }
+    
     
 //  MARK: - SET PROPERTIES
     @discardableResult
@@ -186,13 +189,13 @@ open class BaseBuilder: NSObject {
 //  MARK: - NEUMORPHISM
     @discardableResult
     public func setNeumorphism(_ build: (_ build: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
-        neumorphism = build(NeumorphismBuilder(baseView))
+        _neumorphism = build(NeumorphismBuilder(baseView))
         return self
     }
     
     public func applyNeumorphism() {
-        neumorphism?.apply()
-        neumorphism = nil
+        _neumorphism?.apply()
+        _neumorphism = nil
     }
     
     
