@@ -16,7 +16,6 @@ class ColonView: ViewBuilder {
     private func configure() {
         configBorder()
         configNeumorphism()
-        configShadow()
     }
     
     private func configBorder() {
@@ -42,11 +41,6 @@ class ColonView: ViewBuilder {
         })
 
     }
-    
-    private func configShadow() {
-        if !colonModel.isShadow { return }
-    }
-    
 
     
 }

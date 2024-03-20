@@ -130,6 +130,14 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     }
     
     private func configStyles() {
+        applyNeumorphismHourLeft()
+        applyNeumorphismHourRight()
+        applyNeumorphismMinLeft()
+        applyNeumorphismMinRight()
+        applyNeumorphismColon()
+    }
+
+    private func applyNeumorphismHourLeft() {
         Clock.hourLeft.get.leftTopStroke.applyNeumorphism()
         Clock.hourLeft.get.leftBottomStroke.applyNeumorphism()
         Clock.hourLeft.get.rightTopStroke.applyNeumorphism()
@@ -137,7 +145,9 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         Clock.hourLeft.get.middleTopStroke.applyNeumorphism()
         Clock.hourLeft.get.middleMiddleStroke.applyNeumorphism()
         Clock.hourLeft.get.middleBottomStroke.applyNeumorphism()
-        
+    }
+    
+    private func applyNeumorphismHourRight() {
         Clock.hourRight.get.leftTopStroke.applyNeumorphism()
         Clock.hourRight.get.leftBottomStroke.applyNeumorphism()
         Clock.hourRight.get.rightTopStroke.applyNeumorphism()
@@ -145,7 +155,9 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         Clock.hourRight.get.middleTopStroke.applyNeumorphism()
         Clock.hourRight.get.middleMiddleStroke.applyNeumorphism()
         Clock.hourRight.get.middleBottomStroke.applyNeumorphism()
-        
+    }
+    
+    private func applyNeumorphismMinLeft() {
         Clock.minLeft.get.leftTopStroke.applyNeumorphism()
         Clock.minLeft.get.leftBottomStroke.applyNeumorphism()
         Clock.minLeft.get.rightTopStroke.applyNeumorphism()
@@ -153,7 +165,9 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         Clock.minLeft.get.middleTopStroke.applyNeumorphism()
         Clock.minLeft.get.middleMiddleStroke.applyNeumorphism()
         Clock.minLeft.get.middleBottomStroke.applyNeumorphism()
-        
+    }
+    
+    private func applyNeumorphismMinRight() {
         Clock.minRight.get.leftTopStroke.applyNeumorphism()
         Clock.minRight.get.leftBottomStroke.applyNeumorphism()
         Clock.minRight.get.rightTopStroke.applyNeumorphism()
@@ -162,6 +176,12 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         Clock.minRight.get.middleMiddleStroke.applyNeumorphism()
         Clock.minRight.get.middleBottomStroke.applyNeumorphism()
     }
+    
+    private func applyNeumorphismColon() {
+        colonsView.colonTop.applyNeumorphism()
+        colonsView.colonBottom.applyNeumorphism()
+    }
+    
 
     private func addBaseNumberView() {
         Clock.hourLeft.get.add(insideTo: clockNeumorphism.hoursContainerView.leftNumberView.get )
