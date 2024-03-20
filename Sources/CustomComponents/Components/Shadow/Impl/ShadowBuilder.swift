@@ -114,23 +114,17 @@ open class ShadowBuilder: Shadow {
         component?.layer.shadowOpacity = _shadow.shadowOpacity
         component?.layer.shadowOffset = _shadow.shadowOffset
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            applyFrame()
-            applyComponentFrame()
-            freeMemory()
-        }
+        applyFrame()
+        applyComponentFrame()
+        freeMemory()
         
     }
-
+    
     public func applyLayer() {
         insertSubLayer()
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            applyFrame()
-            applyShadowFrame()
-            freeMemory()
-        }
+        applyFrame()
+        applyShadowFrame()
+        freeMemory()
     }
     
     @discardableResult
