@@ -15,6 +15,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         static var minLeft: ClockNumber!
         static var minRight: ClockNumber!
     }
+    private var colonsView: ColonsView!
     
     private var timer: Timer?
     
@@ -110,11 +111,11 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     private func applyOnceConfig() {
         if alreadyApplied { return }
         createBaseNumberView()
+        createColonsView()
         addBaseNumberView()
         configConstraints()
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
-            createColonsView()
             configStyles()
         }
         startTime()
@@ -170,7 +171,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     }
     
     private func createColonsView() {
-        let colonsView = ColonsView(colonModel: colonModel)
+        colonsView = ColonsView(colonModel: colonModel)
             .setConstraints { build in
                 build
                     .setPin.equalToSuperview
