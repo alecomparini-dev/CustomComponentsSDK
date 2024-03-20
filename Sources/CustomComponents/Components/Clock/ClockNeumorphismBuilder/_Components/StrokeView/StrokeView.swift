@@ -17,7 +17,6 @@ class StrokeView: ViewBuilder {
     private func configure() {
         configNeumorphism()
         configShadow()
-        applyNeumorphism()
     }
     
     private func configNeumorphism() {
