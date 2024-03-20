@@ -113,7 +113,9 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         createColonsView()
         addBaseNumberView()
         configConstraints()
-        configStyles()
+        DispatchQueue.main.async {
+            self.configStyles()
+        }
         startTime()
         alreadyApplied = true
     }
