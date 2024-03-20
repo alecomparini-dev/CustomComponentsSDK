@@ -104,7 +104,6 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         timer = nil
     }
     
-
     
 //  MARK: - PRIVATE AREA
 
