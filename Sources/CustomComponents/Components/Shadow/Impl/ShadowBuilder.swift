@@ -107,21 +107,30 @@ open class ShadowBuilder: Shadow {
     
 //  MARK: - APPLY SHADOW
     
+    
     public func apply() {
         component?.layer.shadowColor = _shadow.shadowColor ?? UIColor().cgColor
         component?.layer.shadowRadius = _shadow.shadowRadius
         component?.layer.shadowOpacity = _shadow.shadowOpacity
         component?.layer.shadowOffset = _shadow.shadowOffset
-        applyFrame()
-        applyComponentFrame()
-        freeMemory()
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            applyFrame()
+            applyComponentFrame()
+            freeMemory()
+        }
+        
     }
 
     public func applyLayer() {
         insertSubLayer()
-        applyFrame()
-        applyShadowFrame()
-        freeMemory()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            applyFrame()
+            applyShadowFrame()
+            freeMemory()
+        }
     }
     
     @discardableResult
