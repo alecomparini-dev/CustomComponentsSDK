@@ -133,10 +133,10 @@ open class LabelBuilder: BaseBuilder, Label {
         let shadowLayer = build(ShadowBuilder(UIView()))
         
         let shadow = NSShadow()
-        shadow.shadowColor = UIColor(cgColor: shadowLayer.shadow.shadowColor ?? UIColor.black.cgColor)
+        shadow.shadowColor = UIColor(cgColor: shadowLayer.shadow.shadowColor ?? UIColor.black.cgColor).withAlphaComponent(CGFloat(shadowLayer.shadow.shadowOpacity))
         shadow.shadowOffset = shadowLayer.shadow.shadowOffset
         shadow.shadowBlurRadius = shadowLayer.shadow.shadowRadius
-        
+                
         let attrText = NSMutableAttributedString(
             string: (label.text ?? label.attributedText?.string) ?? "",
             attributes: [
