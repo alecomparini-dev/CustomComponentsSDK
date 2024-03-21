@@ -42,7 +42,7 @@ public protocol Label: AnyObject {
     func setWeight(_ weight: K.Weight? ) -> Self
     
     @discardableResult
-    func adjustsFontSizeToFitWidth(_ minimumScaleFactor: CGFloat ) -> Self
+    func setAdjustsFontSizeToFitWidth(_ minimumScaleFactor: CGFloat ) -> Self
     
     
 }
