@@ -148,6 +148,13 @@ open class LabelBuilder: BaseBuilder, Label {
         
         return self
     }
+    
+    @discardableResult
+    public func adjustsFontSizeToFitWidth(_ minimumScaleFactor: CGFloat = 0.5) -> Self {
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = minimumScaleFactor
+        return self
+    }
         
 }
 
