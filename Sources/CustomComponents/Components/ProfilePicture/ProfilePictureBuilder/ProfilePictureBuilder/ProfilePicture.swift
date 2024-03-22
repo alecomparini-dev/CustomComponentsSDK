@@ -12,8 +12,11 @@ public protocol ProfilePicture: AnyObject {
     func setCornerRadius(_ radius: CGFloat) -> Self
     
     @discardableResult
-    func setSizePlaceHolderImage(_ size: CGFloat) -> Self
+    func setCircleProfilePicture() -> Self
     
+    @discardableResult
+    func setSizePlaceHolderImage(_ size: CGFloat) -> Self
+        
     @discardableResult
     func setTintColor(_ hexColor: String) -> Self
     
