@@ -7,6 +7,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public typealias T = UIView
     public var get: UIView { self.profilePicture.get }
     
+    private var circleProfile: Bool = false
     private let size: CGFloat
     private var image: ImageViewBuilder?
 
@@ -104,6 +105,13 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         return self
     }
     
+    @discardableResult
+    public func setCircleProfilePicture() -> Self {
+        circleProfile = true
+        return self
+    }
+
+    
     
 //  MARK: - OVERRIDE PROPERTIES AREA
     
@@ -132,7 +140,9 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func configCircleProfilePicture() {
-        setCornerRadius(size / 2)
+        if circleProfile {
+            setCornerRadius(size / 2)
+        }
     }
     
     private func configTapGesture() {
