@@ -129,6 +129,11 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         configCircleProfilePicture()
         setPlaceHolderImage(image)
         configTapGesture()
+        configClipsToBounds()
+    }
+    
+    private func configClipsToBounds() {
+        profilePicture.get.clipsToBounds = true
     }
     
     private func addElements() {
