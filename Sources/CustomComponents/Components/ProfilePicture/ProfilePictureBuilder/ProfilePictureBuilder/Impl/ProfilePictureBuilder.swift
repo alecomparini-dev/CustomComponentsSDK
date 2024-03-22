@@ -107,7 +107,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     @discardableResult
     public func setCircleProfilePicture() -> Self {
-        circleProfile = true
+        setCornerRadius(size / 2)
         return self
     }
 
@@ -126,7 +126,6 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     private func configure() {
         addElements()
         configConstraints()
-        configCircleProfilePicture()
         setPlaceHolderImage(image)
         configTapGesture()
         configClipsToBounds()
@@ -143,13 +142,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     private func configConstraints() {
         profileImage.applyConstraint()
     }
-    
-    private func configCircleProfilePicture() {
-        if circleProfile {
-            setCornerRadius(size / 2)
-        }
-    }
-    
+        
     private func configTapGesture() {
         TapGestureBuilder(profileImage.get)
             .setTap { [weak self] tapGesture in
