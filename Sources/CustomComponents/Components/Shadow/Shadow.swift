@@ -38,8 +38,13 @@ public protocol Shadow {
     
     @discardableResult
     func setID(_ id: String) -> Self
-            
-    func apply()
-    func applyLayer()
+    
+    
+//  MARK: - APPLY SHADOW
+    @discardableResult
+    func apply() -> Self
+    
+    @discardableResult
+    func applyLayer(size: CGSize) -> Self
 
 }
