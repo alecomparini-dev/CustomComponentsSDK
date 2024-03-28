@@ -30,7 +30,7 @@ public extension UIView {
         let replicateHeight = height ?? self.frame.height
         let replicateCornerRadius = cornerRadius ?? self.layer.cornerRadius
         
-        return UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: 0, y: 0),
+        return UIBezierPath(roundedRect: CGRect(origin: .zero,
                                                 size: CGSize(width: replicateWidth,
                                                              height: replicateHeight)),
                             byRoundingCorners: self.layer.maskedCorners.toRectCorner ,

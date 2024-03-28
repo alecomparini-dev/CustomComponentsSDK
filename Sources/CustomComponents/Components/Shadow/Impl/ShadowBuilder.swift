@@ -7,6 +7,7 @@ open class ShadowBuilder: Shadow {
     
     public typealias T = CALayer
     
+    private var applyOnce = false
     private var shadowAt: UInt32 = .zero
     private var isBringToFront: Bool = false
     private var cornerRadius: CGFloat?
@@ -107,55 +108,65 @@ open class ShadowBuilder: Shadow {
     
 //  MARK: - APPLY SHADOW
     
-    
-    public func apply() {
+    @discardableResult
+    public func apply() -> Self {
+        component?.layer.masksToBounds = true
         component?.layer.shadowColor = _shadow.shadowColor ?? UIColor().cgColor
         component?.layer.shadowRadius = _shadow.shadowRadius
         component?.layer.shadowOpacity = _shadow.shadowOpacity
         component?.layer.shadowOffset = _shadow.shadowOffset
-        
-        applyFrame()
-        applyComponentFrame()
-        freeMemory()
-        
-    }
-    
-    public func applyLayer() {
-        insertSubLayer()
-        applyFrame()
-        applyShadowFrame()
-        freeMemory()
-    }
-    
-    @discardableResult
-    public func applyLayer(size: CGSize) -> Self {
-        self._shadow.frame = CGRect(origin: .zero, size: size)
-        let replicateCornerRadius = component?.layer.cornerRadius ?? 0
-        self._shadow.shadowPath =  UIBezierPath(roundedRect: CGRect(origin: .zero, size: size),
-                                                byRoundingCorners: component?.layer.maskedCorners.toRectCorner ?? .allCorners,
-                                                cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius)).cgPath
-        insertSubLayer()
         freeMemory()
         return self
     }
     
+    
+    @discardableResult
+    public func applyLayer(size: CGSize = .zero) -> Self {
+        guard let component else {return self}
+        
+        if applyOnce { return self }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            component.layer.masksToBounds = true
+            
+            let replicateCornerRadius = component.layer.cornerRadius
+            
+            _shadow.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: size),
+                                              byRoundingCorners: component.layer.maskedCorners.toRectCorner,
+                                              cornerRadii: CGSize(width: replicateCornerRadius,
+                                                                  height: replicateCornerRadius)).cgPath
+            insertSubLayer()
+            
+            freeMemory()
+        }
+        
+        
+        applyOnce = true
+        
+        return self
+    }
+    
     private func freeMemory() {
-        self.component = nil
+        component = nil
+        cornerRadius = nil
+        shadowHeight = nil
+        shadowWidth = nil
     }
     
     
 //  MARK: - PRIVATE AREA
 
     private func applyFrame() {
-        self._shadow.frame = self.component?.bounds ?? .zero
+        _shadow.frame = self.component?.bounds ?? .zero
     }
     
     private func applyComponentFrame() {
-        self.component?.layer.shadowPath = self.calculateShadowPath()
+        component?.layer.shadowPath = self.calculateShadowPath()
     }
     
     private func applyShadowFrame() {
-        self._shadow.shadowPath = self.calculateShadowPath()
+        _shadow.shadowPath = self.calculateShadowPath()
     }
     
     private func getCornerRadius() -> CGFloat {
@@ -194,18 +205,12 @@ open class ShadowBuilder: Shadow {
     }
     
     private func configure() {
-        setDefault()
-        component?.layer.masksToBounds = false
+        component?.layer.shouldRasterize = true
+        component?.layer.rasterizationScale = UIScreen.main.scale
         _shadow.shouldRasterize = true
         _shadow.rasterizationScale = UIScreen.main.scale
     }
     
-    private func setDefault(){
-        self
-            .setColor(.black)
-            .setOpacity(0.6)
-            .setRadius(5)
-    }
     
 }
 
