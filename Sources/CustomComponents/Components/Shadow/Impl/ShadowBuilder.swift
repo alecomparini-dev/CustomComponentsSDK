@@ -121,7 +121,7 @@ open class ShadowBuilder: Shadow {
     
     
     @discardableResult
-    public func applyLayer(size: CGSize = .zero) -> Self {
+    public func applyLayer(size: CGSize? = nil) -> Self {
         guard let component else {return self}
         
         if applyOnce { return self }
@@ -132,7 +132,14 @@ open class ShadowBuilder: Shadow {
             
             let replicateCornerRadius = component.layer.cornerRadius
             
-            _shadow.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: size),
+            var rect: CGRect!
+            if let size {
+                rect = CGRect(origin: .zero, size: size)
+            } else {
+                rect = component.bounds
+            }
+            
+            _shadow.shadowPath = UIBezierPath(roundedRect: rect,
                                               byRoundingCorners: component.layer.maskedCorners.toRectCorner,
                                               cornerRadii: CGSize(width: replicateCornerRadius,
                                                                   height: replicateCornerRadius)).cgPath
