@@ -184,7 +184,9 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     private func freeMemory() {
-        component = nil
+        DispatchQueue.main.async {
+            self.component = nil
+        }
     }
     
     
