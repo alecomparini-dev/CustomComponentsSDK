@@ -274,7 +274,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func applyLightShadow(_ offSetLightShadow: CGSize) {
         guard let component else {return}
-        lightShadowBuilder = ShadowBuilder(component)
+         ShadowBuilder(component)
             .setColor( lightShadowColor ?? .clear)
             .setOffset(offSetLightShadow)
             .setOpacity(lightShadowIntensity)
