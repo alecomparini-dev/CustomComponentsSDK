@@ -179,7 +179,6 @@ open class NeumorphismBuilder: Neumorphism {
             applyShape()
             freeMemory()
         }
-        
         return self
     }
     
