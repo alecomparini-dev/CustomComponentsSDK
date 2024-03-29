@@ -171,13 +171,15 @@ open class NeumorphismBuilder: Neumorphism {
     
     
 //  MARK: - APPLY NEUMORPHISM
-    public func apply() {
-        guard let component else { return }
-        if component.hasNeumorphism() { return }
+    @discardableResult
+    public func apply() -> Self {
+        guard let component else { return self }
+        if component.hasNeumorphism() { return self }
         calculateShadowColorByColorReference()
         applyShadow()
         applyShape()
         freeMemory()
+        return self
     }
     
     private func freeMemory() {
