@@ -128,7 +128,8 @@ open class ShadowBuilder: Shadow {
         
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            component.layer.masksToBounds = true
+            
+            component.layer.masksToBounds = false
             
             let replicateCornerRadius = component.layer.cornerRadius
             
