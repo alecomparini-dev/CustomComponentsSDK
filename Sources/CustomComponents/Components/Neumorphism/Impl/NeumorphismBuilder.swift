@@ -185,10 +185,9 @@ open class NeumorphismBuilder: Neumorphism {
         return self
     }
     
-    private func freeMemory() {        
+    private func freeMemory() {
         lightShadowBuilder = nil
         darkShadowBuilder = nil
-        component = nil
     }
     
     
