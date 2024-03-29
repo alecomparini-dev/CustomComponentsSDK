@@ -185,16 +185,16 @@ open class NeumorphismBuilder: Neumorphism {
         
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
-            freeMemory()
+//            freeMemory()
         }
 
         return self
     }
     
     private func freeMemory() {
-        lightShadowBuilder = nil
-        darkShadowBuilder = nil
-        component = nil
+//        lightShadowBuilder = nil
+//        darkShadowBuilder = nil
+//        component = nil
     }
     
     
