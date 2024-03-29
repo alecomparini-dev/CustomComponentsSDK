@@ -145,7 +145,6 @@ open class ShadowBuilder: Shadow {
                                               cornerRadii: CGSize(width: replicateCornerRadius,
                                                                   height: replicateCornerRadius)).cgPath
             insertSubLayer()
-            
         }
         
         freeMemory()
