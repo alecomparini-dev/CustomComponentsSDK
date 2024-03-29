@@ -110,7 +110,7 @@ open class ShadowBuilder: Shadow {
     
     @discardableResult
     public func apply() -> Self {
-        component?.layer.masksToBounds = true
+        component?.layer.masksToBounds = false
         component?.layer.shadowColor = _shadow.shadowColor ?? UIColor().cgColor
         component?.layer.shadowRadius = _shadow.shadowRadius
         component?.layer.shadowOpacity = _shadow.shadowOpacity
