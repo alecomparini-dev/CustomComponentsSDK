@@ -22,8 +22,7 @@ public class ActionBuilder: Action {
         self.setTapGesture { build in
             build
                 .setCancelsTouchesInView(cancelsTouchesInView)
-                .setTap { [weak self] tapGesture in
-                    guard let self else {return}
+                .setTap { tapGesture in
                     closure(component, tapGesture)
                 }
         }
