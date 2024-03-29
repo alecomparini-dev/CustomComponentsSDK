@@ -189,13 +189,15 @@ open class BaseBuilder: NSObject {
 //  MARK: - NEUMORPHISM
     @discardableResult
     public func setNeumorphism(_ build: (_ build: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
-        _ = build(NeumorphismBuilder(baseView))
+        _neumorphism = build(NeumorphismBuilder(baseView))
         return self
     }
     
-    public func applyNeumorphism() {
+    @discardableResult
+    public func applyNeumorphism() -> Self {
         _neumorphism?.apply()
         _neumorphism = nil
+        return self
     }
     
     
