@@ -217,6 +217,7 @@ open class ShadowBuilder: Shadow {
         component?.layer.rasterizationScale = UIScreen.main.scale
         _shadow.shouldRasterize = true
         _shadow.rasterizationScale = UIScreen.main.scale
+        self.setOpacity(1)
     }
     
     
