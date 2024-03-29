@@ -5,6 +5,7 @@ import UIKit
 
 open class NeumorphismBuilder: Neumorphism {
     
+    private var applyOnce = false
     private var lightShadowBuilder: ShadowBuilder?
     private var darkShadowBuilder: ShadowBuilder?
     
@@ -39,6 +40,7 @@ open class NeumorphismBuilder: Neumorphism {
     deinit {
         darkShadowBuilder = nil
         lightShadowBuilder = nil
+        component = nil
     }
     
 
@@ -179,8 +181,12 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     private func freeMemory() {
-        lightShadowBuilder = nil
-        darkShadowBuilder = nil
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            lightShadowBuilder = nil
+            darkShadowBuilder = nil
+            component = nil
+        }
     }
     
     
@@ -255,8 +261,7 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(darkShadowIntensity)
             .setRadius(darkShadowBlur)
             .setID(darkShadowID)
-        
-        darkShadowBuilder?.applyLayer()
+            .applyLayer()
     }
     
     private func applyLightShadow(_ offSetLightShadow: CGSize) {
@@ -267,8 +272,7 @@ open class NeumorphismBuilder: Neumorphism {
             .setOpacity(lightShadowIntensity)
             .setRadius(lightShadowBlur)
             .setID(lightShadowID)
-        
-        lightShadowBuilder?.applyLayer()
+            .applyLayer()
     }
     
     private func calculateShadowColorByColorReference() {
