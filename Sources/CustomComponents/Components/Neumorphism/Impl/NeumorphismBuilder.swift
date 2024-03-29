@@ -176,19 +176,19 @@ open class NeumorphismBuilder: Neumorphism {
         guard let component else { return self }
         if component.hasNeumorphism() { return self }
         calculateShadowColorByColorReference()
-        applyShadow()
-        applyShape()
-        freeMemory()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            applyShadow()
+            applyShape()
+            freeMemory()
+        }
         return self
     }
     
-    private func freeMemory() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            lightShadowBuilder = nil
-            darkShadowBuilder = nil
-            component = nil
-        }
+    private func freeMemory() {        
+        lightShadowBuilder = nil
+        darkShadowBuilder = nil
+        component = nil
     }
     
     
