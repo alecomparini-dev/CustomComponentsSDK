@@ -45,6 +45,6 @@ public protocol Shadow {
     func apply() -> Self
     
     @discardableResult
-    func applyLayer(size: CGSize) -> Self
+    func applyLayer(size: CGSize?) -> Self
 
 }
