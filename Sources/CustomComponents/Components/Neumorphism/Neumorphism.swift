@@ -3,7 +3,7 @@
 
 import Foundation
 
-protocol Neumorphism {
+public protocol Neumorphism {
     @discardableResult
     func setReferenceColor(hexColor: String?) -> Self
 
@@ -38,7 +38,7 @@ protocol Neumorphism {
     func setLightPosition(_ lightPosition: K.Neumorphism.LightPosition) -> Self
     
 //  MARK: - APPLY Neumorphis
-    func apply()
+    func apply() -> Self
     
     func removeNeumorphism(_ component: BaseBuilder)
 }
