@@ -167,9 +167,10 @@ open class NeumorphismBuilder: Neumorphism {
     
     
 //  MARK: - APPLY NEUMORPHISM
-    internal func apply() {
-        guard let component else { return }
-        if component.hasNeumorphism() { return }
+    @discardableResult
+    public func apply() -> Self {
+        guard let component else { return self }
+        if component.hasNeumorphism() { return self }
         calculateShadowColorByColorReference()
         
         DispatchQueue.main.async { [weak self] in
@@ -178,6 +179,8 @@ open class NeumorphismBuilder: Neumorphism {
             applyShape()
             freeMemory()
         }
+        
+        return self
     }
     
     private func freeMemory() {
