@@ -255,7 +255,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func applyDarkShadow(_ offSetDarkShadow: CGSize) {
         guard let component else {return}
-        ShadowBuilder(component)
+        _ = ShadowBuilder(component)
             .setColor( darkShadowColor ?? .clear)
             .setOffset(offSetDarkShadow)
             .setOpacity(darkShadowIntensity)
@@ -266,7 +266,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     private func applyLightShadow(_ offSetLightShadow: CGSize) {
         guard let component else {return}
-         ShadowBuilder(component)
+        _ = ShadowBuilder(component)
             .setColor( lightShadowColor ?? .clear)
             .setOffset(offSetLightShadow)
             .setOpacity(lightShadowIntensity)
