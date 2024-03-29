@@ -146,9 +146,9 @@ open class ShadowBuilder: Shadow {
                                                                   height: replicateCornerRadius)).cgPath
             insertSubLayer()
             
-            freeMemory()
         }
         
+        freeMemory()
         
         applyOnce = true
         
@@ -156,10 +156,12 @@ open class ShadowBuilder: Shadow {
     }
     
     private func freeMemory() {
-        component = nil
-        cornerRadius = nil
-        shadowHeight = nil
-        shadowWidth = nil
+        DispatchQueue.main.async {
+            self.component = nil
+            self.cornerRadius = nil
+            self.shadowHeight = nil
+            self.shadowWidth = nil
+        }
     }
     
     
