@@ -173,12 +173,12 @@ open class NeumorphismBuilder: Neumorphism {
         if component.hasNeumorphism() { return self }
         calculateShadowColorByColorReference()
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
+//        DispatchQueue.main.async { [weak self] in
+//            guard let self else {return}
             applyShadow()
             applyShape()
             freeMemory()
-        }
+//        }
         
         return self
     }

@@ -195,8 +195,12 @@ open class BaseBuilder: NSObject {
     
     @discardableResult
     public func applyNeumorphism() -> Self {
-        _neumorphism?.apply()
-        _neumorphism = nil
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
+            _neumorphism?.apply()
+            _neumorphism = nil
+        }
+        
         return self
     }
     
