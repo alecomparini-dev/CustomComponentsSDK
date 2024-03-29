@@ -177,7 +177,7 @@ open class NeumorphismBuilder: Neumorphism {
             guard let self else {return}
             applyShadow()
             applyShape()
-            freeMemory()
+//            freeMemory()
         }
         
         return self
