@@ -43,8 +43,6 @@ open class BaseBuilder: NSObject {
     
     public var skeleton: SkeletonBuilder? { _skeleton }
     
-    public var neumorphism: NeumorphismBuilder? { _neumorphism }
-    
     
 //  MARK: - SET PROPERTIES
     @discardableResult
@@ -192,18 +190,7 @@ open class BaseBuilder: NSObject {
         _ = build(NeumorphismBuilder(baseView))
         return self
     }
-    
-    @discardableResult
-    public func applyNeumorphism() -> Self {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            _neumorphism?.apply()
-            _neumorphism = nil
-        }
         
-        return self
-    }
-    
     
 //  MARK: - SET ACTIONS
     @discardableResult

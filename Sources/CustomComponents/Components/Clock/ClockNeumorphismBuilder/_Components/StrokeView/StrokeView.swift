@@ -6,6 +6,7 @@ import Foundation
 
 class StrokeView: ViewBuilder {
     private let strokeModel: StrokeModel
+    private var neumorphism: NeumorphismBuilder!
     
     init(strokeModel: StrokeModel) {
         self.strokeModel = strokeModel
@@ -16,22 +17,25 @@ class StrokeView: ViewBuilder {
     private func configure() {
         configNeumorphism()
         configShadow()
+        applyNeumophism()
+    }
+    
+    private func applyNeumophism() {
+        neumorphism.apply()
     }
     
     private func configNeumorphism() {
-        self.setNeumorphism({ build in
-            build
-                .setReferenceColor(hexColor: strokeModel.hexColor)
-                .setShape(strokeModel.shape)
-                .setLightPosition(strokeModel.lightPosition)
-        })
-            
+        self.neumorphism = NeumorphismBuilder(self.get)
+            .setReferenceColor(hexColor: strokeModel.hexColor)
+            .setShape(strokeModel.shape)
+            .setLightPosition(strokeModel.lightPosition)
+
     }
     
     private func configShadow() {
         if !strokeModel.isShadow { return }
 
-        self.neumorphism?
+        self.neumorphism
             .setIntensity(to:.light,percent: 50)
             .setIntensity(to:.dark,percent: 100)
             .setBlur(to:.light, percent: 0)
