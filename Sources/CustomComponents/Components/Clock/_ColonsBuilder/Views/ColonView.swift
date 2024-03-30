@@ -38,6 +38,7 @@ class ColonView: ViewBuilder {
                 .setBlur(to:.dark, percent: 3)
                 .setDistance(to:.light, percent: 3)
                 .setDistance(to:.dark, percent: 10)
+                .apply()
         })
 
     }
