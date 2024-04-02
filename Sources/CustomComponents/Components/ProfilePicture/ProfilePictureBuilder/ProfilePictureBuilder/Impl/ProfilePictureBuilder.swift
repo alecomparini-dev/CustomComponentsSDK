@@ -38,10 +38,12 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     
     lazy public var profileImage: ImageViewBuilder = {
         let comp = ImageViewBuilder()
-            .setConstraints { build in
+            .setAutoLayout { build in
                 build
-                    .setAlignmentCenterXY.equalTo(profilePicture.get)
-                    .setSize.equalToConstant(size)
+//                    .setAlignmentCenterXY.equalTo(profilePicture.get)
+//                    .setSize.equalToConstant(size)
+                    .pin.equalToSuperview()
+                
             }
         return comp
     }()
@@ -140,7 +142,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     }
     
     private func configConstraints() {
-        profileImage.applyConstraint()
+        profileImage.applyAutoLayout()
     }
         
     private func configTapGesture() {
