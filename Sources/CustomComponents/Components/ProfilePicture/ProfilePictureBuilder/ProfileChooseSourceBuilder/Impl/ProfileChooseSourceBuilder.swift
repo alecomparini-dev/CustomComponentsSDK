@@ -40,6 +40,7 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
             Control.isOpenCamera = true
         }
         alert?.addAction(cameraAction)
+        createImagePicker()
         return self
     }
     
@@ -77,7 +78,6 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     }
     
     private func openCamera() {
-        createImagePicker()
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             guard let imagePicker else { return }
             imagePicker.sourceType = .camera
