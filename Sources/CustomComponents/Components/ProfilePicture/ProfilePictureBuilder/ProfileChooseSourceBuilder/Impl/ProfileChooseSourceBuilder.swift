@@ -63,12 +63,11 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     }
 
     public func createImagePicker() {
-        
-        let workItem = DispatchWorkItem {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {return}
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
         }
-        DispatchQueue.global().async(execute: workItem)
         
 //        if imagePicker != nil { return }
 //        imagePicker = UIImagePickerController()
