@@ -77,11 +77,11 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     }
     
     private func openCamera() {
+        guard let imagePicker else {
+            createImagePicker()
+            return openCamera()
+        }
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            guard let imagePicker else {
-                createImagePicker()
-                return openCamera()
-            }
             imagePicker.sourceType = .camera
             imagePicker.allowsEditing = false
             viewController?.present(imagePicker, animated: true, completion: nil)
@@ -90,11 +90,12 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     }
     
     private func openGallery() {
+        guard let imagePicker else {
+            createImagePicker()
+            return openGallery()
+        }
+
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            guard let imagePicker else {
-                createImagePicker()
-                return openCamera()
-            }
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
             viewController?.present(imagePicker, animated: true, completion: nil)
