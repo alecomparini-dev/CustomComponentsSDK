@@ -66,11 +66,15 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-        imagePicker = UIImagePickerController()
+        DispatchQueue.global().async { [weak self] in
+            guard let self else {return}
+            imagePicker = UIImagePickerController()
+            imagePicker?.delegate = self
+        }
+        
         alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert?.addAction(cancelAction)
-        imagePicker?.delegate = self
     }
     
     private func openCamera() {
