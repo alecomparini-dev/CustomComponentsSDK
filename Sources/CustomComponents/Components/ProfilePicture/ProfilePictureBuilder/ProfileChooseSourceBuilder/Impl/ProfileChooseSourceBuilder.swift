@@ -21,7 +21,7 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
         self.viewController = viewController
         self.profilePicture = profilePicture
         super.init()
-//        configure()
+        configure()
     }
     
 
