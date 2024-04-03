@@ -66,25 +66,22 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            imagePicker = UIImagePickerController()
-            imagePicker?.delegate = self
-        }
-//        DispatchQueue.global().async { [weak self] in
-//            guard let self else {return}
-//            imagePicker = UIImagePickerController()
-//            imagePicker?.delegate = self
-//        }
-        
         alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert?.addAction(cancelAction)
     }
     
+    private func createImagePicker() {
+        imagePicker = UIImagePickerController()
+        imagePicker?.delegate = self
+    }
+    
     private func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            guard let imagePicker else {return}
+            guard let imagePicker else {
+                createImagePicker()
+                return openCamera()
+            }
             imagePicker.sourceType = .camera
             imagePicker.allowsEditing = false
             viewController?.present(imagePicker, animated: true, completion: nil)
@@ -94,7 +91,10 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     
     private func openGallery() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            guard let imagePicker else {return}
+            guard let imagePicker else {
+                createImagePicker()
+                return openCamera()
+            }
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
             viewController?.present(imagePicker, animated: true, completion: nil)
