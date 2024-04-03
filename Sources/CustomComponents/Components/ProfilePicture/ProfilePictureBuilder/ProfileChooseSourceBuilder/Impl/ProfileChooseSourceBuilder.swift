@@ -12,10 +12,13 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     private var completionOpenGallery: ProfileChooseSource.completion?
     
     private var alert: UIAlertController?
-    private var imagePicker: UIImagePickerController?
+//    private var imagePicker: UIImagePickerController?
+    private lazy var imagePicker = UIImagePickerController()
     
     private weak var viewController: UIViewController?
     private weak var profilePicture: ProfilePictureBuilder?
+    
+
     
     public init(viewController: UIViewController, profilePicture: ProfilePictureBuilder) {
         self.viewController = viewController
@@ -61,21 +64,22 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
             viewController?.present(alert, animated: true, completion: nil)
         }
     }
-    
+
     
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-        imagePicker = UIImagePickerController()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            guard let self else {return}
+            imagePicker.delegate = self
+        })
         alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert?.addAction(cancelAction)
-        imagePicker?.delegate = self
     }
     
     private func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            guard let imagePicker else {return}
             imagePicker.sourceType = .camera
             imagePicker.allowsEditing = false
             viewController?.present(imagePicker, animated: true, completion: nil)
@@ -85,7 +89,6 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     
     private func openGallery() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            guard let imagePicker else {return}
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
             viewController?.present(imagePicker, animated: true, completion: nil)

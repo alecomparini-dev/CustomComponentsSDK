@@ -40,10 +40,7 @@ open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
         let comp = ImageViewBuilder()
             .setAutoLayout { build in
                 build
-//                    .setAlignmentCenterXY.equalTo(profilePicture.get)
-//                    .setSize.equalToConstant(size)
-                    .pin.equalToSuperview()
-                
+                    .pin.equalToSuperview()                
             }
         return comp
     }()
