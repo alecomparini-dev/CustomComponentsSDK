@@ -12,10 +12,13 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     private var completionOpenGallery: ProfileChooseSource.completion?
     
     private var alert: UIAlertController?
-    private var imagePicker: UIImagePickerController?
+//    private var imagePicker: UIImagePickerController?
+    private lazy var imagePicker = UIImagePickerController()
     
     private weak var viewController: UIViewController?
     private weak var profilePicture: ProfilePictureBuilder?
+    
+
     
     public init(viewController: UIViewController, profilePicture: ProfilePictureBuilder) {
         self.viewController = viewController
@@ -63,31 +66,22 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     }
 
     public func createImagePicker() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-        }
-        
-//        if imagePicker != nil { return }
-//        imagePicker = UIImagePickerController()
-//        imagePicker?.delegate = self
+        imagePicker.delegate = self
     }
 
     
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-        createImagePicker()
         alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert?.addAction(cancelAction)
     }
     
     private func openCamera() {
-//        createImagePicker()
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            guard let imagePicker else { return }
+            createImagePicker()
+//            guard let imagePicker else { return }
             imagePicker.sourceType = .camera
             imagePicker.allowsEditing = false
             viewController?.present(imagePicker, animated: true, completion: nil)
@@ -96,9 +90,9 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     }
     
     private func openGallery() {
-//        createImagePicker()
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            guard let imagePicker else { return }
+            createImagePicker()
+//            guard let imagePicker else { return }
             imagePicker.sourceType = .photoLibrary
             imagePicker.allowsEditing = false
             viewController?.present(imagePicker, animated: true, completion: nil)
