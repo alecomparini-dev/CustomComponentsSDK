@@ -63,9 +63,9 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     }
 
     public func createImagePicker() {
-        guard var imagePicker else {return}
+        if imagePicker != nil { return }
         imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
+        imagePicker?.delegate = self
     }
 
     
