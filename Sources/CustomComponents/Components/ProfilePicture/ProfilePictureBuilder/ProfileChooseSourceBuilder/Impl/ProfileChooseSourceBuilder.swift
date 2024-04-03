@@ -69,7 +69,10 @@ open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
 //  MARK: - PRIVATE AREA
     
     private func configure() {
-        imagePicker.delegate = self
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            guard let self else {return}
+            imagePicker.delegate = self
+        })
         alert = UIAlertController(title: "Choose source", message: "", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert?.addAction(cancelAction)
