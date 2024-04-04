@@ -34,14 +34,14 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setAutoCloseMenuWhenTappedOut(excludeComponents: [UIView]) -> Self {
+    public func setCloseMenuWhenTappedOut(excludeComponents: [UIView]) -> Self {
         autoCloseEnabled = true
         self.excludeComponents = excludeComponents
         return self
     }
     
     @discardableResult
-    public func setOverlay(style: UIBlurEffect.Style, _ opacity: CGFloat = 1) -> Self {
+    public func setOverlay(style: UIBlurEffect.Style, opacity: CGFloat = 1) -> Self {
         overlay = BlurBuilder(style: style)
             .setOpacity(opacity)
         return self
@@ -71,6 +71,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         configOverlay()
         
         configHierarchyVisualization()
+        
+        configAutoCloseDropdownMenu()
         
         isApplyOnce = true
     }
@@ -113,5 +115,51 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         }
         
     }
+    
+    private func configAutoCloseDropdownMenu() {
+        if autoCloseEnabled {
+            dropdownMenu.setActions { build in
+                build
+                    .setTap { [weak self] _, tapGesture in
+                        self?.verifyTappedOutMenu(tapGesture)
+                    }
+            }
+        }
+    }
+    
+    private func verifyTappedOutMenu(_ tap: TapGestureBuilder?) {
+        if isShow() {
+            if isTappedOut(tap) {
+                hide()
+            }
+        }
+    }
+    
+    private func isTappedOut(_ tap: TapGestureBuilder?) -> Bool {
+        guard let tap else {return false}
+        
+        let touchPoint = tap.getTouchPosition(.superview)
+        
+        if isTappedOutDropdownMenu(touchPoint) && isTappedOutExcludeComponents(touchPoint) { return true }
+        
+        return false
+    }
+    
+    private func isTappedOutDropdownMenu(_ touchPoint: CGPoint) -> Bool {
+        if dropdownMenu.get.frame.contains(touchPoint) { return false }
+        return true
+    }
+    
+    private func isTappedOutExcludeComponents(_ touchPoint: CGPoint) -> Bool {
+        var isTappedOut = true
+        excludeComponents.forEach { comp in
+            if comp.frame.contains(touchPoint) {
+                isTappedOut = false
+                return
+            }
+        }
+        return isTappedOut
+    }
+    
     
 }
