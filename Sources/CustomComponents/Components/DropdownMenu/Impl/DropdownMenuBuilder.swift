@@ -57,6 +57,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         if isApplyOnce {return}
         
         getSuperview()
+        
         addOverlay()
         
         isApplyOnce = true
@@ -82,7 +83,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
             }
         
         overlay.add(insideTo: superview)
-        overlay.applyShadow()
+        overlay.applyAutoLayout()
     }
 
     
