@@ -7,11 +7,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     public var get: ViewBuilder { dropdownMenu }
     
-    
     private var isApplyOnce = false
     private var zPosition: CGFloat = 10000
     private var isVisible = false
     private var superview = UIView()
+    private var overlay: BlurBuilder?
     private var autoCloseEnabled = false
     private var excludeComponents = [UIView]()
     
@@ -44,6 +44,13 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     func setAutoCloseMenuWhenTappedOut(excludeComponents: [UIView]) -> Self {
         autoCloseEnabled = true
         self.excludeComponents = excludeComponents
+        return self
+    }
+    
+    @discardableResult
+    func setOverlay(style: UIBlurEffect.Style, _ opacity: CGFloat = 1) -> Self {
+        overlay = BlurBuilder(style: style)
+            .setOpacity(opacity)
         return self
     }
     
@@ -85,15 +92,15 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configOverlay() {
-        let overlay = OverlayView()
+        self.overlay?
             .setAutoLayout { build in
                 build
                     .pin.equalToSuperview()
             }
 
-        overlay.get.layer.zPosition = zPosition
-        overlay.add(insideTo: superview)
-        overlay.applyAutoLayout()
+        overlay?.get.layer.zPosition = zPosition
+        overlay?.add(insideTo: superview)
+        overlay?.applyAutoLayout()
     }
     
     private func configHierarchyDropdownMenu() {
