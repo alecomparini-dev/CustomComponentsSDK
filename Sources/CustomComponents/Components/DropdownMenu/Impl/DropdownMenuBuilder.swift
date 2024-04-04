@@ -66,9 +66,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func applyOnce() {
         if isApplyOnce {return}
         
-        getSuperview()
-        
         configOverlay()
+
+        getSuperview()
         
         configHierarchyVisualization()
         
@@ -99,10 +99,19 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private func configHierarchyVisualization() {
         overlay?.get.layer.zPosition = zPosition
-        dropdownMenu.get.layer.zPosition = zPosition
+        dropdownMenu.get.layer.zPosition = zPosition + 1
         excludeComponents.forEach { comp in
             comp.layer.zPosition = self.zPosition + 1
         }
+        bringToFront() 
+    }
+    
+    private func bringToFront() {
+        superview.bringSubviewToFront(dropdownMenu.get)
+        excludeComponents.forEach { comp in
+            superview.bringSubviewToFront(comp)
+        }
+        
     }
     
 }
