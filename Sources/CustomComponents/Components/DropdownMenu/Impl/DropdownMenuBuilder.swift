@@ -53,9 +53,10 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     public func show() {
         isVisible = true
-        dropdownMenu.setHidden(false)
-        overlay?.setHidden(false)
         applyOnce()
+        showAnimation {
+        }
+        
     }
     
     public func hide() {
@@ -161,5 +162,27 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         return isTappedOut
     }
     
+    
+//  MARK: - ANIMATIONS AREA
+    private func showAnimation(_ completion: @escaping () -> Void) {
+        dropdownMenu.setAlpha(0)
+        overlay?.setAlpha(0)
+        dropdownMenu.setHidden(false)
+        overlay?.setHidden(false)
+        
+        UIView.animate(withDuration: 1) { [weak self] in
+            guard let self else {return}
+            dropdownMenu.get.alpha = 1
+            overlay?.get.alpha = 1
+        } completion: { bool in
+            if bool {
+                completion()
+            }
+        }
+    }
+    
+    private func hideAnimation() {
+        
+    }
     
 }
