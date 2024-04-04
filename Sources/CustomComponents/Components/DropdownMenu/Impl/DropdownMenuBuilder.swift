@@ -1,14 +1,17 @@
 //  Created by Alessandro Comparini on 04/04/24.
 //
 
-import Foundation
+import UIKit
 
 open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     public var get: DropdownMenuView { dropdownMenu }
     
+    
+    private var isApplyOnce = false
     private var zPosition: CGFloat = 10000
     private var isVisible = false
+    private var superview = UIView()
     
     
 //  MARK: - INITIALIZERS
@@ -42,6 +45,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public func show() {
         isVisible = true
         dropdownMenu.setHidden(false)
+        applyOnce()
     }
     
     public func hide() {
@@ -49,9 +53,24 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         dropdownMenu.setHidden(true)
     }
     
+    private func applyOnce() {
+        if isApplyOnce {return}
+        
+        getSuperview()
+        
+        isApplyOnce = true
+    }
+    
+    
 //  MARK: - PRIVATE AREA
     private func configure() {
         hide()
+    }
+    
+    private func getSuperview() {
+        guard let superview = dropdownMenu.get.superview else {return}
+        self.superview = superview
+        print(superview)
     }
 
     
