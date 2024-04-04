@@ -41,14 +41,14 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     @discardableResult
-    func setAutoCloseMenuWhenTappedOut(excludeComponents: [UIView]) -> Self {
+    public func setAutoCloseMenuWhenTappedOut(excludeComponents: [UIView]) -> Self {
         autoCloseEnabled = true
         self.excludeComponents = excludeComponents
         return self
     }
     
     @discardableResult
-    func setOverlay(style: UIBlurEffect.Style, _ opacity: CGFloat = 1) -> Self {
+    public func setOverlay(style: UIBlurEffect.Style, _ opacity: CGFloat = 1) -> Self {
         overlay = BlurBuilder(style: style)
             .setOpacity(opacity)
         return self
