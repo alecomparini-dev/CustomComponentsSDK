@@ -18,6 +18,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public init(size: CGSize) {
         dropdownMenu = DropdownMenuView(frame: CGRect(origin: .zero, size: size))
         super.init(dropdownMenu.get)
+        configure()
     }
 
     
@@ -46,6 +47,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public func hide() {
         isVisible = false
         dropdownMenu.setHidden(true)
+    }
+    
+//  MARK: - PRIVATE AREA
+    private func configure() {
+        hide()
     }
 
     
