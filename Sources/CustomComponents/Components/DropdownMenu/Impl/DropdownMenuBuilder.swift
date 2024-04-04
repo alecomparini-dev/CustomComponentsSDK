@@ -14,6 +14,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var overlay: BlurBuilder?
     private var autoCloseEnabled = false
     private var excludeComponents = [UIView]()
+    private var tap: TapGestureBuilder?
     
     
 //  MARK: - INITIALIZERS
@@ -118,12 +119,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private func configAutoCloseDropdownMenu() {
         if autoCloseEnabled {
-            dropdownMenu.setActions { build in
-                build
-                    .setTap { [weak self] _, tapGesture in
-                        self?.verifyTappedOutMenu(tapGesture)
-                    }
-            }
+            _ = TapGestureBuilder(superview)
+                .setCancelsTouchesInView(false)
+                .setTap({ [weak self] tapGesture in
+                    self?.verifyTappedOutMenu(tapGesture)
+                })
         }
     }
     
