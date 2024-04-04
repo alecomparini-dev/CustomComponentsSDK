@@ -53,6 +53,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public func show() {
         isVisible = true
         dropdownMenu.setHidden(false)
+        overlay?.setHidden(false)
         applyOnce()
     }
     
@@ -77,6 +78,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 //  MARK: - PRIVATE AREA
     private func configure() {
         hide()
+        overlay?.setHidden(true)
     }
     
     private func getSuperview() {
