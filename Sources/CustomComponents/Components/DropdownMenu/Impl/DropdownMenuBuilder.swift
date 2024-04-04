@@ -12,6 +12,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var zPosition: CGFloat = 10000
     private var isVisible = false
     private var superview = UIView()
+    private var autoCloseEnabled = false
+    private var excludeComponents = [UIView]()
     
     
 //  MARK: - INITIALIZERS
@@ -38,6 +40,12 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         return self
     }
     
+    @discardableResult
+    func setAutoCloseMenuWhenTappedOut(excludeComponents: [UIView]) -> Self {
+        autoCloseEnabled = true
+        self.excludeComponents = excludeComponents
+        return self
+    }
     
 
 //  MARK: - SHOW and HIDE
@@ -58,7 +66,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         getSuperview()
         
-        addOverlay()
+        configOverlay()
+        
+        configHierarchyDropdownMenu()
         
         isApplyOnce = true
     }
@@ -72,19 +82,24 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func getSuperview() {
         guard let superview = dropdownMenu.get.superview else {return}
         self.superview = superview
-        print(superview)
     }
     
-    private func addOverlay() {
+    private func configOverlay() {
         let overlay = OverlayView()
             .setAutoLayout { build in
                 build
                     .pin.equalToSuperview()
             }
-        
+
+        overlay.get.layer.zPosition = zPosition
         overlay.add(insideTo: superview)
         overlay.applyAutoLayout()
     }
+    
+    private func configHierarchyDropdownMenu() {
+        dropdownMenu.get.layer.zPosition = zPosition + 1
+    }
+    
 
     
 }
