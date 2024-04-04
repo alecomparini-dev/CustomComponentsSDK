@@ -20,8 +20,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private var dropdownMenu: ViewBuilder
         
-    public init(size: CGSize) {
-        dropdownMenu = ViewBuilder(frame: CGRect(origin: .zero, size: size))
+    public init() {
+        dropdownMenu = ViewBuilder()
         super.init(dropdownMenu.get)
         configure()
     }
@@ -32,13 +32,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 
     
 //  MARK: - SET PROPERTIES
-    
-    @discardableResult
-    public func setSize(_ size: CGSize) -> Self {
-        dropdownMenu.get.frame.size = size
-        dropdownMenu.get.layoutIfNeeded()
-        return self
-    }
     
     @discardableResult
     public func setAutoCloseMenuWhenTappedOut(excludeComponents: [UIView]) -> Self {

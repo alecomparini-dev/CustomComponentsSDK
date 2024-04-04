@@ -7,9 +7,11 @@ public protocol DropdownMenu {
         
     var get: ViewBuilder { get }
     
-    @discardableResult
-    func setSize(_ size: CGSize) -> Self
- 
+
+    
+    
+    
+    
     
 //  MARK: - GET PROPERTIES
     func isShow() -> Bool
