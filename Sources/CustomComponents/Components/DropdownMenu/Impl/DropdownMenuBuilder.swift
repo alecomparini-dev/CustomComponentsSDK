@@ -68,7 +68,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         configOverlay()
         
-        configHierarchyDropdownMenu()
+        configHierarchyVisualization()
         
         isApplyOnce = true
     }
@@ -91,15 +91,16 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
                     .pin.equalToSuperview()
             }
 
-        overlay?.get.layer.zPosition = zPosition
         overlay?.add(insideTo: superview)
         overlay?.applyAutoLayout()
     }
     
-    private func configHierarchyDropdownMenu() {
-        dropdownMenu.get.layer.zPosition = zPosition + 1
+    private func configHierarchyVisualization() {
+        overlay?.get.layer.zPosition = zPosition
+        dropdownMenu.get.layer.zPosition = zPosition
+        excludeComponents.forEach { comp in
+            comp.layer.zPosition = self.zPosition + 1
+        }
     }
-    
-
     
 }
