@@ -5,7 +5,7 @@ import Foundation
 
 public protocol DropdownMenu {
         
-    var get: DropdownMenuView { get }
+    var get: ViewBuilder { get }
     
     @discardableResult
     func setSize(_ size: CGSize) -> Self

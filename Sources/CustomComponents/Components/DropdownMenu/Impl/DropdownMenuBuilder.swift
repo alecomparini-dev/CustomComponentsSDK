@@ -5,7 +5,7 @@ import UIKit
 
 open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
-    public var get: DropdownMenuView { dropdownMenu }
+    public var get: ViewBuilder { dropdownMenu }
     
     
     private var isApplyOnce = false
@@ -16,10 +16,10 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
 //  MARK: - INITIALIZERS
     
-    private var dropdownMenu: DropdownMenuView
+    private var dropdownMenu: ViewBuilder
         
     public init(size: CGSize) {
-        dropdownMenu = DropdownMenuView(frame: CGRect(origin: .zero, size: size))
+        dropdownMenu = ViewBuilder(frame: CGRect(origin: .zero, size: size))
         super.init(dropdownMenu.get)
         configure()
     }
@@ -57,6 +57,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         if isApplyOnce {return}
         
         getSuperview()
+        addOverlay()
         
         isApplyOnce = true
     }
@@ -71,6 +72,17 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         guard let superview = dropdownMenu.get.superview else {return}
         self.superview = superview
         print(superview)
+    }
+    
+    private func addOverlay() {
+        let overlay = OverlayView()
+            .setAutoLayout { build in
+                build
+                    .pin.equalToSuperview()
+            }
+        
+        overlay.add(insideTo: superview)
+        overlay.applyShadow()
     }
 
     
