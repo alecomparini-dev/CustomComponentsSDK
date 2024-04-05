@@ -255,11 +255,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 //  MARK: - EXTENSION
 extension DropdownMenuBuilder: ListDelegate {
     public func numberOfSections(_ list: ListBuilder) -> Int {
-        1
+        dropdownMenuItems?.get.count ?? 0
     }
     
     public func numberOfRows(_ list: ListBuilder, section: Int) -> Int {
-        5
+        dropdownMenuItems?.get[section].rows.count ?? 0
     }
     
     public func sectionViewCallback(_ list: ListBuilder, section: Int) -> UIView? {
@@ -267,7 +267,7 @@ extension DropdownMenuBuilder: ListDelegate {
     }
     
     public func rowViewCallBack(_ list: ListBuilder, section: Int, row: Int) -> Any {
-        return dropdownMenuItems?.get[0].rows[row] ?? UIView()
+        return dropdownMenuItems?.get[section].rows[row] ?? UIView()
     }
     
     
