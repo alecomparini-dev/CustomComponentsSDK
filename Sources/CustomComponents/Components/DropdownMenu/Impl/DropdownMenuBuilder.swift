@@ -62,8 +62,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 //  MARK: - POPULATE DATA
     
     @discardableResult
-    public func setDropdownMenuItems(_ build: (_ build: DropdownMenuItemsBuilder) -> DropdownMenuItemsBuilder) -> Self {
-        dropdownMenuItems = build(DropdownMenuItemsBuilder())
+    public func setDropdownMenuItems(_ items: DropdownMenuItemsBuilder) -> Self {
+        dropdownMenuItems = items
         print(dropdownMenuItems ?? "")
         return self
     }
