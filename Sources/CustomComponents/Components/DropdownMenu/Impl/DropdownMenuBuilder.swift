@@ -108,6 +108,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         configAutoCloseDropdownMenu()
         
+        configList()
+        
         isApplyOnce = true
     }
     
@@ -187,6 +189,30 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     
+    private func configList() {
+        addListOnDropdowMenu()
+        configConstraintsList()
+        configDelegate()
+    }
+    
+    
+    private func addListOnDropdowMenu() {
+        dropdownMenuList?.add(insideTo: dropdownMenu)
+    }
+    
+    private func configConstraintsList() {
+        dropdownMenuList?.setAutoLayout({ build in
+            build.pin.equalToSuperview()
+                .apply()
+        })
+    }
+    
+    private func configDelegate() {
+        dropdownMenuList?.setDelegate(self)
+    }
+    
+    
+    
 //  MARK: - ANIMATIONS AREA
     private func showAnimation(_ completion: (() -> Void)? = nil) {
         configStartAnimation()
@@ -222,5 +248,27 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
             }
         }
     }
+    
+}
+
+
+//  MARK: - EXTENSION
+extension DropdownMenuBuilder: ListDelegate {
+    public func numberOfSections(_ list: ListBuilder) -> Int {
+        1
+    }
+    
+    public func numberOfRows(_ list: ListBuilder, section: Int) -> Int {
+        5
+    }
+    
+    public func sectionViewCallback(_ list: ListBuilder, section: Int) -> UIView? {
+        nil
+    }
+    
+    public func rowViewCallBack(_ list: ListBuilder, section: Int, row: Int) -> Any {
+        return dropdownMenuItems?.get[0].rows[row] ?? UIView()
+    }
+    
     
 }
