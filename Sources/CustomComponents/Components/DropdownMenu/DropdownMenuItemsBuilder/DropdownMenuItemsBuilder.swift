@@ -19,6 +19,7 @@ public class DropdownMenuItemsBuilder {
 //  MARK: - SET PROPORTIES
     @discardableResult
     public func setSection(_ sectionView:  ViewBuilder) -> Self {
+        section = sectionView
         items.updateValue([], forKey: sectionView)
         rows = []
         return self
