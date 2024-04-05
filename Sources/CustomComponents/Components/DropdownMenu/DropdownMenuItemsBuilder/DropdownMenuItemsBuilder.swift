@@ -38,8 +38,8 @@ public class DropdownMenuItemsBuilder {
     }
     
     @discardableResult
-    public func setRow(_ view: ViewBuilder) -> Self {
-        rows.append(view)
+    public func setOnlyRows(_ view: [ViewBuilder]) -> Self {
+        rows = view
         return self
     }
     
