@@ -193,8 +193,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         addListOnDropdowMenu()
         configConstraintsList()
         configDelegate()
+        dropdownMenuList?.show()
     }
-    
     
     private func addListOnDropdowMenu() {
         dropdownMenuList?.add(insideTo: dropdownMenu)
@@ -202,7 +202,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private func configConstraintsList() {
         dropdownMenuList?.setAutoLayout({ build in
-            build.pin.equalToSuperview()
+            build.pin.equalToSuperview(2)
                 .apply()
         })
     }
