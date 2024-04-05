@@ -6,7 +6,8 @@ import UIKit
 open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     public var get: ViewBuilder { dropdownMenu }
-    
+
+    private var animationDuration: TimeInterval = 1
     private var isApplyOnce = false
     private var zPosition: CGFloat = 10000
     private var isVisible = false
@@ -54,15 +55,17 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public func show() {
         isVisible = true
         applyOnce()
-        showAnimation {
-        }
-        
+        showAnimation()
     }
     
     public func hide() {
         isVisible = false
-        dropdownMenu.setHidden(true)
-        overlay?.setHidden(true)
+        hideAnimation { [weak self] in
+            guard let self else {return }
+            dropdownMenu.setHidden(true)
+            overlay?.setHidden(true)
+        }
+        
     }
     
     private func applyOnce() {
@@ -164,25 +167,35 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     
 //  MARK: - ANIMATIONS AREA
-    private func showAnimation(_ completion: @escaping () -> Void) {
+    private func showAnimation(_ completion: (() -> Void)? = nil) {
         dropdownMenu.setAlpha(0)
         overlay?.setAlpha(0)
         dropdownMenu.setHidden(false)
         overlay?.setHidden(false)
-        
         UIView.animate(withDuration: 1) { [weak self] in
             guard let self else {return}
             dropdownMenu.get.alpha = 1
             overlay?.get.alpha = 1
         } completion: { bool in
             if bool {
-                completion()
+                completion?()
             }
         }
     }
     
-    private func hideAnimation() {
-        
+    private func hideAnimation(_ completion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: 1) { [weak self] in
+            guard let self else {return}
+            dropdownMenu.get.alpha = 0
+            overlay?.get.alpha = 0
+        } completion: { [weak self] bool in
+            guard let self else {return}
+            if bool {
+                dropdownMenu.setHidden(true)
+                overlay?.setHidden(true)
+                completion?()
+            }
+        }
     }
     
 }
