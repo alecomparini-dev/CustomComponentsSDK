@@ -32,8 +32,9 @@ public class DropdownMenuItemsBuilder {
     
     @discardableResult
     public func setRow(_ rowView:  ViewBuilder) -> Self {
-        var items = self.items.last
-        items?.rows.append(rowView)
+        if var items = self.items.last {
+            items.rows.append(rowView)
+        }
         return self
     }
 
