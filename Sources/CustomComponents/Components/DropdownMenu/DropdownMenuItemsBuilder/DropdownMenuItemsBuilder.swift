@@ -3,16 +3,21 @@
 
 import UIKit
 
+class Items {
+    let section: ViewBuilder
+    var rows: [ViewBuilder]
+    
+    init(section: ViewBuilder, rows: [ViewBuilder] = []) {
+        self.section = section
+        self.rows = rows
+    }
+    
+}
+
+
 
 public class DropdownMenuItemsBuilder {
     
-    struct Items {
-        let section: ViewBuilder
-        var rows: [ViewBuilder]
-    }
-    
-    private var section: ViewBuilder?
-    private var rows: [ViewBuilder] = []
     private var items: [Items] = []
     
     public init() {  }
@@ -25,16 +30,15 @@ public class DropdownMenuItemsBuilder {
 //  MARK: - SET PROPORTIES
     @discardableResult
     public func setSection(_ sectionView:  ViewBuilder) -> Self {
-        let items = Items(section: sectionView, rows: [])
-        self.items.append(items)
+        let item = Items(section: sectionView, rows: [])
+        items.append(item)
         return self
     }
     
     @discardableResult
     public func setRow(_ rowView:  ViewBuilder) -> Self {
-        if var items = self.items.last {
-            items.rows.append(rowView)
-        }
+        let item = items[items.count-1]
+        item.rows.append(rowView)
         return self
     }
 
