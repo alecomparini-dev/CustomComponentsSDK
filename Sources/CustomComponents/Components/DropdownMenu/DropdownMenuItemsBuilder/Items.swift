@@ -3,7 +3,7 @@
 
 import Foundation
 
-struct Items {
+class DropdownMenuItems {
     let section: ViewBuilder
     var rows: [ViewBuilder]
     
