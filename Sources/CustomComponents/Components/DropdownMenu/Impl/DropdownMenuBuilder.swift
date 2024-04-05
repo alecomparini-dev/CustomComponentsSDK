@@ -43,7 +43,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     @discardableResult
-    public func setOverlay(style: UIBlurEffect.Style, opacity: CGFloat = 1) -> Self {
+    public func setOverlay(style: UIBlurEffect.Style, opacity: CGFloat = 0.5) -> Self {
         overlay = BlurBuilder(style: style)
             .setOpacity(opacity)
         return self
