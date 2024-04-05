@@ -3,7 +3,7 @@
 
 import Foundation
 
-class Items {
+struct Items {
     let section: ViewBuilder
     var rows: [ViewBuilder]
     
