@@ -17,6 +17,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var excludeComponents = [UIView]()
     private var tap: TapGestureBuilder?
     
+    private var dropdownMenuList: ListBuilder?
     private var dropdownMenuItems: DropdownMenuItemsBuilder?
     
     
@@ -58,12 +59,20 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         return self
     }
     
+    
+//  MARK: - CONFIG LIST
+    @discardableResult
+    public func setConfigList(_ build: (_ build: ListBuilder) -> ListBuilder) -> Self {
+        dropdownMenuList = build(ListBuilder(style: .plain))
+        return self
+    }
+    
+    
 //  MARK: - POPULATE DATA
     
     @discardableResult
-    public func setDropdownMenuItems(_ build: (_ build: DropdownMenuItemsBuilder) -> DropdownMenuItemsBuilder) -> Self {
+    public func setPopulateItems(_ build: (_ build: DropdownMenuItemsBuilder) -> DropdownMenuItemsBuilder) -> Self {
         dropdownMenuItems = build(DropdownMenuItemsBuilder())
-        print(dropdownMenuItems?.get ?? "")
         return self
     }
     
@@ -86,6 +95,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
     }
     
+    
+//  MARK: - PRIVATE AREA
     private func applyOnce() {
         if isApplyOnce {return}
         
@@ -100,8 +111,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         isApplyOnce = true
     }
     
-    
-//  MARK: - PRIVATE AREA
     private func configure() {
         hide()
     }
@@ -136,7 +145,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         excludeComponents.forEach { comp in
             superview.bringSubviewToFront(comp)
         }
-        
     }
     
     private func configAutoCloseDropdownMenu() {
@@ -151,19 +159,14 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private func verifyTappedOutMenu(_ tap: TapGestureBuilder?) {
         if isShow() {
-            if isTappedOut(tap) {
-                hide()
-            }
+            if isTappedOut(tap) { hide() }
         }
     }
     
     private func isTappedOut(_ tap: TapGestureBuilder?) -> Bool {
         guard let tap else {return false}
-        
         let touchPoint = tap.getTouchPosition(.superview)
-        
         if isTappedOutDropdownMenu(touchPoint) && isTappedOutExcludeComponents(touchPoint) { return true }
-        
         return false
     }
     
