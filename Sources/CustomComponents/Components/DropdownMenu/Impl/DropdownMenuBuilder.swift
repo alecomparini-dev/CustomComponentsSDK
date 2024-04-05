@@ -43,14 +43,14 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     @discardableResult
-    public func setOverlay(style: UIBlurEffect.Style, opacity: CGFloat = 0.5) -> Self {
+    public func setOverlay(style: UIBlurEffect.Style, opacity: CGFloat = 1) -> Self {
         overlay = BlurBuilder(style: style)
             .setOpacity(opacity)
         return self
     }
     
     @discardableResult
-    public func setAnimation(_ duration: TimeInterval = 1) -> Self {
+    public func setAnimation(_ duration: TimeInterval = 0.5) -> Self {
         animationDuration = duration
         return self
     }
