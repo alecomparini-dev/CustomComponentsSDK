@@ -17,7 +17,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var excludeComponents = [UIView]()
     private var tap: TapGestureBuilder?
     
-    private var dropdownMenuItems: DropdownMenuItemsBuilder?
+    private var dropdownMenuItems: [DropdownMenuItemsBuilder] = []
     
     
     
@@ -63,8 +63,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     @discardableResult
     public func setDropdownMenuItems(_ build: (_ build: DropdownMenuItemsBuilder) -> DropdownMenuItemsBuilder) -> Self {
-        dropdownMenuItems = build(DropdownMenuItemsBuilder())
-        print(dropdownMenuItems ?? "")
+        let dropdownMenuItems = build(DropdownMenuItemsBuilder())
+        self.dropdownMenuItems.append(dropdownMenuItems)
+        print(dropdownMenuItems)
         return self
     }
     

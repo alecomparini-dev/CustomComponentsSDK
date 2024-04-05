@@ -3,44 +3,24 @@
 
 import UIKit
 
-public class SectionBuilder {
-    private(set) var section: ViewBuilder?
-    private(set) var rows: [ViewBuilder] = []
-
-    public init() {}
-    
-    public func setSection(_ view: ViewBuilder) -> Self {
-        section = view
-        return self
-    }
-    
-    public func setRow(_ view: ViewBuilder) -> Self {
-        rows.append(view)
-        return self
-    }
-    
-}
-
-
 public class DropdownMenuItemsBuilder {
     
-    public var sections: [SectionBuilder] = []
-    public var rows: [ViewBuilder] = []
+    private(set) var section: ViewBuilder?
+    private(set) var rows: [ViewBuilder] = []
     
     public init() {  }
     
-    
     @discardableResult
-    public func setSection(_ build: (_ build: SectionBuilder) -> SectionBuilder) -> Self {
-        let section = build(SectionBuilder())
-        sections.append(section)
+    public func setSection(_ sectionView:  ViewBuilder) -> Self {
+        section = sectionView
         return self
     }
     
     @discardableResult
-    public func setOnlyRows(_ view: [ViewBuilder]) -> Self {
-        rows = view
+    public func setRow(_ rowView:  ViewBuilder) -> Self {
+        rows.append(rowView)
         return self
     }
-    
+
+        
 }
