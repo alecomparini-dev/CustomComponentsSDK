@@ -3,7 +3,8 @@
 
 import UIKit
 
-class Items {
+
+struct Items {
     let section: ViewBuilder
     var rows: [ViewBuilder]
     
@@ -13,7 +14,6 @@ class Items {
     }
     
 }
-
 
 
 public class DropdownMenuItemsBuilder {
@@ -37,7 +37,7 @@ public class DropdownMenuItemsBuilder {
     
     @discardableResult
     public func setRow(_ rowView:  ViewBuilder) -> Self {
-        let item = items[items.count-1]
+        var item = items[items.count-1]
         item.rows.append(rowView)
         return self
     }
