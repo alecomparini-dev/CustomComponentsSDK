@@ -17,6 +17,10 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var excludeComponents = [UIView]()
     private var tap: TapGestureBuilder?
     
+    private var dropdownMenuItems: DropdownMenuItemsBuilder?
+    
+    
+    
     
 //  MARK: - INITIALIZERS
     
@@ -52,6 +56,15 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     @discardableResult
     public func setAnimation(_ duration: TimeInterval = 0.5) -> Self {
         animationDuration = duration
+        return self
+    }
+    
+//  MARK: - POPULATE DATA
+    
+    @discardableResult
+    public func setDropdownMenuItems(_ build: (_ build: DropdownMenuItemsBuilder) -> DropdownMenuItemsBuilder) -> Self {
+        dropdownMenuItems = build(DropdownMenuItemsBuilder())
+        print(dropdownMenuItems ?? "")
         return self
     }
     
