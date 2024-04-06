@@ -7,11 +7,13 @@ class DropdownMenuFooterView: ViewBuilder {
     
     private(set) var heightAnchorConst: NSLayoutConstraint!
     
+    private let height: CGFloat
+    
     init(height: CGFloat) {
-        heightAnchorConst.constant = height
+        self.height = height
         super.init()
         configure()     
-//        self.setBackgroundColor(.purple)
+        self.setBackgroundColor(.white)
     }
     
     
@@ -28,7 +30,7 @@ class DropdownMenuFooterView: ViewBuilder {
     }
     
     private func configConstraints() {
-        heightAnchorConst = self.get.heightAnchor.constraint(equalToConstant: 50)
+        heightAnchorConst = self.get.heightAnchor.constraint(equalToConstant: height)
         self
             .setAutoLayout { build in
                 build
