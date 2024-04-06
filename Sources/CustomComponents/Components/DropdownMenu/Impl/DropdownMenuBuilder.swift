@@ -19,6 +19,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private var dropdownMenuList: ListBuilder?
     private var dropdownMenuItems: DropdownMenuItemsBuilder?
+    private var dropdownMenuFooterView: ViewBuilder?
+    private var heightFooterView: CGFloat = 0
     
     
     
@@ -60,8 +62,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
 
     @discardableResult
-    public func setFooterView(height: CGFloat, _ duration: TimeInterval = 0.5) -> Self {
-        animationDuration = duration
+    public func setConfigFooterView(height: CGFloat, _ view: ViewBuilder) -> Self {
+        dropdownMenuFooterView = view
+        heightFooterView = height
         return self
     }
 
@@ -221,9 +224,19 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     
     private func configFooterView() {
-        let footerView = DropdownMenuFooterView()
+        let footerView = DropdownMenuFooterView(height: heightFooterView)
         footerView.add(insideTo: dropdownMenu)
         footerView.applyLayout()
+        
+        guard let dropdownMenuFooterView else {return}
+        dropdownMenuFooterView.add(insideTo: footerView)
+        dropdownMenuFooterView.setAutoLayout { build in
+            build.pin.equalToSuperview()
+                .apply()
+        }
+        
+        
+        
     }
     
     

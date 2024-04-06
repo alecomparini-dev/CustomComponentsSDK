@@ -7,11 +7,11 @@ class DropdownMenuFooterView: ViewBuilder {
     
     private(set) var heightAnchorConst: NSLayoutConstraint!
     
-    override init() {
+    init(height: CGFloat) {
+        heightAnchorConst.constant = height
         super.init()
-        configure()
-        
-        self.setBackgroundColor(.purple)
+        configure()     
+//        self.setBackgroundColor(.purple)
     }
     
     
