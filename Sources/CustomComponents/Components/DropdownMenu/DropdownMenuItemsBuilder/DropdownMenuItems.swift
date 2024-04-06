@@ -4,10 +4,10 @@
 import Foundation
 
 class DropdownMenuItems {
-    let section: ViewBuilder
-    var rows: [ViewBuilder]
+    let section: BaseBuilder
+    var rows: [BaseBuilder]
     
-    init(section: ViewBuilder, rows: [ViewBuilder] = []) {
+    init(section: BaseBuilder, rows: [BaseBuilder] = []) {
         self.section = section
         self.rows = rows
     }
