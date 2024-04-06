@@ -19,7 +19,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private var dropdownMenuList: ListBuilder?
     private var dropdownMenuItems: DropdownMenuItemsBuilder?
-    private var dropdownMenuFooterView: ViewBuilder?
+
+    private var dropdownMenuFooterView: DropdownMenuFooterView!
+    private var footerView: BaseBuilder?
     private var heightFooterView: CGFloat = 0
     
     
@@ -60,14 +62,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         animationDuration = duration
         return self
     }
-
-    @discardableResult
-    public func setConfigFooterView(height: CGFloat, _ view: ViewBuilder) -> Self {
-        dropdownMenuFooterView = view
-        heightFooterView = height
-        return self
-    }
-
     
 //  MARK: - CONFIG LIST
     @discardableResult
@@ -84,7 +78,16 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         dropdownMenuItems = build(DropdownMenuItemsBuilder())
         return self
     }
+
     
+//  MARK: - CONFIG FOOTER VIEW
+    @discardableResult
+    public func setConfigFooterView(height: CGFloat, _ view: ViewBuilder) -> Self {
+        footerView = view
+        heightFooterView = height
+        return self
+    }
+
 
 //  MARK: - SHOW and HIDE
     
@@ -116,10 +119,10 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         configHierarchyVisualization()
         
         configAutoCloseDropdownMenu()
+
+        configFooterView()
         
         configList()
-        
-        configFooterView()
         
         isApplyOnce = true
     }
@@ -199,6 +202,18 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         return isTappedOut
     }
     
+    private func configFooterView() {
+        dropdownMenuFooterView = DropdownMenuFooterView(height: heightFooterView)
+        dropdownMenuFooterView.add(insideTo: dropdownMenu)
+        dropdownMenuFooterView.applyLayout()
+        
+        guard let footerView else {return}
+        footerView.add(insideTo: dropdownMenuFooterView)
+        footerView.setAutoLayout { build in
+            build.pin.equalToSuperview()
+                .apply()
+        }
+    }
     
     private func configList() {
         addListOnDropdowMenu()
@@ -213,7 +228,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private func configConstraintsList() {
         dropdownMenuList?.setAutoLayout({ build in
-            build.pin.equalToSuperview()
+            build
+                .pinTop.equalToSuperview()
+                .bottom.equalTo(dropdownMenuFooterView.get, .top)
                 .apply()
         })
     }
@@ -222,22 +239,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         dropdownMenuList?.setDelegate(self)
     }
     
-    
-    private func configFooterView() {
-        let footerView = DropdownMenuFooterView(height: heightFooterView)
-        footerView.add(insideTo: dropdownMenu)
-        footerView.applyLayout()
-        
-        guard let dropdownMenuFooterView else {return}
-        dropdownMenuFooterView.add(insideTo: footerView)
-        dropdownMenuFooterView.setAutoLayout { build in
-            build.pin.equalToSuperview()
-                .apply()
-        }
-        
-        
-        
-    }
     
     
 //  MARK: - ANIMATIONS AREA
