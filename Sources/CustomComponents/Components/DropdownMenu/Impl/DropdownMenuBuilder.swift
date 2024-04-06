@@ -202,7 +202,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private func configConstraintsList() {
         dropdownMenuList?.setAutoLayout({ build in
-            build.pin.equalToSuperview(2)
+            build.pin.equalToSuperview()
                 .apply()
         })
     }
