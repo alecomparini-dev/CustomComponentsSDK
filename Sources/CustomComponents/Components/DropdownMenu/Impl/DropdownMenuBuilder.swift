@@ -62,8 +62,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
 //  MARK: - CONFIG LIST
     @discardableResult
-    public func setConfigList(_ build: (_ build: ListBuilder) -> ListBuilder) -> Self {
-        dropdownMenuList = build(ListBuilder(style: .plain))
+    public func setConfigList(style: K.List.Style = .grouped, _ build: (_ build: ListBuilder) -> ListBuilder) -> Self {
+        dropdownMenuList = build(ListBuilder(style: UITableView.Style(rawValue: style.rawValue) ?? .grouped  ))
         return self
     }
     
