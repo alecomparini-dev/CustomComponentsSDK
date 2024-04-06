@@ -221,9 +221,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     
     private func configFooterView() {
-        
         let footerView = DropdownMenuFooterView()
-        
+        footerView.add(insideTo: dropdownMenu)
+        footerView.applyLayout()
     }
     
     
