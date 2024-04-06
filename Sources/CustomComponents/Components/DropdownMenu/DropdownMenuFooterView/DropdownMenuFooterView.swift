@@ -13,7 +13,6 @@ class DropdownMenuFooterView: ViewBuilder {
         self.height = height
         super.init()
         configure()     
-        self.setBackgroundColor(.white)
     }
     
     

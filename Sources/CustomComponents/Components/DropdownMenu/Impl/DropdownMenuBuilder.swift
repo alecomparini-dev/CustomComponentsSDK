@@ -20,7 +20,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var dropdownMenuList: ListBuilder?
     private var dropdownMenuItems: DropdownMenuItemsBuilder?
 
-//    private var dropdownMenuFooterView: DropdownMenuFooterView!
     private var footerView: BaseBuilder?
     private var heightFooterView: CGFloat = 0
     
