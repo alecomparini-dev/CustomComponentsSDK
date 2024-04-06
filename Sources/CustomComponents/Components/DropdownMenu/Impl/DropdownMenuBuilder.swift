@@ -20,7 +20,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var dropdownMenuList: ListBuilder?
     private var dropdownMenuItems: DropdownMenuItemsBuilder?
 
-    private var dropdownMenuFooterView: DropdownMenuFooterView!
+//    private var dropdownMenuFooterView: DropdownMenuFooterView!
     private var footerView: BaseBuilder?
     private var heightFooterView: CGFloat = 0
     
@@ -62,6 +62,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         animationDuration = duration
         return self
     }
+    
+    
     
 //  MARK: - CONFIG LIST
     @discardableResult
@@ -203,7 +205,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configFooterView() {
-        dropdownMenuFooterView = DropdownMenuFooterView(height: heightFooterView)
+        let dropdownMenuFooterView = DropdownMenuFooterView(height: heightFooterView)
         dropdownMenuFooterView.add(insideTo: dropdownMenu)
         dropdownMenuFooterView.applyLayout()
         
@@ -229,10 +231,18 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func configConstraintsList() {
         dropdownMenuList?.setAutoLayout({ build in
             build
-                .pinTop.equalToSuperview()
-                .bottom.equalTo(dropdownMenuFooterView.get, .top)
+                .pin.equalToSuperview()
                 .apply()
         })
+        
+        let padding: UIEdgeInsets!
+        padding = dropdownMenuList?.get.contentInset
+        
+        dropdownMenuList?.setPadding(top: padding.top,
+                                     left: padding.left,
+                                     bottom: padding.bottom + heightFooterView,
+                                     right: padding.right)
+        
     }
     
     private func configDelegate() {
