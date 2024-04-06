@@ -204,23 +204,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         return isTappedOut
     }
     
-    private func configFooterView() {
-        let dropdownMenuFooterView = DropdownMenuFooterView(height: heightFooterView)
-        dropdownMenuFooterView.add(insideTo: dropdownMenu)
-        dropdownMenuFooterView.applyLayout()
-        
-        guard let footerView else {return}
-        footerView.add(insideTo: dropdownMenuFooterView)
-        footerView.setAutoLayout { build in
-            build.pin.equalToSuperview()
-                .apply()
-        }
-    }
-    
     private func configList() {
         addListOnDropdowMenu()
         configConstraintsList()
-        configDelegate()
+        configPaddingForFooterView()
+        configDelegateList()
         dropdownMenuList?.show()
     }
     
@@ -234,21 +222,35 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
                 .pin.equalToSuperview()
                 .apply()
         })
+    }
+    
+    private func configPaddingForFooterView() {
+        guard let dropdownMenuList, heightFooterView != 0 else {return}
         
-        let padding: UIEdgeInsets!
-        padding = dropdownMenuList?.get.contentInset
-        
-        dropdownMenuList?.setPadding(top: padding.top,
+        let padding: UIEdgeInsets = dropdownMenuList.get.contentInset
+
+        dropdownMenuList.setPadding(top: padding.top,
                                      left: padding.left,
                                      bottom: padding.bottom + heightFooterView + 4,
                                      right: padding.right)
-        
     }
     
-    private func configDelegate() {
+    private func configDelegateList() {
         dropdownMenuList?.setDelegate(self)
     }
     
+    private func configFooterView() {
+        let dropdownMenuFooterView = DropdownMenuFooterView(height: heightFooterView)
+        dropdownMenuFooterView.add(insideTo: dropdownMenu)
+        dropdownMenuFooterView.applyLayout()
+        
+        guard let footerView else {return}
+        footerView.add(insideTo: dropdownMenuFooterView)
+        footerView.setAutoLayout { build in
+            build.pin.equalToSuperview()
+                .apply()
+        }
+    }
     
     
 //  MARK: - ANIMATIONS AREA
