@@ -122,9 +122,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         configAutoCloseDropdownMenu()
 
-        configFooterView()
-        
         configList()
+        
+        configFooterView()
         
         isApplyOnce = true
     }
@@ -240,7 +240,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         dropdownMenuList?.setPadding(top: padding.top,
                                      left: padding.left,
-                                     bottom: padding.bottom + heightFooterView,
+                                     bottom: padding.bottom + heightFooterView + 4,
                                      right: padding.right)
         
     }
