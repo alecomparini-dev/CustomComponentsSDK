@@ -58,7 +58,13 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         animationDuration = duration
         return self
     }
-    
+
+    @discardableResult
+    public func setFooterView(height: CGFloat, _ duration: TimeInterval = 0.5) -> Self {
+        animationDuration = duration
+        return self
+    }
+
     
 //  MARK: - CONFIG LIST
     @discardableResult
@@ -109,6 +115,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         configAutoCloseDropdownMenu()
         
         configList()
+        
+        configFooterView()
         
         isApplyOnce = true
     }
@@ -211,6 +219,12 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         dropdownMenuList?.setDelegate(self)
     }
     
+    
+    private func configFooterView() {
+        
+        let footerView = DropdownMenuFooterView()
+        
+    }
     
     
 //  MARK: - ANIMATIONS AREA
