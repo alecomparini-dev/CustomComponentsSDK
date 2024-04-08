@@ -315,8 +315,7 @@ extension DropdownMenuBuilder: ListDelegate {
     }
     
     public func sectionViewCallback(_ list: ListBuilder, section: Int) -> UIView? {
-//        dropdownMenuItems?.get[section].section.baseView
-        nil
+        return dropdownMenuItems?.get[section].section.baseView
     }
     
     public func rowViewCallBack(_ list: ListBuilder, section: Int, row: Int) -> Any {

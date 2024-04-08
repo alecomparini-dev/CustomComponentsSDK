@@ -284,7 +284,7 @@ extension ListBuilder: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+
         if let view = delegate?.sectionViewCallback(self, section: section) {
             let cell = ListCell()
             cell.setupCell(view)
