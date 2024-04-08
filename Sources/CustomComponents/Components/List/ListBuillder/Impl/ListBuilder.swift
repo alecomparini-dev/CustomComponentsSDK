@@ -283,8 +283,11 @@ extension ListBuilder: UITableViewDataSource {
         return delegate.numberOfRows(self, section: section)
     }
     
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        nil
+    }
+    
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
         if let view = delegate?.sectionViewCallback(self, section: section) {
             let cell = ListCell()
             cell.setupCell(view)
