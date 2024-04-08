@@ -284,7 +284,9 @@ extension ListBuilder: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        nil
+        let view = UIView()
+        view.setBackgroundColor(.clear)
+        return view
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
