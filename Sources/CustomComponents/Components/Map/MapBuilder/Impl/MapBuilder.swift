@@ -321,6 +321,7 @@ extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         debugPrint("Localization error: \(error.localizedDescription)")
+        mapBuilderOutput?.loadingMapError(error.localizedDescription)
     }
     
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

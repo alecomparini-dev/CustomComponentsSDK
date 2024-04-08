@@ -7,4 +7,7 @@ public protocol MapBuilderOutput: AnyObject {
     func finishLoadingMap()
     
     func localizationNotAuthorized()
+    
+    func loadingMapError(_ error: String)
+    
 }
