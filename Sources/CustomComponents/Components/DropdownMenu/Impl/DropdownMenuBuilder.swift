@@ -125,6 +125,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         configFooterView()
         
+        configDelegateList()
+        
         isApplyOnce = true
     }
     
@@ -206,7 +208,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func configList() {
         addListOnDropdowMenu()
         configConstraintsList()
-        configDelegateList()
         dropdownMenuList?.show()
     }
     
