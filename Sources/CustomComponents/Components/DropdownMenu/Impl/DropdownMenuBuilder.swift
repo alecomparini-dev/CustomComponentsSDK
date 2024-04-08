@@ -206,7 +206,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func configList() {
         addListOnDropdowMenu()
         configConstraintsList()
-        configPaddingForFooterView()
         configDelegateList()
         dropdownMenuList?.show()
     }
@@ -223,26 +222,25 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         })
     }
     
-    private func configPaddingForFooterView() {
-        guard let dropdownMenuList, heightFooterView != 0 else {return}
-        
-        let padding: UIEdgeInsets = dropdownMenuList.get.contentInset
-
-        dropdownMenuList.setPadding(top: padding.top,
-                                     left: padding.left,
-                                     bottom: padding.bottom + heightFooterView + 4,
-                                     right: padding.right)
-    }
-    
     private func configDelegateList() {
         dropdownMenuList?.setDelegate(self)
     }
+
     
     private func configFooterView() {
+        let dropdownMenuFooterView = createDropdownMenuFooterView()
+        addFooterViewOnDropdownMenuFooterView(dropdownMenuFooterView)
+        configPaddingForFooterView()
+    }
+    
+    private func createDropdownMenuFooterView() -> DropdownMenuFooterView {
         let dropdownMenuFooterView = DropdownMenuFooterView(height: heightFooterView)
         dropdownMenuFooterView.add(insideTo: dropdownMenu)
         dropdownMenuFooterView.applyLayout()
-        
+        return dropdownMenuFooterView
+    }
+    
+    private func addFooterViewOnDropdownMenuFooterView(_ dropdownMenuFooterView: DropdownMenuFooterView) {
         guard let footerView else {return}
         footerView.add(insideTo: dropdownMenuFooterView)
         footerView.setAutoLayout { build in
@@ -250,6 +248,20 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
                 .apply()
         }
     }
+    
+    private func configPaddingForFooterView() {
+        guard let dropdownMenuList, heightFooterView != 0 else {return}
+        
+        let padding: UIEdgeInsets = dropdownMenuList.get.contentInset
+
+        dropdownMenuList.setPadding(top: padding.top,
+                                     left: padding.left,
+                                     bottom: padding.bottom + heightFooterView,
+                                     right: padding.right)
+    }
+
+    
+    
     
     
 //  MARK: - ANIMATIONS AREA
