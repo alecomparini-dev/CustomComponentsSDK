@@ -4,7 +4,6 @@
 import UIKit
 
 open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
-    
     public var get: ViewBuilder { dropdownMenu }
 
     private var animationDuration: TimeInterval = 0
@@ -14,10 +13,10 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var superview = UIView()
     private var overlay: BlurBuilder?
     private var autoCloseEnabled = false
-    private var excludeComponents = [UIView]()
+    private var excludeComponents = [BaseBuilder]()
     private var tap: TapGestureBuilder?
     
-    private var dropdownMenuList: ListBuilder?
+    private var _dropdownMenuList: ListBuilder?
     private var dropdownMenuItems: DropdownMenuItemsBuilder?
 
     private var footerView: BaseBuilder?
@@ -39,11 +38,13 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 //  MARK: - GET PROPERTIES
     public func isShow() -> Bool { isVisible }
 
+    public var dropdowMenuList: ListBuilder? { _dropdownMenuList }
+    
     
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setCloseMenuWhenTappedOut(excludeComponents: [UIView]) -> Self {
+    public func setCloseMenuWhenTappedOut(excludeComponents: [BaseBuilder]) -> Self {
         autoCloseEnabled = true
         self.excludeComponents = excludeComponents
         return self
@@ -67,13 +68,12 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 //  MARK: - CONFIG LIST
     @discardableResult
     public func setConfigList(style: K.List.Style = .grouped, _ build: (_ build: ListBuilder) -> ListBuilder) -> Self {
-        dropdownMenuList = build(ListBuilder(style: UITableView.Style(rawValue: style.rawValue) ?? .grouped  ))
+        _dropdownMenuList = build(ListBuilder(style: UITableView.Style(rawValue: style.rawValue) ?? .grouped  ))
         return self
     }
     
     
 //  MARK: - POPULATE DATA
-    
     @discardableResult
     public func setPopulateItems(_ build: (_ build: DropdownMenuItemsBuilder) -> DropdownMenuItemsBuilder) -> Self {
         dropdownMenuItems = build(DropdownMenuItemsBuilder())
@@ -154,7 +154,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         overlay?.get.layer.zPosition = zPosition
         dropdownMenu.get.layer.zPosition = zPosition + 1
         excludeComponents.forEach { comp in
-            comp.layer.zPosition = self.zPosition + 1
+            comp.baseView.layer.zPosition = self.zPosition + 1
         }
         bringToFront()
     }
@@ -162,7 +162,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func bringToFront() {
         superview.bringSubviewToFront(dropdownMenu.get)
         excludeComponents.forEach { comp in
-            superview.bringSubviewToFront(comp)
+            superview.bringSubviewToFront(comp.baseView)
         }
     }
     
@@ -197,7 +197,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func isTappedOutExcludeComponents(_ touchPoint: CGPoint) -> Bool {
         var isTappedOut = true
         excludeComponents.forEach { comp in
-            if comp.frame.contains(touchPoint) {
+            if comp.baseView.frame.contains(touchPoint) {
                 isTappedOut = false
                 return
             }
@@ -208,15 +208,15 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func configList() {
         addListOnDropdowMenu()
         configConstraintsList()
-        dropdownMenuList?.show()
+        _dropdownMenuList?.show()
     }
     
     private func addListOnDropdowMenu() {
-        dropdownMenuList?.add(insideTo: dropdownMenu)
+        _dropdownMenuList?.add(insideTo: dropdownMenu)
     }
     
     private func configConstraintsList() {
-        dropdownMenuList?.setAutoLayout({ build in
+        _dropdownMenuList?.setAutoLayout({ build in
             build
                 .pin.equalToSuperview()
                 .apply()
@@ -224,7 +224,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configDelegateList() {
-        dropdownMenuList?.setDelegate(self)
+        _dropdownMenuList?.setDelegate(self)
     }
 
     
@@ -251,11 +251,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configPaddingForFooterView() {
-        guard let dropdownMenuList, heightFooterView != 0 else {return}
+        guard let _dropdownMenuList, heightFooterView != 0 else {return}
         
-        let padding: UIEdgeInsets = dropdownMenuList.get.contentInset
+        let padding: UIEdgeInsets = _dropdownMenuList.get.contentInset
 
-        dropdownMenuList.setPadding(top: padding.top,
+        _dropdownMenuList.setPadding(top: padding.top,
                                      left: padding.left,
                                      bottom: padding.bottom + heightFooterView,
                                      right: padding.right)
