@@ -128,6 +128,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         configDelegateList()
         
+        _dropdownMenuList?.show()
+        
         isApplyOnce = true
     }
     
@@ -205,7 +207,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func configList() {
         addListOnDropdowMenu()
         configConstraintsList()
-        _dropdownMenuList?.show()
     }
     
     private func addListOnDropdowMenu() {
