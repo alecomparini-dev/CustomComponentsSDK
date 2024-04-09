@@ -33,7 +33,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public init() {
         dropdownMenu = ViewBuilder()
         super.init(dropdownMenu.get)
-        configure()
     }
 
     
@@ -130,10 +129,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         configDelegateList()
         
         isApplyOnce = true
-    }
-    
-    private func configure() {
-        hide()
     }
     
     private func getSuperview() {
