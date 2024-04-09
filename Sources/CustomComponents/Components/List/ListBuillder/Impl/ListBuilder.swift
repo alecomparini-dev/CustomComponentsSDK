@@ -179,7 +179,7 @@ open class ListBuilder: BaseBuilder, List {
         self.delegate = delegate
         return self
     }
-    
+
     
 //  MARK: - ACTIONS AREA
     public func show() {
@@ -228,6 +228,18 @@ open class ListBuilder: BaseBuilder, List {
         let indexPath = IndexPath(row: row, section: section)
         list.deselectRow(at: indexPath, animated: true)
         delegate?.didDeselectItemAt(self, section, row)
+    }
+    
+    
+//  MARK: - PUBLIC AREA
+    public func gotoFirstRow() {
+        list.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+    }
+    
+    public func gotoLastRow() {
+        let countSection = delegate?.numberOfSections(self) ?? 0
+        let countRow = delegate?.numberOfRows(self, section: countSection) ?? 0
+        list.scrollToRow(at: IndexPath(row: countRow, section: countSection), at: .bottom, animated: true)
     }
     
 
@@ -311,7 +323,6 @@ extension ListBuilder: UITableViewDataSource {
         
         return cell
     }
-    
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.scrollViewDidScroll(self, scrollView)

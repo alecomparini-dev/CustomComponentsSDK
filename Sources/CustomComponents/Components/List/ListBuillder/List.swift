@@ -19,6 +19,9 @@ public protocol List {
     
     func selectItem(_ section: Int?, _ row: Int)
     
+    func gotoFirstRow()
+    func gotoLastRow()
+    
     
 //  MARK: - SET PROPERTIES
     
