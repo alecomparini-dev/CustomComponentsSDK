@@ -23,9 +23,9 @@ open class ListBuilder: BaseBuilder, List {
     private weak var delegate: ListDelegate?
     private var view: UIView?
     
-    
     public var get: UITableView { list }
     
+    private var rowsHeight: [Int : CGFloat] = [:]
     private var alreadyApplied = false
     private var listModel = ListModel()
     private var isShow = false
@@ -82,7 +82,9 @@ open class ListBuilder: BaseBuilder, List {
     
     @discardableResult
     public func setCustomRowHeight(forSection: Int, forRow: Int, _ height: CGFloat) -> Self {
-        listModel.customRowHeight.updateValue([forRow : height], forKey: forSection)
+        var values = listModel.customRowHeight[forSection] ?? [:]
+        values.updateValue(height, forKey: forRow)
+        listModel.customRowHeight.updateValue(values, forKey: forSection)
         return self
     }
     
