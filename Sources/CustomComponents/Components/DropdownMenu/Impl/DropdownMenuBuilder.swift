@@ -4,6 +4,8 @@
 import UIKit
 
 open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
+    public weak var events: DropdownMenuEvents?
+    
     public var get: ViewBuilder { dropdownMenu }
 
     private var animationDuration: TimeInterval = 0
@@ -272,9 +274,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
             guard let self else {return}
             dropdownMenu.get.alpha = 1
             overlay?.get.alpha = 1
-        } completion: { bool in
+        } completion: { [weak self] bool in
+            guard let self else {return}
             if bool {
                 completion?()
+                events?.didAppearDropdowMenu()
             }
         }
     }
@@ -297,6 +301,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
                 dropdownMenu.setHidden(true)
                 overlay?.setHidden(true)
                 completion?()
+                events?.didDisappearDropdowMenu()
             }
         }
     }
