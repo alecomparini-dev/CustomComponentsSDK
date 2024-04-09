@@ -472,7 +472,7 @@ extension K {
     }
 }
 
-//  MARK: - EXTENSION - Dock
+//  MARK: - EXTENSION - Map
 extension K {
     public struct Map {
         
@@ -482,6 +482,20 @@ extension K {
             case followWithHeading = 2
         }
 
+    }
+}
+
+
+//  MARK: - EXTENSION - List
+extension K {
+    public struct List {
+        
+        public enum Style : Int {
+            case plain = 0
+            case grouped = 1
+            case insetGrouped = 2
+        }
+        
     }
 }
 
