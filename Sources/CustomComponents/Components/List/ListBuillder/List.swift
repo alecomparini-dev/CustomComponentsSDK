@@ -6,6 +6,7 @@ import Foundation
 public protocol List {
     associatedtype T
     associatedtype C
+    associatedtype ScrollPosition
     
     var get: T { get }
     
@@ -19,8 +20,7 @@ public protocol List {
     
     func selectItem(_ section: Int?, _ row: Int)
     
-    func gotoFirstRow()
-    func gotoLastRow()
+    func gotoRow(section: Int, row: Int, scrollPosition: ScrollPosition)
     
     
 //  MARK: - SET PROPERTIES
