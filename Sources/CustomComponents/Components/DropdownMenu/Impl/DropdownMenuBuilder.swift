@@ -31,7 +31,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var dropdownMenu: ViewBuilder
         
     public init() {
-        dropdownMenu = ViewBuilder()
+        dropdownMenu = ViewBuilder().setHidden(true)
         super.init(dropdownMenu.get)
     }
 
