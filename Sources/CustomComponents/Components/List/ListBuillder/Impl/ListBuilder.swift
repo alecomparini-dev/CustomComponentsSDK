@@ -232,16 +232,10 @@ open class ListBuilder: BaseBuilder, List {
     
     
 //  MARK: - PUBLIC AREA
-    public func gotoFirstRow() {
-        list.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+    public func gotoRow(section: Int, row: Int, scrollPosition: UITableView.ScrollPosition = .top) {
+        list.scrollToRow(at: IndexPath(row: row, section: section), at: scrollPosition, animated: true)
     }
-    
-    public func gotoLastRow() {
-        let countSection = delegate?.numberOfSections(self) ?? 0
-        let countRow = delegate?.numberOfRows(self, section: countSection) ?? 0
-        list.scrollToRow(at: IndexPath(row: countRow, section: countSection), at: .bottom, animated: true)
-    }
-    
+        
 
 //  MARK: - PRIVATE AREA
     private func configure() {
