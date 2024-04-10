@@ -21,19 +21,19 @@ public class BoxShadowInsetBuilder: ViewBuilder {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    func setShadowOffset(top: CGFloat?, left: CGFloat?, right: CGFloat?, bottom: CGFloat?) -> Self {
+    public func setShadowOffset(top: CGFloat?, left: CGFloat?, right: CGFloat?, bottom: CGFloat?) -> Self {
         self.shadowOffset = (top ?? 0, left ?? 0, right ?? 0, bottom ?? 0)
         return self
     }
 
     @discardableResult
-    func setLightShadow(_ color: UIColor = .white, opacity: Float = 0.4) -> Self {
+    public func setLightShadow(_ color: UIColor = .white, opacity: Float = 0.4) -> Self {
         lightShadow = (color, opacity)
         return self
     }
     
     @discardableResult
-    func setDarkShadow(_ color: UIColor = .black, opacity: Float = 1) -> Self {
+    public func setDarkShadow(_ color: UIColor = .black, opacity: Float = 1) -> Self {
         darkShadow = (color, opacity)
         return self
     }
