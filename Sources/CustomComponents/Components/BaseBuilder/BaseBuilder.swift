@@ -164,17 +164,7 @@ open class BaseBuilder: NSObject {
         _ = build(ShadowBuilder(baseView))
         return self
     }
-    
-    public func applyShadow() {
-        shadow?.apply()
-        shadow = nil
-    }
-    
-    public func applyShadowLayer() {
-        shadow?.applyLayer()
-        shadow = nil
-    }
-    
+
     
 //  MARK: - GRADIENT
     @discardableResult
