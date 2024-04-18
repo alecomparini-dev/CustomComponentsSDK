@@ -8,11 +8,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     public var get: ViewBuilder { dropdownMenu }
 
+    private weak var superview: UIView?
     private var animationDuration: TimeInterval = 0
     private var isApplyOnce = false
     private var zPosition: CGFloat = 10000
     private var isVisible = false
-    private var superview = UIView()
     private var overlay: BlurBuilder?
     private var autoCloseEnabled = false
     private var excludeComponents = [BaseBuilder]()
@@ -139,6 +139,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configOverlay() {
+        guard let superview = dropdownMenu.get.superview else {return}
         self.overlay?
             .setAutoLayout { build in
                 build
@@ -159,6 +160,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func bringToFront() {
+        guard let superview = dropdownMenu.get.superview else {return}
         superview.bringSubviewToFront(dropdownMenu.get)
         excludeComponents.forEach { comp in
             superview.bringSubviewToFront(comp.baseView)
@@ -166,6 +168,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configAutoCloseDropdownMenu() {
+        guard let superview = dropdownMenu.get.superview else {return}
         if autoCloseEnabled {
             _ = TapGestureBuilder(superview)
                 .setCancelsTouchesInView(false)
