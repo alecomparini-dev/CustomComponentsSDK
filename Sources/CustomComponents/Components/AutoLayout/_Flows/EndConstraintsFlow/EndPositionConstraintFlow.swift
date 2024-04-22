@@ -74,13 +74,13 @@ public class EndPositionConstraintFlow {
         return startAutoLayout
     }
     
-    public func greaterThanOrEqualToSafeArea(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
+    public func greaterThanOrEqualToSafeArea(_ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, constant: constant)
         startAutoLayout.autoLayout.typeElement = .safeArea
         return startAutoLayout
     }
     
-    public func lessThanOrEqualToSafeArea(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
+    public func lessThanOrEqualToSafeArea(_ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, constant: constant)
         startAutoLayout.autoLayout.typeElement = .safeArea
         return startAutoLayout
@@ -94,13 +94,13 @@ public class EndPositionConstraintFlow {
         return startAutoLayout
     }
     
-    public func greaterThanOrEqualToSuperview(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
+    public func greaterThanOrEqualToSuperview(_ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .greaterThanOrEqual, constant: constant)
         startAutoLayout.autoLayout.typeElement = .superview
         return startAutoLayout
     }
 
-    public func lessThanOrEqualToSuperview(_ relationElement: Any, _ constant: CGFloat = 0) -> StartAutoLayout  {
+    public func lessThanOrEqualToSuperview(_ constant: CGFloat = 0) -> StartAutoLayout  {
         Constraints(startAutoLayout).set(relationBy: .lessThanOrEqual, constant: constant)
         startAutoLayout.autoLayout.typeElement = .superview
         return startAutoLayout
