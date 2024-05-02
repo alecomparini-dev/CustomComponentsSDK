@@ -40,7 +40,7 @@ open class LabelBuilder: BaseBuilder, Label {
     }
     
     
-//  MARK: - SET Properties
+//  MARK: - SET PROPERTIES
     
     @discardableResult
     public func setText(_ text: String?) -> Self {

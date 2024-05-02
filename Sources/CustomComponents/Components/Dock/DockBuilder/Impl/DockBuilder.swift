@@ -3,28 +3,13 @@
 
 import UIKit
 
-public protocol DockDelegate: AnyObject {
-    //REQUIRED
-    func numberOfItemsCallback(_ dockBuilder: DockBuilder) -> Int
-    func cellCallback(_ dockBuilder: DockBuilder, _ index: Int) -> UIView
-    func customCellActiveCallback(_ dockBuilder: DockBuilder, _ cell: UIView) -> UIView?
-    
-    //OPTIONAL
-    func shouldSelectItemAt(_ dockBuilder: DockBuilder, _ index: Int) -> Bool
-    func didSelectItemAt(_ dockBuilder: DockBuilder, _ index: Int)
-    func didDeselectItemAt(_ dockBuilder: DockBuilder, _ index: Int)
-    func removeItem(_ dockBuilder: DockBuilder, _ index: Int)
-    func insertItem(_ dockBuilder: DockBuilder, _ index: Int)
-}
-
-
 open class DockBuilder: BaseBuilder, Dock {
     private weak var delegate: DockDelegate?
     public typealias T = UIView
     public typealias C = UICollectionView
     public typealias D = UICollectionViewCell
     
-    private var padding:(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) = (top: 0, left: 0, bottom: 0 , rigth: 0)
+    private var padding: (top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) = (top: 0, left: 0, bottom: 0 , rigth: 0)
     private var disableUserInteraction: [Int]? = []
     private var indexesSelected: Set<Int> = []
     private var isDisableUserInteraction = false
