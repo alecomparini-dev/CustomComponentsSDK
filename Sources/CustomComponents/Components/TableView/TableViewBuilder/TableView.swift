@@ -28,5 +28,10 @@ public protocol TableView {
     @discardableResult
     func setPadding(top: CGFloat?, left: CGFloat?, bottom: CGFloat?, right: CGFloat?) -> Self
     
+    @discardableResult
+    func setSectionFooterHeight(_ height: CGFloat) -> Self
     
+    @available(iOS 15.0, *)
+    @discardableResult
+    func sectionHeaderTopPadding(_ padding: CGFloat) -> Self
 }
