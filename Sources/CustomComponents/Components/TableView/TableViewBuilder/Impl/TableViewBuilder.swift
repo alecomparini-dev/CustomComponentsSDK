@@ -73,6 +73,19 @@ open class TableViewBuilder: BaseBuilder, TableView {
         return self
     }
     
+    @discardableResult
+    public func setSectionFooterHeight(_ height: CGFloat) -> Self {
+        tableView.sectionFooterHeight = height
+        return self
+    }
+    
+    @available(iOS 15.0, *)
+    @discardableResult
+    public func sectionHeaderTopPadding(_ padding: CGFloat) -> Self {
+        tableView.sectionHeaderTopPadding = padding
+        return self
+    }
+    
     
 //  MARK: - DELEGATE and DATASOURCE
 
