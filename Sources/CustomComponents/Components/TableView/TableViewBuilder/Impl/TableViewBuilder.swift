@@ -10,11 +10,11 @@ open class TableViewBuilder: BaseBuilder, TableView {
     
     private let tableView: UITableView
 
-    public init() {
-        self.tableView = UITableView()
+    public init(style: UITableView.Style = .plain) {
+        self.tableView = UITableView(frame: .null, style: style)
         super.init(tableView)
     }
-
+    
 
 //  MARK: - SET PROPERTIES
 
