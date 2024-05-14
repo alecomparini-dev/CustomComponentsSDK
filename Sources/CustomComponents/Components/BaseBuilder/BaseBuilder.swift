@@ -125,6 +125,36 @@ open class BaseBuilder: NSObject {
         guard let hide else {return self}
         baseView.isHidden = hide
         return self
+    }    
+    
+    @discardableResult
+    public func setHidden(_ hide: Bool, animated: Bool) -> Self {
+        if baseView.isHidden {
+            baseView.alpha = 0
+            baseView.isHidden = false
+            UIView.animate(withDuration: 0.3, delay: 0, animations: { [weak self] in
+                guard let self else {return}
+                baseView.alpha = 1
+            }) { [weak self] bool in
+                guard let self else {return}
+                if bool {
+                    baseView.isHidden = hide
+                }
+            }
+        } else {
+            baseView.alpha = 1
+            baseView.isHidden = false
+            UIView.animate(withDuration: 0.3, delay: 0, animations: { [weak self] in
+                guard let self else {return}
+                baseView.alpha = 0
+            }) { [weak self] bool in
+                guard let self else {return}
+                if bool {
+                    baseView.isHidden = hide
+                }
+            }
+        }
+        return self
     }
     
     @discardableResult
