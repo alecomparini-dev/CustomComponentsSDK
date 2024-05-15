@@ -69,6 +69,11 @@ open class CollectionBuilder: BaseBuilder, Collection {
         return self
     }
     
+
+    public func setRegisterCell(_ cell: AnyClass) -> Self {
+        collection.register(cell, forCellWithReuseIdentifier: String(describing: cell.self))
+        return self
+    }
     
     
     //  MARK: - SET DELEGATE

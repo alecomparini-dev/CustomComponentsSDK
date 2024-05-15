@@ -33,5 +33,8 @@ public protocol Collection: AnyObject {
     @discardableResult
     func setScrollToItem(index: Int) -> Self
 
+    @discardableResult
+    func setRegisterCell(_ cell: AnyClass) -> Self
+
     
 }
