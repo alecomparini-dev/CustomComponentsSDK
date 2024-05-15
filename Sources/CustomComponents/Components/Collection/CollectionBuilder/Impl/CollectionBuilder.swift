@@ -72,7 +72,7 @@ open class CollectionBuilder: BaseBuilder, Collection {
     
     
     //  MARK: - SET DELEGATE
-    public func setDelegate(delegate: UICollectionViewDelegate) {
+    public func setDelegate(delegate: UICollectionViewDelegateFlowLayout) {
         collection.delegate = delegate
     }
     
