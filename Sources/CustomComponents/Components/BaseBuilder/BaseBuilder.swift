@@ -237,12 +237,12 @@ open class BaseBuilder: NSObject {
     
 //  MARK: - PRIVATE AREA
     private func animatedHidden(_ hide: Bool) {
-        if baseView.isHidden {
-            baseView.alpha = 0
+        if hide {
+            baseView.alpha = 1
             baseView.isHidden = false
             UIView.animate(withDuration: 0.3, delay: 0, animations: { [weak self] in
                 guard let self else {return}
-                baseView.alpha = 1
+                baseView.alpha = 0
             }) { [weak self] bool in
                 guard let self else {return}
                 if bool {
@@ -252,17 +252,18 @@ open class BaseBuilder: NSObject {
             return
         }
         
-        baseView.alpha = 1
+        baseView.alpha = 0
         baseView.isHidden = false
         UIView.animate(withDuration: 0.3, delay: 0, animations: { [weak self] in
             guard let self else {return}
-            baseView.alpha = 0
+            baseView.alpha = 1
         }) { [weak self] bool in
             guard let self else {return}
             if bool {
                 baseView.isHidden = hide
             }
         }
+        
     }
     
 }
