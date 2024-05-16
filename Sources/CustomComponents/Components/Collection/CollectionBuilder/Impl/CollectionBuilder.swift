@@ -27,7 +27,6 @@ open class CollectionBuilder: BaseBuilder, Collection {
     
     public func getCellForItem(section: Int = 0, cell: Int) -> UICollectionViewCell? {
         let indexPath = IndexPath(row: cell, section: section)
-        setScrollToItem(section: section, cell: cell)
         let cell = collection.cellForItem(at: indexPath)
         return cell
     }
