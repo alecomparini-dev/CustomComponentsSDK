@@ -5,14 +5,16 @@ import UIKit
 
 
 open class CollectionBuilder: BaseBuilder, Collection {
-    public typealias C = UICollectionView
+    public typealias T = UICollectionView
+    public typealias C = UICollectionViewCell
+    public typealias S = UICollectionView.ScrollDirection
     
     
     //  MARK: - INITIALIZERS
-    public var get: UIView { collection }
+    public var get: T { collection }
     
     private var layout: UICollectionViewFlowLayout
-    private let collection: UICollectionView
+    private let collection: T
     
     public init() {
         self.layout = UICollectionViewFlowLayout()
@@ -20,6 +22,29 @@ open class CollectionBuilder: BaseBuilder, Collection {
         super.init(collection)
     }
     
+    
+//  MARK: - GET PROPERTIES
+    
+    public func getCellForItem(section: Int = 0, cell: Int) -> UICollectionViewCell? {
+        let indexPath = IndexPath(row: cell, section: section)
+        let cell = collection.cellForItem(at: indexPath)
+        return cell
+    }
+    
+    public func getCellSelected() -> [UICollectionViewCell] {
+        var cells = [UICollectionViewCell]()
+        
+        if let indexPaths = collection.indexPathsForSelectedItems {
+            for indexPath in indexPaths {
+                if let cell = collection.cellForItem(at: indexPath) {
+                    cells.append(cell)
+                }
+            }
+        }
+        
+        return cells
+    }
+
     
 //  MARK: - SET PROPERTIES
     
@@ -55,28 +80,38 @@ open class CollectionBuilder: BaseBuilder, Collection {
     }
        
     @discardableResult
-    public func setScrollDirection(_ direction: UICollectionView.ScrollDirection) -> Self {
+    public func setScrollDirection(_ direction: S) -> Self {
         layout.scrollDirection = direction
         return self
     }
     
     @discardableResult
-    public func setScrollToItem(index: Int) -> Self {
-        let indexPath = IndexPath(row: index, section: 0)
+    public func setSelectItem(section: Int = 0, cell: Int) -> Self {
+        let indexPath = IndexPath(row: cell, section: section)
+        collection.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        return self
+    }
+    
+    @discardableResult
+    public func setScrollToItem(section: Int = 0, cell: Int) -> Self {
+        let indexPath = IndexPath(row: cell, section: section)
         var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
         if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
         collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
         return self
     }
     
-
+    
+//  MARK: - REGISTER CELL
+    
     public func setRegisterCell(_ cell: AnyClass) -> Self {
         collection.register(cell, forCellWithReuseIdentifier: String(describing: cell.self))
         return self
     }
     
     
-    //  MARK: - SET DELEGATE
+//  MARK: - SET DELEGATE
+    
     public func setDelegate(delegate: UICollectionViewDelegateFlowLayout) {
         collection.delegate = delegate
     }

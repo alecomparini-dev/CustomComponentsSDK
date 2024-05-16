@@ -5,9 +5,16 @@ import Foundation
 
 public protocol Collection: AnyObject {
     associatedtype T
+    associatedtype C
     associatedtype S
     
     var get: T { get }
+    
+    
+//  MARK: - GET PROPERTIES
+    func getCellForItem(section: Int, cell: Int) -> C?
+    
+    func getCellSelected() -> [C]
     
     
 //  MARK: - SET PROPERTIES
@@ -31,7 +38,10 @@ public protocol Collection: AnyObject {
     func setScrollDirection(_ direction: S) -> Self
     
     @discardableResult
-    func setScrollToItem(index: Int) -> Self
+    func setScrollToItem(section: Int, cell: Int) -> Self
+    
+    @discardableResult
+    func setSelectItem(section: Int, cell: Int) -> Self
 
     @discardableResult
     func setRegisterCell(_ cell: AnyClass) -> Self
