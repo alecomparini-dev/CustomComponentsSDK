@@ -6,7 +6,7 @@ import UIKit
 open class TableViewBuilder: BaseBuilder, TableView {
     public typealias T = UITableView
     
-    public var get: UITableView { self.tableView }
+    public var get: UITableView { tableView }
     
     private let tableView: UITableView
 
