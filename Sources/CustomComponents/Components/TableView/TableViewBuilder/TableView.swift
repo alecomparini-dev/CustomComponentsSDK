@@ -5,7 +5,9 @@ import Foundation
 
 public protocol TableView {
     associatedtype T
-    var get: T { get }   
+    associatedtype S
+    
+    var get: T { get }
     
     @discardableResult
     func setSeparatorStyle( _ separatorStyle: K.SeparatorStyle) -> Self
@@ -15,6 +17,9 @@ public protocol TableView {
     
     @discardableResult
     func setScrollEnabled(_ flag: Bool) -> Self
+    
+    @discardableResult
+    func setScrollToItem(section: Int, row: Int, scrollPosition: S ) -> Self
     
     @discardableResult
     func setRegisterCell(_ cell: AnyClass ) -> Self
