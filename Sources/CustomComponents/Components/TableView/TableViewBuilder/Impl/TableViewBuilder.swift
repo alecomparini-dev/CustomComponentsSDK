@@ -5,6 +5,7 @@ import UIKit
 
 open class TableViewBuilder: BaseBuilder, TableView {
     public typealias T = UITableView
+    public typealias S = UITableView.ScrollPosition
     
     public var get: UITableView { tableView }
     
@@ -43,6 +44,13 @@ open class TableViewBuilder: BaseBuilder, TableView {
     @discardableResult
     public func setScrollEnabled(_ flag: Bool) -> Self {
         tableView.isScrollEnabled = flag
+        return self
+    }
+    
+    @discardableResult
+    public func setScrollToItem(section: Int = 0, row: Int,  scrollPosition: UITableView.ScrollPosition = .middle) -> Self {
+        let indexPath = IndexPath(item: row, section: section)
+        tableView.scrollToRow(at: indexPath, at: scrollPosition, animated: true)
         return self
     }
     
