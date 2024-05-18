@@ -53,8 +53,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     @discardableResult
     public func setOverlay(style: UIBlurEffect.Style, opacity: CGFloat = 1) -> Self {
-//        overlay = BlurBuilder(style: style)
-//            .setOpacity(opacity)
+        overlay = BlurBuilder(style: style)
+            .setOpacity(opacity)
         return self
     }
     
@@ -106,8 +106,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
             dropdownMenu.setHidden(true)
             overlay?.setHidden(true)
             events?.didDisappearDropdowMenu()
-            
-//            dropdownMenu.get.removeFromSuperview()
         }
         
     }
@@ -120,11 +118,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         getSuperview()
         
         configOverlay()
-//        
+        
         configHierarchyVisualization()
-//        
+        
 //        configAutoCloseDropdownMenu()
-//
+
         configList()
         
         configFooterView()
