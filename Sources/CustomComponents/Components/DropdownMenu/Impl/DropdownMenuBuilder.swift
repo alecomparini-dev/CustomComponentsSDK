@@ -111,7 +111,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func removeOverlay() {
-        
+        self.overlay?.get.removeFromSuperview()
     }
     
     
