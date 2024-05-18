@@ -33,8 +33,14 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public init() {
         dropdownMenu = ViewBuilder().setHidden(true)
         super.init(dropdownMenu.get)
+        configure()
     }
 
+    private func configure() {
+        getSuperview()
+        configFooterView()
+    }
+    
     
 //  MARK: - GET PROPERTIES
     public func isShow() -> Bool { isVisible }
@@ -114,7 +120,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func applyOnce() {
         if isApplyOnce {return}
         
-        getSuperview()
+//        getSuperview()
         
         configOverlay()
         
@@ -124,7 +130,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 
         configList()
         
-        configFooterView()
+//        configFooterView()
         
         configDelegateList()
         
