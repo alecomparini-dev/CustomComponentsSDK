@@ -33,6 +33,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public init() {
         dropdownMenu = ViewBuilder().setHidden(true)
         super.init(dropdownMenu.get)
+        configure()
     }
 
     
@@ -63,7 +64,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         animationDuration = duration
         return self
     }
-    
     
     
 //  MARK: - CONFIG LIST
@@ -105,12 +105,17 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
             guard let self else {return }
             dropdownMenu.setHidden(true)
             overlay?.setHidden(true)
+            events?.didDisappearDropdowMenu()
         }
         
     }
     
     
 //  MARK: - PRIVATE AREA
+    private func configure() {
+        setOverlay(style: .dark, opacity: 0)
+    }
+    
     private func applyOnce() {
         if isApplyOnce {return}
         
@@ -140,6 +145,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private func configOverlay() {
         guard let superview = dropdownMenu.get.superview else {return}
+        
         self.overlay?
             .setAutoLayout { build in
                 build
@@ -168,10 +174,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configAutoCloseDropdownMenu() {
-        guard let superview = dropdownMenu.get.superview else {return}
+        guard let overlay = overlay else {return}
         if autoCloseEnabled {
-            _ = TapGestureBuilder(superview)
-                .setCancelsTouchesInView(false)
+            _ = TapGestureBuilder(overlay.get)
+//                .setCancelsTouchesInView(false)
+                .setCancelsTouchesInView(true)
                 .setTap({ [weak self] tapGesture in
                     self?.verifyTappedOutMenu(tapGesture)
                 })
@@ -294,13 +301,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
             guard let self else {return}
             dropdownMenu.get.alpha = 0
             overlay?.get.alpha = 0
-        } completion: { [weak self] bool in
-            guard let self else {return}
+        } completion: { bool in
             if bool {
-                dropdownMenu.setHidden(true)
-                overlay?.setHidden(true)
                 completion?()
-                events?.didDisappearDropdowMenu()
             }
         }
     }

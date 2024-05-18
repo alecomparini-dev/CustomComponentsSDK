@@ -194,6 +194,7 @@ open class ListBuilder: BaseBuilder, List {
     public func hide() {
         list.setHidden(true)
         isShow = false
+        
     }
     
     public func reload() {
