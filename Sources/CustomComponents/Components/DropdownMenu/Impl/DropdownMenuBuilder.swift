@@ -65,7 +65,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     
-    
 //  MARK: - CONFIG LIST
     @discardableResult
     public func setConfigList(style: K.List.Style = .grouped, _ build: (_ build: ListBuilder) -> ListBuilder) -> Self {
@@ -121,7 +120,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         configHierarchyVisualization()
         
-//        configAutoCloseDropdownMenu()
+        configAutoCloseDropdownMenu()
 
         configList()
         
@@ -169,10 +168,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configAutoCloseDropdownMenu() {
-        guard let superview = dropdownMenu.get.superview else {return}
+        guard let overlay = overlay else {return}
         if autoCloseEnabled {
-            _ = TapGestureBuilder(superview)
-                .setCancelsTouchesInView(false)
+            _ = TapGestureBuilder(overlay.get)
+//                .setCancelsTouchesInView(false)
+                .setCancelsTouchesInView(true)
                 .setTap({ [weak self] tapGesture in
                     self?.verifyTappedOutMenu(tapGesture)
                 })
