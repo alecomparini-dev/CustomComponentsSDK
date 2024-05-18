@@ -119,19 +119,19 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         getSuperview()
         
-        configOverlay()
-        
-        configHierarchyVisualization()
-        
-        configAutoCloseDropdownMenu()
-
-        configList()
-        
-        configFooterView()
-        
-        configDelegateList()
-        
-        _dropdownMenuList?.show()
+//        configOverlay()
+//        
+//        configHierarchyVisualization()
+//        
+//        configAutoCloseDropdownMenu()
+//
+//        configList()
+//        
+//        configFooterView()
+//        
+//        configDelegateList()
+//        
+//        _dropdownMenuList?.show()
         
         isApplyOnce = true
     }
