@@ -33,6 +33,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public init() {
         dropdownMenu = ViewBuilder().setHidden(true)
         super.init(dropdownMenu.get)
+        configure()
     }
 
     
@@ -111,6 +112,10 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     
 //  MARK: - PRIVATE AREA
+    private func configure() {
+        setOverlay(style: .dark, opacity: 0)
+    }
+    
     private func applyOnce() {
         if isApplyOnce {return}
         
@@ -140,6 +145,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     private func configOverlay() {
         guard let superview = dropdownMenu.get.superview else {return}
+        
         self.overlay?
             .setAutoLayout { build in
                 build
