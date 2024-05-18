@@ -301,8 +301,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
             guard let self else {return}
             dropdownMenu.get.alpha = 0
             overlay?.get.alpha = 0
-        } completion: { [weak self] bool in
-            guard let self else {return}
+        } completion: { bool in
             if bool {
                 completion?()
             }
