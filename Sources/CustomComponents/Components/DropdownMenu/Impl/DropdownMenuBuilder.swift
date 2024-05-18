@@ -107,7 +107,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
             overlay?.setHidden(true)
             events?.didDisappearDropdowMenu()
             
-            dropdownMenu.get.removeFromSuperview()
+//            dropdownMenu.get.removeFromSuperview()
         }
         
     }
