@@ -119,9 +119,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         getSuperview()
         
-//        configOverlay()
+        configOverlay()
 //        
-//        configHierarchyVisualization()
+        configHierarchyVisualization()
 //        
 //        configAutoCloseDropdownMenu()
 //
