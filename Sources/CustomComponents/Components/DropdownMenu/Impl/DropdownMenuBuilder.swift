@@ -287,8 +287,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configStartAnimation() {
-        configOverlay()
-        configHierarchyVisualization()
+//        configOverlay()
+//        configHierarchyVisualization()
         dropdownMenu.setAlpha(0)
         overlay?.setAlpha(0)
         dropdownMenu.setHidden(false)
