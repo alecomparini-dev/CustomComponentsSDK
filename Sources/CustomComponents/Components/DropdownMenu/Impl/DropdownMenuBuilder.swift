@@ -125,13 +125,13 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 //        
 //        configAutoCloseDropdownMenu()
 //
-//        configList()
-//        
-//        configFooterView()
-//        
-//        configDelegateList()
-//        
-//        _dropdownMenuList?.show()
+        configList()
+        
+        configFooterView()
+        
+        configDelegateList()
+        
+        _dropdownMenuList?.show()
         
         isApplyOnce = true
     }
