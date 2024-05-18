@@ -53,8 +53,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     @discardableResult
     public func setOverlay(style: UIBlurEffect.Style, opacity: CGFloat = 1) -> Self {
-//        overlay = BlurBuilder(style: style)
-//            .setOpacity(opacity)
+        overlay = BlurBuilder(style: style)
+            .setOpacity(opacity)
         return self
     }
     
@@ -101,17 +101,12 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     public func hide() {
         isVisible = false
-        hideAnimation { [weak self] in
-            guard let self else {return }
-            dropdownMenu.setHidden(true)
+//        hideAnimation { [weak self] in
+//            guard let self else {return }
+//            dropdownMenu.setHidden(true)
 //            overlay?.setHidden(true)
-            removeOverlay()
-        }
+//        }
         
-    }
-    
-    private func removeOverlay() {
-        self.overlay?.get.removeFromSuperview()
     }
     
     
@@ -121,9 +116,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         
         getSuperview()
         
-//        configOverlay()
-//        
-//        configHierarchyVisualization()
+        configOverlay()
+        
+        configHierarchyVisualization()
         
         configAutoCloseDropdownMenu()
 
@@ -150,6 +145,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
                 build
                     .pin.equalToSuperview()
             }
+
         overlay?.add(insideTo: superview)
         overlay?.applyAutoLayout()
     }
@@ -287,8 +283,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configStartAnimation() {
-//        configOverlay()
-//        configHierarchyVisualization()
         dropdownMenu.setAlpha(0)
         overlay?.setAlpha(0)
         dropdownMenu.setHidden(false)
