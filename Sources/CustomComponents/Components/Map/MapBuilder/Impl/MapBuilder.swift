@@ -304,6 +304,14 @@ extension MapBuilder: MKMapViewDelegate {
         }
     }
     
+    public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        print("regionDidChangeAnimated")
+    }
+    
+    public func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        print("mapViewDidChangeVisibleRegion")
+    }
+    
     public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
        
     }
