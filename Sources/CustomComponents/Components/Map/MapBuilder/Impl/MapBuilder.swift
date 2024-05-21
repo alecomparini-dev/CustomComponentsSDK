@@ -14,6 +14,7 @@ public class MapBuilder: BaseBuilder, Map {
     static public let radius: Double = 500
     private weak var mapBuilderOutput: MapBuilderOutput?
     
+    private var loadingMap = false
     private var alreadyApplied = false
     private var userLocation: Location?
     private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], MapBuilder.radius, false )
@@ -135,8 +136,7 @@ public class MapBuilder: BaseBuilder, Map {
             mapBuilderOutput?.localizationNotAuthorized()
             return
         }
-        
-        afterAuthorization()
+                
     }
     
     private func applyOnceConfig() {
@@ -188,11 +188,6 @@ public class MapBuilder: BaseBuilder, Map {
         setShowsCompass(false)
     }
     
-    private func afterAuthorization() {
-        setShowsUserLocation(true)
-        setCenterMap(location: userLocation)
-    }
-    
     private func configDelegates() {
         setDelegate(self)
         locationManager = CLLocationManager()
@@ -211,6 +206,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
 
     private func commonsConfigPin(_ radius: Double) {
+        setShowsUserLocation(true)
         setUserTrackingMode(.none)
         configCenterMapByUser(radius)
     }
@@ -241,6 +237,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func configPinNaturalLanguage() {
         if !pinNaturalLanguage.flag || pinNaturalLanguage.onlyOnce { return }
+        
         pinNaturalLanguage.onlyOnce = true
         
         commonsConfigPin(pinNaturalLanguage.regionRadius)
@@ -282,6 +279,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     private func configPins() {
+        if !loadingMap || userLocation == nil {return}
         configPinPointsOfInterest()
         configPinNaturalLanguage()
     }
@@ -292,11 +290,11 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - EXTENSION - MKMapViewDelegate
 extension MapBuilder: MKMapViewDelegate {
     
-    public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-    }
+  
     
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
+            loadingMap = true
             mapBuilderOutput?.finishFullyRenderedMap()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
                 self?.configPins()
