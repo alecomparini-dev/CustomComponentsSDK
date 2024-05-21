@@ -32,17 +32,10 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
 
     public var tapped: Void {
         if !enabledInteraction {return}
-//        createShadowTapped()
-//        createAnimation()
-//        addAnimationOnComponent()
-//        setDelegate()
-//        
-//        
-        
-        pressed
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: { [weak self] in
-            self?.unpressed
-        })
+        createAnimation()
+        createShadowTapped()
+        addAnimationOnComponent()
+        setDelegate()
         return
     }
     
@@ -127,7 +120,6 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
             .setBringToFront()
             .setID(identifier)
             .applyLayer()
-        
         return shadow
     }
     
@@ -140,11 +132,10 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
     }
     
     private func addAnimationOnComponent() {
-        guard let shadowTapped else { return }
-        
-        if let layer = shadowTapped.getShadowById(identifier) {
+        if let layer = shadowTapped?.shadow {
             shadowLayer = layer
             shadowLayer.add(animation, forKey: identifier)
+            shadowLayer.shadowOpacity = 0
         }
     }
     
