@@ -3,14 +3,14 @@
 
 import UIKit
 
-open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
-    private let identifier =  String(describing: ButtonInteractionBuilder.self)
+open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
+    private let identifier = String(describing: ButtonInteractionBuilder.self)
     private let shadowOpacityProperty = K.Button.Interaction.shadowOpacityProperty
     
     private var duration: Double = 0.2
     private var shadowTapped: ShadowBuilder?
     private var shadowPressed: ShadowBuilder?
-    private var shadowLayer: CALayer?
+    private var shadowLayer: CALayer = CALayer()
     private var animation: CABasicAnimation?
     
     private var _isPressed: Bool = false
@@ -20,11 +20,10 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     
 //  MARK: - INITIALIZERS
     
-    private weak var component: UIView?
+    private let component: UIView
     
     public init(component: UIView) {
         self.component = component
-        super.init(component)
     }
     
     
@@ -113,7 +112,6 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     }
     
     private func createShadow() -> ShadowBuilder? {
-        guard let component else { return nil}
         let shadow = ShadowBuilder(component)
             .setColor(colorInteraction)
             .setOffset(width: 0, height: 0)
@@ -138,29 +136,29 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
         
         if let layer = shadowTapped.getShadowById(identifier) {
             shadowLayer = layer
-            shadowLayer?.add(animation, forKey: identifier)
+            shadowLayer.add(animation, forKey: identifier)
         }
     }
     
     private func removeShadow() {
-        component?.removeShadowByID(identifier)
+        component.removeShadowByID(identifier)
     }
     
     private func removeShadowAnimation() {
-        shadowLayer?.removeAnimation(forKey: identifier)
+        shadowLayer.removeAnimation(forKey: identifier)
     }
     
 }
 
 
 //  MARK: - EXTENSION CAAnimationDelegate
-extension ButtonInteractionBuilder: CAAnimationDelegate {
+extension ButtonInteractionBuilder: CAAnimationDelegate {	
     
     public func animationDidStart(_ anim: CAAnimation) {}
     
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         removeShadow()
-        shadowLayer?.shadowOpacity = 0
+        shadowLayer.shadowOpacity = 0
         removeShadowAnimation()
     }
     
