@@ -99,8 +99,8 @@ public extension UIView {
     
 //  MARK: - SHADOWS
     func removeShadowByID(_ id: String) {
-        if let layerToRemove = self.layer.sublayers?.first(where: { $0.name == id }) {
-            layerToRemove.removeFromSuperlayer()
+        if let layerToRemove = self.layer.sublayers?.filter({ $0.name == id }) {
+            layerToRemove.forEach({ $0.removeFromSuperlayer()})
         }
     }
     
