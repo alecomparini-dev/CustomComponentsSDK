@@ -293,7 +293,7 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
-        print(#function)
+        print("FINISH LOADING MAP")
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
 //            self?.configPins()
 //        }
@@ -301,15 +301,10 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
-            print(#function)
+            print("FUUULYYYYY RENDERED, FIM DE VDD")
         }
     }
     
-    
-    
-    public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        print("regionDidChangeAnimated")
-    }
     
     
     public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
@@ -330,6 +325,9 @@ extension MapBuilder: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
     
         if let userLocation = locations.first {
+            
+            print("USUÁRIO LOCALIZADO")
+            
             self.userLocation = userLocation
                 
             setCenterMap(location: userLocation)
