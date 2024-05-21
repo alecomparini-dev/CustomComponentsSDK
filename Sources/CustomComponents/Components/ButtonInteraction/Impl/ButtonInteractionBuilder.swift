@@ -11,7 +11,7 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
     private var shadowTapped: ShadowBuilder?
     private var shadowPressed: ShadowBuilder?
     private var shadowLayer: CALayer = CALayer()
-    private var animation: CABasicAnimation?
+    private var animation: CABasicAnimation = CABasicAnimation()
     
     private var _isPressed: Bool = false
     private var enabledInteraction: Bool = true
@@ -98,7 +98,7 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
     
 //  MARK: - PRIVATE AREA
     private func setDelegate() {
-        animation?.delegate = self
+        animation.delegate = self
     }
     
     private func createShadowTapped() {
@@ -125,14 +125,14 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
     
     private func createAnimation() {
         animation = CABasicAnimation(keyPath: shadowOpacityProperty)
-        animation?.fromValue = 1.0
-        animation?.toValue = 1.0
-        animation?.duration = duration
-        animation?.isRemovedOnCompletion = true
+        animation.fromValue = 1.0
+        animation.toValue = 1.0
+        animation.duration = duration
+        animation.isRemovedOnCompletion = true
     }
     
     private func addAnimationOnComponent() {
-        guard let animation, let shadowTapped else { return }
+        guard let shadowTapped else { return }
         
         if let layer = shadowTapped.getShadowById(identifier) {
             shadowLayer = layer
