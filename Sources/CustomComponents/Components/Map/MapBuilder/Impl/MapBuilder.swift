@@ -292,6 +292,7 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
+        print(#function)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.configPins()
         }
@@ -299,7 +300,7 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
-            print("ACABOUUU DE VDD AGORA SAPORRA")
+            print(#function)
         }
     }
     
