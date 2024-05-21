@@ -32,8 +32,8 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
 
     public var tapped: Void {
         if !enabledInteraction {return}
-        createAnimation()
         createShadowTapped()
+        createAnimation()
         addAnimationOnComponent()
         setDelegate()
         return
@@ -119,7 +119,8 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
             .setRadius(2)
             .setBringToFront()
             .setID(identifier)
-        shadow.applyLayer()
+            .applyLayer()
+        
         return shadow
     }
     
