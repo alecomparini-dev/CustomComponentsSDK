@@ -10,7 +10,7 @@ public protocol MapBuilderOutput: AnyObject {
     
     func loadingMapError(_ error: String)
     
-    func pinSelected()
+    func pinSelected(title: String, subtitle: String, coordinate: (lat: Double, lon: Double))
     
 //    func pinDeselected()
     

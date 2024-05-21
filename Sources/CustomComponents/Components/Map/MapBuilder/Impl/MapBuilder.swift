@@ -302,15 +302,14 @@ extension MapBuilder: MKMapViewDelegate {
     }
     
     
-    public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
-        print(view)
-    }
-    
     public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
-        print(annotation.title!!)
-        print(annotation.subtitle!!)
-        print(annotation.coordinate)
-        print(annotation.description)
+        let title = (annotation.title ?? "") ?? ""
+        let subtitle = (annotation.subtitle ?? "") ?? ""
+        let coordinate = annotation.coordinate
+        
+        mapBuilderOutput?.pinSelected(title: title,
+                                      subtitle: subtitle,
+                                      coordinate: (lat: coordinate.latitude, lon: coordinate.longitude))
     }
     
     public func mapView(_ mapView: T, didDeselect view: MKAnnotationView) {
