@@ -32,10 +32,17 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
 
     public var tapped: Void {
         if !enabledInteraction {return}
-        createShadowTapped()
-        createAnimation()
-        addAnimationOnComponent()
-        setDelegate()
+//        createShadowTapped()
+//        createAnimation()
+//        addAnimationOnComponent()
+//        setDelegate()
+//        
+//        
+        
+        pressed
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: { [weak self] in
+            self?.unpressed
+        })
         return
     }
     
