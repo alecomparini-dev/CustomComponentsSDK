@@ -14,6 +14,7 @@ public class MapBuilder: BaseBuilder, Map {
     static public let radius: Double = 500
     private weak var mapBuilderOutput: MapBuilderOutput?
     
+    private var loadingMap = false
     private var alreadyApplied = false
     private var userLocation: Location?
     private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], MapBuilder.radius, false )
@@ -107,7 +108,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-    //  MARK: - SET DELEGATE
+//  MARK: - SET DELEGATE
     @discardableResult
     public func setDelegate(_ delegate: D) -> Self {
         mapView.delegate = delegate
@@ -115,7 +116,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-    //  MARK: - SET OUTPUT
+//  MARK: - SET OUTPUT
     @discardableResult
     public func setOutput(_ output: MapBuilderOutput) -> Self {
         mapBuilderOutput = output
@@ -123,7 +124,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-    //  MARK: - SHOW MAP
+//  MARK: - SHOW MAP
     public func show() {
         applyOnceConfig()
         
@@ -135,19 +136,19 @@ public class MapBuilder: BaseBuilder, Map {
             mapBuilderOutput?.localizationNotAuthorized()
             return
         }
-        
-        afterAuthorization()
     }
     
     private func applyOnceConfig() {
         if alreadyApplied { return }
         alreadyApplied = true
+        
         configDelegates()
+        startUpdatingLocation()
     }
     
     
     
-    //  MARK: - PUBLIC AREA
+//  MARK: - PUBLIC AREA
     
     @discardableResult
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
@@ -183,17 +184,12 @@ public class MapBuilder: BaseBuilder, Map {
     //  MARK: - PRIVATE AREA
     
     public func configure() {
-        locationManager = CLLocationManager()
         setShowsCompass(false)
-    }
-    
-    private func afterAuthorization() {
-        setShowsUserLocation(true)
-        startUpdatingLocation()
     }
     
     private func configDelegates() {
         setDelegate(self)
+        locationManager = CLLocationManager()
         locationManager?.delegate = self
     }
     
@@ -209,6 +205,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
 
     private func commonsConfigPin(_ radius: Double) {
+        setShowsUserLocation(true)
         setUserTrackingMode(.none)
         configCenterMapByUser(radius)
     }
@@ -239,6 +236,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func configPinNaturalLanguage() {
         if !pinNaturalLanguage.flag || pinNaturalLanguage.onlyOnce { return }
+        
         pinNaturalLanguage.onlyOnce = true
         
         commonsConfigPin(pinNaturalLanguage.regionRadius)
@@ -280,6 +278,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     private func configPins() {
+        if !loadingMap || userLocation == nil {return}
         configPinPointsOfInterest()
         configPinNaturalLanguage()
     }
@@ -290,16 +289,27 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - EXTENSION - MKMapViewDelegate
 extension MapBuilder: MKMapViewDelegate {
     
-    public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        mapBuilderOutput?.finishLoadingMap()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.configPins()
+  
+    
+    public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        if fullyRendered {
+            loadingMap = true
+            mapBuilderOutput?.finishFullyRenderedMap()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+                self?.configPins()
+            })
         }
     }
     
     
-    public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
-       
+    public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
+        let title = (annotation.title ?? "") ?? ""
+        let subtitle = (annotation.subtitle ?? "") ?? ""
+        let coordinate = annotation.coordinate
+        
+        mapBuilderOutput?.pinSelected(title: title,
+                                      subtitle: subtitle,
+                                      coordinate: (lat: coordinate.latitude, lon: coordinate.longitude))
     }
     
     public func mapView(_ mapView: T, didDeselect view: MKAnnotationView) {
@@ -314,13 +324,16 @@ extension MapBuilder: MKMapViewDelegate {
 extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
-        userLocation = locations.first
-        locationManager?.stopUpdatingLocation()
-        
+        if let userLocation = locations.first {
+            self.userLocation = userLocation
+                
+            setCenterMap(location: userLocation)
+            
+            locationManager?.stopUpdatingLocation()
+        }
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        debugPrint("Localization error: \(error.localizedDescription)")
         mapBuilderOutput?.loadingMapError(error.localizedDescription)
     }
     
@@ -329,7 +342,6 @@ extension MapBuilder: CLLocationManagerDelegate {
             mapBuilderOutput?.localizationNotAuthorized()
             return
         }
-        afterAuthorization()
     }
     
 }
