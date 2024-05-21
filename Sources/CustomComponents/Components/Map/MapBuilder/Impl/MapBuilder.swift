@@ -319,7 +319,6 @@ extension MapBuilder: MKMapViewDelegate {
 extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
-    
         if let userLocation = locations.first {
             self.userLocation = userLocation
                 
@@ -327,11 +326,9 @@ extension MapBuilder: CLLocationManagerDelegate {
             
             locationManager?.stopUpdatingLocation()
         }
-        
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        debugPrint("Localization error: \(error.localizedDescription)")
         mapBuilderOutput?.loadingMapError(error.localizedDescription)
     }
     
@@ -340,7 +337,6 @@ extension MapBuilder: CLLocationManagerDelegate {
             mapBuilderOutput?.localizationNotAuthorized()
             return
         }
-
     }
     
 }
