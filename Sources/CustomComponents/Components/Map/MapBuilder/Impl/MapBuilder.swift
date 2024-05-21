@@ -191,7 +191,6 @@ public class MapBuilder: BaseBuilder, Map {
     private func afterAuthorization() {
         setShowsUserLocation(true)
         setCenterMap(location: userLocation)
-        configPins()
     }
     
     private func configDelegates() {
@@ -344,7 +343,7 @@ extension MapBuilder: CLLocationManagerDelegate {
             mapBuilderOutput?.localizationNotAuthorized()
             return
         }
-        afterAuthorization()
+
     }
     
 }
