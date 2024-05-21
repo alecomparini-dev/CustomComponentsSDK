@@ -108,7 +108,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-    //  MARK: - SET DELEGATE
+//  MARK: - SET DELEGATE
     @discardableResult
     public func setDelegate(_ delegate: D) -> Self {
         mapView.delegate = delegate
@@ -116,7 +116,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-    //  MARK: - SET OUTPUT
+//  MARK: - SET OUTPUT
     @discardableResult
     public func setOutput(_ output: MapBuilderOutput) -> Self {
         mapBuilderOutput = output
@@ -124,7 +124,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-    //  MARK: - SHOW MAP
+//  MARK: - SHOW MAP
     public func show() {
         applyOnceConfig()
         
@@ -136,7 +136,6 @@ public class MapBuilder: BaseBuilder, Map {
             mapBuilderOutput?.localizationNotAuthorized()
             return
         }
-                
     }
     
     private func applyOnceConfig() {
@@ -149,7 +148,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     
     
-    //  MARK: - PUBLIC AREA
+//  MARK: - PUBLIC AREA
     
     @discardableResult
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
@@ -304,7 +303,7 @@ extension MapBuilder: MKMapViewDelegate {
     
     
     public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
-       
+        print(view)
     }
     
     public func mapView(_ mapView: T, didDeselect view: MKAnnotationView) {

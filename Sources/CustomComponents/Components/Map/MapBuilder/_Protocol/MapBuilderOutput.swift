@@ -10,4 +10,8 @@ public protocol MapBuilderOutput: AnyObject {
     
     func loadingMapError(_ error: String)
     
+    func pinSelected()
+    
+//    func pinDeselected()
+    
 }
