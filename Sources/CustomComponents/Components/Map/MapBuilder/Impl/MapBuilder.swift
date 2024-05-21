@@ -306,6 +306,10 @@ extension MapBuilder: MKMapViewDelegate {
         print(view)
     }
     
+    public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
+        print(annotation)
+    }
+    
     public func mapView(_ mapView: T, didDeselect view: MKAnnotationView) {
         
     }
