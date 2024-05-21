@@ -124,7 +124,7 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
             .setOffset(width: 0, height: 0)
             .setOpacity(1)
             .setRadius(2)
-            .setBringToFront()
+//            .setBringToFront()
             .setID(identifier)
             .applyLayer()
         
