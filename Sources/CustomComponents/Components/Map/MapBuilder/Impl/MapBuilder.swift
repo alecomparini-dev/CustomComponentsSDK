@@ -292,11 +292,16 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.configPins()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.configPins()
         }
     }
     
+    public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        if fullyRendered {
+            print("ACABOUUU DE VDD AGORA SAPORRA")
+        }
+    }
     
     public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
        
