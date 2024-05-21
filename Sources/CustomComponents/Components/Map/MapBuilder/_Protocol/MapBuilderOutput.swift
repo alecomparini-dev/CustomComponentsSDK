@@ -4,7 +4,7 @@
 import Foundation
 
 public protocol MapBuilderOutput: AnyObject {
-    func finishLoadingMap()
+    func finishFullyRenderedMap()
     
     func localizationNotAuthorized()
     

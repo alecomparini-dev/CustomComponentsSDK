@@ -190,6 +190,8 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func afterAuthorization() {
         setShowsUserLocation(true)
+        setCenterMap(location: userLocation)
+        configPins()
     }
     
     private func configDelegates() {
@@ -292,16 +294,12 @@ public class MapBuilder: BaseBuilder, Map {
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        mapBuilderOutput?.finishLoadingMap()
-        print("FINISH LOADING MAP")
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-//            self?.configPins()
-//        }
     }
     
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
-            print("FUUULYYYYY RENDERED, FIM DE VDD")
+            mapBuilderOutput?.finishFullyRenderedMap()
+            configPins()
         }
     }
     
@@ -325,9 +323,6 @@ extension MapBuilder: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
     
         if let userLocation = locations.first {
-            
-            print("USUÁRIO LOCALIZADO")
-            
             self.userLocation = userLocation
                 
             setCenterMap(location: userLocation)
