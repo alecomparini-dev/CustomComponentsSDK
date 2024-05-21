@@ -299,7 +299,9 @@ extension MapBuilder: MKMapViewDelegate {
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
             mapBuilderOutput?.finishFullyRenderedMap()
-            configPins()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+                self?.configPins()                
+            })
         }
     }
     
