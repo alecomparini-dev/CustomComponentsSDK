@@ -142,7 +142,9 @@ public class MapBuilder: BaseBuilder, Map {
     private func applyOnceConfig() {
         if alreadyApplied { return }
         alreadyApplied = true
+        
         configDelegates()
+        startUpdatingLocation()
     }
     
     
@@ -183,17 +185,16 @@ public class MapBuilder: BaseBuilder, Map {
     //  MARK: - PRIVATE AREA
     
     public func configure() {
-        locationManager = CLLocationManager()
         setShowsCompass(false)
     }
     
     private func afterAuthorization() {
         setShowsUserLocation(true)
-        startUpdatingLocation()
     }
     
     private func configDelegates() {
         setDelegate(self)
+        locationManager = CLLocationManager()
         locationManager?.delegate = self
     }
     
@@ -293,9 +294,9 @@ extension MapBuilder: MKMapViewDelegate {
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
         print(#function)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.configPins()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+//            self?.configPins()
+//        }
     }
     
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
@@ -304,13 +305,12 @@ extension MapBuilder: MKMapViewDelegate {
         }
     }
     
+    
+    
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         print("regionDidChangeAnimated")
     }
     
-    public func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        print("mapViewDidChangeVisibleRegion")
-    }
     
     public func mapView(_ mapView: T, didSelect view: MKAnnotationView) {
        
@@ -328,8 +328,14 @@ extension MapBuilder: MKMapViewDelegate {
 extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
-        userLocation = locations.first
-        locationManager?.stopUpdatingLocation()
+    
+        if let userLocation = locations.first {
+            self.userLocation = userLocation
+                
+            setCenterMap(location: userLocation)
+            
+            locationManager?.stopUpdatingLocation()
+        }
         
     }
     
