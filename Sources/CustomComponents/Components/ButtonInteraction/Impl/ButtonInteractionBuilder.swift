@@ -32,10 +32,10 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
 
     public var tapped: Void {
         if !enabledInteraction {return}
-        createShadowTapped()
         createAnimation()
-        setDelegate()
+        createShadowTapped()
         addAnimationOnComponent()
+        setDelegate()
         return
     }
     
