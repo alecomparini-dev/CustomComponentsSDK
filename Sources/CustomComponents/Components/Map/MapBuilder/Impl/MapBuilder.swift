@@ -292,6 +292,9 @@ extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapBuilderOutput?.finishLoadingMap()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.configPins()
+        }
     }
     
     
@@ -313,10 +316,7 @@ extension MapBuilder: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
         userLocation = locations.first
         locationManager?.stopUpdatingLocation()
-        setCenterMap(location: userLocation)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.configPins()
-        }
+        
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
