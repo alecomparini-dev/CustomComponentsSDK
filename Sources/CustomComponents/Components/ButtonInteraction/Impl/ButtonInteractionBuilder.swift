@@ -137,7 +137,7 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
         if let layer = shadowTapped?.shadow {
             shadowLayer = layer
             shadowLayer.add(animation, forKey: identifier)
-            shadowLayer.shadowOpacity = 0
+            shadowLayer.shadowOpacity = 1
         }
     }
     
