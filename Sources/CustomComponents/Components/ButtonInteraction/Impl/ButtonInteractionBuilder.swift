@@ -167,7 +167,7 @@ extension ButtonInteractionBuilder: CAAnimationDelegate {
     }
     
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: { [weak self] in
             guard let self else {return}
             shadowLayer.shadowOpacity = 0
             removeShadow()
