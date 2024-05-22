@@ -6,7 +6,7 @@ import Foundation
 public protocol DropdownMenuEvents: AnyObject {
 //    func willAppearDropdowMenu()
     func didAppearDropdowMenu()
-//    func willDisappearDropdowMenu()
+    func willDisappearDropdowMenu()
     func didDisappearDropdowMenu()
 }
 
