@@ -8,6 +8,7 @@ public protocol Dock: AnyObject {
     associatedtype C
     associatedtype D
     associatedtype S
+    associatedtype P
     
     var get: T { get }
     
@@ -68,6 +69,8 @@ public protocol Dock: AnyObject {
     @discardableResult
     func setEnableToggleItemSelection(_ flag: Bool) -> Self
     
+    @discardableResult
+    func setAutoScrollItemSelected(_ direction: P) -> Self
     
     
 //  MARK: - DELEGATE
