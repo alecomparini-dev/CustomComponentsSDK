@@ -8,7 +8,9 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias T = UIView
     public typealias C = UICollectionView
     public typealias D = UICollectionViewCell
+    public typealias P = UICollectionView.ScrollPosition
     
+    private var scrollPosition: UICollectionView.ScrollPosition?
     private var padding: (top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) = (top: 0, left: 0, bottom: 0 , rigth: 0)
     private var disableUserInteraction: [Int]? = []
     private var indexesSelected: Set<Int> = []
@@ -157,6 +159,11 @@ open class DockBuilder: BaseBuilder, Dock {
         return self
     }
 
+    @discardableResult
+    public func setAutoScrollItemSelected(_ scrollPosition: UICollectionView.ScrollPosition) -> Self {
+        self.scrollPosition = scrollPosition
+        return self
+    }
     
     
 //  MARK: - SET DELEGATE
@@ -185,12 +192,23 @@ open class DockBuilder: BaseBuilder, Dock {
         _collection.reloadData()
     }
     
+    private func configAutoScrollPosition() -> UICollectionView.ScrollPosition {
+        if let scrollPosition { return scrollPosition }
+        
+        var position: UICollectionView.ScrollPosition = .centeredHorizontally
+        if layout.scrollDirection == .vertical {
+            position = .centeredVertically
+        }
+        
+        return position
+    }
+    
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
         if isDisableUserInteraction(index) { return }
         
         let indexPath = IndexPath(row: index, section: 0)
-        var scrollPosition: UICollectionView.ScrollPosition = .centeredHorizontally
-        if layout.scrollDirection == .vertical { scrollPosition = .centeredVertically  }
+        
+        let scrollPosition = configAutoScrollPosition()
         
         if isSelected(index) {
             if !isEnableToggleItemSelection { return }
