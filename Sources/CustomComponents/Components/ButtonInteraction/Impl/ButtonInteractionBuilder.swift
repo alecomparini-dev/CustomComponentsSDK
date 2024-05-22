@@ -3,15 +3,15 @@
 
 import UIKit
 
-open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
-    private let identifier =  String(describing: ButtonInteractionBuilder.self)
+open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
+    private let identifier = String(describing: ButtonInteractionBuilder.self)
     private let shadowOpacityProperty = K.Button.Interaction.shadowOpacityProperty
     
     private var duration: Double = 0.2
     private var shadowTapped: ShadowBuilder?
     private var shadowPressed: ShadowBuilder?
-    private var shadowLayer: CALayer?
-    private var animation: CABasicAnimation?
+    private var shadowLayer: CALayer = CALayer()
+    private var animation: CABasicAnimation!
     
     private var _isPressed: Bool = false
     private var enabledInteraction: Bool = true
@@ -24,7 +24,6 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     
     public init(component: UIView) {
         self.component = component
-        super.init(component)
     }
     
     
@@ -33,8 +32,8 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
 
     public var tapped: Void {
         if !enabledInteraction {return}
-        createShadowTapped()
         createAnimation()
+        createShadowTapped()
         setDelegate()
         addAnimationOnComponent()
         return
@@ -99,7 +98,7 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     
 //  MARK: - PRIVATE AREA
     private func setDelegate() {
-        animation?.delegate = self
+        animation.delegate = self
     }
     
     private func createShadowTapped() {
@@ -113,7 +112,7 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     }
     
     private func createShadow() -> ShadowBuilder? {
-        guard let component else { return nil}
+        guard let component else {return nil}
         let shadow = ShadowBuilder(component)
             .setColor(colorInteraction)
             .setOffset(width: 0, height: 0)
@@ -121,24 +120,23 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
             .setRadius(2)
             .setBringToFront()
             .setID(identifier)
-        shadow.applyLayer()
+            .applyLayer()
         return shadow
     }
     
     private func createAnimation() {
         animation = CABasicAnimation(keyPath: shadowOpacityProperty)
-        animation?.fromValue = 1.0
-        animation?.toValue = 1.0
-        animation?.duration = duration
-        animation?.isRemovedOnCompletion = true
+        animation.fromValue = 1.0
+        animation.toValue = 1.0
+        animation.duration = duration
+        animation.isRemovedOnCompletion = true
     }
     
     private func addAnimationOnComponent() {
-        guard let animation, let shadowTapped else { return }
-        
-        if let layer = shadowTapped.getShadowById(identifier) {
+        if let layer = shadowTapped?.shadow {
             shadowLayer = layer
-            shadowLayer?.add(animation, forKey: identifier)
+            shadowLayer.add(animation, forKey: identifier)
+            shadowLayer.shadowOpacity = 0
         }
     }
     
@@ -147,21 +145,34 @@ open class ButtonInteractionBuilder: BaseBuilder, ButtonInteraction {
     }
     
     private func removeShadowAnimation() {
-        shadowLayer?.removeAnimation(forKey: identifier)
+        shadowLayer.removeAnimation(forKey: identifier)
+    }
+    
+    private func freeMemory() {
+        shadowTapped = nil
+        shadowPressed = nil
+        component = nil
+        animation.delegate = nil
+        animation = nil
     }
     
 }
 
-
 //  MARK: - EXTENSION CAAnimationDelegate
 extension ButtonInteractionBuilder: CAAnimationDelegate {
     
-    public func animationDidStart(_ anim: CAAnimation) {}
+    public func animationDidStart(_ anim: CAAnimation) {
+        
+    }
     
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        removeShadow()
-        shadowLayer?.shadowOpacity = 0
-        removeShadowAnimation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+            guard let self else {return}
+            shadowLayer.shadowOpacity = 0
+            removeShadow()
+            removeShadowAnimation()
+            freeMemory()
+        })
     }
     
 }
