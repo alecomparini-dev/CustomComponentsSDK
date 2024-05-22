@@ -103,6 +103,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         isVisible = false
         hideAnimation { [weak self] in
             guard let self else {return }
+            events?.willAppearDropdowMenu()
             dropdownMenu.setHidden(true)
             overlay?.setHidden(true)
             events?.didDisappearDropdowMenu()
