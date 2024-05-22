@@ -192,17 +192,6 @@ open class DockBuilder: BaseBuilder, Dock {
         _collection.reloadData()
     }
     
-    private func configAutoScrollPosition() -> UICollectionView.ScrollPosition {
-        if let scrollPosition { return scrollPosition }
-        
-        var position: UICollectionView.ScrollPosition = .centeredHorizontally
-        if layout.scrollDirection == .vertical {
-            position = .centeredVertically
-        }
-        
-        return position
-    }
-    
     public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
         if isDisableUserInteraction(index) { return }
         
@@ -324,6 +313,17 @@ open class DockBuilder: BaseBuilder, Dock {
     
     private func removeIndexSelected(_ index: Int) {
         indexesSelected.remove(index)
+    }
+    
+    private func configAutoScrollPosition() -> UICollectionView.ScrollPosition {
+        if let scrollPosition { return scrollPosition }
+        
+        var position: UICollectionView.ScrollPosition = .centeredHorizontally
+        if layout.scrollDirection == .vertical {
+            position = .centeredVertically
+        }
+        
+        return position
     }
 
 }
