@@ -24,6 +24,7 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
     
     public init(component: UIView) {
         self.component = component
+        super.init()
     }
     
     
@@ -32,8 +33,8 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
 
     public var tapped: Void {
         if !enabledInteraction {return}
-        createAnimation()
         createShadowTapped()
+        createAnimation()
         setDelegate()
         addAnimationOnComponent()
         return
