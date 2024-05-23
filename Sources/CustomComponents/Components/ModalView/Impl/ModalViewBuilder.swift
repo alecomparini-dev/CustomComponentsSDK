@@ -176,8 +176,8 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
 //  MARK: - ANIMATIONS AREA
     private func showAnimation(_ completion: (() -> Void)? = nil) {
         configStartAnimation()
-        modal.setHidden(false, animated: true)
-        overlay?.setHidden(false, animated: true)
+        modal.setHidden(false, animated: true, animationDuration)
+        overlay?.setHidden(false, animated: true, animationDuration)
     }
     
     private func configStartAnimation() {
@@ -188,15 +188,8 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
     }
     
     private func hideAnimation(_ completion: (() -> Void)? = nil) {
-        UIView.animate(withDuration: animationDuration) { [weak self] in
-            guard let self else {return}
-            modal.get.alpha = 0
-            overlay?.get.alpha = 0
-        } completion: { bool in
-            if bool {
-                completion?()
-            }
-        }
+        modal.setHidden(true, animated: true, animationDuration)
+        overlay?.setHidden(true, animated: true, animationDuration)
     }
     
     
