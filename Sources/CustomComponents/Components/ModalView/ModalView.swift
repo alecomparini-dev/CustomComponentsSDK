@@ -22,6 +22,9 @@ public protocol ModalView {
     func setOverlay(style: S, opacity: CGFloat) -> Self
     
     @discardableResult
+    func setIgnoreOverlay(for components: [BaseBuilder]) -> Self
+    
+    @discardableResult
     func setAnimation(_ duration: TimeInterval) -> Self
 
     
