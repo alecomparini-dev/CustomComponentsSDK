@@ -176,17 +176,20 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
 //  MARK: - ANIMATIONS AREA
     private func showAnimation(_ completion: (() -> Void)? = nil) {
         configStartAnimation()
-        UIView.animate(withDuration: animationDuration) { [weak self] in
-            guard let self else {return}
-            modal.get.alpha = 1
-            overlay?.get.alpha = 1
-        } completion: { [weak self] bool in
-            guard let self else {return}
-            if bool {
-                completion?()
-//                events?.didAppearDropdowMenu()
-            }
-        }
+        modal.setHidden(false, animated: true)
+        overlay?.setHidden(false, animated: true)
+        
+//        UIView.animate(withDuration: animationDuration) { [weak self] in
+//            guard let self else {return}
+//            modal.get.alpha = 1
+//            overlay?.get.alpha = 1
+//        } completion: { [weak self] bool in
+//            guard let self else {return}
+//            if bool {
+//                completion?()
+////                events?.didAppearDropdowMenu()
+//            }
+//        }
     }
     
     private func configStartAnimation() {
