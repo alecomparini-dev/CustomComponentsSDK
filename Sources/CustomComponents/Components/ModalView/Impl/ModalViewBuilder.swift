@@ -183,8 +183,6 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
     private func configStartAnimation() {
         modal.setAlpha(0)
         overlay?.setAlpha(0)
-        modal.setHidden(false)
-        overlay?.setHidden(false)
     }
     
     private func hideAnimation(_ completion: (() -> Void)? = nil) {
