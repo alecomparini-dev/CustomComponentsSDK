@@ -175,14 +175,8 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
 
 //  MARK: - ANIMATIONS AREA
     private func showAnimation(_ completion: (() -> Void)? = nil) {
-        configStartAnimation()
         modal.setHidden(false, animated: true, animationDuration)
         overlay?.setHidden(false, animated: true, animationDuration)
-    }
-    
-    private func configStartAnimation() {
-        modal.setAlpha(0)
-        overlay?.setAlpha(0)
     }
     
     private func hideAnimation(_ completion: (() -> Void)? = nil) {
