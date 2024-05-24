@@ -121,15 +121,15 @@ open class BaseBuilder: NSObject {
     }
    
     @discardableResult
-    public func setHidden(_ hide: Bool, animated: Bool = false) -> Self {
+    public func setHidden(_ hide: Bool, animated: Bool = false, _ duration: TimeInterval = 0.3) -> Self {
         if !animated {
             baseView.isHidden = hide
             return self
         }
-        animatedHidden(hide)
+        animatedHidden(hide, duration)
         return self
     }
-    
+
     @discardableResult
     public func setShimmer(_ build: (_ build: ShimmerBuilder) -> ShimmerBuilder) -> Self {
         _ = build(ShimmerBuilder(component: baseView))
@@ -236,11 +236,11 @@ open class BaseBuilder: NSObject {
     }
     
 //  MARK: - PRIVATE AREA
-    private func animatedHidden(_ hide: Bool) {
+    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval) {
         if hide {
             baseView.alpha = 1
             baseView.isHidden = false
-            UIView.animate(withDuration: 0.3, delay: 0, animations: { [weak self] in
+            UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
                 guard let self else {return}
                 baseView.alpha = 0
             }) { [weak self] bool in
@@ -252,8 +252,9 @@ open class BaseBuilder: NSObject {
             return
         }
         
+        baseView.alpha = 0
         baseView.isHidden = false
-        UIView.animate(withDuration: 0.3, delay: 0, animations: { [weak self] in
+        UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
             guard let self else {return}
             baseView.alpha = 1
         }) { [weak self] bool in

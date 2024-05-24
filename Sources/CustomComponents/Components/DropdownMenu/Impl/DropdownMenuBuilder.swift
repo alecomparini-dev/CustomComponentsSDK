@@ -4,29 +4,30 @@
 import UIKit
 
 open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
-    public weak var events: DropdownMenuEvents?
+    public typealias S = UIBlurEffect.Style
     
-    public var get: ViewBuilder { dropdownMenu }
-
+    public weak var events: DropdownMenuEvents?
     private weak var superview: UIView?
+    
     private var animationDuration: TimeInterval = 0
     private var isApplyOnce = false
-    private var zPosition: CGFloat = 10000
     private var isVisible = false
-    private var overlay: BlurBuilder?
     private var autoCloseEnabled = false
-    private var excludeComponents = [BaseBuilder]()
-    private var tap: TapGestureBuilder?
+    private var zPosition: CGFloat = 10000
     
+    private var excludeComponents = [BaseBuilder]()
+    private var overlay: BlurBuilder?
+    private var tap: TapGestureBuilder?
     private var _dropdownMenuList: ListBuilder?
     private var dropdownMenuItems: DropdownMenuItemsBuilder?
-
     private var footerView: BaseBuilder?
     private var heightFooterView: CGFloat = 0
     
     
     
 //  MARK: - INITIALIZERS
+    
+    public var get: ViewBuilder { dropdownMenu }
     
     private var dropdownMenu: ViewBuilder
         
@@ -38,6 +39,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 
     
 //  MARK: - GET PROPERTIES
+    
     public func isShow() -> Bool { isVisible }
 
     public var dropdowMenuList: ListBuilder? { _dropdownMenuList }
@@ -94,12 +96,14 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 //  MARK: - SHOW and HIDE
     
     public func show() {
+        if isVisible {return}
         isVisible = true
         applyOnce()
         showAnimation()
     }
     
     public func hide() {
+        if !isVisible {return}
         isVisible = false
         events?.willDisappearDropdowMenu()
         hideAnimation { [weak self] in
@@ -120,8 +124,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func applyOnce() {
         if isApplyOnce {return}
         
-        getSuperview()
-        
         configOverlay()
         
         configHierarchyVisualization()
@@ -139,13 +141,13 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         isApplyOnce = true
     }
     
-    private func getSuperview() {
-        guard let superview = dropdownMenu.get.superview else {return}
-        self.superview = superview
+    private func getSuperview() -> UIView? {
+        guard let superview = dropdownMenu.get.superview else {return nil}
+        return superview
     }
     
     private func configOverlay() {
-        guard let superview = dropdownMenu.get.superview else {return}
+        guard let superview = getSuperview() else {return}
         
         self.overlay?
             .setAutoLayout { build in
@@ -167,7 +169,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func bringToFront() {
-        guard let superview = dropdownMenu.get.superview else {return}
+        guard let superview = getSuperview() else {return}
         superview.bringSubviewToFront(dropdownMenu.get)
         excludeComponents.forEach { comp in
             superview.bringSubviewToFront(comp.baseView)
