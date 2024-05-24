@@ -252,6 +252,7 @@ open class BaseBuilder: NSObject {
             return
         }
         
+        baseView.alpha = 0
         baseView.isHidden = false
         UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
             guard let self else {return}

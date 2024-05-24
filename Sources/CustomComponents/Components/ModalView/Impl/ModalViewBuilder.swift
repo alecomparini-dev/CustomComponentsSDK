@@ -174,6 +174,7 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
     
 
 //  MARK: - ANIMATIONS AREA
+    
     private func showAnimation(_ completion: (() -> Void)? = nil) {
         modal.setHidden(false, animated: true, animationDuration)
         overlay?.setHidden(false, animated: true, animationDuration)
