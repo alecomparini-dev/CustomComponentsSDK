@@ -175,7 +175,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     
     @discardableResult
     public func setFloatButton() -> Self {
-        self.button.layer.zPosition = K.Button.hierarchyFloatButton
+        self.button.layer.zPosition = K.Button.zPosition
         bringToFront()
         return self
     }
