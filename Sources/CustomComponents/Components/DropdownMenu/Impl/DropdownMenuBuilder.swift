@@ -13,7 +13,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var isApplyOnce = false
     private var isVisible = false
     private var autoCloseEnabled = false
-    private var zPosition: CGFloat = 10000
+    private var zPosition: CGFloat = K.Dropdown.zPosition
     
     private var excludeComponents = [BaseBuilder]()
     private var overlay: BlurBuilder?

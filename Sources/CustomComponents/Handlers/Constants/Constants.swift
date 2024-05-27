@@ -5,6 +5,7 @@ import Foundation
 
 
 public struct K {
+    
     public struct Default {
         public static let backgroundColor: String = "#ffffff"
         public static let padding: CGFloat = 8
@@ -443,11 +444,28 @@ extension K {
 extension K {
     public struct Button {
         
-        public static let hierarchyFloatButton: CGFloat = 10000
+        public static let zPosition: CGFloat = 1000
         
         public struct Interaction {
             public static let shadowOpacityProperty = "shadowOpacity"
         }
+    }
+}
+
+//  MARK: - EXTENSION - Dropdown
+
+extension K {
+    public struct Dropdown {
+        public static let zPosition: CGFloat = 1000
+    }
+}
+
+
+//  MARK: - EXTENSION - Modal
+
+extension K {
+    public struct Modal {
+        public static let zPosition: CGFloat = 1100
     }
 }
 

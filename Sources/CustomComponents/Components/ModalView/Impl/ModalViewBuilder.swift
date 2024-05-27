@@ -12,7 +12,7 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
     private var autoCloseEnabled = false
 
     private var animationDuration: TimeInterval = 0
-    private var zPosition: CGFloat = 10000
+    private var zPosition: CGFloat = K.Modal.zPosition
 
     private var excludeComponents = [BaseBuilder]()
     private var overlay: BlurBuilder?
