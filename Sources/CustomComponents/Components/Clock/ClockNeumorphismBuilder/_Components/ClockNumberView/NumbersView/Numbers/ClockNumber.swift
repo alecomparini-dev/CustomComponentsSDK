@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 class ClockNumber {
     
     private let clockNumberBase: ClockNumberBaseView!

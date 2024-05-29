@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol ImageView {
     associatedtype T
     var get: T { get }

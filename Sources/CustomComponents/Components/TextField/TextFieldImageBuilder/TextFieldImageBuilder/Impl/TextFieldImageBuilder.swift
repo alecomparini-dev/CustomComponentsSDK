@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         
     private var imagePosition: K.Position.Horizontal!

@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class ClearButtonModeBuilder: ClearButtonMode {
     
     private var size: CGSize = CGSize(width: 20, height: 20)

@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 class ClockNumberBaseView: ClockNumberView  {
     
     let strokeModel: StrokeModel

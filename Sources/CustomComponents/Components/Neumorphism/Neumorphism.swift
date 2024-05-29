@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol Neumorphism {
     @discardableResult
     func setReferenceColor(hexColor: String?) -> Self

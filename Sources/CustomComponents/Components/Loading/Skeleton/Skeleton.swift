@@ -3,7 +3,7 @@
 
 import Foundation
 
-
+@MainActor
 public protocol Skeleton {
     typealias completion = () -> Void
     

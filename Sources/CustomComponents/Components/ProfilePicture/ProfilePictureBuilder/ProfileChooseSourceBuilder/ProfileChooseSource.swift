@@ -3,7 +3,7 @@
 
 import Foundation
 
-
+@MainActor
 public protocol ProfileChooseSource {
     typealias completion = (_ imageViewBuilder: ImageViewBuilder?) -> Void
     

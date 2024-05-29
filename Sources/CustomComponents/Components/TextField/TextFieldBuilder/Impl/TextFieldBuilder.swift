@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class TextFieldBuilder: BaseBuilder, TextField {
     public typealias T = UITextField
 

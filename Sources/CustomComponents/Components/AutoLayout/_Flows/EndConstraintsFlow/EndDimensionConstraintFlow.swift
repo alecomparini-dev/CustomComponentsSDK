@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public class EndDimensionConstraintFlow {
     private var startAutoLayout: StartAutoLayout
     

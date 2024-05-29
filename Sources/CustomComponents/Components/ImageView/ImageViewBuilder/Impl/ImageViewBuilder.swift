@@ -3,7 +3,8 @@
 
 import UIKit
 
-public class ImageViewBuilder: BaseBuilder, ImageView {
+@MainActor
+open class ImageViewBuilder: BaseBuilder, ImageView {
     public typealias T = UIImageView
     public var get: UIImageView { self.imageView}
     

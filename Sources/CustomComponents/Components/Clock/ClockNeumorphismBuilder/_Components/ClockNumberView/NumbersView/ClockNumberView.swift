@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 class ClockNumberView: ViewBuilder {
     
     override init() {

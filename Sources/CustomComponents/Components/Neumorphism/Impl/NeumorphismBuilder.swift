@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class NeumorphismBuilder: Neumorphism {
     
     private var applyOnce = false

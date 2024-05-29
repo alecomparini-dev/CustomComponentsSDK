@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 struct Constraints {
     
     private let startAutoLayout: StartAutoLayout

@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol ClearButtonMode {
     
     func setSizeButton(_ size: CGSize) -> Self
