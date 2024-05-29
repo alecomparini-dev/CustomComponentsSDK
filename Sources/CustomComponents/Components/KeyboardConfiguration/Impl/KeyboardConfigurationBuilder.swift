@@ -24,7 +24,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     
 //  MARK: - SET PROPERTIES
-    @MainActor @discardableResult
+    @discardableResult
     public func setKeyboardType(_ keyboardType: K.Keyboard.Types) -> Self {
         textFieldBuilder?.get.keyboardType = UIKeyboardType.init(rawValue: keyboardType.rawValue ) ?? .default
         if completionDoneKeyboard == nil {
@@ -33,7 +33,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         return self
     }
     
-    @MainActor @discardableResult
+    @discardableResult
     public func setDoneButton(_ completion: @escaping CompletionKeyboardAlias) -> Self {
         completionDoneKeyboard = completion
         if isDoneButtonAlreadyIncluded {return self}
@@ -43,7 +43,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         return self
     }
     
-    @MainActor @discardableResult
+    @discardableResult
     public func setClearButton(_ completion: CompletionKeyboardAlias? = nil) -> Self {
         completionCleanButton = completion
         createToolbar()
@@ -52,7 +52,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         return self
     }
     
-    @MainActor @discardableResult
+    @discardableResult
     public func setNavigationButtonTextField(_ callBackListTextFields: @escaping CallBackListTextFieldsAlias) -> Self {
         createToolbar()
         addNavigationsButtons()
@@ -60,13 +60,13 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         return self
     }
     
-    @MainActor @discardableResult
+    @discardableResult
     public func setKeyboardAppearance(_ appearance: K.Appearance) -> Self {
         textFieldBuilder?.get.keyboardAppearance = UIKeyboardAppearance.init(rawValue: appearance.rawValue) ?? .default
         return self
     }
     
-    @MainActor @discardableResult
+    @discardableResult
     public func setHideKeyboard(_ hide: Bool) -> Self {
         if hide {
             textFieldBuilder?.get.resignFirstResponder()
@@ -76,7 +76,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         return self
     }
     
-    @MainActor @discardableResult
+    @discardableResult
     public func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias? = nil) -> Self {
         if let completion {
             completionReturnType = completion
@@ -137,14 +137,14 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         }
     }
     
-    @MainActor private func createToolbar() {
+    private func createToolbar() {
         toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         configToolbar()
         addToolbarOfTextField()
         addButtonItemToToolbar(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
     }
     
-    @MainActor private func configToolbar() {
+    private func configToolbar() {
         toolbar?.items = []
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
@@ -155,11 +155,11 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         setTintColor(self.textFieldBuilder?.get.textColor)
     }
     
-    @MainActor private func addToolbarOfTextField() {
+    private func addToolbarOfTextField() {
         self.textFieldBuilder?.get.inputAccessoryView = toolbar
     }
     
-    @MainActor private func addAutomaticButtonOk() {
+    private func addAutomaticButtonOk() {
         if isDoneButtonAlreadyIncluded {return}
         
         guard let keyboardType = textFieldBuilder?.get.keyboardType else {return}
@@ -175,7 +175,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         
 //  MARK: - NAVIAGATION Area
     
-    @MainActor private func moveNextTextField(_ textField: TextFieldBuilder) {
+    private func moveNextTextField(_ textField: TextFieldBuilder) {
         guard let listTextFields = callBackListTextFields?() else {return}
         guard let currentIndex = listTextFields.firstIndex(of: textField) else {return}
         let nextIndex = currentIndex + 1
@@ -187,7 +187,7 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
         }
     }
     
-    @MainActor private func movePreviousTextField(_ textField: TextFieldBuilder) {
+    private func movePreviousTextField(_ textField: TextFieldBuilder) {
         guard let listTextFields = callBackListTextFields?() else {return}
         guard let currentIndex = listTextFields.firstIndex(of: textField) else {return}
         
@@ -203,23 +203,23 @@ public class KeyboardConfigurationBuilder: KeyboardConfiguration {
 
         
 //  MARK: - OBJC Area
-    @MainActor @objc private func doneButtonTapped() {
+    @objc private func doneButtonTapped() {
         guard let textFieldBuilder else {return}
         textFieldBuilder.textFieldEditingDidEndOnExit(textFieldBuilder.get)
         completionDoneKeyboard?(textFieldBuilder)
     }
     
-    @MainActor @objc private func navigationNextButtonTapped() {
+    @objc private func navigationNextButtonTapped() {
         guard let textFieldBuilder else {return}
         moveNextTextField(textFieldBuilder)
     }
     
-    @MainActor @objc private func navigationPreviousButtonTapped() {
+    @objc private func navigationPreviousButtonTapped() {
         guard let textFieldBuilder else {return}
         movePreviousTextField(textFieldBuilder)
     }
     
-    @MainActor @objc private func clearButtonTapped() {
+    @objc private func clearButtonTapped() {
         guard let textFieldBuilder else {return}
         textFieldBuilder.get.text = ""
         completionCleanButton?(textFieldBuilder)
