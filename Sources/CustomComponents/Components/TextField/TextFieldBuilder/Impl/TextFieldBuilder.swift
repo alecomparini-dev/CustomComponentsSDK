@@ -5,7 +5,6 @@ import UIKit
 
 open class TextFieldBuilder: BaseBuilder, TextField {
     public typealias T = UITextField
-    public var get: UITextField { self.textField }
 
     static private var currentMainWindow: UIWindow?
     
@@ -21,10 +20,14 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     private var mask: MaskBuilder?
     
     private var attributesPlaceholder: [NSAttributedString.Key: Any] = [:]
-    private var textField: UITextField
     
 
 //  MARK: - INITIALIZERS
+
+    @MainActor
+    public var get: UITextField { self.textField }
+    
+    private var textField: UITextField
     
     public init() {
         self.textField = UITextField()
