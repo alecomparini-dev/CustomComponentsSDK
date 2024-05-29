@@ -24,9 +24,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 
 //  MARK: - INITIALIZERS
 
-    @MainActor
     public var get: UITextField { self.textField }
-    
     private var textField: UITextField
     
     public init() {
