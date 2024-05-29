@@ -18,13 +18,16 @@ open class ImageViewBuilder: BaseBuilder, ImageView {
         super.init(imageView)
     }
 
-    public convenience init(systemName: String) {
-        self.init(UIImage(systemName: systemName))
+    public init(systemName: String) {
+        self.imageView = UIImageView(image: UIImage(systemName: systemName))
+        super.init(imageView)
     }
 
-    public convenience init() {
-        self.init(systemName: "")
+    public init() {
+        self.imageView = UIImageView()
+        super.init(imageView)
     }
+    
     
         
 //  MARK: - SET PROPERTIES
