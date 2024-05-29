@@ -21,8 +21,8 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         configure()
     }
     
-    public convenience override init() {
-        self.init("")
+    public override init() {
+        super.init()
     }
     
     
