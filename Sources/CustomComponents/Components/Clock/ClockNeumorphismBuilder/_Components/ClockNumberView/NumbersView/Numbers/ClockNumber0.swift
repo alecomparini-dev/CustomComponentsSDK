@@ -12,6 +12,7 @@ class ClockNumber0: ClockNumberProtocol {
         self.clockNumberBase = clockNumberBase
     }
     
+    
     func configure() {
         clockNumberBase.leftTopStroke.setHidden(false)
         clockNumberBase.leftBottomStroke.setHidden(false)

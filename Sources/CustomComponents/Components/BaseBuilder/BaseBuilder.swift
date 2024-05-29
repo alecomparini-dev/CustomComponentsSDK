@@ -122,7 +122,7 @@ open class BaseBuilder: NSObject {
         return self
     }
    
-    @discardableResult
+    @MainActor @discardableResult
     public func setHidden(_ hide: Bool, animated: Bool = false, _ duration: TimeInterval = 0.3) -> Self {
         if !animated {
             baseView.isHidden = hide
