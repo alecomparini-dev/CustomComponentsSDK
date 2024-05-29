@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 protocol ClockNumberProtocol {
     func configure()
 }

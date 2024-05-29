@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class ProfileChooseSourceBuilder: NSObject, ProfileChooseSource {
     private struct Control {
         static var isOpenCamera = false

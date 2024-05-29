@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public class TabBarBuilder: TabBar {
     public typealias T = UITabBarController
     

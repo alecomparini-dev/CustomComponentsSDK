@@ -4,8 +4,8 @@
 
 import UIKit
 
-
-public class KeyboardConfigurationBuilder: KeyboardConfiguration {
+@MainActor
+open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     static private let keyboardTypeWithOutReturn: [UIKeyboardType] = [.decimalPad, .asciiCapableNumberPad, .numberPad, .twitter, .phonePad]
     
     private(set) var completionReturnType: CompletionKeyboardAlias?

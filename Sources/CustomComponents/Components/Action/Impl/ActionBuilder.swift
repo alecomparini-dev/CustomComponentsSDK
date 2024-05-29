@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public class ActionBuilder: Action {
     public typealias T = UIView
     

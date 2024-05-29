@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class ViewBuilder: BaseBuilder, ViewProtocol {
     public typealias T = UIView
     

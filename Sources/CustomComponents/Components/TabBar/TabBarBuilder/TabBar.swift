@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol TabBar {
     associatedtype T
     var get: T { get }

@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol KeyboardConfiguration {
     typealias CallBackListTextFieldsAlias = () -> [TextFieldBuilder]
     typealias CompletionKeyboardAlias = (_ textField: TextFieldBuilder) -> Void

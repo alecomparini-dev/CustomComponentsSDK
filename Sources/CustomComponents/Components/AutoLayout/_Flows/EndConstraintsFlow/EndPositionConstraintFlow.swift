@@ -3,7 +3,7 @@
 
 import UIKit
 
-
+@MainActor
 public class EndPositionConstraintFlow {
     private var startAutoLayout: StartAutoLayout
     

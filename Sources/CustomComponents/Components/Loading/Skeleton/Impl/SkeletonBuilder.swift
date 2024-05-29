@@ -3,7 +3,7 @@
 
 import UIKit
 
-
+@MainActor
 open class SkeletonBuilder: Skeleton {
     
     private var skeletonGradient: GradientBuilder?

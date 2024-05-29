@@ -4,6 +4,7 @@
 
 import Foundation
 
+@MainActor
 public protocol Action {
     associatedtype T
     

@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class BaseBuilder: NSObject {
     
     private(set) var constraintsFlow: StartOfConstraintsFlow?
@@ -13,6 +14,7 @@ open class BaseBuilder: NSObject {
     
     private var _id: String = ""
     private weak var _baseView: UIView?
+    
     
     public var baseView: UIView {
         get { self._baseView ?? UIView() }
@@ -25,9 +27,9 @@ open class BaseBuilder: NSObject {
     }
     
     deinit {
-        baseView.gestureRecognizers?.forEach({ gesture in
-            baseView.removeGestureRecognizer(gesture)
-        })
+//        baseView.gestureRecognizers?.forEach({ gesture in
+//            baseView.removeGestureRecognizer(gesture)
+//        })
         constraintsFlow = nil
         autoLayout = nil
         _skeleton = nil
