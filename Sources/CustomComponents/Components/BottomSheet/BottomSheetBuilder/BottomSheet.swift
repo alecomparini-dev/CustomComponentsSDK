@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol BottomSheet {
     
     func setDetents(_ detents: [K.SheetPresentationController.Detent]) -> Self

@@ -3,7 +3,8 @@
 
 import UIKit
 
-public class BoxShadowInsetBuilder: ViewBuilder {
+@MainActor
+open class BoxShadowInsetBuilder: ViewBuilder {
     
     private var shadowOffset: (top: CGFloat, left: CGFloat, right: CGFloat, bottom: CGFloat) = (6, 6, 6, 6)
     
@@ -82,10 +83,12 @@ public class BoxShadowInsetBuilder: ViewBuilder {
     
     
 //  MARK: - APPLY
-    public func apply() {
+    @discardableResult
+    public func apply() -> Self{
         addElements()
         applyAutoLayouts()
         setShadows()
+        return self
     }
     
     
