@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol Button {
     associatedtype T
     var get: T { get }

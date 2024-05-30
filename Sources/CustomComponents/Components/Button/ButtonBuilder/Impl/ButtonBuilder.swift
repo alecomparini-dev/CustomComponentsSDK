@@ -3,7 +3,7 @@
 
 import UIKit
 
-
+@MainActor
 open class ButtonBuilder: BaseBuilder, Button {
     public typealias T = UIButton
     public var get: UIButton {self.button}

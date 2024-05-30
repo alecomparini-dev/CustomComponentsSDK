@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     public var imageView: ImageViewBuilder
 
