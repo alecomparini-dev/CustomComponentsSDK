@@ -14,6 +14,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     private var callBackListTextFields: CallBackListTextFieldsAlias?
     
     private var isDoneButtonAlreadyIncluded = false
+    private var toolBarTintColor: UIColor?
     private var toolbar: UIToolbar?
     
     private weak var textFieldBuilder: TextFieldBuilder?
@@ -88,7 +89,8 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setTintColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
-        toolbar?.tintColor = color
+        toolBarTintColor = color
+        toolbar?.tintColor = toolBarTintColor
         return self
     }
     
@@ -148,6 +150,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.items = []
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
+        toolbar?.tintColor = toolBarTintColor
     }
     
     private func addToolbarOfTextField() {
