@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class BorderBuilder: Border {
     private weak var component: UIView!
     
