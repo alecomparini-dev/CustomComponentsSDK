@@ -5,20 +5,23 @@ import Foundation
 import MapKit
 import CoreLocation
 
-
+@MainActor
 public class MapBuilder: BaseBuilder, Map {
     public typealias D = MapKit.MKMapViewDelegate
     public typealias PointOfInterestCategory = MKPointOfInterestCategory
     public typealias Location = CoreLocation.CLLocation
     
-    static public let radius: Double = 500
+    public struct Constant {
+        static public let radius: Double = 500
+    }
+    
     private weak var mapBuilderOutput: MapBuilderOutput?
     
     private var loadingMap = false
     private var alreadyApplied = false
     private var userLocation: Location?
-    private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], MapBuilder.radius, false )
-    private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", MapBuilder.radius, false )
+    private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], Constant.radius, false )
+    private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", Constant.radius, false )
     private var locationManager: CLLocationManager?
     
     
@@ -40,7 +43,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setCenterMap(location: Location?, _ regionRadius: Double = MapBuilder.radius) -> Self {
+    public func setCenterMap(location: Location?, _ regionRadius: Double = Constant.radius) -> Self {
         guard let location else { return self }
         
         let coordinateRegion = MKCoordinateRegion(
@@ -73,7 +76,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setPinPointsOfInterest(_ categories: [MKPointOfInterestCategory], _ regionRadius: Double = MapBuilder.radius) -> Self {
+    public func setPinPointsOfInterest(_ categories: [MKPointOfInterestCategory], _ regionRadius: Double = Constant.radius) -> Self {
         pinPointsOfInterest.flag = true
         pinPointsOfInterest.categories = categories
         pinPointsOfInterest.regionRadius = regionRadius

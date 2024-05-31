@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol Dock: AnyObject {
     associatedtype T
     associatedtype C

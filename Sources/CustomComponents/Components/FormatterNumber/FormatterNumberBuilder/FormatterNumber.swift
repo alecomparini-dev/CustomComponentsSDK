@@ -3,7 +3,7 @@
 
 import Foundation
 
-
+@MainActor
 public protocol FormatterNumber {
     
     func formatter(double: Double) -> String?

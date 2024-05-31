@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol ButtonInteraction {
     
     var tapped: Void { get }

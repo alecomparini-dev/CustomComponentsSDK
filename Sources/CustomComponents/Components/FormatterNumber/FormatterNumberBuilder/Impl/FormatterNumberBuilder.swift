@@ -3,7 +3,7 @@
 
 import UIKit
 
-
+@MainActor
 open class FormatterNumberBuilder: FormatterNumber {
     
     private let numberFormatter: NumberFormatter

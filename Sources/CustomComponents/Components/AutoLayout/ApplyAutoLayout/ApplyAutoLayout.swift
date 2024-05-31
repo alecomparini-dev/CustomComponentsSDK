@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class ApplyAutoLayout {
     private var listAutoLayout = [AutoLayout]()
 

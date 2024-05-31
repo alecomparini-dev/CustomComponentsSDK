@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 extension UIViewController {
     
     @available(iOS 15.0, *)

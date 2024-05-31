@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 class DockCell: UICollectionViewCell {
     static let identifier: String = String(describing: DockCell.self)
     

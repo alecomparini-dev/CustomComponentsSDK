@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 extension UIView {
     
     @discardableResult

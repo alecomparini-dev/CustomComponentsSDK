@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public typealias S = UIBlurEffect.Style
     

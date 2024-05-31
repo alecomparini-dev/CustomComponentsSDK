@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 class NumberColumnsView: ViewBuilder {
 
     override init() {

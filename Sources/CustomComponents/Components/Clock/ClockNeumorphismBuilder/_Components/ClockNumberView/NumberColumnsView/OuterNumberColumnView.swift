@@ -3,7 +3,7 @@
 
 import Foundation
 
-
+@MainActor
 class OuterNumberColumnView: NumberColumnsView {
     
     override init() {

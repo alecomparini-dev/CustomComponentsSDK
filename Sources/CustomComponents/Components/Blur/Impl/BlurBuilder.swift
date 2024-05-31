@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public class BlurBuilder: ViewBuilder, Blur {
     public typealias T = UIVisualEffectView
     

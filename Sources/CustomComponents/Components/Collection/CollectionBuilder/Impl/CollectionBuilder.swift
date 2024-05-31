@@ -3,7 +3,7 @@
 
 import UIKit
 
-
+@MainActor
 open class CollectionBuilder: BaseBuilder, Collection {
     public typealias T = UICollectionView
     public typealias C = UICollectionViewCell
