@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public class IconButtonBuilder: ButtonImageBuilder {
     
     public override init(_ image: ImageViewBuilder) {

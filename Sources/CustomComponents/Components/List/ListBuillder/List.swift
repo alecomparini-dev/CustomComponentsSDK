@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol List {
     associatedtype T
     associatedtype C

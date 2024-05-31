@@ -3,7 +3,7 @@
 
 import UIKit
 
-
+@MainActor
 public class DropdownMenuItemsBuilder {
     
     private var items: [DropdownMenuItems] = []

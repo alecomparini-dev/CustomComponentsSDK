@@ -4,6 +4,7 @@
 
 import UIKit
 
+@MainActor
 open class LabelBuilder: BaseBuilder, Label {
     public typealias T = UILabel
         

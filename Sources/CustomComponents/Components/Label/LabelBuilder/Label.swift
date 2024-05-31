@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol Label: AnyObject {
     associatedtype T
     

@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public class LoadingBuilder: BaseBuilder , Loading {
     public typealias T = UIActivityIndicatorView
     public var get: UIActivityIndicatorView { self.loading }

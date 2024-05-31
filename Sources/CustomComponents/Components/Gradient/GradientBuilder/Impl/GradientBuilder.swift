@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class GradientBuilder: Gradient {
     public typealias T = CAGradientLayer
     public var get: CAGradientLayer? {self.gradient}

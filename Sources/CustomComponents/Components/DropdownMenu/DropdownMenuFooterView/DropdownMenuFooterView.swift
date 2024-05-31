@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 class DropdownMenuFooterView: ViewBuilder {
     
     private(set) var heightAnchorConst: NSLayoutConstraint!

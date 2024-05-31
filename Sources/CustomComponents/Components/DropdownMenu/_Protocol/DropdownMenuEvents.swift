@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol DropdownMenuEvents: AnyObject {
 //    func willAppearDropdowMenu()
     func didAppearDropdowMenu()

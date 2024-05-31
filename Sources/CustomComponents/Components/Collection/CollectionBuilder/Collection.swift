@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol Collection: AnyObject {
     associatedtype T
     associatedtype C

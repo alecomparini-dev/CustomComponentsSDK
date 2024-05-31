@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 class ClockNeumorphismView: ViewBuilder {
     
     override init() {

@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class DockBuilder: BaseBuilder, Dock {
     private weak var delegate: DockDelegate?
     public typealias T = UIView

@@ -3,7 +3,7 @@
 
 import Foundation
 
-
+@MainActor
 public protocol Gradient {
     associatedtype T
 

@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     private var alreadyApplied = false
     
@@ -113,10 +114,6 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         createColonsView()
         addBaseNumberView()
         configConstraints()
-//        DispatchQueue.main.async { [weak self] in
-//            guard let self else {return}
-////            configStyles()
-//        }
         startTime()
         alreadyApplied = true
     }
@@ -127,60 +124,6 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
         Clock.minLeft = ClockNumber(strokeModel: strokeModel)
         Clock.minRight = ClockNumber(strokeModel: strokeModel)
     }
-    
-//    private func configStyles() {
-//        applyNeumorphismHourLeft()
-//        applyNeumorphismHourRight()
-//        applyNeumorphismMinLeft()
-//        applyNeumorphismMinRight()
-//        applyNeumorphismColon()
-//    }
-
-//    private func applyNeumorphismHourLeft() {
-//        Clock.hourLeft.get.leftTopStroke.applyNeumorphism()
-//        Clock.hourLeft.get.leftBottomStroke.applyNeumorphism()
-//        Clock.hourLeft.get.rightTopStroke.applyNeumorphism()
-//        Clock.hourLeft.get.rightBottomStroke.applyNeumorphism()
-//        Clock.hourLeft.get.middleTopStroke.applyNeumorphism()
-//        Clock.hourLeft.get.middleMiddleStroke.applyNeumorphism()
-//        Clock.hourLeft.get.middleBottomStroke.applyNeumorphism()
-//    }
-//    
-//    private func applyNeumorphismHourRight() {
-//        Clock.hourRight.get.leftTopStroke.applyNeumorphism()
-//        Clock.hourRight.get.leftBottomStroke.applyNeumorphism()
-//        Clock.hourRight.get.rightTopStroke.applyNeumorphism()
-//        Clock.hourRight.get.rightBottomStroke.applyNeumorphism()
-//        Clock.hourRight.get.middleTopStroke.applyNeumorphism()
-//        Clock.hourRight.get.middleMiddleStroke.applyNeumorphism()
-//        Clock.hourRight.get.middleBottomStroke.applyNeumorphism()
-//    }
-//    
-//    private func applyNeumorphismMinLeft() {
-//        Clock.minLeft.get.leftTopStroke.applyNeumorphism()
-//        Clock.minLeft.get.leftBottomStroke.applyNeumorphism()
-//        Clock.minLeft.get.rightTopStroke.applyNeumorphism()
-//        Clock.minLeft.get.rightBottomStroke.applyNeumorphism()
-//        Clock.minLeft.get.middleTopStroke.applyNeumorphism()
-//        Clock.minLeft.get.middleMiddleStroke.applyNeumorphism()
-//        Clock.minLeft.get.middleBottomStroke.applyNeumorphism()
-//    }
-//    
-//    private func applyNeumorphismMinRight() {
-//        Clock.minRight.get.leftTopStroke.applyNeumorphism()
-//        Clock.minRight.get.leftBottomStroke.applyNeumorphism()
-//        Clock.minRight.get.rightTopStroke.applyNeumorphism()
-//        Clock.minRight.get.rightBottomStroke.applyNeumorphism()
-//        Clock.minRight.get.middleTopStroke.applyNeumorphism()
-//        Clock.minRight.get.middleMiddleStroke.applyNeumorphism()
-//        Clock.minRight.get.middleBottomStroke.applyNeumorphism()
-//    }
-//    
-//    private func applyNeumorphismColon() {
-//        colonsView.colonTop.applyNeumorphism()
-//        colonsView.colonBottom.applyNeumorphism()
-//    }
-    
 
     private func addBaseNumberView() {
         Clock.hourLeft.get.add(insideTo: clockNeumorphism.hoursContainerView.leftNumberView.get )

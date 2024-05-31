@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 class ColonsView: ViewBuilder {
     
     private let colonModel: ColonModel

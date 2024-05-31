@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public protocol ListDelegate: AnyObject {
     //REQUIRED
     func numberOfSections(_ list: ListBuilder) -> Int
@@ -18,7 +19,7 @@ public protocol ListDelegate: AnyObject {
     func scrollViewWillBeginDragging(_ list: ListBuilder, _ scrollView: UIScrollView)
 }
 
-
+@MainActor
 open class ListBuilder: BaseBuilder, List {
     private weak var delegate: ListDelegate?
     private var view: UIView?

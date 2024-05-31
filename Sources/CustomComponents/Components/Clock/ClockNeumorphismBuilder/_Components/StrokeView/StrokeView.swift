@@ -3,7 +3,7 @@
 
 import Foundation
 
-
+@MainActor
 class StrokeView: ViewBuilder {
     private let strokeModel: StrokeModel
     private var neumorphism: NeumorphismBuilder!

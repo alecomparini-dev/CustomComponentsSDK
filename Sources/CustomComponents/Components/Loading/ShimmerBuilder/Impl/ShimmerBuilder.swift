@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public class ShimmerBuilder: BaseBuilder, Shimmer {
     private let shimmer: LoadingShimmer
     

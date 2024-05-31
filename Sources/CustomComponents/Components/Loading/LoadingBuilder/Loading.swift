@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol Loading {
     associatedtype T
     var get: T { get }

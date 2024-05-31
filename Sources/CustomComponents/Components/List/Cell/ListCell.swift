@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 class ListCell: UITableViewCell {
     static let identifier: String = String(describing: ListCell.self)
     
