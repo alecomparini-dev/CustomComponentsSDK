@@ -148,7 +148,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.items = []
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
-        if ThemeIOS.isDarkMode() {
+        if textFieldBuilder?.get.keyboardAppearance ==  UIKeyboardAppearance.dark {
             setTintColor(.white)
             return
         }

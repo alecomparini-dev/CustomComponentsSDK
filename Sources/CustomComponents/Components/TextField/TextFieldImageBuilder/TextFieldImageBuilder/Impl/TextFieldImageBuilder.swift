@@ -37,7 +37,6 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         case .right:
             setImageRight(image)
         }
-//        setTintColor(super.get.tintColor)
         return self
     }
     
