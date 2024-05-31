@@ -140,9 +140,10 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     private func createToolbar() {
+        if toolbar != nil {return}
         toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         configToolbar()
-        addToolbarOfTextField()
+        addToolbarToTextField()
         addButtonItemToToolbar(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
     }
     
@@ -153,7 +154,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.tintColor = toolBarTintColor
     }
     
-    private func addToolbarOfTextField() {
+    private func addToolbarToTextField() {
         self.textFieldBuilder?.get.inputAccessoryView = toolbar
     }
     
