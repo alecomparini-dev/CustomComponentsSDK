@@ -3,7 +3,7 @@
 
 import Foundation
 
-
+@MainActor
 public protocol Shadow {
     associatedtype T
 

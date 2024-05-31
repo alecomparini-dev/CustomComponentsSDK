@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class TableViewBuilder: BaseBuilder, TableView {
     public typealias T = UITableView
     public typealias S = UITableView.ScrollPosition

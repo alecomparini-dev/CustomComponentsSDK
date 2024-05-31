@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class TextFieldPasswordBuilder: TextFieldImageBuilder, TextFieldPassword {
     
     private let paddingRightImage: CGFloat

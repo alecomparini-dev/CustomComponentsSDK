@@ -4,6 +4,7 @@
 
 import Foundation
 
+@MainActor
 public class TextFieldImageActionBuilder: ActionBuilder {
     
     public override init(component: BaseBuilder) {

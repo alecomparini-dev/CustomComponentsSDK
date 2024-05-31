@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol TapGesture {
     
     typealias touchGestureAlias = (_ tapGesture: TapGestureBuilder) -> Void

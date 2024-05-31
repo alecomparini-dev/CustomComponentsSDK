@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class StackViewBuilder: BaseBuilder, StackView {
     public typealias T = UIStackView
     

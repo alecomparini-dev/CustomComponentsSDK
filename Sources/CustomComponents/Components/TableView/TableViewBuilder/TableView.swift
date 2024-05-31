@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol TableView {
     associatedtype T
     associatedtype S
