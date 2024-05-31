@@ -39,6 +39,7 @@ open class BaseBuilder: NSObject {
     
     
 //  MARK: - GET PROPERTIES
+    
     public var getTag: Int { baseView.tag  }
     
     public var id: String { _id }
@@ -133,12 +134,6 @@ open class BaseBuilder: NSObject {
     }
 
     @discardableResult
-    public func setShimmer(_ build: (_ build: ShimmerBuilder) -> ShimmerBuilder) -> Self {
-        _ = build(ShimmerBuilder(component: baseView))
-        return self
-    }
-    
-    @discardableResult
     public func setTag(_ tag: Int) -> Self {
         baseView.tag = tag
         return self
@@ -162,8 +157,15 @@ open class BaseBuilder: NSObject {
         return self
     }
 
+    @discardableResult
+    public func setShimmer(_ build: (_ build: ShimmerBuilder) -> ShimmerBuilder) -> Self {
+        _ = build(ShimmerBuilder(component: baseView))
+        return self
+    }
+    
     
 //  MARK: - SHADOW
+    
     @discardableResult
     public func setShadow(_ build: (_ build: ShadowBuilder) -> ShadowBuilder) -> Self {
         _ = build(ShadowBuilder(baseView))
@@ -172,6 +174,7 @@ open class BaseBuilder: NSObject {
 
     
 //  MARK: - GRADIENT
+    
     @discardableResult
     public func setGradient(_ build: (_ build: GradientBuilder) -> GradientBuilder) -> Self {
         _ = build(GradientBuilder(baseView))
@@ -180,6 +183,7 @@ open class BaseBuilder: NSObject {
     
     
 //  MARK: - NEUMORPHISM
+    
     @discardableResult
     public func setNeumorphism(_ build: (_ build: NeumorphismBuilder) -> NeumorphismBuilder) -> Self {
         _ = build(NeumorphismBuilder(baseView))
@@ -188,6 +192,7 @@ open class BaseBuilder: NSObject {
         
     
 //  MARK: - SET ACTIONS
+    
     @discardableResult
     public func setActions(_ build: (_ build: ActionBuilder) -> ActionBuilder) -> Self {
         _ = build(ActionBuilder( component: baseView))
@@ -196,6 +201,7 @@ open class BaseBuilder: NSObject {
     
     
 //  MARK: - CONSTRAINTS AREA
+    
     @discardableResult
     public func setConstraints(_ builderConstraint: (_ build: StartOfConstraintsFlow) -> StartOfConstraintsFlow) -> Self {
         self.constraintsFlow = builderConstraint(StartOfConstraintsFlow(baseView))
