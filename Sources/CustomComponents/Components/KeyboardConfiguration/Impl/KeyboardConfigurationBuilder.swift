@@ -148,11 +148,6 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.items = []
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
-        if textFieldBuilder?.get.keyboardAppearance ==  UIKeyboardAppearance.dark {
-            setTintColor(.white)
-            return
-        }
-        setTintColor(self.textFieldBuilder?.get.textColor)
     }
     
     private func addToolbarOfTextField() {
