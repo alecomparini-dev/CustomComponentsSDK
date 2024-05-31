@@ -3,6 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol StackView {
     associatedtype T
     var get: T { get }

@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class ProfilePictureBuilder: BaseBuilder, ProfilePicture {
     public typealias T = UIView
     public var get: UIView { self.profilePicture.get }

@@ -3,6 +3,7 @@
 
 import Foundation
 
+
 public protocol MutableAttributedString {
     associatedtype T
     associatedtype C

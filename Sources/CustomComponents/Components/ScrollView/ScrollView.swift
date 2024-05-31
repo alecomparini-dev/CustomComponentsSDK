@@ -3,8 +3,7 @@
 
 import Foundation
 
-import Foundation
-
+@MainActor
 public protocol ScrollView {
     associatedtype S
     

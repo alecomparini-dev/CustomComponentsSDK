@@ -4,8 +4,10 @@
 
 import Foundation
 
+@MainActor
 public protocol TextFieldImage {
     var imageViewLeft: ImageViewBuilder? { get }
+    
     var imageViewRight: ImageViewBuilder? { get }
     
     func setImage(_ image: ImageViewBuilder, _ position: K.Position.Horizontal, _ margin: CGFloat) -> Self

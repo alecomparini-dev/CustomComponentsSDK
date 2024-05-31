@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public protocol PickerDelegate: AnyObject {
     func numberOfComponents() -> Int
     func numberOfRows(forComponent: Int) -> Int
@@ -11,7 +12,7 @@ public protocol PickerDelegate: AnyObject {
     func didSelectRowAt(_ component: Int, _ row: Int)
 }
 
-
+@MainActor
 open class PickerBuilder: BaseBuilder, Picker {
     private weak var delegate: PickerDelegate?
     

@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class TextViewBuilder: BaseBuilder, TextView {
     public typealias T = UITextView
     public var get: UITextView { self.textView}

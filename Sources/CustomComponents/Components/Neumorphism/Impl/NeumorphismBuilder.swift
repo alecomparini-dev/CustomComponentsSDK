@@ -17,7 +17,6 @@ open class NeumorphismBuilder: Neumorphism {
     private let lightShapeColorByColorReferencePercentage: CGFloat = K.Neumorphism.Percentage.lightShapeColorByColorReference.rawValue
     private let darkShapeColorByColorReferencePercentage: CGFloat = K.Neumorphism.Percentage.darkShapeColorByColorReference.rawValue
     
-    
     private var referenceColor: UIColor?
     private var lightShadowColor: UIColor?
     private var darkShadowColor: UIColor?

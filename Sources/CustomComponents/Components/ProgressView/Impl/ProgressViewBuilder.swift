@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class ProgressViewBuilder: BaseBuilder, ProgressView {
     public typealias P = UIProgressView
     

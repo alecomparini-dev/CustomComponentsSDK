@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class ShadowBuilder: Shadow {
     
     public typealias T = CALayer

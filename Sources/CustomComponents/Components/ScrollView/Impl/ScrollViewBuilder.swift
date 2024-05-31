@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class ScrollViewBuilder: BaseBuilder, ScrollView {
 
     public typealias S = UIScrollView

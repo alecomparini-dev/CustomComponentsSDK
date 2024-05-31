@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 public struct TabBarItems {
     public let viewController: UIViewController
     public let image: ImageViewBuilder

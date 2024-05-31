@@ -3,7 +3,7 @@
 
 import Foundation
 
-
+@MainActor
 public protocol TextFieldPassword {
     func setCloseEye() -> Self
     func setOpenEye() -> Self

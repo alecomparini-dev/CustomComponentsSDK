@@ -3,6 +3,7 @@
 
 import UIKit
 
+@MainActor
 open class SwitchBuilder: BaseBuilder, Switch {
     public typealias T = UISwitch
     public var get: UISwitch { self.switchView }

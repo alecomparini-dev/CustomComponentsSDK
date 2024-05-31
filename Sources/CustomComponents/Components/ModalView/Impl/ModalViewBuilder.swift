@@ -3,9 +3,9 @@
 
 import UIKit
 
+@MainActor
 open class ModalViewBuilder: BaseBuilder , ModalView {
     public typealias S = UIBlurEffect.Style
-    
     
     private var isVisible = false
     private var isApplyOnce = false
@@ -74,12 +74,10 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
     public func hide() {
         if !isVisible {return}
         isVisible = false
-//        events?.willDisappearDropdowMenu()
         hideAnimation { [weak self] in
             guard let self else {return }
             modal.setHidden(true)
             overlay?.setHidden(true)
-//            events?.didDisappearDropdowMenu()
         }
     }
     

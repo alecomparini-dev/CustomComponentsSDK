@@ -3,7 +3,8 @@
 
 import UIKit
 
-public class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
+@MainActor
+open class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     
     public enum GestureRelativeTo {
         case window
