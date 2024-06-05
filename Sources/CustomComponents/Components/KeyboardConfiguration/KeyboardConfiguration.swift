@@ -13,7 +13,7 @@ public protocol KeyboardConfiguration {
     func setKeyboardType(_ keyboardType: K.Keyboard.Types) -> Self
     
     @discardableResult
-    func setDoneButton(_ completion: @escaping CompletionKeyboardAlias) -> Self
+    func setDoneButton(title: String, _ completion: @escaping CompletionKeyboardAlias) -> Self
     
     @discardableResult
     func setClearButton(_ completion: CompletionKeyboardAlias?) -> Self

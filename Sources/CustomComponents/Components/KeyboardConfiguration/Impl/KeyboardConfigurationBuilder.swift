@@ -35,12 +35,12 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setDoneButton(_ completion: @escaping CompletionKeyboardAlias) -> Self {
+    public func setDoneButton(title: String = K.Strings.done ,_ completion: @escaping CompletionKeyboardAlias) -> Self {
         completionDoneKeyboard = completion
         if isDoneButtonAlreadyIncluded {return self}
         isDoneButtonAlreadyIncluded = true
         createToolbar()
-        addButtonItemToToolbar(UIBarButtonItem(title: K.Strings.done, style: .done, target: self, action: #selector(doneButtonTapped)))
+        addButtonItemToToolbar(UIBarButtonItem(title: title, style: .done, target: self, action: #selector(doneButtonTapped)))
         return self
     }
     
