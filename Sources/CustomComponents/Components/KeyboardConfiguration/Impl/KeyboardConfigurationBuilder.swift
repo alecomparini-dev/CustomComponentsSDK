@@ -13,6 +13,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     private var completionCleanButton: CompletionKeyboardAlias?
     private var callBackListTextFields: CallBackListTextFieldsAlias?
     
+    private var barButtonDone: UIBarButtonItem?
     private var isDoneButtonAlreadyIncluded = false
     private var toolBarTintColor: UIColor?
     private var toolbar: UIToolbar?
@@ -37,10 +38,14 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setDoneButton(title: String = K.Strings.done ,_ completion: @escaping CompletionKeyboardAlias) -> Self {
         completionDoneKeyboard = completion
-        if isDoneButtonAlreadyIncluded {return self}
+        if isDoneButtonAlreadyIncluded {
+            barButtonDone?.title = title
+            return self
+        }
         isDoneButtonAlreadyIncluded = true
         createToolbar()
-        addButtonItemToToolbar(UIBarButtonItem(title: title, style: .done, target: self, action: #selector(doneButtonTapped)))
+        barButtonDone = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(doneButtonTapped))
+        addButtonItemToToolbar(barButtonDone)
         return self
     }
     
@@ -125,8 +130,8 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         addButtonItemToToolbar(createFixedSpace(10))
     }
     
-    private func addButtonItemToToolbar(_ barButtonItem: UIBarButtonItem) {
-        guard let toolbar else {return}
+    private func addButtonItemToToolbar(_ barButtonItem: UIBarButtonItem?) {
+        guard let toolbar, let barButtonItem else {return}
         toolbar.items?.append(barButtonItem)
         repositionDoneButtonToFirstPosition()
     }
