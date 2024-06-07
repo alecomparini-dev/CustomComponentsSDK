@@ -39,18 +39,6 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         }
         return self
     }
-    
-    private func setImageLeft(_ newImage: ImageViewBuilder) {
-        updateImageView(newImage, .left)
-        imageViewLeft?.setContentMode(.center)
-        createPaddingView(.left)
-    }
-
-    private func setImageRight(_ newImage: ImageViewBuilder) {
-        updateImageView(newImage, .right)
-        imageViewRight?.setContentMode(.center)
-        createPaddingView(.right)
-    }
 
     @discardableResult
     public override func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal? = nil) -> Self {
@@ -219,5 +207,18 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
             _ = builder(TextFieldImageActionBuilder(component: component ))
         }
     }
+    
+    private func setImageLeft(_ newImage: ImageViewBuilder) {
+        updateImageView(newImage, .left)
+        imageViewLeft?.setContentMode(.center)
+        createPaddingView(.left)
+    }
+
+    private func setImageRight(_ newImage: ImageViewBuilder) {
+        updateImageView(newImage, .right)
+        imageViewRight?.setContentMode(.center)
+        createPaddingView(.right)
+    }
+
     
 }

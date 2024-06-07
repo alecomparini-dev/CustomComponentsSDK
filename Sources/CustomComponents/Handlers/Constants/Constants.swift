@@ -24,10 +24,10 @@ extension K {
     public struct Images {
         public static let eye = "eye"
         public static let eyeSlash = "eye.slash"
-        public static let eraserLineDashed = "eraser.line.dashed"
         public static let chevronBackward = "chevron.backward"
         public static let chevronForward = "chevron.forward"
         public static let xCircleFill = "x.circle.fill"
+        public static let eraser = ["eraser.line.dashed", "eraser"]
     }
 }
 
