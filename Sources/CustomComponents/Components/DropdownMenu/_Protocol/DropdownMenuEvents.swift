@@ -5,7 +5,7 @@ import Foundation
 
 @MainActor
 public protocol DropdownMenuEvents: AnyObject {
-//    func willAppearDropdowMenu()
+    func willAppearDropdowMenu()
     func didAppearDropdowMenu()
     func willDisappearDropdowMenu()
     func didDisappearDropdowMenu()
