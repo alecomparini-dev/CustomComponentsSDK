@@ -94,7 +94,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setTintColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
-        createToolbar()
+        toolBarTintColor = color
         toolbar?.tintColor = toolBarTintColor
         return self
     }
@@ -114,8 +114,14 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         return fixedSpace
     }
     
+    private func createEraseImage() -> UIImage {
+        let img = ImageViewBuilder()
+            .setImage(systemName: K.Images.eraser)
+        return img.get.image ?? UIImage()
+    }
+    
     private func createClearButtonItem() -> UIBarButtonItem {
-        let img = UIImage(systemName: K.Images.eraserLineDashed)?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: K.Default.imageSize))
+        let img = createEraseImage().applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: K.Default.imageSize))
         return UIBarButtonItem(image: img, style: .plain, target: self, action: #selector(clearButtonTapped))
     }
     
@@ -156,6 +162,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         toolbar?.items = []
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
+        toolbar?.tintColor = toolBarTintColor
     }
     
     private func addToolbarToTextField() {
