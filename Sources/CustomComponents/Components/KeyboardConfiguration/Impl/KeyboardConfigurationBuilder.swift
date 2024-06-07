@@ -94,7 +94,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     @discardableResult
     public func setTintColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
-        toolBarTintColor = color
+        createToolbar()
         toolbar?.tintColor = toolBarTintColor
         return self
     }
@@ -147,16 +147,15 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     private func createToolbar() {
         if toolbar != nil {return}
         toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        configToolbar()
         addToolbarToTextField()
         addButtonItemToToolbar(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
-        configToolbar()
     }
     
     private func configToolbar() {
         toolbar?.items = []
         toolbar?.barStyle = .default
         toolbar?.sizeToFit()
-        toolbar?.tintColor = toolBarTintColor
     }
     
     private func addToolbarToTextField() {
