@@ -147,9 +147,9 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     private func createToolbar() {
         if toolbar != nil {return}
         toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        configToolbar()
         addToolbarToTextField()
         addButtonItemToToolbar(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+        configToolbar()
     }
     
     private func configToolbar() {
