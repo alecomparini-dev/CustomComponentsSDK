@@ -27,7 +27,7 @@ extension K {
         public static let chevronBackward = "chevron.backward"
         public static let chevronForward = "chevron.forward"
         public static let xCircleFill = "x.circle.fill"
-        public static let eraser = ["eraser.line.dashed", "eraser"]
+        public static let eraser = ["eraser.line.dashed", "clear"]
     }
 }
 
