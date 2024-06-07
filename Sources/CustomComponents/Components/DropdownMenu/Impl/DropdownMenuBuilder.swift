@@ -279,7 +279,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
 //  MARK: - ANIMATIONS AREA
     private func showAnimation(_ completion: (() -> Void)? = nil) {
-        events?.willDisappearDropdowMenu()
+        events?.willAppearDropdowMenu()
         configStartAnimation()
         UIView.animate(withDuration: animationDuration) { [weak self] in
             guard let self else {return}
