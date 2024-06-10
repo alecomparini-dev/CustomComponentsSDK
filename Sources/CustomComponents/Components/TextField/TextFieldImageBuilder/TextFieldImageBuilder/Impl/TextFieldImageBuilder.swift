@@ -80,19 +80,26 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         }
         return self
     }
+
+    @discardableResult
+    public func setImageColor(_ color: UIColor, position: K.Position.Horizontal? = nil) -> Self {
+        switch position {
+            case .left:
+                imageViewLeft?.get.tintColor = color
+            case .right:
+                imageViewRight?.get.tintColor = color
+            case .none:
+                imageViewLeft?.get.tintColor = color
+                imageViewRight?.get.tintColor = color
+        }
+        return self
+    }
+
     
     @discardableResult
-    public func setImageColor(hexColor: String?, position: K.Position.Horizontal? = nil) -> Self {
-        guard let hexColor else {return self}
-        switch position {
-        case .left:
-            imageViewLeft?.get.tintColor = UIColor.HEX(hexColor)
-        case .right:
-            imageViewRight?.get.tintColor = UIColor.HEX(hexColor)
-        case .none:
-            imageViewLeft?.get.tintColor = UIColor.HEX(hexColor)
-            imageViewRight?.get.tintColor = UIColor.HEX(hexColor)
-        }
+    public func setImageColor(hexColor color: String?, position: K.Position.Horizontal? = nil) -> Self {
+        guard let color, color.isHexColor() else {return self}
+        setImageColor(UIColor.HEX(color), position: position)
         return self
     }
     
@@ -102,11 +109,11 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     @discardableResult
     public func setActions(imagePosition: K.Position.Horizontal, _ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
         switch imagePosition {
-        case .left:
-            setActionImage(component:imageViewLeft, builder)
-            
-        case .right:
-            setActionImage(component:imageViewRight, builder)
+            case .left:
+                setActionImage(component:imageViewLeft, builder)
+                
+            case .right:
+                setActionImage(component:imageViewRight, builder)
         }
         
         return self
