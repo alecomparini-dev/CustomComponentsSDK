@@ -50,13 +50,13 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder, TextFieldPassword {
             .setPlaceHolderColor(UIColor.systemGray)
             .setTextColor(.black)
             .setTintColor(.black)
-            .setActions(imagePosition: .right) { build in
+            .setActions({ build in
                 build
-                    .setTap { [weak self] component, tapGesture in
+                    .setTapImageRight { [weak self] _ in
                         guard let self else {return}
                         self.openCloseEyes()
                     }
-            }
+            })
     }
     
     private func openCloseEyes() {
