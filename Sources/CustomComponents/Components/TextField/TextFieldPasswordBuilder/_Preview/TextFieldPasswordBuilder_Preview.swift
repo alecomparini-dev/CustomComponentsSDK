@@ -50,10 +50,11 @@ final class TextFieldPasswordBuilderPreview: UIView {
                     .setLeading.setTrailing.equalToSafeArea(24)
                     .setHeight.equalToConstant(45)
             }
-            .setActions(imagePosition: .right) { build in
+            .setActions { build in
                 build
-                    .setTap { component, tapGesture in
-                        print(tapGesture?.getTouchPosition(.component) ?? "")
+                    .setTapImageLeft { [weak self] image in
+                        guard let self else {return}
+                        textField.setText("imagem esquerda")
                     }
             }
         return component
