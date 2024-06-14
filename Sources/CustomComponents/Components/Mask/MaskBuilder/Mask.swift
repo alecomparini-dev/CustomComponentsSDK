@@ -33,5 +33,4 @@ public protocol Mask {
     @discardableResult
     func setCellPhoneNumberMask() -> Self
     
-    
 }

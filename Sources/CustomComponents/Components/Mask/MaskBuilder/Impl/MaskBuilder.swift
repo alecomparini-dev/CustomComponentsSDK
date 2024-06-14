@@ -5,6 +5,7 @@ import Foundation
 
 @MainActor
 open class MaskBuilder: Mask {
+    
     public typealias T = TLCustomMask
     public var get: TLCustomMask { self.tlCustomMask }
     
@@ -76,7 +77,7 @@ open class MaskBuilder: Mask {
         tlCustomMask.formattingPattern = "($$) $$$$$-$$$$"
         return self
     }
-    
+
 
 }
 
