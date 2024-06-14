@@ -74,8 +74,7 @@ open class ClearButtonModeBuilder: ClearButtonMode {
     
     
 //  MARK: - @OBJC FUNCTION AREA
-    @objc
-    private func clearButtonTapped() {
+    @objc private func clearButtonTapped() {
         textFieldBuilder?.setText("")
     }
     
