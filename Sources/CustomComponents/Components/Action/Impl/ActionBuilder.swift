@@ -19,12 +19,11 @@ public class ActionBuilder: Action {
     
     @discardableResult
     public func setTap(_ closure: @escaping touchBaseActionAlias, _ cancelsTouchesInView: Bool = true) -> Self {
-        guard let component else { return self }
-        self.setTapGesture { build in
+        setTapGesture { build in
             build
                 .setCancelsTouchesInView(cancelsTouchesInView)
                 .setTap { tapGesture in
-                    closure(component, tapGesture)
+                    closure(tapGesture)
                 }
         }
         return self
