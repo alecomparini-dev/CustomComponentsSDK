@@ -10,7 +10,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     private var margin: CGFloat = K.Default.paddingWithImage
     private var sizeImage: CGFloat?
     
-    private var action: TextFieldImageActionBuilder?
+//    private var action: TextFieldImageActionBuilder?
     public var imageViewLeft: ImageViewBuilder?
     public var imageViewRight: ImageViewBuilder?
     
@@ -28,7 +28,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     }
     
     deinit{
-        action = nil
+//        action = nil
         imageViewLeft = nil
         imageViewRight = nil
         sizeImage = nil
@@ -116,7 +116,8 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
 
     @discardableResult
     public func setActions(_ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
-        action = builder(TextFieldImageActionBuilder(self))
+//        action = builder(TextFieldImageActionBuilder(self))
+        _ = builder(TextFieldImageActionBuilder(self))
         return self
     }
     
