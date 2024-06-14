@@ -8,7 +8,7 @@ import Foundation
 public class TextFieldImageActionBuilder: ActionBuilder {
     public typealias tapImageTextField = (_ image: ImageViewBuilder) -> Void
     
-    private weak var component: TextFieldImageBuilder?
+    private var component: TextFieldImageBuilder?
     
     public init(_ component: TextFieldImageBuilder) {
         super.init(component: component)
