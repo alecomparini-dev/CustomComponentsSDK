@@ -45,7 +45,7 @@ public protocol Button {
 //  MARK: - SET ACTION
     
     @discardableResult
-    func setActions(_ builder: (_ build: ButtonActionsBuilder) -> ButtonActionsBuilder) -> Self
+    func setActions(action: (_ build: ButtonActionsBuilder) -> ButtonActionsBuilder) -> Self
     
     
 //  MARK: - LOADING INDICATOR

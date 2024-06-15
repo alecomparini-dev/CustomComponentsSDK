@@ -4,6 +4,7 @@
 
 import UIKit
 
+@MainActor
 public class ButtonActionsBuilder: ActionBuilder {
     
     private weak var component: ButtonBuilder?
