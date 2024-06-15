@@ -292,10 +292,13 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - EXTENSION - MKMapViewDelegate
 extension MapBuilder: MKMapViewDelegate {
     
-  
+    public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        print("mapViewDidFinishLoadingMap", "acabou de carregar")
+    }
     
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
+            print("mapViewDidFinishRenderingMap", "acabou de RENDERIZAR")
             loadingMap = true
             mapBuilderOutput?.finishFullyRenderedMap()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
@@ -303,7 +306,6 @@ extension MapBuilder: MKMapViewDelegate {
             })
         }
     }
-    
     
     public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
         let title = (annotation.title ?? "") ?? ""

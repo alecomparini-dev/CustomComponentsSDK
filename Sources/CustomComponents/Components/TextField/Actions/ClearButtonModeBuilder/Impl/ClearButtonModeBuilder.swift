@@ -4,8 +4,9 @@
 import UIKit
 
 @MainActor
-open class ClearButtonModeBuilder: ClearButtonMode {
+open class ClearButtonModeBuilder: ClearButtonMode {    
     
+    private var completion: (() -> Void)?
     private var size: CGSize = CGSize(width: 20, height: 20)
     private var systemName: String = K.Images.xCircleFill
     private var position: K.Position.Horizontal = .right
@@ -38,7 +39,14 @@ open class ClearButtonModeBuilder: ClearButtonMode {
         self.systemName = systemName
         return self
     }
-        
+    
+    
+    @discardableResult
+    public func setCompletion(_ completion: @escaping () -> Void) -> Self {
+        self.completion = completion
+        return self
+    }
+    
     
 //  MARK: - APPLY
     public func apply() -> Self {
@@ -76,6 +84,7 @@ open class ClearButtonModeBuilder: ClearButtonMode {
 //  MARK: - @OBJC FUNCTION AREA
     @objc private func clearButtonTapped() {
         textFieldBuilder?.setText("")
+        completion?()
     }
     
 }
