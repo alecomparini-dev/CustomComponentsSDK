@@ -7,9 +7,9 @@ import UIKit
 open class TextFieldBuilder: BaseBuilder, TextField {
     public typealias T = UITextField
 
-    static private var currentMainWindow: UIWindow?
+    private var currentMainWindow: UIWindow?
     
-    static private func hideKeyboardWhenViewTapped() {
+    private func hideKeyboardWhenViewTapped() {
         let mainWindow = CurrentWindow.get
         if (mainWindow == currentMainWindow) { return }
         mainWindow?.hideKeyboardWhenViewTapped()
@@ -227,6 +227,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 
     
 // MARK: - PADDING
+    
     @discardableResult
     public func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal? = nil) -> Self {
         guard let padding else {return self}
@@ -248,7 +249,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     
-    
 //  MARK: - SET CLEAR BUTTON MODE
     
     @discardableResult
@@ -264,6 +264,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
                             
 
 // MARK: - DELEGATE
+    
     @discardableResult
     public func setDelegate(_ delegate: UITextFieldDelegate) -> Self {
         textField.delegate = delegate
@@ -309,13 +310,13 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
     private func addHideKeyboardWhenTouchReturn(){
         self.textField.addTarget(self, action: #selector(textFieldEditingDidEndOnExit), for: .editingDidEndOnExit)
-        TextFieldBuilder.hideKeyboardWhenViewTapped()
+        hideKeyboardWhenViewTapped()
     }
     
     
 //  MARK: - @OBJC FUNCTION AREA
-    @objc
-    public func textFieldEditingDidEndOnExit(_ textField: UITextField) {
+    
+    @objc public func textFieldEditingDidEndOnExit(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
 }

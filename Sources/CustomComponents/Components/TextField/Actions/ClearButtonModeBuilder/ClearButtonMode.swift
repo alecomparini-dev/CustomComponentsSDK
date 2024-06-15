@@ -12,6 +12,8 @@ public protocol ClearButtonMode {
     
     func setImgButton(_ systemName: String) -> Self
     
+    func setCompletion(_ completion: @escaping () -> Void) -> Self
+    
     func apply() -> Self
     
 }
