@@ -303,26 +303,25 @@ extension MapBuilder: MKMapViewDelegate {
     }
     
     public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
-        let title = (annotation.title ?? "") ?? ""
-        let subtitle = (annotation.subtitle ?? "") ?? ""
-        let coordinate = annotation.coordinate
+        let annotation = getAnnotationData(annotation)
         
-        mapBuilderOutput?.pinSelected(title: title,
-                                      subtitle: subtitle,
-                                      coordinate: (lat: coordinate.latitude, lon: coordinate.longitude))
+        mapBuilderOutput?.pinSelected(title: annotation.title,
+                                      subtitle: annotation.subtitle,
+                                      coordinate: (lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude))
     }
     
     public func mapView(_ mapView: MKMapView, didDeselect annotation: any MKAnnotation) {
+        let annotation = getAnnotationData(annotation)
+        mapBuilderOutput?.pinDeselected(title: annotation.title,
+                                        subtitle: annotation.subtitle,
+                                        coordinate: (lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude))
+    }
+    
+    private func getAnnotationData(_ annotation: any MKAnnotation) -> (title: String, subtitle: String, coordinate: CLLocationCoordinate2D) {
         let title = (annotation.title ?? "") ?? ""
         let subtitle = (annotation.subtitle ?? "") ?? ""
         let coordinate = annotation.coordinate
-        
-        print(title, subtitle, coordinate)
-        mapBuilderOutput?.pinDeselected()
-    }
-    
-    public func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
-        print("STOOOOOOOOOP PROCURAR USER")
+        return (title, subtitle, coordinate)
     }
     
 }
