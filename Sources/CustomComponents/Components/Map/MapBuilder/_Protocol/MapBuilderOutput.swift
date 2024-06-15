@@ -13,6 +13,6 @@ public protocol MapBuilderOutput: AnyObject {
     
     func pinSelected(title: String, subtitle: String, coordinate: (lat: Double, lon: Double))
     
-//    func pinDeselected()
+    func pinDeselected()
     
 }

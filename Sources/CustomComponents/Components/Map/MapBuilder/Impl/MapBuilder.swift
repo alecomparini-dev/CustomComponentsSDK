@@ -292,13 +292,8 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - EXTENSION - MKMapViewDelegate
 extension MapBuilder: MKMapViewDelegate {
     
-    public func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        print("mapViewDidFinishLoadingMap", "acabou de carregar")
-    }
-    
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
-            print("mapViewDidFinishRenderingMap", "acabou de RENDERIZAR")
             loadingMap = true
             mapBuilderOutput?.finishFullyRenderedMap()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
@@ -317,13 +312,21 @@ extension MapBuilder: MKMapViewDelegate {
                                       coordinate: (lat: coordinate.latitude, lon: coordinate.longitude))
     }
     
-    public func mapView(_ mapView: T, didDeselect view: MKAnnotationView) {
+    public func mapView(_ mapView: MKMapView, didDeselect annotation: any MKAnnotation) {
+        let title = (annotation.title ?? "") ?? ""
+        let subtitle = (annotation.subtitle ?? "") ?? ""
+        let coordinate = annotation.coordinate
         
+        print(title, subtitle, coordinate)
+        mapBuilderOutput?.pinDeselected()
     }
     
-    
+    public func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
+        print("STOOOOOOOOOP PROCURAR USER")
+    }
     
 }
+
 
 //  MARK: - EXTENSION - CLLocationManagerDelegate
 extension MapBuilder: CLLocationManagerDelegate {
