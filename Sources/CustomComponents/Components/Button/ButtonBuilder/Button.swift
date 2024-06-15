@@ -42,7 +42,14 @@ public protocol Button {
     func setFloatButton() -> Self 
     
     
+//  MARK: - SET ACTION
+    
+    @discardableResult
+    func setActions(_ builder: (_ build: ButtonActionsBuilder) -> ButtonActionsBuilder) -> Self
+    
+    
 //  MARK: - LOADING INDICATOR
+        
     @discardableResult
     func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self
     

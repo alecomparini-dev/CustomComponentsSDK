@@ -180,7 +180,6 @@ open class ButtonBuilder: BaseBuilder, Button {
         return self
     }
     
-    
     @discardableResult
     public func setFrame(_ frame: CGRect) -> Self {
         self.button.frame = frame
@@ -188,7 +187,17 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     
+//  MARK: - SET ACTION
+    
+    @discardableResult
+    public func setActions(_ builder: (_ build: ButtonActionsBuilder) -> ButtonActionsBuilder) -> Self {
+        _ = builder(ButtonActionsBuilder(self))
+        return self
+    }
+    
+    
 //  MARK: - PRIVATE AREA
+    
     private func configure() {
         if #available(iOS 15.0, *) {
             button.configuration = UIButton.Configuration.plain()
