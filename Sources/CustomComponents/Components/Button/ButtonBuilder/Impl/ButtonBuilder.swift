@@ -190,8 +190,8 @@ open class ButtonBuilder: BaseBuilder, Button {
 //  MARK: - SET ACTION
     
     @discardableResult
-    public func setActions(_ builder: (_ build: ButtonActionsBuilder) -> ButtonActionsBuilder) -> Self {
-        _ = builder(ButtonActionsBuilder(self))
+    public func setActions(action: (_ build: ButtonActionsBuilder) -> ButtonActionsBuilder) -> Self {
+        _ = action(ButtonActionsBuilder(self))
         return self
     }
     
