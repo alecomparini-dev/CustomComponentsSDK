@@ -102,7 +102,6 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         }
         return self
     }
-
     
     @discardableResult
     public func setImageColor(hexColor color: String?, position: K.Position.Horizontal? = nil) -> Self {
@@ -116,7 +115,6 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
 
     @discardableResult
     public func setActions(_ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
-//        action = builder(TextFieldImageActionBuilder(self))
         _ = builder(TextFieldImageActionBuilder(self))
         return self
     }
