@@ -17,7 +17,7 @@ public class ButtonActionsBuilder: ActionBuilder {
 //  MARK: - ACTIONS AREA
     
     @discardableResult
-    func setTarget(_ target: Any, _ action: Selector , _ event: UIControl.Event) -> Self {
+    public func setTarget(_ target: Any, _ action: Selector , _ event: UIControl.Event) -> Self {
         component?.get.addTarget(target, action: action, for: event )
         return self
     }
