@@ -22,8 +22,6 @@ public protocol Map {
     @discardableResult
     func setShowsCompass(_ flag: Bool) -> Self
     
-    
-    
     @discardableResult
     func setRemoveAllPin() -> Self
     
