@@ -271,7 +271,6 @@ public class MapBuilder: BaseBuilder, Map {
                 debugPrint(#function, error?.localizedDescription ?? "")
                 return
             }
-            
             completion(response)
         }
     }
