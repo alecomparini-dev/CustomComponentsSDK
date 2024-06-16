@@ -100,6 +100,7 @@ public class MapBuilder: BaseBuilder, Map {
     @discardableResult
     public func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String? = "", subTitle: String? = nil, _ centerView: Bool = false ) -> Self {
         let annotation = MKPointAnnotation()
+            
         annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.lat, longitude: coordinate.lon)
         annotation.title = title
         if let subTitle { annotation.subtitle = subTitle }
@@ -302,6 +303,10 @@ extension MapBuilder: MKMapViewDelegate {
         }
     }
     
+    public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("mappppp caralhooooooooooooooooooooooooooooooooooooooooooo")
+    }
+    
     public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
         let annotation = getAnnotationData(annotation)
         
@@ -316,23 +321,6 @@ extension MapBuilder: MKMapViewDelegate {
                                         subtitle: annotation.subtitle,
                                         coordinate: (lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude))
     }
-    
-    public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            guard !(annotation is MKUserLocation) else { return nil }
-            
-            let identifier = "DefaultPin"
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
-            
-            if annotationView == nil {
-                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                annotationView?.canShowCallout = true
-                annotationView?.animatesDrop = true
-            } else {
-                annotationView?.annotation = annotation
-            }
-            
-            return annotationView
-        }
     
     private func getAnnotationData(_ annotation: any MKAnnotation) -> (title: String, subtitle: String, coordinate: CLLocationCoordinate2D) {
         let title = (annotation.title ?? "") ?? ""
