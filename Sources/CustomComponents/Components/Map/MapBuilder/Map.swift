@@ -17,7 +17,10 @@ public protocol Map {
     var get: T {get}
     
     func getLocationAddress(_ location: L?) async -> MapBuilderAnnotation?
+    
     func getUserLocationAddress() async -> MapBuilderAnnotation?
+    
+    func searchPlaces(_ queryFragment: String)
     
     
 //  MARK: - SET PROPERTIES
