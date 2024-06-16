@@ -11,7 +11,15 @@ public protocol Map {
     associatedtype Location
     associatedtype AuthorizationStatus
     
+    
+//  MARK: - GET PROPERTIES
+    
     var get: T {get}
+    
+    func getUserLocationAddress() async -> String?
+    
+    
+//  MARK: - SET PROPERTIES
     
     @discardableResult
     func setCenterMap(location: Location?, _ regionRadius: Double) -> Self
