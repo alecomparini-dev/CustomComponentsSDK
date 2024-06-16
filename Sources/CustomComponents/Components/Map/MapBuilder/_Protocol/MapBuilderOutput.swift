@@ -15,4 +15,13 @@ public protocol MapBuilderOutput: AnyObject {
     
     func pinDeselected(title: String, subtitle: String, coordinate: (lat: Double, lon: Double))
     
+    func searchPlaces(_ places: [(title: String, subtitle: String)])
+    
+}
+
+
+//  MARK: - EXTENSION MapBuilderOutput
+
+extension MapBuilderOutput {
+    func searchPlaces(_ places: [String]) { }
 }

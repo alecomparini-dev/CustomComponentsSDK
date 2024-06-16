@@ -30,7 +30,7 @@ public class MapBuilder: BaseBuilder, Map {
         static public let radius: Double = 500
     }
     
-    private weak var mapBuilderOutput: MapBuilderOutput?
+    private var searchCompleter: MKLocalSearchCompleter?
     
     private var loadingMap = false
     private var alreadyApplied = false
@@ -38,6 +38,11 @@ public class MapBuilder: BaseBuilder, Map {
     private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], Constant.radius, false )
     private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", Constant.radius, false )
     private var locationManager: CLLocationManager?
+
+    
+//  MARK: - PROTOCOLS
+    
+    private weak var mapBuilderOutput: MapBuilderOutput?
     
     
     //  MARK: - INITIALIZERS
@@ -77,6 +82,17 @@ public class MapBuilder: BaseBuilder, Map {
         return await getLocationAddress(userLocation)
     }
     
+    public func searchPlaces(_ queryFragment: String) {
+        instantiateMKLocalSearchCompleter()
+        searchCompleter?.queryFragment = queryFragment
+    }
+    
+    private func instantiateMKLocalSearchCompleter() {
+        if searchCompleter != nil {return}
+        searchCompleter = MKLocalSearchCompleter()
+        searchCompleter?.delegate = self
+    }
+
     
     //  MARK: - SET PROPERTIES
     @discardableResult
@@ -182,7 +198,6 @@ public class MapBuilder: BaseBuilder, Map {
     private func applyOnceConfig() {
         if alreadyApplied { return }
         alreadyApplied = true
-        
         configDelegates()
         startUpdatingLocation()
     }
@@ -232,6 +247,7 @@ public class MapBuilder: BaseBuilder, Map {
         setDelegate(self)
         locationManager = CLLocationManager()
         locationManager?.delegate = self
+        
     }
     
     private func configCenterMapByUser(_ regionRadius: Double) {
@@ -372,6 +388,7 @@ extension MapBuilder: MKMapViewDelegate {
 
 
 //  MARK: - EXTENSION - CLLocationManagerDelegate
+
 extension MapBuilder: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [L]) {
@@ -394,5 +411,25 @@ extension MapBuilder: CLLocationManagerDelegate {
             return
         }
     }
+    
+}
+
+
+
+//  MARK: - EXTENSION - MKLocalSearchCompleterDelegate
+
+extension MapBuilder: MKLocalSearchCompleterDelegate {
+    
+    public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        var resultCompleter: [(title: String, subtitle: String)] = []
+        
+        completer.results.forEach { result in
+            resultCompleter.append((result.title, result.subtitle))
+        }
+        
+        mapBuilderOutput?.searchPlaces(resultCompleter)
+    }
+    
+    
     
 }
