@@ -13,22 +13,33 @@ public protocol Map {
     
     var get: T {get}
     
+    @discardableResult
     func setCenterMap(location: Location?, _ regionRadius: Double) -> Self
-       
+    
+    @discardableResult
     func setShowsUserLocation(_ flag: Bool) -> Self
     
+    @discardableResult
     func setShowsCompass(_ flag: Bool) -> Self
     
+    
+    
+    @discardableResult
     func setRemoveAllPin() -> Self
     
+    @discardableResult
     func setPinPointsOfInterest(_ categories: [PointOfInterestCategory], _ regionRadius: Double) -> Self
     
+    @discardableResult
     func setPinNaturalLanguage(_ text: String, _ regionRadius: Double) -> Self
     
+    @discardableResult
     func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String?, subTitle: String?, _ centerView: Bool) -> Self
         
+    @discardableResult
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     
+    @discardableResult
     func checkLocationAuthorization() -> AuthorizationStatus
     
     

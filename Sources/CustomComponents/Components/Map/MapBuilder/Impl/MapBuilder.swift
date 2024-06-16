@@ -317,6 +317,23 @@ extension MapBuilder: MKMapViewDelegate {
                                         coordinate: (lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude))
     }
     
+    public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            guard !(annotation is MKUserLocation) else { return nil }
+            
+            let identifier = "DefaultPin"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
+            
+            if annotationView == nil {
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = true
+                annotationView?.animatesDrop = true
+            } else {
+                annotationView?.annotation = annotation
+            }
+            
+            return annotationView
+        }
+    
     private func getAnnotationData(_ annotation: any MKAnnotation) -> (title: String, subtitle: String, coordinate: CLLocationCoordinate2D) {
         let title = (annotation.title ?? "") ?? ""
         let subtitle = (annotation.subtitle ?? "") ?? ""
