@@ -7,22 +7,23 @@ import Foundation
 public protocol Map {
     associatedtype T
     associatedtype D
-    associatedtype PointOfInterestCategory
-    associatedtype Location
-    associatedtype AuthorizationStatus
+    associatedtype POI
+    associatedtype L
+    associatedtype A
     
     
 //  MARK: - GET PROPERTIES
     
     var get: T {get}
     
-    func getUserLocationAddress() async -> String?
+    func getLocationAddress(_ location: L?) async -> MapBuilderAnnotation?
+    func getUserLocationAddress() async -> MapBuilderAnnotation?
     
     
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    func setCenterMap(location: Location?, _ regionRadius: Double) -> Self
+    func setCenterMap(location: L?, _ regionRadius: Double) -> Self
     
     @discardableResult
     func setShowsUserLocation(_ flag: Bool) -> Self
@@ -34,7 +35,7 @@ public protocol Map {
     func setRemoveAllPin() -> Self
     
     @discardableResult
-    func setPinPointsOfInterest(_ categories: [PointOfInterestCategory], _ regionRadius: Double) -> Self
+    func setPinPointsOfInterest(_ categories: [POI], _ regionRadius: Double) -> Self
     
     @discardableResult
     func setPinNaturalLanguage(_ text: String, _ regionRadius: Double) -> Self
@@ -46,7 +47,7 @@ public protocol Map {
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     
     @discardableResult
-    func checkLocationAuthorization() -> AuthorizationStatus
+    func checkLocationAuthorization() -> A
     
     
 //  MARK: - SET DELEGATE
