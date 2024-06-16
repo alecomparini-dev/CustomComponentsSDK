@@ -40,6 +40,25 @@ public class MapBuilder: BaseBuilder, Map {
     
     public var get: MKMapView { mapView }
     
+    public func getUserLocationAddress() async -> String? {
+        guard let userLocation else {return ""}
+        
+        return await withCheckedContinuation { continuation in
+            let geocoder = CLGeocoder()
+            
+            geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
+                if error != nil { return continuation.resume(returning: nil) }
+                
+                guard let placemark = placemarks?.first else { return continuation.resume(returning: nil) }
+                
+                let address = "\(placemark.name ?? ""), \(placemark.locality ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.country ?? "")"
+                
+                continuation.resume(returning: address)
+            }
+        }
+        
+    }
+    
     
     //  MARK: - SET PROPERTIES
     @discardableResult
