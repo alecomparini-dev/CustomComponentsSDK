@@ -5,11 +5,26 @@ import Foundation
 import MapKit
 import CoreLocation
 
+
+public struct MapBuilderAnnotation {
+    var title: String?
+    var subtitle: String?
+    var coordinate: (lat: Double, lon: Double)?
+    
+    init(title: String? = nil, subtitle: String? = nil, coordinate: (lat: Double, lon: Double)? = nil) {
+        self.title = title
+        self.subtitle = subtitle
+        self.coordinate = coordinate
+    }
+}
+
 @MainActor
 public class MapBuilder: BaseBuilder, Map {
+    public typealias T = MKMapView
     public typealias D = MapKit.MKMapViewDelegate
-    public typealias PointOfInterestCategory = MKPointOfInterestCategory
-    public typealias Location = CoreLocation.CLLocation
+    public typealias POI = MKPointOfInterestCategory
+    public typealias L = CoreLocation.CLLocation
+    public typealias A = CLAuthorizationStatus
     
     public struct Constant {
         static public let radius: Double = 500
@@ -19,7 +34,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     private var loadingMap = false
     private var alreadyApplied = false
-    private var userLocation: Location?
+    private var userLocation: L?
     private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], Constant.radius, false )
     private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", Constant.radius, false )
     private var locationManager: CLLocationManager?
@@ -40,29 +55,32 @@ public class MapBuilder: BaseBuilder, Map {
     
     public var get: MKMapView { mapView }
     
-    public func getUserLocationAddress() async -> String? {
-        guard let userLocation else {return ""}
+    public func getLocationAddress(_ location: L?) async -> MapBuilderAnnotation? {
+        guard let userLocation else {return nil}
         
-        return await withCheckedContinuation { continuation in
-            let geocoder = CLGeocoder()
+        let geocoder = CLGeocoder()
+        
+        do {
+            let placemarks = try await geocoder.reverseGeocodeLocation(userLocation)
             
-            geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
-                if error != nil { return continuation.resume(returning: nil) }
-                
-                guard let placemark = placemarks?.first else { return continuation.resume(returning: nil) }
-                
-                let address = "\(placemark.name ?? ""), \(placemark.locality ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.country ?? "")"
-                
-                continuation.resume(returning: address)
-            }
+            guard let placemark = placemarks.first, let location = placemark.location else { return nil }
+            
+            return MapBuilderAnnotation(title: placemark.name, subtitle: placemark.locality,
+                                        coordinate: (lat: location.coordinate.latitude,
+                                                     lon: location.coordinate.longitude))
+        } catch {
+            return nil
         }
-        
+    }
+    
+    public func getUserLocationAddress() async -> MapBuilderAnnotation? {
+        return await getLocationAddress(userLocation)
     }
     
     
     //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setCenterMap(location: Location?, _ regionRadius: Double = Constant.radius) -> Self {
+    public func setCenterMap(location: L?, _ regionRadius: Double = Constant.radius) -> Self {
         guard let location else { return self }
         
         let coordinateRegion = MKCoordinateRegion(
@@ -356,7 +374,7 @@ extension MapBuilder: MKMapViewDelegate {
 //  MARK: - EXTENSION - CLLocationManagerDelegate
 extension MapBuilder: CLLocationManagerDelegate {
     
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [Location]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [L]) {
         if let userLocation = locations.first {
             self.userLocation = userLocation
                 
