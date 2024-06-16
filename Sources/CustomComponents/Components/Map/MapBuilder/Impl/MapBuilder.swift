@@ -287,6 +287,14 @@ public class MapBuilder: BaseBuilder, Map {
         configPinNaturalLanguage()
     }
     
+    private func getAnnotationData(_ annotation: any MKAnnotation) -> (title: String, subtitle: String, coordinate: CLLocationCoordinate2D) {
+        let title = (annotation.title ?? "") ?? ""
+        let subtitle = (annotation.subtitle ?? "") ?? ""
+        let coordinate = annotation.coordinate
+        return (title, subtitle, coordinate)
+    }
+ 
+    
 }
 
 
@@ -304,31 +312,26 @@ extension MapBuilder: MKMapViewDelegate {
     }
     
     public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("mappppp caralhooooooooooooooooooooooooooooooooooooooooooo")
-    }
-    
-    public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
-        let annotation = getAnnotationData(annotation)
+        guard let viewAnnotation = view.annotation else {return}
+        
+        let annotation = getAnnotationData(viewAnnotation)
         
         mapBuilderOutput?.pinSelected(title: annotation.title,
                                       subtitle: annotation.subtitle,
                                       coordinate: (lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude))
     }
     
-    public func mapView(_ mapView: MKMapView, didDeselect annotation: any MKAnnotation) {
-        let annotation = getAnnotationData(annotation)
+    public func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        guard let viewAnnotation = view.annotation else {return}
+        
+        let annotation = getAnnotationData(viewAnnotation)
+        
         mapBuilderOutput?.pinDeselected(title: annotation.title,
                                         subtitle: annotation.subtitle,
                                         coordinate: (lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude))
+
     }
-    
-    private func getAnnotationData(_ annotation: any MKAnnotation) -> (title: String, subtitle: String, coordinate: CLLocationCoordinate2D) {
-        let title = (annotation.title ?? "") ?? ""
-        let subtitle = (annotation.subtitle ?? "") ?? ""
-        let coordinate = annotation.coordinate
-        return (title, subtitle, coordinate)
-    }
-    
+       
 }
 
 
