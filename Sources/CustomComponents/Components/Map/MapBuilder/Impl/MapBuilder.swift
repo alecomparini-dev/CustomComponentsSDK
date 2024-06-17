@@ -6,14 +6,24 @@ import MapKit
 import CoreLocation
 
 
-public struct MapBuilderAnnotation {
-    var title: String?
-    var subtitle: String?
+public struct PlacemarkMap {
+    var street: String?
+    var addressNumber: String?
+    var neighborhood: String?
+    var postalCode: String?
+    var city: String?
+    var state: String?
+    var country: String?
     var coordinate: (lat: Double, lon: Double)?
     
-    init(title: String? = nil, subtitle: String? = nil, coordinate: (lat: Double, lon: Double)? = nil) {
-        self.title = title
-        self.subtitle = subtitle
+    init(street: String? = nil, addressNumber: String? = nil, neighborhood: String? = nil, postalCode: String? = nil, city: String? = nil, state: String? = nil, country: String? = nil, coordinate: (lat: Double, lon: Double)? = nil) {
+        self.street = street
+        self.addressNumber = addressNumber
+        self.neighborhood = neighborhood
+        self.postalCode = postalCode
+        self.city = city
+        self.state = state
+        self.country = country
         self.coordinate = coordinate
     }
 }
@@ -60,7 +70,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     public var get: MKMapView { mapView }
     
-    public func getLocationAddress(_ location: L?) async -> MapBuilderAnnotation? {
+    public func getLocationAddress(_ location: L?) async -> PlacemarkMap? {
         guard let userLocation else {return nil}
         
         let geocoder = CLGeocoder()
@@ -69,16 +79,21 @@ public class MapBuilder: BaseBuilder, Map {
             let placemarks = try await geocoder.reverseGeocodeLocation(userLocation)
             
             guard let placemark = placemarks.first, let location = placemark.location else { return nil }
-            
-            return MapBuilderAnnotation(title: placemark.name, subtitle: placemark.locality,
-                                        coordinate: (lat: location.coordinate.latitude,
-                                                     lon: location.coordinate.longitude))
+
+            return PlacemarkMap(street: placemark.thoroughfare,
+                                addressNumber: placemark.subThoroughfare,
+                                neighborhood: placemark.subLocality,
+                                postalCode: placemark.postalCode,
+                                city: placemark.locality,
+                                state: placemark.administrativeArea,
+                                country: placemark.country,
+                                coordinate: (lat: location.coordinate.latitude, lon: location.coordinate.latitude))
         } catch {
             return nil
         }
     }
     
-    public func getUserLocationAddress() async -> MapBuilderAnnotation? {
+    public func getUserLocationAddress() async -> PlacemarkMap? {
         return await getLocationAddress(userLocation)
     }
     
@@ -94,7 +109,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
 
     
-    //  MARK: - SET PROPERTIES
+//  MARK: - SET PROPERTIES
     @discardableResult
     public func setCenterMap(location: L?, _ regionRadius: Double = Constant.radius) -> Self {
         guard let location else { return self }
