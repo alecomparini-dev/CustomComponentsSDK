@@ -15,4 +15,13 @@ public protocol ScrollView {
     @discardableResult
     func setShowsHorizontalScrollIndicator(_ flag: Bool) -> Self
     
+    @discardableResult
+    func setPaddingInputToKeyboard(_ padding: CGFloat) -> Self
+    
+    @discardableResult
+    func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self
+
+    @discardableResult
+    func setVerticalScrollIndicatorInsets(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self
+    
 }
