@@ -20,7 +20,7 @@ public protocol Skeleton {
     func setTransition(_ duration: CGFloat) -> Self
     
     @discardableResult
-    func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self
+    func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self
     
     func showSkeleton()
     

@@ -5,7 +5,6 @@ import UIKit
 
 @MainActor
 open class ScrollViewBuilder: BaseBuilder, ScrollView {
-
     public typealias S = UIScrollView
     
     public var get: UIScrollView { scrollView }
@@ -23,6 +22,7 @@ open class ScrollViewBuilder: BaseBuilder, ScrollView {
     @discardableResult
     public func setShowsVerticalScrollIndicator(_ flag: Bool) -> Self {
         scrollView.showsVerticalScrollIndicator = flag
+//        scrollView.get..
         return self
     }
     
@@ -32,5 +32,28 @@ open class ScrollViewBuilder: BaseBuilder, ScrollView {
         return self
     }
 
+    @discardableResult
+    public func setPaddingInputToKeyboard(_ padding: CGFloat) -> Self {
+        scrollView.contentInset.bottom = padding
+        return self
+    }
+    
+    @discardableResult
+    public func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self {
+        scrollView.contentInset.top = top
+        scrollView.contentInset.left = left
+        scrollView.contentInset.bottom = bottom
+        scrollView.contentInset.right = right
+        return self
+    }
+    
+    @discardableResult
+    public func setVerticalScrollIndicatorInsets(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self {
+        scrollView.verticalScrollIndicatorInsets.top = top
+        scrollView.verticalScrollIndicatorInsets.left = left
+        scrollView.verticalScrollIndicatorInsets.bottom = bottom
+        scrollView.verticalScrollIndicatorInsets.right = right
+        return self
+    }
     
 }

@@ -61,8 +61,8 @@ open class CollectionBuilder: BaseBuilder, Collection {
     }
     
     @discardableResult
-    public func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self {
-        collection.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: rigth)
+    public func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self {
+        collection.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
         return self
     }
     

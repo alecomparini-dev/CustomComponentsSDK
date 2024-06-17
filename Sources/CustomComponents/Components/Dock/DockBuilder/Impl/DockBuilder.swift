@@ -12,7 +12,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias P = UICollectionView.ScrollPosition
     
     private var scrollPosition: UICollectionView.ScrollPosition?
-    private var padding: (top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) = (top: 0, left: 0, bottom: 0 , rigth: 0)
+    private var padding: (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = (top: 0, left: 0, bottom: 0 , right: 0)
     private var disableUserInteraction: [Int]? = []
     private var indexesSelected: Set<Int> = []
     private var isDisableUserInteraction = false
@@ -104,14 +104,14 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     @discardableResult
-    public func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self {
-        _collection.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: rigth)
+    public func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self {
+        _collection.contentInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
         return self
     }
     
     @discardableResult
-    public func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self {
-        padding = (top: top, left: left, bottom: bottom, rigth: rigth)
+    public func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self {
+        padding = (top: top, left: left, bottom: bottom, right: right)
         return self
     }
     
@@ -275,7 +275,7 @@ open class DockBuilder: BaseBuilder, Dock {
                 .setTop.equalToSafeArea(padding.top)
                 .setBottom.equalToSafeArea(-padding.bottom)
                 .setLeading.equalToSafeArea(padding.left)
-                .setTrailing.equalToSafeArea(-padding.rigth)
+                .setTrailing.equalToSafeArea(-padding.right)
                 .apply()
         }
     }

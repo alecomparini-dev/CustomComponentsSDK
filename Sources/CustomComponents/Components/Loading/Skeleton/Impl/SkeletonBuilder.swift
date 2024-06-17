@@ -9,7 +9,7 @@ open class SkeletonBuilder: Skeleton {
     private var skeletonGradient: GradientBuilder?
     private var skeletonLayerGradient: GradientBuilder?
     
-    private var padding:(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) = (top: 0, left: 0, bottom: 0 , rigth: 0)
+    private var padding:(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = (top: 0, left: 0, bottom: 0 , right: 0)
     private var transitionDuration: CGFloat?
     private var speed: K.Skeleton.SpeedAnimation?
     private var color: UIColor?
@@ -30,7 +30,7 @@ open class SkeletonBuilder: Skeleton {
                 build
                     .setTop.equalTo(component?.baseView ?? UIView(), .top, padding.top)
                     .setLeading.equalTo(component?.baseView ?? UIView(), .leading, padding.left)
-                    .setTrailing.equalTo(component?.baseView ?? UIView(), .trailing, -padding.rigth)
+                    .setTrailing.equalTo(component?.baseView ?? UIView(), .trailing, -padding.right)
                     .setBottom.equalTo(component?.baseView ?? UIView(), .bottom, -padding.bottom)
             }
         return comp
@@ -77,8 +77,8 @@ open class SkeletonBuilder: Skeleton {
     }
     
     @discardableResult
-    public func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self {
-        padding = (top: top, left: left, bottom: bottom , rigth: rigth)
+    public func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self {
+        padding = (top: top, left: left, bottom: bottom , right: right)
         return self
     }
     

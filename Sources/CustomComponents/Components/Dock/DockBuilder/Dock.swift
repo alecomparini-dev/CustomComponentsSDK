@@ -44,10 +44,10 @@ public protocol Dock: AnyObject {
     func setShowsVerticalScrollIndicator(_ flag: Bool) -> Self
     
     @discardableResult
-    func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self
+    func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self
     
     @discardableResult
-    func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, rigth: CGFloat) -> Self
+    func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self
     
     @discardableResult
     func setMinimumLineSpacing(_ space: CGFloat) -> Self
