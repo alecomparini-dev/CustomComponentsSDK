@@ -16,9 +16,9 @@ public protocol Map {
     
     var get: T {get}
     
-    func getLocationAddress(_ location: L?) async -> MapBuilderAnnotation?
+    func getLocationAddress(_ location: L?) async -> PlacemarkMap?
     
-    func getUserLocationAddress() async -> MapBuilderAnnotation?
+    func getUserLocationAddress() async -> PlacemarkMap?
     
     func searchPlaces(_ queryFragment: String)
     
@@ -54,14 +54,17 @@ public protocol Map {
     
     
 //  MARK: - SET DELEGATE
+    
     func setDelegate(_ delegate: D) -> Self
 
     
 //  MARK: - SET OUTPUT
+    
     func setOutput(_ output: MapBuilderOutput) -> Self
 
     
 //  MARK: - SHOW / HIDE MAPS
+    
     func show()
     
     
