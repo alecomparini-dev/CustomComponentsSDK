@@ -127,6 +127,7 @@ open class BaseBuilder: NSObject {
     public func setHidden(_ hide: Bool, animated: Bool = false, _ duration: TimeInterval = 0.3) -> Self {
         if !animated {
             baseView.isHidden = hide
+            baseView.setAlpha(1)
             return self
         }
         animatedHidden(hide, duration)
