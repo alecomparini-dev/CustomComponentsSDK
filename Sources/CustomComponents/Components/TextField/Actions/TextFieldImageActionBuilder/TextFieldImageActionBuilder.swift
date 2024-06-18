@@ -5,7 +5,7 @@
 import Foundation
 
 @MainActor
-public class TextFieldImageActionBuilder: TextFieldAction {
+public class TextFieldImageActionBuilder: TextFieldActionBuilder {
     public typealias tapImageTextField = (_ image: ImageViewBuilder) -> Void
 
     

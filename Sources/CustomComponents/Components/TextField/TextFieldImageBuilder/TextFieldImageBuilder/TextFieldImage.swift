@@ -19,5 +19,5 @@ public protocol TextFieldImage {
     func setImageColor(hexColor: String?, position: K.Position.Horizontal?) -> Self
     
     @discardableResult
-    func setActions(action: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self 
+    func setActions(textFieldImage action: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self 
 }
