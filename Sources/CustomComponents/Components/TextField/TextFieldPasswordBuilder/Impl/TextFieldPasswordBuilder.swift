@@ -50,7 +50,7 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder, TextFieldPassword {
             .setPlaceHolderColor(UIColor.systemGray)
             .setTextColor(.black)
             .setTintColor(.black)
-            .setActions({ build in
+            .setActions(action: { build in
                 build
                     .setTapImageRight { [weak self] _ in
                         guard let self else {return}
