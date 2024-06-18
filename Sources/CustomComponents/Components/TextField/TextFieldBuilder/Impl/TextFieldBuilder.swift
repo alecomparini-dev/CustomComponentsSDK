@@ -266,8 +266,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 //  MARK: - SET ACTIONS
     
     @discardableResult
-    public func setActions(action: (_ build: TextFieldAction) -> TextFieldAction) -> Self {
-        _ = action(TextFieldAction(self))
+    public func setActions(textField action: (_ build: TextFieldActionBuilder) -> TextFieldActionBuilder) -> Self {
+        _ = action(TextFieldActionBuilder(self))
         return self
     }
     

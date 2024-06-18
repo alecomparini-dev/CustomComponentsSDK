@@ -4,7 +4,7 @@
 import UIKit
 
 @MainActor
-public class TextFieldAction: ActionBuilder {
+public class TextFieldActionBuilder: ActionBuilder {
     public typealias textFieldEditing = (_ image: ImageViewBuilder) -> Void
     
     private(set) weak var component: TextFieldBuilder?

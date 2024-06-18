@@ -114,7 +114,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
 //  MARK: - SET ACTIONS
 
     @discardableResult
-    public func setActions(action: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
+    public func setActions(textFieldImage action: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self {
         _ = action(TextFieldImageActionBuilder(self))
         return self
     }
