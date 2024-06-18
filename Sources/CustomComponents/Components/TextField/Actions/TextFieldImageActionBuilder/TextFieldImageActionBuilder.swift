@@ -23,6 +23,7 @@ public class TextFieldImageActionBuilder: TextFieldAction {
     }
     
     
+    @discardableResult
     public func setTapImageRight(_ closure: @escaping tapImageTextField) -> Self {
         guard let textFieldImage = component as? TextFieldImageBuilder,
             let imageViewRight = textFieldImage.imageViewRight else { return self}
