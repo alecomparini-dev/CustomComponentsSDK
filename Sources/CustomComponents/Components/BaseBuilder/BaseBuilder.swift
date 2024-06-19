@@ -247,8 +247,8 @@ open class BaseBuilder: NSObject {
 //  MARK: - PRIVATE AREA
     private func animatedHidden(_ hide: Bool, _ duration: TimeInterval) {
         if hide {
-            baseView.alpha = 1
             if baseView.isHidden {return}
+            baseView.alpha = 1
             baseView.isHidden = false
             UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
                 guard let self else {return}
@@ -261,8 +261,8 @@ open class BaseBuilder: NSObject {
             }
             return
         }
-        baseView.alpha = 0
         if !baseView.isHidden {return}
+        baseView.alpha = 0
         baseView.isHidden = false
         UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
             guard let self else {return}
