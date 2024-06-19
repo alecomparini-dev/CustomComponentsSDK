@@ -6,28 +6,6 @@ import MapKit
 import CoreLocation
 
 
-public struct PlacemarkMap {
-    var street: String?
-    var addressNumber: String?
-    var neighborhood: String?
-    var postalCode: String?
-    var city: String?
-    var state: String?
-    var country: String?
-    var coordinate: (lat: Double, lon: Double)?
-    
-    init(street: String? = nil, addressNumber: String? = nil, neighborhood: String? = nil, postalCode: String? = nil, city: String? = nil, state: String? = nil, country: String? = nil, coordinate: (lat: Double, lon: Double)? = nil) {
-        self.street = street
-        self.addressNumber = addressNumber
-        self.neighborhood = neighborhood
-        self.postalCode = postalCode
-        self.city = city
-        self.state = state
-        self.country = country
-        self.coordinate = coordinate
-    }
-}
-
 @MainActor
 public class MapBuilder: BaseBuilder, Map {
     public typealias T = MKMapView
