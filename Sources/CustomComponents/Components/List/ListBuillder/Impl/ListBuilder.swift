@@ -188,14 +188,13 @@ open class ListBuilder: BaseBuilder, List {
     public func show() {
         if isShow { return }
         applyOnceConfig()
-        list.setHidden(false)
+        self.setHidden(false, animated: true)
         isShow = true
     }
     
     public func hide() {
-        list.setHidden(true)
-        isShow = false
-        
+        self.setHidden(true, animated: true)
+        isShow = false        
     }
     
     public func reload() {
