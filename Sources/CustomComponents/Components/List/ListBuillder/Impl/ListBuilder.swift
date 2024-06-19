@@ -21,6 +21,12 @@ public protocol ListDelegate: AnyObject {
 
 @MainActor
 open class ListBuilder: BaseBuilder, List {
+    public typealias T = UITableView
+    public typealias C = UITableViewCell
+    public typealias S = UITableView.ScrollPosition
+    
+    
+    
     private weak var delegate: ListDelegate?
     private var view: UIView?
     
@@ -177,6 +183,7 @@ open class ListBuilder: BaseBuilder, List {
 
     
 //  MARK: - SET DELEGATE
+    
     @discardableResult
     public func setDelegate(_ delegate: ListDelegate ) -> Self {
         self.delegate = delegate
@@ -185,6 +192,7 @@ open class ListBuilder: BaseBuilder, List {
 
     
 //  MARK: - ACTIONS AREA
+    
     public func show() {
         if isShow { return }
         applyOnceConfig()
@@ -197,8 +205,8 @@ open class ListBuilder: BaseBuilder, List {
         isShow = false        
     }
     
-    public func reload() {
-        if !isShow { return }
+    public func reload(force: Bool = false) {
+        if !isShow && !force { return }
         list.reloadData()
     }
     
@@ -219,12 +227,8 @@ open class ListBuilder: BaseBuilder, List {
         delegate?.didSelectItemAt(self, section ?? 0, row)
     }
     
-    private func selectRowAnimated(_ indexPath: IndexPath) {
-        if !listModel.autoScrollPosition {
-            list.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            return
-        }
-        list.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+    public func gotoRow(section: Int, row: Int, scrollPosition: UITableView.ScrollPosition = .top) {
+        list.scrollToRow(at: IndexPath(row: row, section: section), at: scrollPosition, animated: true)
     }
     
     public func deselect(_ section: Int = 0, _ row: Int) {
@@ -233,11 +237,7 @@ open class ListBuilder: BaseBuilder, List {
         delegate?.didDeselectItemAt(self, section, row)
     }
     
-    
-//  MARK: - PUBLIC AREA
-    public func gotoRow(section: Int, row: Int, scrollPosition: UITableView.ScrollPosition = .top) {
-        list.scrollToRow(at: IndexPath(row: row, section: section), at: scrollPosition, animated: true)
-    }
+
         
 
 //  MARK: - PRIVATE AREA
@@ -270,6 +270,14 @@ open class ListBuilder: BaseBuilder, List {
             return selectedRow
         }
         return nil
+    }
+    
+    private func selectRowAnimated(_ indexPath: IndexPath) {
+        if !listModel.autoScrollPosition {
+            list.selectRow(at: indexPath, animated: false, scrollPosition: .middle)
+            return
+        }
+        list.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
     }
         
 }
