@@ -104,6 +104,7 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
         guard let superview = getSuperview() else {return}
         
         self.overlay?
+            .setAlpha(0)
             .setAutoLayout { build in
                 build
                     .pin.equalToSuperview()
