@@ -104,7 +104,7 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
         guard let superview = getSuperview() else {return}
         
         self.overlay?
-            .setAlpha(0)
+            .setHidden(true)
             .setAutoLayout { build in
                 build
                     .pin.equalToSuperview()
@@ -175,13 +175,13 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
 //  MARK: - ANIMATIONS AREA
     
     private func showAnimation(_ completion: (() -> Void)? = nil) {
-        modal.setHidden(false, animated: true, animationDuration)
         overlay?.setHidden(false, animated: true, animationDuration)
+        modal.setHidden(false, animated: true, animationDuration)
     }
     
     private func hideAnimation(_ completion: (() -> Void)? = nil) {
-        modal.setHidden(true, animated: true, animationDuration)
         overlay?.setHidden(true, animated: true, animationDuration)
+        modal.setHidden(true, animated: true, animationDuration)
     }
     
     
