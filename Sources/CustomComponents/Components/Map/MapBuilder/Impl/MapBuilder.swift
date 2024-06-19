@@ -48,7 +48,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     public var get: MKMapView { mapView }
     
-    public func getLocationAddress(_ location: L?) async -> PlacemarkMap? {
+    public func getLocationAddress(_ location: L?) async -> PlacemarkMapDTO? {
         guard let userLocation else {return nil}
         
         let geocoder = CLGeocoder()
@@ -58,7 +58,7 @@ public class MapBuilder: BaseBuilder, Map {
             
             guard let placemark = placemarks.first, let location = placemark.location else { return nil }
 
-            return PlacemarkMap(street: placemark.thoroughfare,
+            return PlacemarkMapDTO(street: placemark.thoroughfare,
                                 addressNumber: placemark.subThoroughfare,
                                 neighborhood: placemark.subLocality,
                                 postalCode: placemark.postalCode,
@@ -71,7 +71,7 @@ public class MapBuilder: BaseBuilder, Map {
         }
     }
     
-    public func getUserLocationAddress() async -> PlacemarkMap? {
+    public func getUserLocationAddress() async -> PlacemarkMapDTO? {
         return await getLocationAddress(userLocation)
     }
     

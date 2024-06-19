@@ -16,9 +16,9 @@ public protocol Map {
     
     var get: T {get}
     
-    func getLocationAddress(_ location: L?) async -> PlacemarkMap?
+    func getLocationAddress(_ location: L?) async -> PlacemarkMapDTO?
     
-    func getUserLocationAddress() async -> PlacemarkMap?
+    func getUserLocationAddress() async -> PlacemarkMapDTO?
     
     func searchPlaces(_ queryFragment: String)
     
