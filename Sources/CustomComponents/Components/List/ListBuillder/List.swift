@@ -7,7 +7,7 @@ import Foundation
 public protocol List {
     associatedtype T
     associatedtype C
-    associatedtype ScrollPosition
+    associatedtype S
     
     var get: T { get }
     
@@ -19,10 +19,23 @@ public protocol List {
     
     var isShowing: Bool { get }
     
+    
+    
+//  MARK: - ACTIONS AREA
+    
+    func show()
+    
+    func hide()
+    
+    func reload(force: Bool)
+    
     func selectItem(_ section: Int?, _ row: Int)
     
-    func gotoRow(section: Int, row: Int, scrollPosition: ScrollPosition)
+    func gotoRow(section: Int, row: Int, scrollPosition: S)
     
+    func deselect(_ section: Int, _ row: Int)
+    
+
     
 //  MARK: - SET PROPERTIES
     
