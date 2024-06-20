@@ -364,9 +364,9 @@ extension ListBuilder: UITableViewDelegate {
         return customSectionFooterHeight[section] ?? list.sectionFooterHeight
     }
     
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return customRowHeight[indexPath.section]?[indexPath.row] ?? list.rowHeight
-    }
+//    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return customRowHeight[indexPath.section]?[indexPath.row] ?? list.rowHeight
+//    }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectRowAnimated(indexPath)
