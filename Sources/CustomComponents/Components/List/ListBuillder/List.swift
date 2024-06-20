@@ -78,6 +78,9 @@ public protocol List {
     @discardableResult
     func setShowsScroll(_ flag: Bool, _ showsScroll: K.ShowsScroll) -> Self
     
+    @discardableResult
+    func setRowHeightAutomaticDimension(estimatedRowHeight: CGFloat) -> Self
+    
     @available(iOS 15.0, *)
     @discardableResult
     func sectionHeaderTopPadding(_ padding: CGFloat) -> Self

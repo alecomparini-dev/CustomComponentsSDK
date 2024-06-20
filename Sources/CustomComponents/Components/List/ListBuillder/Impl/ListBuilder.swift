@@ -34,7 +34,12 @@ open class ListBuilder: BaseBuilder, List {
     
     private var rowsHeight: [Int : CGFloat] = [:]
     private var alreadyApplied = false
-    private var listModel = ListModel()
+    
+    private var customSectionHeaderHeight: [Int : CGFloat] = [:]
+    private var customSectionFooterHeight: [Int : CGFloat] = [:]
+    private var customRowHeight: [Int : [Int : CGFloat]] = [:]
+    private var autoScrollPosition: Bool = false
+    
     private var isShow = false
     
     
@@ -89,9 +94,9 @@ open class ListBuilder: BaseBuilder, List {
     
     @discardableResult
     public func setCustomRowHeight(forSection: Int, forRow: Int, _ height: CGFloat) -> Self {
-        var values = listModel.customRowHeight[forSection] ?? [:]
+        var values = customRowHeight[forSection] ?? [:]
         values.updateValue(height, forKey: forRow)
-        listModel.customRowHeight.updateValue(values, forKey: forSection)
+        customRowHeight.updateValue(values, forKey: forSection)
         return self
     }
     
@@ -103,7 +108,7 @@ open class ListBuilder: BaseBuilder, List {
     
     @discardableResult
     public func setSectionHeaderHeight(forSection: Int, _ height: CGFloat) -> Self {
-        listModel.customSectionHeaderHeight.updateValue(height, forKey: forSection)
+        customSectionHeaderHeight.updateValue(height, forKey: forSection)
         return self
     }
     
@@ -115,7 +120,7 @@ open class ListBuilder: BaseBuilder, List {
     
     @discardableResult
     public func setSectionFooterHeight(forSection: Int, _ height: CGFloat) -> Self {
-        listModel.customSectionFooterHeight.updateValue(height, forKey: forSection)
+        customSectionFooterHeight.updateValue(height, forKey: forSection)
         return self
     }
     
@@ -170,10 +175,17 @@ open class ListBuilder: BaseBuilder, List {
     
     @discardableResult
     public func setAutoScrollPosition() -> Self {
-        listModel.autoScrollPosition = true
+        autoScrollPosition = true
         return self
     }
     
+    @discardableResult
+    public func setRowHeightAutomaticDimension(estimatedRowHeight: CGFloat) -> Self {
+        list.estimatedRowHeight = estimatedRowHeight
+        list.rowHeight = UITableView.automaticDimension
+        return self
+    }
+
     @available(iOS 15.0, *)
     @discardableResult
     public func sectionHeaderTopPadding(_ padding: CGFloat) -> Self {
@@ -273,7 +285,7 @@ open class ListBuilder: BaseBuilder, List {
     }
     
     private func selectRowAnimated(_ indexPath: IndexPath) {
-        if !listModel.autoScrollPosition {
+        if !autoScrollPosition {
             list.selectRow(at: indexPath, animated: false, scrollPosition: .middle)
             return
         }
@@ -345,15 +357,15 @@ extension ListBuilder: UITableViewDataSource {
 extension ListBuilder: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return listModel.customSectionHeaderHeight[section] ?? list.sectionHeaderHeight
+        return customSectionHeaderHeight[section] ?? list.sectionHeaderHeight
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return listModel.customSectionFooterHeight[section] ?? list.sectionFooterHeight
+        return customSectionFooterHeight[section] ?? list.sectionFooterHeight
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return listModel.customRowHeight[indexPath.section]?[indexPath.row] ?? list.rowHeight
+        return customRowHeight[indexPath.section]?[indexPath.row] ?? list.rowHeight
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
