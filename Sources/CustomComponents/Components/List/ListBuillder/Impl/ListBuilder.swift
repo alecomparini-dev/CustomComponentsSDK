@@ -33,7 +33,7 @@ open class ListBuilder: BaseBuilder, List {
     private var rowsHeight: [Int : CGFloat] = [:]
     private var alreadyApplied = false
     
-    private var completionCalculatedRowHeight: ((ListBuilder, Int, Int) -> CGFloat)?
+    private var completionCalculateRowHeight: ((ListBuilder, Int, Int) -> CGFloat)?
     private var customSectionHeaderHeight: [Int : CGFloat] = [:]
     private var customSectionFooterHeight: [Int : CGFloat] = [:]
     private var customRowHeight: [Int : [Int : CGFloat]] = [:]
@@ -179,8 +179,8 @@ open class ListBuilder: BaseBuilder, List {
     }
     
     @discardableResult
-    public func setCalculatedRowHeight(completion: @escaping (_ list: ListBuilder, _ section: Int, _ row: Int) -> CGFloat) -> Self {
-        completionCalculatedRowHeight = completion
+    public func setCalculateRowHeight(completion: @escaping (_ list: ListBuilder, _ section: Int, _ row: Int) -> CGFloat) -> Self {
+        completionCalculateRowHeight = completion
         return self
     }
 
@@ -367,7 +367,7 @@ extension ListBuilder: UITableViewDelegate {
             return customRowHeight
         }
         
-        return completionCalculatedRowHeight?(self, indexPath.section, indexPath.row) ?? list.rowHeight
+        return completionCalculateRowHeight?(self, indexPath.section, indexPath.row) ?? list.rowHeight
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
