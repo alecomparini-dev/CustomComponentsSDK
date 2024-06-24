@@ -417,21 +417,13 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
     
     public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         var resultCompleter: [(title: String, subtitle: String)] = []
-        if let completerAddress:MKLocalSearchCompleter = completer.copy() as? MKLocalSearchCompleter {
-            completerAddress.resultTypes = .address
-            completerAddress.results.forEach { result in
-                resultCompleter.append((result.title, result.subtitle))
-                print((result.title, result.subtitle))
-            }
-        }
         
-        if let completerPOI: MKLocalSearchCompleter = completer.copy() as? MKLocalSearchCompleter {
-            completerPOI.resultTypes = .pointOfInterest
-            completerPOI.results.forEach { result in
-                resultCompleter.append((result.title, result.subtitle))
-                print((result.title, result.subtitle))
-            }
+        completer.resultTypes = .address
+        completer.results.forEach { result in
+            resultCompleter.append((result.title, result.subtitle))
+            print((result.title, result.subtitle))
         }
+
 
 //        completer.results.forEach { result in
 //            resultCompleter.append((result.title, result.subtitle))
