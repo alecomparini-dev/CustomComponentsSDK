@@ -416,25 +416,17 @@ extension MapBuilder: CLLocationManagerDelegate {
 extension MapBuilder: MKLocalSearchCompleterDelegate {
     
     public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        
+        if completer.isSearching {
+            print("*************************************************************************************************")
+            return
+        }
+        
         var resultCompleter: [(title: String, subtitle: String)] = []
         
-        completer.resultTypes = .address
         completer.results.forEach { result in
             resultCompleter.append((result.title, result.subtitle))
-            print((result.title, result.subtitle))
         }
-
-        completer.resultTypes = .pointOfInterest
-        completer.results.forEach { result in
-            resultCompleter.append((result.title, result.subtitle))
-            print((result.title, result.subtitle))
-        }
-
-
-//        completer.results.forEach { result in
-//            resultCompleter.append((result.title, result.subtitle))
-//        }
-        
         
         mapBuilderOutput?.searchPlaces(resultCompleter)
     }
