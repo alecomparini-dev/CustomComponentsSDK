@@ -319,7 +319,7 @@ public class MapBuilder: BaseBuilder, Map {
         if searchCompleter != nil {return}
         searchCompleter = MKLocalSearchCompleter()
         searchCompleter?.delegate = self
-        searchCompleter?.resultTypes = .pointOfInterest
+        searchCompleter?.resultTypes = .address
     }
 
     
