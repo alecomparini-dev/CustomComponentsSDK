@@ -416,11 +416,7 @@ extension MapBuilder: CLLocationManagerDelegate {
 extension MapBuilder: MKLocalSearchCompleterDelegate {
     
     public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        
-        if completer.isSearching {
-            print("*************************************************************************************************")
-            return
-        }
+        if completer.isSearching { return }
         
         var resultCompleter: [(title: String, subtitle: String)] = []
         
