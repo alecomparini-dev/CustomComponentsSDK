@@ -75,17 +75,6 @@ public class MapBuilder: BaseBuilder, Map {
         return await getLocationAddress(userLocation)
     }
     
-    public func searchPlaces(_ queryFragment: String) {
-        instantiateMKLocalSearchCompleter()
-        searchCompleter?.queryFragment = queryFragment
-    }
-    
-    private func instantiateMKLocalSearchCompleter() {
-        if searchCompleter != nil {return}
-        searchCompleter = MKLocalSearchCompleter()
-        searchCompleter?.delegate = self
-        searchCompleter?.resultTypes = .query
-    }
 
     
 //  MARK: - SET PROPERTIES
@@ -200,7 +189,11 @@ public class MapBuilder: BaseBuilder, Map {
     
 //  MARK: - PUBLIC AREA
     
-    @discardableResult
+    public func searchPlaces(_ queryFragment: String) {
+        instantiateMKLocalSearchCompleter()
+        searchCompleter?.queryFragment = queryFragment
+    }
+    
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
         
         switch locationManager?.authorizationStatus {
@@ -322,6 +315,14 @@ public class MapBuilder: BaseBuilder, Map {
         }
     }
     
+    private func instantiateMKLocalSearchCompleter() {
+        if searchCompleter != nil {return}
+        searchCompleter = MKLocalSearchCompleter()
+        searchCompleter?.delegate = self
+        searchCompleter?.resultTypes = .pointOfInterest
+    }
+
+    
     private func isAuthorized(_ manager: CLLocationManager?) -> Bool {
         guard let manager else { return false }
         return manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways
@@ -421,8 +422,6 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
         completer.results.forEach { result in
             
             resultCompleter.append((result.title, result.subtitle))
-            print(result.titleHighlightRanges)
-            print(result.subtitleHighlightRanges)
         }
         
         
