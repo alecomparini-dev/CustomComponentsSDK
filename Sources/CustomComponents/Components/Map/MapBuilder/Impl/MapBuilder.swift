@@ -424,6 +424,12 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
             print((result.title, result.subtitle))
         }
 
+        completer.resultTypes = .pointOfInterest
+        completer.results.forEach { result in
+            resultCompleter.append((result.title, result.subtitle))
+            print((result.title, result.subtitle))
+        }
+
 
 //        completer.results.forEach { result in
 //            resultCompleter.append((result.title, result.subtitle))
