@@ -84,6 +84,7 @@ public class MapBuilder: BaseBuilder, Map {
         if searchCompleter != nil {return}
         searchCompleter = MKLocalSearchCompleter()
         searchCompleter?.delegate = self
+        searchCompleter?.resultTypes = .query
     }
 
     
@@ -416,9 +417,18 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
     public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         var resultCompleter: [(title: String, subtitle: String)] = []
         
+        
         completer.results.forEach { result in
+            
             resultCompleter.append((result.title, result.subtitle))
+            print(result.titleHighlightRanges)
+            print(result.subtitleHighlightRanges)
         }
+        
+        
+        completer.pointOfInterestFilter
+        
+        
         
         mapBuilderOutput?.searchPlaces(resultCompleter)
     }
