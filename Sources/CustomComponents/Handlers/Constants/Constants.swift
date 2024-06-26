@@ -120,6 +120,7 @@ extension K {
         public enum Horizontal {
             case left
             case right
+            case both
         }
     }
 }

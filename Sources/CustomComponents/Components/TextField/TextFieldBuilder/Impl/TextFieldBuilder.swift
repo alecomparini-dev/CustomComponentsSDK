@@ -303,6 +303,10 @@ open class TextFieldBuilder: BaseBuilder, TextField {
             case .right:
                 textField.rightView = paddingView.baseView
                 textField.rightViewMode = UITextField.ViewMode(rawValue: mode.rawValue) ?? .always
+            
+            case .both:
+                addPaddingToTextField(paddingView, .left)
+                addPaddingToTextField(paddingView, .right)
         }
     }
 

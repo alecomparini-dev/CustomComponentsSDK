@@ -6,11 +6,9 @@ import UIKit
 @MainActor
 open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
         
-    private var imagePosition: K.Position.Horizontal!
     private var margin: CGFloat = K.Default.paddingWithImage
     private var sizeImage: CGFloat?
     
-//    private var action: TextFieldImageActionBuilder?
     public var imageViewLeft: ImageViewBuilder?
     public var imageViewRight: ImageViewBuilder?
     
@@ -44,17 +42,16 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
             setImageLeft(image)
         case .right:
             setImageRight(image)
+        case .both:
+            setImageLeft(image)
+            setImageRight(image)
         }
         return self
     }
 
     @discardableResult
-    public override func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal? = nil) -> Self {
+    public override func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal? = .left) -> Self {
         guard let padding else {return self}
-        if isSamePositionImage(position) {
-            return self
-        }
-        let position: K.Position.Horizontal = calculatePaddingPosition(position)
         super.setPadding(padding, position)
         return self
     }
@@ -76,13 +73,13 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     }
     
     @discardableResult
-    public func setIsHideImage(_ hide: Bool, position: K.Position.Horizontal? = nil) -> Self {
+    public func setIsHideImage(_ hide: Bool, position: K.Position.Horizontal = .both) -> Self {
         switch position {
         case .left:
             imageViewLeft?.get.isHidden = hide
         case .right:
             imageViewRight?.get.isHidden = hide
-        case .none:
+        case .both:
             imageViewLeft?.get.isHidden = hide
             imageViewRight?.get.isHidden = hide
         }
@@ -90,13 +87,13 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     }
 
     @discardableResult
-    public func setImageColor(_ color: UIColor, position: K.Position.Horizontal? = nil) -> Self {
+    public func setImageColor(_ color: UIColor, position: K.Position.Horizontal = .both) -> Self {
         switch position {
             case .left:
                 imageViewLeft?.get.tintColor = color
             case .right:
                 imageViewRight?.get.tintColor = color
-            case .none:
+            case .both:
                 imageViewLeft?.get.tintColor = color
                 imageViewRight?.get.tintColor = color
         }
@@ -104,7 +101,7 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
     }
     
     @discardableResult
-    public func setImageColor(hexColor color: String?, position: K.Position.Horizontal? = nil) -> Self {
+    public func setImageColor(hexColor color: String?, position: K.Position.Horizontal = .both) -> Self {
         guard let color, color.isHexColor() else {return self}
         setImageColor(UIColor.HEX(color), position: position)
         return self
@@ -142,31 +139,39 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
                     imageViewRight = ImageViewBuilder()
                 }
                 return imageViewRight
+            
+            case .both:
+                return nil
         }
     }
     
     private func updateImageView( _ newImage: ImageViewBuilder, _ position: K.Position.Horizontal) {
         switch position {
-        case .left:
-            if imageViewLeft?.get.image != nil {
-                imageViewLeft?.get.image = newImage.get.image
-            } else {
-                imageViewLeft = ImageViewBuilder()
-                imageViewLeft = newImage
-            }
-            if let sizeImage {
-                imageViewLeft?.get.image = imageViewLeft?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
-            }
-        case .right:
-            if imageViewRight?.get.image != nil {
-                imageViewRight?.get.image = newImage.get.image
-            } else {
-                imageViewRight = ImageViewBuilder()
-                imageViewRight = newImage
-            }
-            if let sizeImage {
-                imageViewRight?.get.image = imageViewRight?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
-            }
+            case .left:
+                if imageViewLeft?.get.image != nil {
+                    imageViewLeft?.get.image = newImage.get.image
+                } else {
+                    imageViewLeft = ImageViewBuilder()
+                    imageViewLeft = newImage
+                }
+                if let sizeImage {
+                    imageViewLeft?.get.image = imageViewLeft?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
+                }
+            
+            case .right:
+                if imageViewRight?.get.image != nil {
+                    imageViewRight?.get.image = newImage.get.image
+                } else {
+                    imageViewRight = ImageViewBuilder()
+                    imageViewRight = newImage
+                }
+                if let sizeImage {
+                    imageViewRight?.get.image = imageViewRight?.get.image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: sizeImage))
+                }
+            
+            case .both:
+                updateImageView(newImage,.left)
+                updateImageView(newImage,.right)
         }
     }
     
@@ -187,29 +192,6 @@ open class TextFieldImageBuilder: TextFieldBuilder, TextFieldImage {
                       y: .zero,
                       width: (imgView.get.image?.size.width ?? .zero) + doubleMargin ,
                       height: (imgView.get.image?.size.width ?? .zero) + doubleMargin)
-    }
-    
-    private func isSamePositionImage(_ position: K.Position.Horizontal? = nil) -> Bool {
-        return imagePosition == position
-    }
-    
-    private func calculatePaddingPosition(_ position: K.Position.Horizontal? = nil) -> K.Position.Horizontal {
-        guard let position else { return oppositeImagePosition() }
-        return position
-    }
-    
-    private func oppositeImagePosition() -> K.Position.Horizontal {
-        switch self.imagePosition {
-            case .left:
-                return .right
-            case .right:
-                return .left
-            case .none:
-                return .left
-        }
-    }
-    
-    private func setActionImage(component: ImageViewBuilder?, _ builder: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) {
     }
     
     private func setImageLeft(_ newImage: ImageViewBuilder) {
