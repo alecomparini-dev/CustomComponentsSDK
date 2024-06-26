@@ -14,9 +14,9 @@ public protocol TextFieldImage {
     
     func setImageSize(_ size: CGFloat?, _ weight: K.Weight?) -> Self
     
-    func setIsHideImage(_ hide: Bool, position: K.Position.Horizontal?) -> Self
+    func setIsHideImage(_ hide: Bool, position: K.Position.Horizontal) -> Self
     
-    func setImageColor(hexColor: String?, position: K.Position.Horizontal?) -> Self
+    func setImageColor(hexColor: String?, position: K.Position.Horizontal) -> Self
     
     @discardableResult
     func setActions(textFieldImage action: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self 
