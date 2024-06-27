@@ -405,6 +405,11 @@ extension MapBuilder: CLLocationManagerDelegate {
             mapBuilderOutput?.localizationNotAuthorized()
             return
         }
+        
+        if isAuthorized(manager) {
+            mapBuilderOutput?.localizationAuthorized()
+        }
+        
     }
     
 }

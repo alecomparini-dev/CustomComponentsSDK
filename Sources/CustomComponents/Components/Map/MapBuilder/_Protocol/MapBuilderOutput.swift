@@ -9,6 +9,8 @@ public protocol MapBuilderOutput: AnyObject {
     
     func localizationNotAuthorized()
     
+    func localizationAuthorized()
+    
     func loadingMapError(_ error: String)
     
     func pinSelected(title: String, subtitle: String, coordinate: (lat: Double, lon: Double))
@@ -19,9 +21,3 @@ public protocol MapBuilderOutput: AnyObject {
     
 }
 
-
-//  MARK: - EXTENSION MapBuilderOutput
-
-extension MapBuilderOutput {
-    func searchPlaces(_ places: [String]) { }
-}
