@@ -1,4 +1,4 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.9
 
 import PackageDescription
 
@@ -23,7 +23,10 @@ let package = Package(
             name: "CustomComponentsSDK",
             dependencies: [
             ],
-            path: "Sources/CustomComponents"
+            path: "Sources/CustomComponents",
+            swiftSettings: [
+                .unsafeFlags(["-enable-library-evolution"], .when(configuration: .release))
+            ]
         ),
         
     ]
