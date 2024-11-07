@@ -96,12 +96,11 @@ open class TableViewBuilder: BaseBuilder, TableView {
     }
     
     @discardableResult
-    public func setRefreshControl(build: (RefreshControlBuilder) -> RefreshControlBuilder) -> Self {
+    public func setRefreshControl(_ build: (_ build: RefreshControlBuilder) -> RefreshControlBuilder) -> Self {
         let refreshConstrol = build(RefreshControlBuilder())
         tableView.refreshControl = refreshConstrol.get
         return self
     }
-
     
 //  MARK: - DELEGATE and DATASOURCE
 

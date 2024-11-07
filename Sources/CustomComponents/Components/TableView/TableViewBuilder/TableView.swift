@@ -42,5 +42,5 @@ public protocol TableView {
     func sectionHeaderTopPadding(_ padding: CGFloat) -> Self
     
     @discardableResult
-    func setRefreshControl(build: (RefreshControlBuilder) -> RefreshControlBuilder) -> Self
+    func setRefreshControl(_ build: (RefreshControlBuilder) -> RefreshControlBuilder) -> Self
 }
