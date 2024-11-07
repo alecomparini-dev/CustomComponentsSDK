@@ -10,12 +10,17 @@ open class TableViewBuilder: BaseBuilder, TableView {
     
     public var get: UITableView { tableView }
     
+    private(set) public var refreshControl: RefreshControlBuilder?
+    
     private let tableView: UITableView
 
     public init(style: UITableView.Style = .plain) {
         self.tableView = UITableView(frame: .null, style: style)
         super.init(tableView)
     }
+    
+    
+//  MARK: - GET PROPERTIES
     
 
 //  MARK: - SET PROPERTIES
@@ -97,8 +102,10 @@ open class TableViewBuilder: BaseBuilder, TableView {
     
     @discardableResult
     public func setRefreshControl(_ build: (_ build: RefreshControlBuilder) -> RefreshControlBuilder) -> Self {
-        let refreshConstrol = build(RefreshControlBuilder())
-        tableView.refreshControl = refreshConstrol.get
+        refreshControl = build(RefreshControlBuilder())
+        if let refresh = refreshControl?.get {
+            tableView.refreshControl = refresh
+        }
         return self
     }
     
