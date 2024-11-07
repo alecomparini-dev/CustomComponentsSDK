@@ -40,4 +40,7 @@ public protocol TableView {
     @available(iOS 15.0, *)
     @discardableResult
     func sectionHeaderTopPadding(_ padding: CGFloat) -> Self
+    
+    @discardableResult
+    func setRefreshControl(build: (RefreshControlBuilder) -> RefreshControlBuilder) -> Self
 }
