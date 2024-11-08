@@ -20,9 +20,6 @@ open class TableViewBuilder: BaseBuilder, TableView {
     }
     
     
-//  MARK: - GET PROPERTIES
-    
-
 //  MARK: - SET PROPERTIES
 
     @discardableResult
@@ -108,6 +105,14 @@ open class TableViewBuilder: BaseBuilder, TableView {
         }
         return self
     }
+    
+    
+//  MARK: - PUBLIC AREA
+    
+    public func reload() {
+        tableView.reloadData()
+    }
+    
     
 //  MARK: - DELEGATE and DATASOURCE
 

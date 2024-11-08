@@ -10,6 +10,8 @@ public protocol TableView {
     
     var get: T { get }
     
+    func reload()
+    
     @discardableResult
     func setSeparatorStyle( _ separatorStyle: K.SeparatorStyle) -> Self
     
