@@ -3,7 +3,6 @@
 
 import Foundation
 
-@MainActor
 public protocol Map {
     associatedtype T
     associatedtype D

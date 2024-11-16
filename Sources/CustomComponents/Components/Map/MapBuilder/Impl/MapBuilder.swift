@@ -6,7 +6,6 @@ import MapKit
 import CoreLocation
 
 
-@MainActor
 public class MapBuilder: BaseBuilder, Map {
     public typealias T = MKMapView
     public typealias D = MapKit.MKMapViewDelegate
@@ -420,7 +419,7 @@ extension MapBuilder: CLLocationManagerDelegate {
 
 extension MapBuilder: MKLocalSearchCompleterDelegate {
     
-    public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+    nonisolated public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         if completer.isSearching { return }
         
         var resultCompleter: [(title: String, subtitle: String)] = []
@@ -429,7 +428,9 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
             resultCompleter.append((result.title, result.subtitle))
         }
         
-        mapBuilderOutput?.searchPlaces(resultCompleter)
+        DispatchQueue.main.async { [weak self, resultCompleter]  in
+            self?.mapBuilderOutput?.searchPlaces(resultCompleter)
+        }
     }
     
     

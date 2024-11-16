@@ -3,7 +3,6 @@
 
 import Foundation
 
-@MainActor
 public protocol MapBuilderOutput: AnyObject {
     func finishFullyRenderedMap()
     
