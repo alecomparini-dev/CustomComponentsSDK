@@ -318,10 +318,10 @@ public class MapBuilder: BaseBuilder, Map {
         if searchCompleter != nil {return}
         searchCompleter = MKLocalSearchCompleter()
         searchCompleter?.delegate = self
-        searchCompleter?.resultTypes = .query
+//        searchCompleter?.resultTypes = .query
+        searchCompleter?.resultTypes = .address
     }
 
-    
     private func isAuthorized(_ manager: CLLocationManager?) -> Bool {
         guard let manager else { return false }
         return manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways
