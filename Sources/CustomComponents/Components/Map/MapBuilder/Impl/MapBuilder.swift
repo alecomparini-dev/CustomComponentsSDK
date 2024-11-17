@@ -318,8 +318,7 @@ public class MapBuilder: BaseBuilder, Map {
         if searchCompleter != nil {return}
         searchCompleter = MKLocalSearchCompleter()
         searchCompleter?.delegate = self
-//        searchCompleter?.resultTypes = .query
-        searchCompleter?.resultTypes = .address
+        searchCompleter?.resultTypes = [.query, .address]
     }
 
     private func isAuthorized(_ manager: CLLocationManager?) -> Bool {
