@@ -318,7 +318,15 @@ public class MapBuilder: BaseBuilder, Map {
         if searchCompleter != nil {return}
         searchCompleter = MKLocalSearchCompleter()
         searchCompleter?.delegate = self
-        searchCompleter?.resultTypes = [.query, .address]
+        searchCompleter?.resultTypes = [.query, .address, getPhysicalFeatureAndPOI()]
+    }
+    
+    
+    private func getPhysicalFeatureAndPOI() -> MKLocalSearchCompleter.ResultType {
+        if #available(iOS 18.0, *) {
+            return [.physicalFeature, .pointOfInterest]
+        }
+        return .pointOfInterest
     }
 
     private func isAuthorized(_ manager: CLLocationManager?) -> Bool {
