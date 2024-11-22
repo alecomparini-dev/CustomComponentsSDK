@@ -43,7 +43,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     
-    //  MARK: - GET PROPERTIES
+//  MARK: - GET PROPERTIES
     
     public var get: MKMapView { mapView }
     
@@ -75,8 +75,8 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
 
-    
 //  MARK: - SET PROPERTIES
+    
     @discardableResult
     public func setCenterMap(location: L?, _ regionRadius: Double = Constant.radius) -> Self {
         guard let location else { return self }
@@ -137,12 +137,17 @@ public class MapBuilder: BaseBuilder, Map {
         let annotation = MKPointAnnotation()
             
         annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.lat, longitude: coordinate.lon)
+        
         annotation.title = title
+        
         if let subTitle { annotation.subtitle = subTitle }
-        self.mapView.addAnnotation(annotation)
+        
+        mapView.addAnnotation(annotation)
+        
         if centerView {
             setCenterMap(location: CLLocation(latitude: coordinate.lat, longitude: coordinate.lon))
         }
+        
         return self
     }
     
@@ -156,6 +161,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     
 //  MARK: - SET OUTPUT
+    
     @discardableResult
     public func setOutput(_ output: MapBuilderOutput) -> Self {
         mapBuilderOutput = output
@@ -164,6 +170,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     
 //  MARK: - SHOW MAP
+    
     public func show() {
         applyOnceConfig()
         
@@ -179,11 +186,13 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func applyOnceConfig() {
         if alreadyApplied { return }
+        
         alreadyApplied = true
+        
         configDelegates()
+        
         startUpdatingLocation()
     }
-    
     
     
 //  MARK: - PUBLIC AREA
@@ -223,7 +232,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     
     
-    //  MARK: - PRIVATE AREA
+//  MARK: - PRIVATE AREA
     
     public func configure() {
         setShowsCompass(false)
@@ -434,6 +443,12 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
         completer.results.forEach { result in
             resultCompleter.append((result.title, result.subtitle))
         }
+        
+        let mk = MKLocalSearchCompletion.init()
+        mk.setValue("asdfasdf", forKey: "title")
+        mk.setValue("55555555555", forKey: "subtitle")
+        
+        print(mk.title, mk.subtitle)
         
         DispatchQueue.main.async { [weak self, resultCompleter]  in
             self?.mapBuilderOutput?.searchPlaces(resultCompleter)
