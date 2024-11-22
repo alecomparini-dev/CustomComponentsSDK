@@ -12,6 +12,7 @@ public class MapBuilder: BaseBuilder, Map {
     public typealias POI = MKPointOfInterestCategory
     public typealias L = CoreLocation.CLLocation
     public typealias A = CLAuthorizationStatus
+    public typealias M = MKLocalSearchCompletion
     
     public struct Constant {
         static public let radius: Double = 500
@@ -163,7 +164,7 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - SET OUTPUT
     
     @discardableResult
-    public func setOutput(_ output: MapBuilderOutput) -> Self {
+    public func setOutput(_ output: any MapBuilderOutput) -> Self {
         mapBuilderOutput = output
         return self
     }
@@ -438,23 +439,17 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
     nonisolated public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         if completer.isSearching { return }
         
-        var resultCompleter: [(title: String, subtitle: String)] = []
+//        var resultCompleter: [(title: String, subtitle: String)] = []
+        var resultCompleter: [MKLocalSearchCompletion] = []
         
         completer.results.forEach { result in
-            resultCompleter.append((result.title, result.subtitle))
+//            resultCompleter.append((result.title, result.subtitle))
+            resultCompleter.append(result)
         }
-        
-        let mk = MKLocalSearchCompletion.init()
-        mk.setValue("asdfasdf", forKey: "title")
-        mk.setValue("55555555555", forKey: "subtitle")
-        
-        print(mk.title, mk.subtitle)
         
         DispatchQueue.main.async { [weak self, resultCompleter]  in
             self?.mapBuilderOutput?.searchPlaces(resultCompleter)
         }
     }
-    
-    
     
 }
