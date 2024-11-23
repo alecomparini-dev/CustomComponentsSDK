@@ -19,6 +19,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     private var searchCompleter: MKLocalSearchCompleter?
+    private var resultSearchCompletion = [MKLocalSearchCompletion]()
     
     private var loadingMap = false
     private var alreadyApplied = false
@@ -47,6 +48,10 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - GET PROPERTIES
     
     public var get: MKMapView { mapView }
+    
+    public func getResultSearchCompleter() -> [MKLocalSearchCompletion] { resultSearchCompletion }
+    
+    public func getResultSearchCompleter(index: Int) -> MKLocalSearchCompletion { resultSearchCompletion[index] }
     
     public func getLocationAddress(_ location: L?) async -> PlacemarkMapDTO? {
         guard let userLocation else {return nil}
@@ -198,7 +203,7 @@ public class MapBuilder: BaseBuilder, Map {
     
 //  MARK: - PUBLIC AREA
     
-    public func searchPlaces(_ queryFragment: String) {
+    public func fetchSearchCompleter(_ queryFragment: String) {
         instantiateMKLocalSearchCompleter()
         searchCompleter?.queryFragment = queryFragment
     }
@@ -439,17 +444,17 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
     nonisolated public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         if completer.isSearching { return }
         
-//        var resultCompleter: [(title: String, subtitle: String)] = []
-        var resultCompleter: [MKLocalSearchCompletion] = []
+        var resultSearch = [MKLocalSearchCompletion]()
         
         completer.results.forEach { result in
-//            resultCompleter.append((result.title, result.subtitle))
-            resultCompleter.append(result)
+            resultSearch.append(result)
         }
         
-        DispatchQueue.main.async { [weak self, resultCompleter]  in
-            self?.mapBuilderOutput?.searchPlaces(resultCompleter)
+        DispatchQueue.main.async { [weak self, resultSearch]  in
+            self?.mapBuilderOutput?.fetchSearchCompleter(resultSearchCompletion: resultSearch)
+            self?.resultSearchCompletion = resultSearch
         }
+        
     }
     
 }

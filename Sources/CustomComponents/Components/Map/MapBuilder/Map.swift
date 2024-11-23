@@ -9,6 +9,7 @@ public protocol Map {
     associatedtype POI
     associatedtype L
     associatedtype A
+    associatedtype M
     
     
 //  MARK: - GET PROPERTIES
@@ -19,7 +20,14 @@ public protocol Map {
     
     func getUserLocationAddress() async -> PlacemarkMapDTO?
     
-    func searchPlaces(_ queryFragment: String)
+    func getResultSearchCompleter(index: Int) -> M
+    
+    func getResultSearchCompleter() -> [M]
+
+    
+//  MARK: - FETCH
+    
+    func fetchSearchCompleter(_ queryFragment: String)
     
     
 //  MARK: - SET PROPERTIES
