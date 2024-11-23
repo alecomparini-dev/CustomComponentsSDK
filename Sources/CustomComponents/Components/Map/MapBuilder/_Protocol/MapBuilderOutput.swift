@@ -17,8 +17,5 @@ public protocol MapBuilderOutput: AnyObject {
     
     func pinDeselected(title: String, subtitle: String, coordinate: (lat: Double, lon: Double))
     
-    func searchPlaces(_ places: [(title: String, subtitle: String)])
-    
-    func searchPlaces<M>(_ searchCompleter: [M])
+    func fetchSearchCompleter<M>(resultSearchCompletion: [M])
 }
-
