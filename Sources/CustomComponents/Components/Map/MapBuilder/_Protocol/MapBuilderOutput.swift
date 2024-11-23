@@ -4,6 +4,7 @@
 import Foundation
 
 public protocol MapBuilderOutput: AnyObject {
+    
     func finishFullyRenderedMap()
     
     func localizationNotAuthorized()
@@ -18,5 +19,6 @@ public protocol MapBuilderOutput: AnyObject {
     
     func searchPlaces(_ places: [(title: String, subtitle: String)])
     
+    func searchPlaces<M>(_ searchCompleter: [M])
 }
 
