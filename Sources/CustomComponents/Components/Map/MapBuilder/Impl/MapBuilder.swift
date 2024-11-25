@@ -52,7 +52,7 @@ public class MapBuilder: BaseBuilder, Map {
     public func getResultSearchCompleter() -> [MKLocalSearchCompletion] { resultSearchCompletion }
     
     public func getResultSearchCompleter(index: Int) -> MKLocalSearchCompletion {
-        if index > resultSearchCompletion.count { return MKLocalSearchCompletion() }
+        if !resultSearchCompletion.indices.contains(index) { return MKLocalSearchCompletion() }
         
         return resultSearchCompletion[index]
     }
