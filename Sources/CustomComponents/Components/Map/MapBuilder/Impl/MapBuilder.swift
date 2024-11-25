@@ -455,8 +455,8 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
         }
         
         DispatchQueue.main.async { [weak self, resultSearch]  in
-            self?.mapBuilderOutput?.fetchSearchCompleter(resultSearchCompletion: resultSearch)
             self?.resultSearchCompletion = resultSearch
+            self?.mapBuilderOutput?.fetchSearchCompleter(resultSearchCompletion: resultSearch)
         }
         
     }
