@@ -10,6 +10,7 @@ public protocol Map {
     associatedtype L
     associatedtype A
     associatedtype M
+    associatedtype R
     
     
 //  MARK: - GET PROPERTIES
@@ -23,11 +24,13 @@ public protocol Map {
     func getResultSearchCompleter(index: Int) -> M
     
     func getResultSearchCompleter() -> [M]
-
+    
     
 //  MARK: - FETCH
     
     func fetchSearchCompleter(_ queryFragment: String)
+    
+    func search(resultCompletion: M, _ completion: @escaping (_ response: R) -> Void)
     
     
 //  MARK: - SET PROPERTIES

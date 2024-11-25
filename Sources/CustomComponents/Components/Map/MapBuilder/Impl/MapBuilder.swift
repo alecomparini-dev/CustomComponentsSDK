@@ -13,6 +13,7 @@ public class MapBuilder: BaseBuilder, Map {
     public typealias L = CoreLocation.CLLocation
     public typealias A = CLAuthorizationStatus
     public typealias M = MKLocalSearchCompletion
+    public typealias R = MKLocalSearch.Response
     
     public struct Constant {
         static public let radius: Double = 500
@@ -240,6 +241,14 @@ public class MapBuilder: BaseBuilder, Map {
         
     }
     
+    public func search(resultCompletion: M, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+        let searchRequest = MKLocalSearch.Request(completion: resultCompletion)
+        
+        let search = MKLocalSearch(request: searchRequest)
+        
+        searchStart(search, completion)
+    }
+    
     
     
 //  MARK: - PRIVATE AREA
@@ -304,6 +313,7 @@ public class MapBuilder: BaseBuilder, Map {
         commonsConfigPin(pinNaturalLanguage.regionRadius)
             
         let request = MKLocalSearch.Request()
+        
         request.naturalLanguageQuery = pinNaturalLanguage.text
         
         search(request: request) { [weak self] response in
@@ -313,12 +323,15 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func search(request: MKLocalSearch.Request, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
         request.region = mapView.region
+        
         let search = MKLocalSearch(request: request)
+        
         searchStart(search, completion)
     }
     
     private func search(request: MKLocalPointsOfInterestRequest, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
         let search = MKLocalSearch(request: request)
+     
         searchStart(search, completion)
     }
     
