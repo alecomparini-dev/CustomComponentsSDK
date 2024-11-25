@@ -51,7 +51,11 @@ public class MapBuilder: BaseBuilder, Map {
     
     public func getResultSearchCompleter() -> [MKLocalSearchCompletion] { resultSearchCompletion }
     
-    public func getResultSearchCompleter(index: Int) -> MKLocalSearchCompletion { resultSearchCompletion[index] }
+    public func getResultSearchCompleter(index: Int) -> MKLocalSearchCompletion {
+        if index > resultSearchCompletion.count { return MKLocalSearchCompletion() }
+        
+        return resultSearchCompletion[index]
+    }
     
     public func getLocationAddress(_ location: L?) async -> PlacemarkMapDTO? {
         guard let userLocation else {return nil}
