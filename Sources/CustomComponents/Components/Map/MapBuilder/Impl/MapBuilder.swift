@@ -448,15 +448,12 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
     nonisolated public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         if completer.isSearching { return }
         
-        var resultSearch = [MKLocalSearchCompletion]()
-        
-        completer.results.forEach { result in
-            resultSearch.append(result)
-        }
-        
-        DispatchQueue.main.async { [weak self, resultSearch]  in
-            self?.resultSearchCompletion = resultSearch
-            self?.mapBuilderOutput?.fetchSearchCompleter(resultSearchCompletion: resultSearch)
+        DispatchQueue.main.async { [weak self, completer]  in
+            guard let self else {return}
+            
+            resultSearchCompletion = completer.results
+            
+            mapBuilderOutput?.fetchSearchCompleter(resultSearchCompletion: completer.results)
         }
         
     }
