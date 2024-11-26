@@ -10,7 +10,7 @@ struct SearchResponseToResultSearchMapDTO {
             
             let subtitle = makeSubtitle($0.placemark)
             
-            return ResultSearchMapDTO(title: $0.placemark.title,
+            return ResultSearchMapDTO(title: $0.placemark.name,
                                       subtitle: subtitle,
                                       name: $0.placemark.name,
                                       isCurrentLocation: $0.isCurrentLocation,
@@ -39,9 +39,9 @@ struct SearchResponseToResultSearchMapDTO {
         let additional = "\(neighborhood)\(city)\(uf)"
         
         if name != nil {
-            return address
+            return name
         }
         
-        return address + additional
+        return placemark.title
     }
 }
