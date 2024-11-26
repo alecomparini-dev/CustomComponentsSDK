@@ -215,9 +215,12 @@ public class MapBuilder: BaseBuilder, Map {
         
         searchStart(search) { [weak self] response in
             guard let self else {return}
+            
             resultSearchResponse = response
+            
             resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
-            mapBuilderOutput?.fetchSearchSuccess()
+            
+            mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
         }
     }
     
@@ -479,7 +482,7 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
         
         resultSearchMapDTO = completer.results.map({ ResultSearchMapDTO(title: $0.title, subtitle: $0.subtitle) })
         
-        mapBuilderOutput?.fetchSearchSuccess()
+        mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
     }
     
 }
