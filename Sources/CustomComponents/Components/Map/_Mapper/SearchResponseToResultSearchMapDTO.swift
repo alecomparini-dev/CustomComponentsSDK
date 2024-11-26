@@ -17,6 +17,7 @@ struct SearchResponseToResultSearchMapDTO {
                                postalCode: $0.placemark.postalCode,
                                country: $0.placemark.country,
                                phoneNumber: $0.phoneNumber,
+                               coordinate: ($0.placemark.coordinate.latitude, $0.placemark.coordinate.longitude),
                                pointOfInterestCategory: $0.pointOfInterestCategory?.rawValue)
         })
     }
