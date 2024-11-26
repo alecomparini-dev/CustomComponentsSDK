@@ -469,21 +469,16 @@ extension MapBuilder: CLLocationManagerDelegate {
 
 extension MapBuilder: MKLocalSearchCompleterDelegate {
     
-    nonisolated public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+    public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         if completer.isSearching { return }
         
-        DispatchQueue.main.async { [weak self, completer]  in
-            guard let self else {return}
-            
-            resetResultSearch()
-            
-            resultSearchCompletion = completer.results
-            
-            resultSearchMapDTO = completer.results.map({ ResultSearchMapDTO(title: $0.title, subtile: $0.subtitle) })
-            
-            mapBuilderOutput?.fetchSearchSuccess()
-        }
+        resetResultSearch()
         
+        resultSearchCompletion = completer.results
+        
+        resultSearchMapDTO = completer.results.map({ ResultSearchMapDTO(title: $0.title, subtile: $0.subtitle) })
+        
+        mapBuilderOutput?.fetchSearchSuccess()
     }
     
 }
