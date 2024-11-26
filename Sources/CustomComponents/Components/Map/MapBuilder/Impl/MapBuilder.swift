@@ -5,27 +5,6 @@ import Foundation
 import MapKit
 import CoreLocation
 
-public struct ResultSearchMapDTO {
-    public private(set) var title: String?
-    public private(set) var subtile: String?
-    public private(set) var name: String?
-    public private(set) var street: String?
-    public private(set) var subLocality: String?
-    public private(set) var locality: String?
-    
-    init(title: String? = nil, subtile: String? = nil, name: String? = nil, street: String? = nil, subLocality: String? = nil, locality: String? = nil) {
-        self.title = title
-        self.subtile = subtile
-        self.name = name
-        self.street = street
-        self.subLocality = subLocality
-        self.locality = locality
-    }
-    
-    
-}
-
-
 
 public class MapBuilder: BaseBuilder, Map {
     public typealias T = MKMapView
@@ -241,7 +220,6 @@ public class MapBuilder: BaseBuilder, Map {
     
     public func fetchSearchCompleter(_ queryFragment: String) {
         instantiateMKLocalSearchCompleter()
-        resetResultSearch()
         searchCompleter?.queryFragment = queryFragment
     }
     
@@ -253,20 +231,11 @@ public class MapBuilder: BaseBuilder, Map {
         resetResultSearch()
         
         searchStart(search) { [weak self] response in
-            self?.resultSearchResponse = response
-            self?.mapper(response)
-            self?.mapBuilderOutput?.fetchSearchSuccess()
+            guard let self else {return}
+            resultSearchResponse = response
+            resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
+            mapBuilderOutput?.fetchSearchSuccess()
         }
-    }
-    
-    private func mapper(_ response: MKLocalSearch.Response?) {
-        guard let response else { return }
-        
-        resultSearchMapDTO = response.mapItems.map({
-            ResultSearchMapDTO(name: $0.placemark.name,
-                               street: $0.placemark.thoroughfare,
-                               subLocality: $0.placemark.subLocality,
-                               locality: $0.placemark.locality )  })
     }
     
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
@@ -525,9 +494,13 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
         DispatchQueue.main.async { [weak self, completer]  in
             guard let self else {return}
             
+            resetResultSearch()
+            
             resultSearchCompletion = completer.results
             
-            mapBuilderOutput?.fetchSearchCompleter(resultSearchCompletion: completer.results)
+            resultSearchMapDTO = completer.results.map({ ResultSearchMapDTO(title: $0.title, subtile: $0.subtitle) })
+            
+            mapBuilderOutput?.fetchSearchSuccess()
         }
         
     }

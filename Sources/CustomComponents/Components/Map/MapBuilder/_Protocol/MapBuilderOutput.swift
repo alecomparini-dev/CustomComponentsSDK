@@ -17,8 +17,6 @@ public protocol MapBuilderOutput: AnyObject {
     
     func pinDeselected(title: String, subtitle: String, coordinate: (lat: Double, lon: Double))
     
-    func fetchSearchCompleter<M>(resultSearchCompletion: [M])
-    
     func fetchSearchSuccess()
     
     func fetchSearchError(error: Error)
