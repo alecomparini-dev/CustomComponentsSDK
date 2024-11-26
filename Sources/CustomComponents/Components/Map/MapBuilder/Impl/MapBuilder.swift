@@ -418,8 +418,7 @@ public class MapBuilder: BaseBuilder, Map {
     private func fetchPlacesNaturalLanguage(_ index: Int) {
         let response: ResultSearchMapDTO = resultSearchMapDTO[index]
         
-//        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
-        let text = response.subtitle ?? ""
+        let text = "\(response.name ?? ""), \(response.subtitle ?? "")"
         
         let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
         
@@ -436,7 +435,7 @@ public class MapBuilder: BaseBuilder, Map {
         mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
     }
         
-    private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 10) -> MKCoordinateRegion? {
+    private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 50) -> MKCoordinateRegion? {
         guard let lat = coordinate.lat, let lon = coordinate.lon else { return nil }
         
         return MKCoordinateRegion (
