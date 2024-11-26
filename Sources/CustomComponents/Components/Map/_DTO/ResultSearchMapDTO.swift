@@ -4,7 +4,7 @@
 
 public struct ResultSearchMapDTO {
     public let title: String?
-    public let subtile: String?
+    public let subtitle: String?
     public let name: String?
     public let isCurrentLocation: Bool?
     public let street: String? // thoroughfare
@@ -20,7 +20,7 @@ public struct ResultSearchMapDTO {
     public let pointOfInterestCategory: String?
     
     init(title: String? = nil,
-         subtile: String? = nil,
+         subtitle: String? = nil,
          name: String? = nil,
          isCurrentLocation: Bool? = false,
          street: String? = nil,
@@ -35,7 +35,7 @@ public struct ResultSearchMapDTO {
          coordinate: (lat: Double, lon: Double)? = nil,
          pointOfInterestCategory: String? = nil) {
         self.title = title
-        self.subtile = subtile
+        self.subtitle = subtitle
         self.name = name
         self.isCurrentLocation = isCurrentLocation
         self.street = street
