@@ -410,8 +410,7 @@ public class MapBuilder: BaseBuilder, Map {
     private func fetchPlacesNaturalLanguage(_ index: Int) {
         let response: ResultSearchMapDTO = resultSearchMapDTO[index]
         
-//        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
-        let text = "\(response.name ?? "")"
+        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
         
         let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
         
