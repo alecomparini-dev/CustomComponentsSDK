@@ -92,11 +92,7 @@ public class MapBuilder: BaseBuilder, Map {
     public func setCenterMap(location: CLLocation?, _ regionRadius: Double = Constant.radius) -> Self {
         guard let location else { return self }
         
-        let coordinateRegion = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude ),
-            latitudinalMeters: regionRadius,
-            longitudinalMeters: regionRadius
-        )
+        guard let coordinateRegion = createRegion((location.coordinate.latitude, location.coordinate.longitude), regionRadius) else { return self }
         
         mapView.setRegion(coordinateRegion, animated: true)
         
@@ -234,11 +230,13 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     private func fetchPlacesNaturalLanguage(_ index: Int) {
-        let response = resultSearchMapDTO[index]
+        let response: ResultSearchMapDTO = resultSearchMapDTO[index]
         
-        let text = "\(response.name ?? "") \(response.title ?? "")"
+        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
         
-        searchNaturalLanguage(text) { [weak self] response in
+        let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
+        
+        searchNaturalLanguage(text, region) { [weak self] response in
             guard let self else {return}
         
             resetResultSearch()
@@ -249,9 +247,17 @@ public class MapBuilder: BaseBuilder, Map {
             
             mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
         }
-        
     }
         
+    private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 100) -> MKCoordinateRegion? {
+        guard let lat = coordinate.lat, let lon = coordinate.lon else { return nil }
+        
+        return MKCoordinateRegion (
+            center: CLLocationCoordinate2D(latitude: lat, longitude: lon),
+            latitudinalMeters: radius,
+            longitudinalMeters: radius
+        )
+    }
     
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
         switch locationManager?.authorizationStatus {
@@ -358,8 +364,10 @@ public class MapBuilder: BaseBuilder, Map {
         }
     }
     
-    private func searchNaturalLanguage(_ text: String, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+    private func searchNaturalLanguage(_ text: String, _ region: MKCoordinateRegion? = nil, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
         let request = MKLocalSearch.Request()
+        
+        if let region { request.region = region }
         
         request.naturalLanguageQuery = text
         
