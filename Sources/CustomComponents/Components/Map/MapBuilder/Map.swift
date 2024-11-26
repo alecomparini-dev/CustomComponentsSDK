@@ -3,40 +3,41 @@
 
 import Foundation
 
+
 public protocol Map {
     associatedtype T
-    associatedtype D
-    associatedtype POI
-    associatedtype L
+    associatedtype MKMapViewDelegate
+    associatedtype MKPointOfInterestCategory
+    associatedtype CLLocation
     associatedtype A
-    associatedtype M
+    associatedtype C
     associatedtype R
     
     
 //  MARK: - GET PROPERTIES
     
     var get: T {get}
+        
+    func getResultSearch(_ index: Int) -> [ResultSearchMapDTO]
     
-    func getLocationAddress(_ location: L?) async -> PlacemarkMapDTO?
+    func getResultSearchCount() -> Int
+    
+    func getLocationAddress(_ location: CLLocation?) async -> PlacemarkMapDTO?
     
     func getUserLocationAddress() async -> PlacemarkMapDTO?
-    
-    func getResultSearchCompleter(index: Int) -> M
-    
-    func getResultSearchCompleter() -> [M]
     
     
 //  MARK: - FETCH
     
     func fetchSearchCompleter(_ queryFragment: String)
     
-    func search(resultCompletion: M, _ completion: @escaping (_ response: R) -> Void)
+    func fetchSearch(resultCompletion: C)
     
     
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    func setCenterMap(location: L?, _ regionRadius: Double) -> Self
+    func setCenterMap(location: CLLocation?, _ regionRadius: Double) -> Self
     
     @discardableResult
     func setShowsUserLocation(_ flag: Bool) -> Self
@@ -48,7 +49,7 @@ public protocol Map {
     func setRemoveAllPin() -> Self
     
     @discardableResult
-    func setPinPointsOfInterest(_ categories: [POI], _ regionRadius: Double) -> Self
+    func setPinPointsOfInterest(_ categories: [MKPointOfInterestCategory], _ regionRadius: Double) -> Self
     
     @discardableResult
     func setPinNaturalLanguage(_ text: String, _ regionRadius: Double) -> Self
@@ -65,7 +66,7 @@ public protocol Map {
     
 //  MARK: - SET DELEGATE
     
-    func setDelegate(_ delegate: D) -> Self
+    func setDelegate(_ delegate: MKMapViewDelegate) -> Self
 
     
 //  MARK: - SET OUTPUT
@@ -76,6 +77,5 @@ public protocol Map {
 //  MARK: - SHOW / HIDE MAPS
     
     func show()
-    
     
 }

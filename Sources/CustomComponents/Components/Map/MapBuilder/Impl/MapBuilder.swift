@@ -5,28 +5,53 @@ import Foundation
 import MapKit
 import CoreLocation
 
+public struct ResultSearchMapDTO {
+    public private(set) var title: String?
+    public private(set) var subtile: String?
+    public private(set) var name: String?
+    public private(set) var street: String?
+    public private(set) var subLocality: String?
+    public private(set) var locality: String?
+    
+    init(title: String? = nil, subtile: String? = nil, name: String? = nil, street: String? = nil, subLocality: String? = nil, locality: String? = nil) {
+        self.title = title
+        self.subtile = subtile
+        self.name = name
+        self.street = street
+        self.subLocality = subLocality
+        self.locality = locality
+    }
+    
+    
+}
+
+
 
 public class MapBuilder: BaseBuilder, Map {
     public typealias T = MKMapView
-    public typealias D = MapKit.MKMapViewDelegate
-    public typealias POI = MKPointOfInterestCategory
-    public typealias L = CoreLocation.CLLocation
+    public typealias MKMapViewDelegate = MapKit.MKMapViewDelegate
+    public typealias MKPointOfInterestCategory = MapKit.MKPointOfInterestCategory
+    public typealias CLLocation = CoreLocation.CLLocation
     public typealias A = CLAuthorizationStatus
-    public typealias M = MKLocalSearchCompletion
+    public typealias C = MKLocalSearchCompletion
     public typealias R = MKLocalSearch.Response
     
     public struct Constant {
         static public let radius: Double = 500
     }
-    
+
     private var searchCompleter: MKLocalSearchCompleter?
+    
     private var resultSearchCompletion = [MKLocalSearchCompletion]()
+    private var resultSearchResponse: MKLocalSearch.Response?
+    private var resultSearchMapDTO = [ResultSearchMapDTO]()
+    
     
     private var loadingMap = false
     private var alreadyApplied = false
-    private var userLocation: L?
-    private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius:Double, onlyOnce: Bool) = (false, [], Constant.radius, false )
-    private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius:Double, onlyOnce: Bool) = (false, "", Constant.radius, false )
+    private var userLocation: CLLocation?
+    private var pinPointsOfInterest: (flag: Bool, categories: [MKPointOfInterestCategory], regionRadius: Double, onlyOnce: Bool) = (false, [], Constant.radius, false )
+    private var pinNaturalLanguage: (flag: Bool, text: String, regionRadius: Double, onlyOnce: Bool) = (false, "", Constant.radius, false )
     private var locationManager: CLLocationManager?
 
     
@@ -55,10 +80,25 @@ public class MapBuilder: BaseBuilder, Map {
     public func getResultSearchCompleter(index: Int) -> MKLocalSearchCompletion {
         if !resultSearchCompletion.indices.contains(index) { return MKLocalSearchCompletion() }
         
+        let teste = NSObject()
+        
+        if let tested = teste as? MKLocalSearchCompletion {
+            print(tested)
+        }
+        
         return resultSearchCompletion[index]
     }
     
-    public func getLocationAddress(_ location: L?) async -> PlacemarkMapDTO? {
+    public func getResultSearch(_ index: Int) -> [ResultSearchMapDTO] {
+        []
+    }
+    
+    public func getResultSearchCount() -> Int {
+        0
+    }
+
+    
+    public func getLocationAddress(_ location: CLLocation?) async -> PlacemarkMapDTO? {
         guard let userLocation else {return nil}
         
         let geocoder = CLGeocoder()
@@ -89,7 +129,7 @@ public class MapBuilder: BaseBuilder, Map {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setCenterMap(location: L?, _ regionRadius: Double = Constant.radius) -> Self {
+    public func setCenterMap(location: CLLocation?, _ regionRadius: Double = Constant.radius) -> Self {
         guard let location else { return self }
         
         let coordinateRegion = MKCoordinateRegion(
@@ -164,8 +204,9 @@ public class MapBuilder: BaseBuilder, Map {
     
     
 //  MARK: - SET DELEGATE
+    
     @discardableResult
-    public func setDelegate(_ delegate: D) -> Self {
+    public func setDelegate(_ delegate: MKMapViewDelegate) -> Self {
         mapView.delegate = delegate
         return self
     }
@@ -195,26 +236,40 @@ public class MapBuilder: BaseBuilder, Map {
         }
     }
     
-    private func applyOnceConfig() {
-        if alreadyApplied { return }
-        
-        alreadyApplied = true
-        
-        configDelegates()
-        
-        startUpdatingLocation()
-    }
-    
     
 //  MARK: - PUBLIC AREA
     
     public func fetchSearchCompleter(_ queryFragment: String) {
         instantiateMKLocalSearchCompleter()
+        resetResultSearch()
         searchCompleter?.queryFragment = queryFragment
     }
     
-    public func checkLocationAuthorization() -> CLAuthorizationStatus {
+    public func fetchSearch(resultCompletion: C ) {
+        let searchRequest = MKLocalSearch.Request(completion: resultCompletion)
         
+        let search = MKLocalSearch(request: searchRequest)
+        
+        resetResultSearch()
+        
+        searchStart(search) { [weak self] response in
+            self?.resultSearchResponse = response
+            self?.mapper(response)
+            self?.mapBuilderOutput?.fetchSearchSuccess()
+        }
+    }
+    
+    private func mapper(_ response: MKLocalSearch.Response?) {
+        guard let response else { return }
+        
+        resultSearchMapDTO = response.mapItems.map({
+            ResultSearchMapDTO(name: $0.placemark.name,
+                               street: $0.placemark.thoroughfare,
+                               subLocality: $0.placemark.subLocality,
+                               locality: $0.placemark.locality )  })
+    }
+    
+    public func checkLocationAuthorization() -> CLAuthorizationStatus {
         switch locationManager?.authorizationStatus {
             case .authorizedAlways:
                 return .authorizedAlways
@@ -238,23 +293,23 @@ public class MapBuilder: BaseBuilder, Map {
             case .some(_):
                 return .notDetermined
         }
-        
     }
-    
-    public func search(resultCompletion: M, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
-        let searchRequest = MKLocalSearch.Request(completion: resultCompletion)
-        
-        let search = MKLocalSearch(request: searchRequest)
-        
-        searchStart(search, completion)
-    }
-    
     
     
 //  MARK: - PRIVATE AREA
     
-    public func configure() {
+    private func configure() {
         setShowsCompass(false)
+    }
+    
+    private func applyOnceConfig() {
+        if alreadyApplied { return }
+        
+        alreadyApplied = true
+        
+        configDelegates()
+        
+        startUpdatingLocation()
     }
     
     private func configDelegates() {
@@ -297,7 +352,9 @@ public class MapBuilder: BaseBuilder, Map {
         commonsConfigPin(pinPointsOfInterest.regionRadius)
                     
         let request = MKLocalPointsOfInterestRequest(coordinateRegion: mapView.region)
+        
         let poiFilter = MKPointOfInterestFilter(including: pinPointsOfInterest.categories)
+        
         request.pointOfInterestFilter = poiFilter
                     
         search(request: request) { [weak self] response in
@@ -338,10 +395,9 @@ public class MapBuilder: BaseBuilder, Map {
     private func searchStart(_ search: MKLocalSearch, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
         search.start { response, error in
             guard let response = response, error == nil else {
-                //TODO: CALL OUTPUT ERROR
-                debugPrint(#function, error?.localizedDescription ?? "")
-                return
+                return debugPrint(#function, error?.localizedDescription ?? "")
             }
+            
             completion(response)
         }
     }
@@ -353,6 +409,10 @@ public class MapBuilder: BaseBuilder, Map {
         searchCompleter?.resultTypes = [.query, .address, getPhysicalFeatureAndPOI()]
     }
     
+    private func resetResultSearch() {
+        resultSearchCompletion = []
+        resultSearchResponse = nil
+    }
     
     private func getPhysicalFeatureAndPOI() -> MKLocalSearchCompleter.ResultType {
         if #available(iOS 18.0, *) {
@@ -384,6 +444,7 @@ public class MapBuilder: BaseBuilder, Map {
 
 
 //  MARK: - EXTENSION - MKMapViewDelegate
+
 extension MapBuilder: MKMapViewDelegate {
     
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
@@ -424,7 +485,7 @@ extension MapBuilder: MKMapViewDelegate {
 
 extension MapBuilder: CLLocationManagerDelegate {
     
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [L]) {
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let userLocation = locations.first {
             self.userLocation = userLocation
                 
