@@ -11,7 +11,7 @@ struct SearchResponseToResultSearchMapDTO {
             let subtitle = makeSubtitle($0.placemark)
             
             return ResultSearchMapDTO(title: $0.placemark.name,
-                                      subtitle: subtitle,
+                                      subtitle: $0.placemark.title,
                                       name: $0.placemark.name,
                                       isCurrentLocation: $0.isCurrentLocation,
                                       street: $0.placemark.thoroughfare,
