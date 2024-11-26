@@ -18,7 +18,7 @@ public protocol Map {
     
     var get: T {get}
         
-    func getResultSearch(_ index: Int) -> [ResultSearchMapDTO]
+    func getResultSearch(_ index: Int) -> ResultSearchMapDTO
     
     func getResultSearchCount() -> Int
     

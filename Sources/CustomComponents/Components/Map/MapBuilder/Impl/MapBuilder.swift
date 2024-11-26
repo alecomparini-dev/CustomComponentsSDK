@@ -21,7 +21,7 @@ public class MapBuilder: BaseBuilder, Map {
 
     private var searchCompleter: MKLocalSearchCompleter?
     
-    private var resultSearchCompletion = [MKLocalSearchCompletion]()
+    private var resultSearchCompletion: [MKLocalSearchCompletion]?
     private var resultSearchResponse: MKLocalSearch.Response?
     private var resultSearchMapDTO = [ResultSearchMapDTO]()
     
@@ -54,28 +54,9 @@ public class MapBuilder: BaseBuilder, Map {
     
     public var get: MKMapView { mapView }
     
-    public func getResultSearchCompleter() -> [MKLocalSearchCompletion] { resultSearchCompletion }
-    
-    public func getResultSearchCompleter(index: Int) -> MKLocalSearchCompletion {
-        if !resultSearchCompletion.indices.contains(index) { return MKLocalSearchCompletion() }
-        
-        let teste = NSObject()
-        
-        if let tested = teste as? MKLocalSearchCompletion {
-            print(tested)
-        }
-        
-        return resultSearchCompletion[index]
-    }
-    
-    public func getResultSearch(_ index: Int) -> [ResultSearchMapDTO] {
-        []
-    }
-    
-    public func getResultSearchCount() -> Int {
-        0
-    }
+    public func getResultSearchCount() -> Int { resultSearchMapDTO.count }
 
+    public func getResultSearch(_ index: Int) -> ResultSearchMapDTO { resultSearchMapDTO[index] }
     
     public func getLocationAddress(_ location: CLLocation?) async -> PlacemarkMapDTO? {
         guard let userLocation else {return nil}
@@ -86,15 +67,15 @@ public class MapBuilder: BaseBuilder, Map {
             let placemarks = try await geocoder.reverseGeocodeLocation(userLocation)
             
             guard let placemark = placemarks.first, let location = placemark.location else { return nil }
-
+            
             return PlacemarkMapDTO(street: placemark.thoroughfare,
-                                addressNumber: placemark.subThoroughfare,
-                                neighborhood: placemark.subLocality,
-                                postalCode: placemark.postalCode,
-                                city: placemark.locality,
-                                state: placemark.administrativeArea,
-                                country: placemark.country,
-                                coordinate: (lat: location.coordinate.latitude, lon: location.coordinate.latitude))
+                                   addressNumber: placemark.subThoroughfare,
+                                   neighborhood: placemark.subLocality,
+                                   postalCode: placemark.postalCode,
+                                   city: placemark.locality,
+                                   state: placemark.administrativeArea,
+                                   country: placemark.country,
+                                   coordinate: (lat: location.coordinate.latitude, lon: location.coordinate.latitude))
         } catch {
             return nil
         }
