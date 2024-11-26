@@ -476,7 +476,7 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
         
         resultSearchCompletion = completer.results
         
-        resultSearchMapDTO = completer.results.map({ ResultSearchMapDTO(title: $0.title, subtile: $0.subtitle) })
+        resultSearchMapDTO = completer.results.map({ ResultSearchMapDTO(title: $0.title, subtitle: $0.subtitle) })
         
         mapBuilderOutput?.fetchSearchSuccess()
     }

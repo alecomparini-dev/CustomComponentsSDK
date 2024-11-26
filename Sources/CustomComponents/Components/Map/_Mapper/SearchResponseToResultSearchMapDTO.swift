@@ -8,7 +8,7 @@ struct SearchResponseToResultSearchMapDTO {
     static func mapper(_ response: MKLocalSearch.Response) -> [ResultSearchMapDTO] {
         return response.mapItems.map({
             ResultSearchMapDTO(title: $0.placemark.title,
-                               subtile: $0.placemark.subtitle,
+                               subtitle: $0.placemark.subtitle,
                                name: $0.placemark.name,
                                isCurrentLocation: $0.isCurrentLocation,
                                street: $0.placemark.thoroughfare,
