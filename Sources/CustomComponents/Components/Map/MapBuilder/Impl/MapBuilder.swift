@@ -201,6 +201,8 @@ public class MapBuilder: BaseBuilder, Map {
     
     public func fetchPlaces(index: Int) {
         
+        resetResultSearchCompletion()
+        
         if isChosenSearchCompletion() {
             return fetchPlacesCompletion(index)
         }
@@ -428,8 +430,6 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     private func configResponseAndSendOutput(_ response: MKLocalSearch.Response) {
-        resetResultSearchCompletion()
-        
         resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
         
         mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
