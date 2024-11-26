@@ -365,8 +365,11 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func instantiateMKLocalSearchCompleter() {
         if searchCompleter != nil {return}
+        
         searchCompleter = MKLocalSearchCompleter()
+        
         searchCompleter?.delegate = self
+        
         searchCompleter?.resultTypes = [.query, .address, getPhysicalFeatureAndPOI()]
     }
     
@@ -388,14 +391,19 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func configPins() {
         if !loadingMap || userLocation == nil {return}
+        
         configPinPointsOfInterest()
+        
         configPinNaturalLanguage()
     }
     
     private func getAnnotationData(_ annotation: any MKAnnotation) -> (title: String, subtitle: String, coordinate: CLLocationCoordinate2D) {
         let title = (annotation.title ?? "") ?? ""
+        
         let subtitle = (annotation.subtitle ?? "") ?? ""
+        
         let coordinate = annotation.coordinate
+        
         return (title, subtitle, coordinate)
     }
  
@@ -410,7 +418,8 @@ public class MapBuilder: BaseBuilder, Map {
     private func fetchPlacesNaturalLanguage(_ index: Int) {
         let response: ResultSearchMapDTO = resultSearchMapDTO[index]
         
-        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
+//        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
+        let text = response.subtitle ?? ""
         
         let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
         
@@ -427,7 +436,7 @@ public class MapBuilder: BaseBuilder, Map {
         mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
     }
         
-    private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 50) -> MKCoordinateRegion? {
+    private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 10) -> MKCoordinateRegion? {
         guard let lat = coordinate.lat, let lon = coordinate.lon else { return nil }
         
         return MKCoordinateRegion (
