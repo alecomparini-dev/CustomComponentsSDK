@@ -200,9 +200,6 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     public func fetchPlaces(index: Int) {
-        
-        resetResultSearchCompletion()
-        
         if isChosenSearchCompletion() {
             return fetchPlacesCompletion(index)
         }
@@ -412,6 +409,8 @@ public class MapBuilder: BaseBuilder, Map {
     private func fetchPlacesCompletion(_ index: Int) {
         guard let resultCompletion = resultSearchCompletion?[index] else {return}
         
+        resetResultSearchCompletion()
+        
         search(requestCompletion: resultCompletion) { [weak self] response in
             self?.configResponseAndSendOutput(response)
         }
@@ -423,6 +422,8 @@ public class MapBuilder: BaseBuilder, Map {
         let text = "\(response.name ?? ""), \(response.subtitle ?? "")"
         
         let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
+        
+        resetResultSearchCompletion()
         
         searchNaturalLanguage(text, region) { [weak self] response in
             self?.configResponseAndSendOutput(response)
