@@ -38,7 +38,7 @@ struct SearchResponseToResultSearchMapDTO {
         let address = "\(street)\(number)"
         let additional = "\(neighborhood)\(city)\(uf)"
         
-        if let name {
+        if name != nil {
             return address
         }
         
