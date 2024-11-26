@@ -11,7 +11,6 @@ public struct ResultSearchMapDTO {
     public let number: String? // subThoroughfare
     public let neighborhood: String? // subLocality
     public let city: String? //
-    public let state: String? // subAdministrativeArea
     public let UF: String? // administrativeArea
     public let postalCode: String? // locality
     public let country: String?
@@ -27,7 +26,6 @@ public struct ResultSearchMapDTO {
          number: String? = nil,
          neighborhood: String? = nil,
          city: String? = nil,
-         state: String? = nil,
          UF: String? = nil,
          postalCode: String? = nil,
          country: String? = nil,
@@ -42,7 +40,6 @@ public struct ResultSearchMapDTO {
         self.number = number
         self.neighborhood = neighborhood
         self.city = city
-        self.state = state
         self.UF = UF
         self.postalCode = postalCode
         self.country = country
