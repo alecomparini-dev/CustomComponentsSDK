@@ -13,7 +13,6 @@ struct SearchResponseToResultSearchMapDTO {
                                number: $0.placemark.subThoroughfare,
                                neighborhood: $0.placemark.subLocality,
                                city: $0.placemark.locality,
-                               state: $0.placemark.subAdministrativeArea,
                                UF: $0.placemark.administrativeArea,
                                postalCode: $0.placemark.postalCode,
                                country: $0.placemark.country,
