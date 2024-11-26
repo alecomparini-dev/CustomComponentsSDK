@@ -320,7 +320,9 @@ public class MapBuilder: BaseBuilder, Map {
     private func searchNaturalLanguage(_ text: String, _ region: MKCoordinateRegion? = nil, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
         let request = MKLocalSearch.Request()
         
-        if let region { request.region = region }
+        if let region {
+            request.region = region
+        }
         
         request.naturalLanguageQuery = text
         
@@ -408,7 +410,8 @@ public class MapBuilder: BaseBuilder, Map {
     private func fetchPlacesNaturalLanguage(_ index: Int) {
         let response: ResultSearchMapDTO = resultSearchMapDTO[index]
         
-        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
+//        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
+        let text = "\(response.name ?? "")"
         
         let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
         
@@ -425,7 +428,7 @@ public class MapBuilder: BaseBuilder, Map {
         mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
     }
         
-    private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 100) -> MKCoordinateRegion? {
+    private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 50) -> MKCoordinateRegion? {
         guard let lat = coordinate.lat, let lon = coordinate.lon else { return nil }
         
         return MKCoordinateRegion (
