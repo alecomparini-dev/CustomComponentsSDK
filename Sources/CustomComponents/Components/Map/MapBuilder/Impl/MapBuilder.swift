@@ -22,7 +22,6 @@ public class MapBuilder: BaseBuilder, Map {
     private var searchCompleter: MKLocalSearchCompleter?
     
     private var resultSearchCompletion: [MKLocalSearchCompletion]?
-    private var resultSearchResponse: MKLocalSearch.Response?
     private var resultSearchMapDTO = [ResultSearchMapDTO]()
     
     
@@ -213,52 +212,6 @@ public class MapBuilder: BaseBuilder, Map {
         resultSearchCompletion != nil
     }
     
-    private func fetchPlacesCompletion(_ index: Int) {
-        guard let resultCompletion = resultSearchCompletion?[index] else {return}
-        
-        search(requestCompletion: resultCompletion) { [weak self] response in
-            guard let self else {return}
-        
-            resetResultSearch()
-            
-            resultSearchResponse = response
-            
-            resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
-            
-            mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
-        }
-    }
-    
-    private func fetchPlacesNaturalLanguage(_ index: Int) {
-        let response: ResultSearchMapDTO = resultSearchMapDTO[index]
-        
-        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
-        
-        let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
-        
-        searchNaturalLanguage(text, region) { [weak self] response in
-            guard let self else {return}
-        
-            resetResultSearch()
-            
-            resultSearchResponse = response
-            
-            resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
-            
-            mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
-        }
-    }
-        
-    private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 100) -> MKCoordinateRegion? {
-        guard let lat = coordinate.lat, let lon = coordinate.lon else { return nil }
-        
-        return MKCoordinateRegion (
-            center: CLLocationCoordinate2D(latitude: lat, longitude: lon),
-            latitudinalMeters: radius,
-            longitudinalMeters: radius
-        )
-    }
-    
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
         switch locationManager?.authorizationStatus {
             case .authorizedAlways:
@@ -415,9 +368,8 @@ public class MapBuilder: BaseBuilder, Map {
         searchCompleter?.resultTypes = [.query, .address, getPhysicalFeatureAndPOI()]
     }
     
-    private func resetResultSearch() {
+    private func resetResultSearchCompletion() {
         resultSearchCompletion = nil
-        resultSearchResponse = nil
     }
     
     private func getPhysicalFeatureAndPOI() -> MKLocalSearchCompleter.ResultType {
@@ -445,6 +397,47 @@ public class MapBuilder: BaseBuilder, Map {
         return (title, subtitle, coordinate)
     }
  
+    private func fetchPlacesCompletion(_ index: Int) {
+        guard let resultCompletion = resultSearchCompletion?[index] else {return}
+        
+        search(requestCompletion: resultCompletion) { [weak self] response in
+            guard let self else {return}
+        
+            resetResultSearchCompletion()
+            
+            resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
+            
+            mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
+        }
+    }
+    
+    private func fetchPlacesNaturalLanguage(_ index: Int) {
+        let response: ResultSearchMapDTO = resultSearchMapDTO[index]
+        
+        let text = "\(response.name ?? "") \(response.subtitle ?? "")"
+        
+        let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
+        
+        searchNaturalLanguage(text, region) { [weak self] response in
+            guard let self else {return}
+        
+            resetResultSearchCompletion()
+            
+            resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
+            
+            mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
+        }
+    }
+        
+    private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 100) -> MKCoordinateRegion? {
+        guard let lat = coordinate.lat, let lon = coordinate.lon else { return nil }
+        
+        return MKCoordinateRegion (
+            center: CLLocationCoordinate2D(latitude: lat, longitude: lon),
+            latitudinalMeters: radius,
+            longitudinalMeters: radius
+        )
+    }
     
 }
 
@@ -527,7 +520,7 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
     public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         if completer.isSearching { return }
         
-        resetResultSearch()
+        resetResultSearchCompletion()
         
         resultSearchCompletion = completer.results
         
