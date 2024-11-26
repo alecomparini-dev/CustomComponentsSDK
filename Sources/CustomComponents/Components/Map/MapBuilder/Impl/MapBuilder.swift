@@ -199,12 +199,14 @@ public class MapBuilder: BaseBuilder, Map {
     
 //  MARK: - PUBLIC AREA
     
-    public func fetchSearchCompleter(_ queryFragment: String) {
+    public func fetchPlacesAutoCompleter(queryFragment: String) {
         instantiateMKLocalSearchCompleter()
         searchCompleter?.queryFragment = queryFragment
     }
     
-    public func fetchSearch(resultCompletion: C ) {
+    public func fetchPlaces(index: Int) {
+        guard let resultCompletion = resultSearchCompletion?[index] else {return}
+        
         let searchRequest = MKLocalSearch.Request(completion: resultCompletion)
         
         let search = MKLocalSearch(request: searchRequest)
@@ -458,7 +460,6 @@ extension MapBuilder: CLLocationManagerDelegate {
         if isAuthorized(manager) {
             mapBuilderOutput?.localizationAuthorized()
         }
-        
     }
     
 }

@@ -29,9 +29,9 @@ public protocol Map {
     
 //  MARK: - FETCH
     
-    func fetchSearchCompleter(_ queryFragment: String)
+    func fetchPlacesAutoCompleter(queryFragment: String)
     
-    func fetchSearch(resultCompletion: C)
+    func fetchPlaces(index: Int)
     
     
 //  MARK: - SET PROPERTIES
