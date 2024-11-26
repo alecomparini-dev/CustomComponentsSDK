@@ -401,13 +401,7 @@ public class MapBuilder: BaseBuilder, Map {
         guard let resultCompletion = resultSearchCompletion?[index] else {return}
         
         search(requestCompletion: resultCompletion) { [weak self] response in
-            guard let self else {return}
-        
-            resetResultSearchCompletion()
-            
-            resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
-            
-            mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
+            self?.configResponseAndSendOutput(response)
         }
     }
     
@@ -419,14 +413,16 @@ public class MapBuilder: BaseBuilder, Map {
         let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
         
         searchNaturalLanguage(text, region) { [weak self] response in
-            guard let self else {return}
-        
-            resetResultSearchCompletion()
-            
-            resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
-            
-            mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
+            self?.configResponseAndSendOutput(response)
         }
+    }
+    
+    private func configResponseAndSendOutput(_ response: MKLocalSearch.Response) {
+        resetResultSearchCompletion()
+        
+        resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
+        
+        mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
     }
         
     private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 100) -> MKCoordinateRegion? {
