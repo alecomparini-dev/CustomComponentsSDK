@@ -249,7 +249,6 @@ public class MapBuilder: BaseBuilder, Map {
             
             mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
         }
-        
     }
         
     
