@@ -205,16 +205,25 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     public func fetchPlaces(index: Int) {
+        
+        if isChosenSearchCompletion() {
+            return fetchPlacesCompletion(index)
+        }
+        
+        fetchPlacesNaturalLanguage(index)
+    }
+    
+    private func isChosenSearchCompletion() -> Bool {
+        resultSearchCompletion != nil
+    }
+    
+    private func fetchPlacesCompletion(_ index: Int) {
         guard let resultCompletion = resultSearchCompletion?[index] else {return}
         
-        let searchRequest = MKLocalSearch.Request(completion: resultCompletion)
-        
-        let search = MKLocalSearch(request: searchRequest)
-        
-        resetResultSearch()
-        
-        searchStart(search) { [weak self] response in
+        search(requestCompletion: resultCompletion) { [weak self] response in
             guard let self else {return}
+        
+            resetResultSearch()
             
             resultSearchResponse = response
             
@@ -223,6 +232,26 @@ public class MapBuilder: BaseBuilder, Map {
             mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
         }
     }
+    
+    private func fetchPlacesNaturalLanguage(_ index: Int) {
+        let response = resultSearchMapDTO[index]
+        
+        let text = "\(response.name ?? "") \(response.title ?? "")"
+        
+        searchNaturalLanguage(text) { [weak self] response in
+            guard let self else {return}
+        
+            resetResultSearch()
+            
+            resultSearchResponse = response
+            
+            resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
+            
+            mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
+        }
+        
+    }
+        
     
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
         switch locationManager?.authorizationStatus {
@@ -312,7 +341,7 @@ public class MapBuilder: BaseBuilder, Map {
         
         request.pointOfInterestFilter = poiFilter
                     
-        search(request: request) { [weak self] response in
+        search(requestPOI: request) { [weak self] response in
             self?.setAnnotationPinByResponseSearch(response)
         }
     }
@@ -324,13 +353,27 @@ public class MapBuilder: BaseBuilder, Map {
         
         commonsConfigPin(pinNaturalLanguage.regionRadius)
             
-        let request = MKLocalSearch.Request()
-        
-        request.naturalLanguageQuery = pinNaturalLanguage.text
-        
-        search(request: request) { [weak self] response in
+        searchNaturalLanguage(pinNaturalLanguage.text) { [weak self] response in
             self?.setAnnotationPinByResponseSearch(response)
         }
+    }
+    
+    private func searchNaturalLanguage(_ text: String, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+        let request = MKLocalSearch.Request()
+        
+        request.naturalLanguageQuery = text
+        
+        search(request: request) { response in
+            completion(response)
+        }
+    }
+    
+    private func search(requestCompletion request: MKLocalSearchCompletion, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+        let searchRequest = MKLocalSearch.Request(completion: request)
+        
+        let search = MKLocalSearch(request: searchRequest)
+        
+        searchStart(search, completion)
     }
     
     private func search(request: MKLocalSearch.Request, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
@@ -341,7 +384,7 @@ public class MapBuilder: BaseBuilder, Map {
         searchStart(search, completion)
     }
     
-    private func search(request: MKLocalPointsOfInterestRequest, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
+    private func search(requestPOI request: MKLocalPointsOfInterestRequest, _ completion: @escaping (_ response: MKLocalSearch.Response) -> Void) {
         let search = MKLocalSearch(request: request)
      
         searchStart(search, completion)
@@ -365,7 +408,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     private func resetResultSearch() {
-        resultSearchCompletion = []
+        resultSearchCompletion = nil
         resultSearchResponse = nil
     }
     
