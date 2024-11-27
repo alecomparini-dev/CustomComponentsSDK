@@ -423,7 +423,7 @@ public class MapBuilder: BaseBuilder, Map {
     private func fetchPlacesNaturalLanguage(_ index: Int) {
         let response: ResultSearchMapDTO = resultSearchMapDTO[index]
         
-        let text = "\(response.name ?? ""), \(response.subtitle ?? "")"
+        let text = makeTextToSearch(response)
         
         let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
         
@@ -432,6 +432,17 @@ public class MapBuilder: BaseBuilder, Map {
         searchNaturalLanguage(text, region) { [weak self] response in
             self?.configResponseAndSendOutput(response)
         }
+    }
+    
+    private func makeTextToSearch(_ response: ResultSearchMapDTO) -> String {
+        let name = response.name ?? ""
+        let street = response.street ?? ""
+        
+        if street.contains(name) {
+            return response.subtitle ?? ""
+        }
+        
+        return "\(response.name ?? ""), \(response.subtitle ?? "")"
     }
     
     private func configResponseAndSendOutput(_ response: MKLocalSearch.Response) {
