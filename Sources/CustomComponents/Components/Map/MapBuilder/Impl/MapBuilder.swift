@@ -220,10 +220,6 @@ public class MapBuilder: BaseBuilder, Map {
         fetchPlacesNaturalLanguage(index)
     }
     
-    private func isChosenSearchCompletion() -> Bool {
-        resultSearchCompletion != nil
-    }
-    
     public func checkLocationAuthorization() -> CLAuthorizationStatus {
         switch locationManager?.authorizationStatus {
             case .authorizedAlways:
@@ -250,6 +246,10 @@ public class MapBuilder: BaseBuilder, Map {
         }
     }
     
+    public func resetSearchPlaces() {
+        resetResultSearch()
+    }
+    
     
 //  MARK: - PRIVATE AREA
     
@@ -273,6 +273,7 @@ public class MapBuilder: BaseBuilder, Map {
         locationManager?.delegate = self
         
     }
+    
     
     private func configCenterMapByUser(_ regionRadius: Double) {
         if let userLocation {
@@ -388,8 +389,9 @@ public class MapBuilder: BaseBuilder, Map {
         searchCompleter?.resultTypes = [.query, .address, getPhysicalFeatureAndPOI()]
     }
     
-    private func resetResultSearchCompletion() {
+    private func resetResultSearch() {
         resultSearchCompletion = nil
+        resultSearchMapDTO = []
     }
     
     private func getPhysicalFeatureAndPOI() -> MKLocalSearchCompleter.ResultType {
@@ -425,7 +427,7 @@ public class MapBuilder: BaseBuilder, Map {
     private func fetchPlacesCompletion(_ index: Int) {
         guard let resultCompletion = resultSearchCompletion?[index] else {return}
         
-        resetResultSearchCompletion()
+        resetResultSearch()
         
         search(requestCompletion: resultCompletion) { [weak self] response in
             self?.configResponseAndSendOutput(response)
@@ -439,7 +441,7 @@ public class MapBuilder: BaseBuilder, Map {
         
         let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
         
-        resetResultSearchCompletion()
+        resetResultSearch()
         
         searchNaturalLanguage(text, region) { [weak self] response in
             self?.configResponseAndSendOutput(response)
@@ -474,6 +476,9 @@ public class MapBuilder: BaseBuilder, Map {
         )
     }
     
+    private func isChosenSearchCompletion() -> Bool {
+        resultSearchCompletion != nil
+    }
 }
 
 
@@ -555,7 +560,7 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
     public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         if completer.isSearching { return }
         
-        resetResultSearchCompletion()
+        resetResultSearch()
         
         resultSearchCompletion = completer.results
         
