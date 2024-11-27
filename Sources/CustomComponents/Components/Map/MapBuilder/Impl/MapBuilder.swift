@@ -438,7 +438,7 @@ public class MapBuilder: BaseBuilder, Map {
         let name = response.name ?? ""
         let street = response.street ?? ""
         
-        if street.contains(name) {
+        if name.lowercased(with: Locale.current).contains(street.lowercased(with: Locale.current)) {
             return response.subtitle ?? ""
         }
         
