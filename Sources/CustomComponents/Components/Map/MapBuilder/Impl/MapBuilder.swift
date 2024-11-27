@@ -139,7 +139,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String? = "", subTitle: String? = nil, centerView: Bool? = true, autoSelect: Bool? = false) -> Self {
+    public func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String? = "", subTitle: String? = nil, centerView: Bool? = false, autoSelect: Bool? = false) -> Self {
         let annotation = MKPointAnnotation()
             
         annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.lat, longitude: coordinate.lon)
