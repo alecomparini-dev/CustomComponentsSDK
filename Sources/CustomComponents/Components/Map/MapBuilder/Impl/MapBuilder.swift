@@ -139,7 +139,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String? = "", subTitle: String? = nil, _ centerView: Bool = false ) -> Self {
+    public func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String? = "", subTitle: String? = nil, centerView: Bool? = true ) -> Self {
         let annotation = MKPointAnnotation()
             
         annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.lat, longitude: coordinate.lon)
@@ -150,7 +150,7 @@ public class MapBuilder: BaseBuilder, Map {
         
         mapView.addAnnotation(annotation)
         
-        if centerView {
+        if centerView ?? true {
             setCenterMap(location: CLLocation(latitude: coordinate.lat, longitude: coordinate.lon))
         }
         
