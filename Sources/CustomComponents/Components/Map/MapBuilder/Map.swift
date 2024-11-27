@@ -55,7 +55,7 @@ public protocol Map {
     func setPinNaturalLanguage(_ text: String, _ regionRadius: Double) -> Self
     
     @discardableResult
-    func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String?, subTitle: String?, _ centerView: Bool) -> Self
+    func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String?, subTitle: String?, centerView: Bool?) -> Self
         
     @discardableResult
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
