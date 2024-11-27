@@ -60,7 +60,11 @@ public protocol Map {
     @discardableResult
     func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
     
-    @discardableResult
+    
+//  MARK: - FUNCTIONS
+
+    func resetSearchPlaces()
+    
     func checkLocationAuthorization() -> A
     
     
