@@ -157,10 +157,6 @@ public class MapBuilder: BaseBuilder, Map {
         return self
     }
     
-    private func selectAnnotation(_ annotation: MKAnnotation, _ animated: Bool = true) {
-        mapView.selectAnnotation(annotation, animated: animated)
-    }
-    
     private func setCenterView(_ centerView: Bool?, _ coordinate: (lat: Double, lon: Double)) {
         if centerView == false { return }
         
@@ -168,6 +164,8 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     private func setAutoSelect(_ annotation: MKAnnotation, _ autoSelect: Bool? = false) {
+        if autoSelect == false { return }
+        
         mapView.selectAnnotation(annotation, animated: true)
     }
     
