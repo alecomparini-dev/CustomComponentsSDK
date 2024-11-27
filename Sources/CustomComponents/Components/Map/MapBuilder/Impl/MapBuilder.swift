@@ -436,6 +436,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func makeTextToSearch(_ response: ResultSearchMapDTO) -> String {
         let name = response.name ?? ""
+        
         let street = response.street ?? ""
         
         if name.lowercased(with: Locale.current).contains(street.lowercased(with: Locale.current)) {
