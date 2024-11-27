@@ -139,7 +139,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String? = "", subTitle: String? = nil, centerView: Bool? = true ) -> Self {
+    public func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String? = "", subTitle: String? = nil, centerView: Bool? = true, autoSelect: Bool? = false) -> Self {
         let annotation = MKPointAnnotation()
             
         annotation.coordinate = CLLocationCoordinate2D(latitude: coordinate.lat, longitude: coordinate.lon)
@@ -150,11 +150,25 @@ public class MapBuilder: BaseBuilder, Map {
         
         mapView.addAnnotation(annotation)
         
-        if centerView ?? true {
-            setCenterMap(location: CLLocation(latitude: coordinate.lat, longitude: coordinate.lon))
-        }
+        setCenterView(centerView, coordinate)
         
+        setAutoSelect(annotation, autoSelect)
+    
         return self
+    }
+    
+    private func selectAnnotation(_ annotation: MKAnnotation, _ animated: Bool = true) {
+        mapView.selectAnnotation(annotation, animated: animated)
+    }
+    
+    private func setCenterView(_ centerView: Bool?, _ coordinate: (lat: Double, lon: Double)) {
+        if centerView == false { return }
+        
+        setCenterMap(location: CLLocation(latitude: coordinate.lat, longitude: coordinate.lon))
+    }
+    
+    private func setAutoSelect(_ annotation: MKAnnotation, _ autoSelect: Bool? = false) {
+        mapView.selectAnnotation(annotation, animated: true)
     }
     
     
