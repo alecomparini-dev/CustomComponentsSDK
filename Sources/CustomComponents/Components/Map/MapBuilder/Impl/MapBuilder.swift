@@ -196,6 +196,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     public func fetchPlacesAutoCompleter(queryFragment: String) {
         instantiateMKLocalSearchCompleter()
+        
         searchCompleter?.queryFragment = queryFragment
     }
     
@@ -269,12 +270,15 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func startUpdatingLocation() {
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        
         locationManager?.startUpdatingLocation()
     }
 
     private func commonsConfigPin(_ radius: Double) {
         setShowsUserLocation(true)
+        
         setUserTrackingMode(.none)
+        
         configCenterMapByUser(radius)
     }
     
