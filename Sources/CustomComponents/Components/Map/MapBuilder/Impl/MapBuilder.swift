@@ -429,10 +429,10 @@ public class MapBuilder: BaseBuilder, Map {
     private func fetchPlacesCompletion(_ index: Int) {
         guard let resultCompletion = resultSearchCompletion?[index] else {return}
         
-        resetResultSearch()
-        
         search(requestCompletion: resultCompletion) { [weak self] response in
             guard let self else { return }
+        
+            resetResultSearch()
             
             configMapper(response)
             
@@ -447,10 +447,10 @@ public class MapBuilder: BaseBuilder, Map {
         
         let region = createRegion((response.coordinate?.lat, response.coordinate?.lon))
         
-        resetResultSearch()
-        
         searchNaturalLanguage(text, region) { [weak self] response in
             guard let self else { return }
+            
+            resetResultSearch()
             
             configMapper(response)
             
