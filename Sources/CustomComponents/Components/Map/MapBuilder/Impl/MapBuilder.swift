@@ -430,7 +430,11 @@ public class MapBuilder: BaseBuilder, Map {
         resetResultSearch()
         
         search(requestCompletion: resultCompletion) { [weak self] response in
-            self?.configResponseAndSendOutput(response)
+            guard let self else { return }
+            
+            configMapper(response)
+            
+            mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(resultSearchMapDTO: resultSearchMapDTO)
         }
     }
     
@@ -444,7 +448,11 @@ public class MapBuilder: BaseBuilder, Map {
         resetResultSearch()
         
         searchNaturalLanguage(text, region) { [weak self] response in
-            self?.configResponseAndSendOutput(response)
+            guard let self else { return }
+            
+            configMapper(response)
+            
+            mapBuilderOutput?.fetchPlacesSuccess(resultSearchMapDTO: resultSearchMapDTO)
         }
     }
     
@@ -460,10 +468,8 @@ public class MapBuilder: BaseBuilder, Map {
         return "\(response.name ?? ""), \(response.subtitle ?? "")"
     }
     
-    private func configResponseAndSendOutput(_ response: MKLocalSearch.Response) {
+    private func configMapper(_ response: MKLocalSearch.Response) {
         resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
-        
-        mapBuilderOutput?.fetchPlacesSuccess(resultSearchMapDTO: resultSearchMapDTO)
     }
         
     private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 50) -> MKCoordinateRegion? {
