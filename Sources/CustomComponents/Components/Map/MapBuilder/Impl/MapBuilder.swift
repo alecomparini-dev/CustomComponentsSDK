@@ -463,7 +463,7 @@ public class MapBuilder: BaseBuilder, Map {
     private func configResponseAndSendOutput(_ response: MKLocalSearch.Response) {
         resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
         
-        mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
+        mapBuilderOutput?.fetchPlacesSuccess(resultSearchMapDTO: resultSearchMapDTO)
     }
         
     private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 50) -> MKCoordinateRegion? {
@@ -566,7 +566,7 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
         
         resultSearchMapDTO = completer.results.map({ ResultSearchMapDTO(title: $0.title, subtitle: $0.subtitle) })
         
-        mapBuilderOutput?.fetchSearchSuccess(resultSearchMapDTO: resultSearchMapDTO)
+        mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(resultSearchMapDTO: resultSearchMapDTO)
     }
     
 }
