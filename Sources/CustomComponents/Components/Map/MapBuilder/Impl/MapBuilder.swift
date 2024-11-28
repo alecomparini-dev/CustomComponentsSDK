@@ -340,6 +340,8 @@ public class MapBuilder: BaseBuilder, Map {
             request.region = region
         }
         
+        request.resultTypes = [.address, .pointOfInterest]
+        
         request.naturalLanguageQuery = text
         
         search(request: request) { response in
