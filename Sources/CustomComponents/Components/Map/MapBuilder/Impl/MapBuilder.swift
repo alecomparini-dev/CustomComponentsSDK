@@ -455,7 +455,7 @@ public class MapBuilder: BaseBuilder, Map {
             
             configMapper(response)
             
-            mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(resultSearchMapDTO: resultPlacesMap)
+            mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(placesMap: resultPlacesMap)
         }
     }
     
@@ -473,7 +473,7 @@ public class MapBuilder: BaseBuilder, Map {
             
             configMapper(response)
             
-            mapBuilderOutput?.fetchPlacesSuccess(resultSearchMapDTO: resultPlacesMap)
+            mapBuilderOutput?.fetchPlacesSuccess(placesMap: resultPlacesMap)
         }
     }
     
@@ -595,7 +595,7 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
         
         resultPlacesMap = completer.results.map({ PlaceMapDTO(title: $0.title, subtitle: $0.subtitle) })
         
-        mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(resultSearchMapDTO: resultPlacesMap)
+        mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(placesMap: resultPlacesMap)
     }
     
 }
