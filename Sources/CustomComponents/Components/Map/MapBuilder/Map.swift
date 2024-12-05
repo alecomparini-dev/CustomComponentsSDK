@@ -28,6 +28,7 @@ public protocol Map {
     
     func getPinAddress(title: String) -> PlaceMapDTO?
     
+    
 //  MARK: - FETCH
     
     func fetchPlacesAutoCompleter(queryFragment: String)
