@@ -18,14 +18,15 @@ public protocol Map {
     
     var get: T {get}
         
-    func getResultSearch(_ index: Int) -> ResultSearchMapDTO
+    func getResultSearch(_ index: Int) -> PlaceMapDTO
     
     func getResultSearchCount() -> Int
     
-    func getLocationAddress(_ location: CLLocation?) async -> PlacemarkMapDTO?
+    func getLocationAddress(_ location: CLLocation?) async -> PlaceMapDTO?
     
-    func getUserLocationAddress() async -> PlacemarkMapDTO?
+    func getUserLocationAddress() async -> PlaceMapDTO?
     
+    func getPinAddress(title: String) -> PlaceMapDTO?
     
 //  MARK: - FETCH
     

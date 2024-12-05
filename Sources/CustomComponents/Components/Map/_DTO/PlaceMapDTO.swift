@@ -2,17 +2,17 @@
 //
 
 
-public struct ResultSearchMapDTO {
+public struct PlaceMapDTO {
     public let title: String?
     public let subtitle: String?
     public let name: String?
     public let isCurrentLocation: Bool?
-    public let street: String? // thoroughfare
-    public let number: String? // subThoroughfare
-    public let neighborhood: String? // subLocality
-    public let city: String? //
-    public let UF: String? // administrativeArea
-    public let postalCode: String? // locality
+    public let street: String?
+    public let number: String?
+    public let neighborhood: String?
+    public let city: String?
+    public let UF: String?
+    public let postalCode: String?
     public let country: String?
     public let phoneNumber: String?
     public let coordinate: (lat: Double, lon: Double)?

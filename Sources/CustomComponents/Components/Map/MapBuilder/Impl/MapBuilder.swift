@@ -7,6 +7,7 @@ import CoreLocation
 
 
 public class MapBuilder: BaseBuilder, Map {
+    private typealias Title = String
     public typealias T = MKMapView
     public typealias MKMapViewDelegate = MapKit.MKMapViewDelegate
     public typealias MKPointOfInterestCategory = MapKit.MKPointOfInterestCategory
@@ -21,9 +22,9 @@ public class MapBuilder: BaseBuilder, Map {
 
     private var searchCompleter: MKLocalSearchCompleter?
     
+    private var resultPins = [Title: PlaceMapDTO]()
     private var resultSearchCompletion: [MKLocalSearchCompletion]?
-    private var resultSearchMapDTO = [ResultSearchMapDTO]()
-    
+    private var resultPlacesMap = [PlaceMapDTO]()
     
     private var loadingMap = false
     private var alreadyApplied = false
@@ -53,11 +54,11 @@ public class MapBuilder: BaseBuilder, Map {
     
     public var get: MKMapView { mapView }
     
-    public func getResultSearchCount() -> Int { resultSearchMapDTO.count }
+    public func getResultSearchCount() -> Int { resultPlacesMap.count }
 
-    public func getResultSearch(_ index: Int) -> ResultSearchMapDTO { resultSearchMapDTO[index] }
+    public func getResultSearch(_ index: Int) -> PlaceMapDTO { resultPlacesMap[index] }
     
-    public func getLocationAddress(_ location: CLLocation?) async -> PlacemarkMapDTO? {
+    public func getLocationAddress(_ location: CLLocation?) async -> PlaceMapDTO? {
         guard let userLocation else {return nil}
         
         let geocoder = CLGeocoder()
@@ -67,23 +68,26 @@ public class MapBuilder: BaseBuilder, Map {
             
             guard let placemark = placemarks.first, let location = placemark.location else { return nil }
             
-            return PlacemarkMapDTO(street: placemark.thoroughfare,
-                                   addressNumber: placemark.subThoroughfare,
-                                   neighborhood: placemark.subLocality,
-                                   postalCode: placemark.postalCode,
-                                   city: placemark.locality,
-                                   state: placemark.administrativeArea,
-                                   country: placemark.country,
-                                   coordinate: (lat: location.coordinate.latitude, lon: location.coordinate.latitude))
+            return PlaceMapDTO(name: placemark.name,
+                               street: placemark.thoroughfare,
+                               number: placemark.subThoroughfare,
+                               neighborhood: placemark.subLocality,
+                               city: placemark.locality,
+                               UF: placemark.administrativeArea,
+                               postalCode: placemark.postalCode,
+                               country: placemark.country,
+                               coordinate: (lat: location.coordinate.latitude, lon: location.coordinate.latitude))
         } catch {
             return nil
         }
     }
     
-    public func getUserLocationAddress() async -> PlacemarkMapDTO? {
+    public func getUserLocationAddress() async -> PlaceMapDTO? {
         return await getLocationAddress(userLocation)
     }
     
+    public func getPinAddress(title: String) -> PlaceMapDTO? { resultPins[title] }
+
 
 //  MARK: - SET PROPERTIES
     
@@ -294,15 +298,7 @@ public class MapBuilder: BaseBuilder, Map {
         
         configCenterMapByUser(radius)
     }
-    
-    private func setAnnotationPinByResponseSearch(_ response: MKLocalSearch.Response) {
-        for item in response.mapItems {
-            setAnnotationPin(coordinate: (lat: item.placemark.coordinate.latitude, lon: item.placemark.coordinate.longitude), 
-                             title: item.name,
-                             subTitle: item.placemark.title)
-        }
-    }
-    
+
     private func configPinPointsOfInterest() {
         if !pinPointsOfInterest.flag || pinPointsOfInterest.onlyOnce { return }
         
@@ -317,7 +313,7 @@ public class MapBuilder: BaseBuilder, Map {
         request.pointOfInterestFilter = poiFilter
                     
         search(requestPOI: request) { [weak self] response in
-            self?.setAnnotationPinByResponseSearch(response)
+            self?.setPinsAndAnnotations(response)
         }
     }
     
@@ -329,7 +325,31 @@ public class MapBuilder: BaseBuilder, Map {
         commonsConfigPin(pinNaturalLanguage.regionRadius)
             
         searchNaturalLanguage(pinNaturalLanguage.text) { [weak self] response in
-            self?.setAnnotationPinByResponseSearch(response)
+            self?.setPinsAndAnnotations(response)
+        }
+    }
+    
+    private func setPinsAndAnnotations(_ response: MKLocalSearch.Response) {
+        setPins(response)
+        
+        setAnnotationPinByResponseSearch(response)
+    }
+
+    private func setPins(_ response: MKLocalSearch.Response) {
+        let placeMap = SearchResponseToPlaceMapDTO.mapper(response)
+        
+        placeMap.forEach { place in
+            guard let title = place.title else { return }
+            
+            resultPins.updateValue(place, forKey: title)
+        }
+    }
+
+    private func setAnnotationPinByResponseSearch(_ response: MKLocalSearch.Response) {
+        for item in response.mapItems {
+            setAnnotationPin(coordinate: (lat: item.placemark.coordinate.latitude, lon: item.placemark.coordinate.longitude),
+                             title: item.name,
+                             subTitle: item.placemark.title)
         }
     }
     
@@ -393,7 +413,7 @@ public class MapBuilder: BaseBuilder, Map {
     
     private func resetResultSearch() {
         resultSearchCompletion = nil
-        resultSearchMapDTO = []
+        resultPlacesMap = []
     }
     
     private func getPhysicalFeatureAndPOI() -> MKLocalSearchCompleter.ResultType {
@@ -436,12 +456,12 @@ public class MapBuilder: BaseBuilder, Map {
             
             configMapper(response)
             
-            mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(resultSearchMapDTO: resultSearchMapDTO)
+            mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(resultSearchMapDTO: resultPlacesMap)
         }
     }
     
     private func fetchPlacesNaturalLanguage(_ index: Int) {
-        let response: ResultSearchMapDTO = resultSearchMapDTO[index]
+        let response: PlaceMapDTO = resultPlacesMap[index]
         
         let text = makeTextToSearch(response)
         
@@ -454,11 +474,11 @@ public class MapBuilder: BaseBuilder, Map {
             
             configMapper(response)
             
-            mapBuilderOutput?.fetchPlacesSuccess(resultSearchMapDTO: resultSearchMapDTO)
+            mapBuilderOutput?.fetchPlacesSuccess(resultSearchMapDTO: resultPlacesMap)
         }
     }
     
-    private func makeTextToSearch(_ response: ResultSearchMapDTO) -> String {
+    private func makeTextToSearch(_ response: PlaceMapDTO) -> String {
         let name = response.name ?? ""
         
         let street = response.street ?? ""
@@ -471,7 +491,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     private func configMapper(_ response: MKLocalSearch.Response) {
-        resultSearchMapDTO = SearchResponseToResultSearchMapDTO.mapper(response)
+        resultPlacesMap = SearchResponseToPlaceMapDTO.mapper(response)
     }
         
     private func createRegion(_ coordinate: (lat: Double?, lon: Double?), _ radius: Double = 50) -> MKCoordinateRegion? {
@@ -497,7 +517,9 @@ extension MapBuilder: MKMapViewDelegate {
     public func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
             loadingMap = true
+            
             mapBuilderOutput?.finishFullyRenderedMap()
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
                 self?.configPins()
             })
@@ -572,9 +594,9 @@ extension MapBuilder: MKLocalSearchCompleterDelegate {
         
         resultSearchCompletion = completer.results
         
-        resultSearchMapDTO = completer.results.map({ ResultSearchMapDTO(title: $0.title, subtitle: $0.subtitle) })
+        resultPlacesMap = completer.results.map({ PlaceMapDTO(title: $0.title, subtitle: $0.subtitle) })
         
-        mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(resultSearchMapDTO: resultSearchMapDTO)
+        mapBuilderOutput?.fetchPlacesAutoCompleterSuccess(resultSearchMapDTO: resultPlacesMap)
     }
     
 }
