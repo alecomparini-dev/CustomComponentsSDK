@@ -161,7 +161,7 @@ open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
 }
 
 //  MARK: - EXTENSION CAAnimationDelegate
-extension ButtonInteractionBuilder: CAAnimationDelegate {
+extension ButtonInteractionBuilder: @preconcurrency CAAnimationDelegate {
     
     public func animationDidStart(_ anim: CAAnimation) {
         
