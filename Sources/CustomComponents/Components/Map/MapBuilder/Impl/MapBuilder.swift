@@ -278,7 +278,6 @@ public class MapBuilder: BaseBuilder, Map {
         
     }
     
-    
     private func configCenterMapByUser(_ regionRadius: Double) {
         if let userLocation {
             setCenterMap(location: userLocation, regionRadius)
