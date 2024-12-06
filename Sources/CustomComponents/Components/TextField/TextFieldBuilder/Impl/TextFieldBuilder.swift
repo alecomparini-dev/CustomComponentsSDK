@@ -8,14 +8,6 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     public typealias T = UITextField
 
     private var currentMainWindow: UIWindow?
-    
-    private func hideKeyboardWhenViewTapped() {
-        let mainWindow = CurrentWindow.get
-        if (mainWindow == currentMainWindow) { return }
-        mainWindow?.hideKeyboardWhenViewTapped()
-        currentMainWindow = mainWindow
-    }
-
     private var clearButton: ClearButtonModeBuilder?
     private var keyboardConfiguration: KeyboardConfigurationBuilder?
     private var mask: MaskBuilder?
@@ -26,6 +18,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 //  MARK: - INITIALIZERS
 
     public var get: UITextField { self.textField }
+    
     private var textField: UITextField
     
     public init() {
@@ -283,10 +276,20 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
 //  MARK: - PRIVATE AREA
     
+    private func hideKeyboardWhenViewTapped() {
+        let mainWindow = CurrentWindow.get
+        if (mainWindow == currentMainWindow) { return }
+        mainWindow?.hideKeyboardWhenViewTapped()
+        currentMainWindow = mainWindow
+    }
+    
     private func configure() {
         setPadding(K.Default.padding)
+        
         configDelegate()
+        
         setAutoCorrectionType(.no)
+        
         addHideKeyboardWhenTouchReturn()
     }
     
@@ -312,7 +315,9 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 
     private func validateKeyboardDecimal(_ character: String) -> Bool {
         guard let text = textField.text else { return true}
+        
         let separators: [String] = [K.Strings.dot, K.Strings.comma]
+        
         if separators.contains(character) {
             return !separators.contains { separator in
                 return text.contains(separator)
@@ -323,6 +328,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     
     private func addHideKeyboardWhenTouchReturn(){
         self.textField.addTarget(self, action: #selector(textFieldEditingDidEndOnExit), for: .editingDidEndOnExit)
+        
         hideKeyboardWhenViewTapped()
     }
     
@@ -335,8 +341,8 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 }
 
 
-
 //  MARK: - EXTENSION
+
 extension K.Keyboard.ContentType {
     
     func toUITextContextType() -> UITextContentType {
@@ -403,8 +409,8 @@ extension K.Keyboard.ContentType {
 }
 
 
-
 //  MARK: - EXTENSION - UITextFieldDelegate
+
 extension TextFieldBuilder: UITextFieldDelegate {
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -412,12 +418,13 @@ extension TextFieldBuilder: UITextFieldDelegate {
             completion(self)
             return true
         }
+
         textField.resignFirstResponder()
+
         return true
     }
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
         if let mask {
             textField.text = mask.formatStringWithRange(range: range, string: string)
             return false
@@ -425,6 +432,5 @@ extension TextFieldBuilder: UITextFieldDelegate {
         
         return true
     }
+    
 }
-
-
