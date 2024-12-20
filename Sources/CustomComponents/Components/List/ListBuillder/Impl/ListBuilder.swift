@@ -283,10 +283,8 @@ open class ListBuilder: BaseBuilder, List {
     }
     
     private func selectRowAnimated(_ indexPath: IndexPath) {
-        if !autoScrollPosition {
-            list.selectRow(at: indexPath, animated: false, scrollPosition: .middle)
-            return
-        }
+        if !autoScrollPosition { return }
+        
         list.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
     }
         
