@@ -106,6 +106,12 @@ open class TableViewBuilder: BaseBuilder, TableView {
         return self
     }
     
+    @discardableResult
+    public func setVerticalScrollPosition(_ position: CGFloat) -> Self {
+        tableView.setContentOffset(CGPoint(x: 0, y: position), animated: true)
+        return self
+    }
+    
     
 //  MARK: - PUBLIC AREA
     

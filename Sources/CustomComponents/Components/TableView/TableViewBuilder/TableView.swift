@@ -25,6 +25,9 @@ public protocol TableView {
     func setScrollToItem(section: Int, row: Int, scrollPosition: S ) -> Self
     
     @discardableResult
+    func setVerticalScrollPosition(_ position: CGFloat) -> Self
+    
+    @discardableResult
     func setRegisterCell(_ cell: AnyClass ) -> Self
     
     @discardableResult
