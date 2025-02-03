@@ -26,19 +26,25 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     }
     
     @discardableResult
-    public func setImage(image img: UIImage, color: UIColor = .white) -> Self {
+    public func setImage(image img: UIImage, color: UIColor = .white, size: CGRect? = nil) -> Self {
         let attachment = NSTextAttachment()
+        
         attachment.image = img.withRenderingMode(.alwaysTemplate)
+        
+        if let size { attachment.bounds = size }
+        
         attachment.image = attachment.image?.withTintColor(color)
+        
         let attributedString = NSAttributedString(attachment: attachment)
+        
         attrText.append(attributedString)
         return self
     }
     
     @discardableResult
-    public func setImage(systemName img: String, color: UIColor = .white) -> Self {
+    public func setImage(systemName img: String, color: UIColor = .white, size: CGRect? = nil) -> Self {
         if let img = UIImage(systemName: img) {
-            setImage(image: img, color: color)
+            setImage(image: img, color: color, size: size)
         }
         return self
     }
