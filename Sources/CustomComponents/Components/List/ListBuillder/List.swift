@@ -83,7 +83,7 @@ public protocol List {
     
     @available(iOS 15.0, *)
     @discardableResult
-    func sectionHeaderTopPadding(_ padding: CGFloat) -> Self
+    func setSectionHeaderTopPadding(_ padding: CGFloat) -> Self
     
     
 //  MARK: - DELEGATE
