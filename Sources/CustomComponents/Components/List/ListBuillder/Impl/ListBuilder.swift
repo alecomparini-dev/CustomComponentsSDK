@@ -186,7 +186,7 @@ open class ListBuilder: BaseBuilder, List {
 
     @available(iOS 15.0, *)
     @discardableResult
-    public func sectionHeaderTopPadding(_ padding: CGFloat) -> Self {
+    public func setSectionHeaderTopPadding(_ padding: CGFloat) -> Self {
         list.sectionHeaderTopPadding = padding
         return self
     }
