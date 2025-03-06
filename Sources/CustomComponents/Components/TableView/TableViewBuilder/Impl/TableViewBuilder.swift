@@ -92,7 +92,7 @@ open class TableViewBuilder: BaseBuilder, TableView {
     
     @available(iOS 15.0, *)
     @discardableResult
-    public func sectionHeaderTopPadding(_ padding: CGFloat) -> Self {
+    public func setSectionHeaderTopPadding(_ padding: CGFloat) -> Self {
         tableView.sectionHeaderTopPadding = padding
         return self
     }
