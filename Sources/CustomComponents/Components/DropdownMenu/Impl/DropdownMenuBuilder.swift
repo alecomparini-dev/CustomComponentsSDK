@@ -43,7 +43,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     public func isShow() -> Bool { isVisible }
 
-    public var dropdowMenuList: ListBuilder? { _dropdownMenuList }
+    public var dropdownMenuList: ListBuilder? { _dropdownMenuList }
     
     
 //  MARK: - SET PROPERTIES
@@ -106,12 +106,12 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     public func hide() {
         if !isVisible {return}
         isVisible = false
-        events?.willDisappearDropdowMenu()
+        events?.willDisappearDropdownMenu()
         hideAnimation { [weak self] in
             guard let self else {return }
             dropdownMenu.setHidden(true)
             overlay?.setHidden(true)
-            events?.didDisappearDropdowMenu()
+            events?.didDisappearDropdownMenu()
         }
         
     }
@@ -219,11 +219,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     }
     
     private func configList() {
-        addListOnDropdowMenu()
+        addListOnDropdownMenu()
         configConstraintsList()
     }
     
-    private func addListOnDropdowMenu() {
+    private func addListOnDropdownMenu() {
         _dropdownMenuList?.add(insideTo: dropdownMenu)
     }
     
@@ -279,7 +279,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
 //  MARK: - ANIMATIONS AREA
     private func showAnimation(_ completion: (() -> Void)? = nil) {
-        events?.willAppearDropdowMenu()
+        events?.willAppearDropdownMenu()
         configStartAnimation()
         UIView.animate(withDuration: animationDuration) { [weak self] in
             guard let self else {return}
@@ -289,7 +289,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
             guard let self else {return}
             if bool {
                 completion?()
-                events?.didAppearDropdowMenu()
+                events?.didAppearDropdownMenu()
             }
         }
     }
