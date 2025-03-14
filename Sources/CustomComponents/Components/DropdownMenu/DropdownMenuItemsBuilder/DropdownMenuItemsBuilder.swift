@@ -15,7 +15,7 @@ public class DropdownMenuItemsBuilder {
     var get: [DropdownMenuItems] { items }
     
     
-//  MARK: - SET PROPORTIES
+//  MARK: - SET PROPERTIES
     @discardableResult
     public func setSection(_ sectionView:  BaseBuilder) -> Self {
         let item = DropdownMenuItems(section: sectionView, rows: [])

@@ -9,7 +9,7 @@ public protocol DropdownMenu {
     
     var get: ViewBuilder { get }
     
-    var dropdowMenuList: ListBuilder? { get }
+    var dropdownMenuList: ListBuilder? { get }
 
 //  MARK: - SET PROPERTIES 
 
