@@ -252,8 +252,6 @@ open class ListBuilder: BaseBuilder, List {
     }
     
 
-        
-
 //  MARK: - PRIVATE AREA
     private func configure() {
         setSeparatorStyle(.none)
