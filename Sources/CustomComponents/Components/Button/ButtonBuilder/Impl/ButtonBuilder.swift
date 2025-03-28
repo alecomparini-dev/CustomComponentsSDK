@@ -169,6 +169,10 @@ open class ButtonBuilder: BaseBuilder, Button {
             loading.setStopAnimating()
             button.setTitle(buttonTitle, for: .normal)
             button.setImage(buttonImage, for: .normal)
+            
+            if #available(iOS 15.0, *) {
+                button.configuration?.image = buttonImage
+            }
         }
         loading = nil
         buttonTitle = nil
@@ -216,10 +220,18 @@ open class ButtonBuilder: BaseBuilder, Button {
                     .apply()
             }
             loading.setStartAnimating()
-            self.buttonTitle = button.currentTitle
-            self.buttonImage = button.image(for: .normal)
+            buttonTitle = button.currentTitle
+            
+            buttonImage = button.image(for: .normal)
+            
+            if #available(iOS 15.0, *) {
+                buttonImage = button.configuration?.image
+                button.configuration?.image = nil
+            }
+            
             button.setTitle("", for: .normal)
             button.setImage(nil, for: .normal)
+        
         }
     }
 
