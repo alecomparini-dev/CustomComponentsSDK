@@ -9,7 +9,8 @@ open class ButtonBuilder: BaseBuilder, Button {
     public var get: UIButton {self.button}
     
     private var loading: LoadingBuilder?
-    private var titleButton: String?
+    private var buttonTitle: String?
+    private var buttonImage: UIImage?
     private var titleWeight: UIFont.Weight = .regular
     
     private var button: UIButton
@@ -166,10 +167,12 @@ open class ButtonBuilder: BaseBuilder, Button {
     public func setHideLoadingIndicator() -> Self {
         if let loading {
             loading.setStopAnimating()
-            button.setTitle(self.titleButton, for: .normal)
+            button.setTitle(buttonTitle, for: .normal)
+            button.setImage(buttonImage, for: .normal)
         }
         loading = nil
-        titleButton = nil
+        buttonTitle = nil
+        buttonImage = nil
         return self
     }
     
@@ -213,8 +216,10 @@ open class ButtonBuilder: BaseBuilder, Button {
                     .apply()
             }
             loading.setStartAnimating()
-            self.titleButton = button.currentTitle
+            self.buttonTitle = button.currentTitle
+            self.buttonImage = button.image(for: .normal)
             button.setTitle("", for: .normal)
+            button.setImage(nil, for: .normal)
         }
     }
 
