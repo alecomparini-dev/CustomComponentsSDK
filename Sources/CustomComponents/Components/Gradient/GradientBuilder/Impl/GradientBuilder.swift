@@ -199,9 +199,9 @@ open class GradientBuilder: Gradient {
     private func applyMainThread() {
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
+            setGradientOnComponent()
             setFrame()
             calculateEndPoint()
-            setGradientOnComponent()
         }
     }
     
