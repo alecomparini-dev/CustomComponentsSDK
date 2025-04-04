@@ -197,12 +197,17 @@ open class GradientBuilder: Gradient {
 //  MARK: - APPLY
 
     private func applyMainThread() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else {return}
-            setGradientOnComponent()
-            setFrame()
-            calculateEndPoint()
+        Task {
+            await MainActor.run {
+                setGradientOnComponent()
+                setFrame()
+                calculateEndPoint()
+            }
         }
+//        DispatchQueue.main.async { [weak self] in
+//            guard let self else {return}
+//            
+//        }
     }
     
     private func setGradientOnComponent() {
