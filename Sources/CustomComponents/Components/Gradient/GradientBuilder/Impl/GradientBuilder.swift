@@ -203,15 +203,8 @@ open class GradientBuilder: Gradient {
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
             
-            guard let component, component.bounds.size != .zero else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    self.applyMainThread()
-                }
-                return
-            }
-            
-            setGradientOnComponent()
             setFrame()
+            setGradientOnComponent()
             calculateEndPoint()
         }
     }

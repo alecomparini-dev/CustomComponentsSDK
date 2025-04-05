@@ -7,6 +7,8 @@ import SwiftUI
 
 //  MARK: - PREVIEW UIVIEW ON SWIFTUI
 
+private var shouldTriggerResizeKey: UInt8 = 0
+
 public extension UIView {
     
     func add(insideTo element: UIView) {
@@ -182,6 +184,47 @@ public extension UIView {
     
     var asSwiftUIView: some View {
         SwiftUIViewWrapper(view: self)
+    }
+    
+    
+    
+//  MARK: - SWIZZLING
+    private static let swizzleLayoutSubviewsImplementation: Void = {
+        let originalSelector = #selector(UIView.layoutSubviews)
+        let swizzledSelector = #selector(UIView.swizzled_layoutSubviews)
+        
+        guard
+            let originalMethod = class_getInstanceMethod(UIView.self, originalSelector),
+            let swizzledMethod = class_getInstanceMethod(UIView.self, swizzledSelector)
+        else { return }
+        
+        method_exchangeImplementations(originalMethod, swizzledMethod)
+    }()
+    
+    @objc private func swizzled_layoutSubviews() {
+        self.swizzled_layoutSubviews()  // Chama o layoutSubviews original (troca por causa do swizzling)
+        
+        if shouldTriggerSDKLayerUpdate {
+            self.layersResizeIfNeeded()
+        }
+    }
+
+    // MARK: - Public Enable
+    
+    func enableSDKLayerResize() {
+        UIView.swizzleLayoutSubviewsImplementation
+        objc_setAssociatedObject(self, &shouldTriggerResizeKey, true, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
+
+    // MARK: - Utils
+    
+    private var shouldTriggerSDKLayerUpdate: Bool {
+        return objc_getAssociatedObject(self, &shouldTriggerResizeKey) as? Bool ?? false
+    }
+    
+    private struct AssociatedKeys {
+        static var shouldTriggerResize = "shouldTriggerResize"
     }
 
 }
