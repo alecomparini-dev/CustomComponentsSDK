@@ -173,6 +173,7 @@ public extension UIView {
         self.layer.insertSublayer(layer, at: position )
     }
     
+    
 //  MARK: - PREVIEW SWIFTUI
     private struct SwiftUIViewWrapper: UIViewRepresentable {
         let view: UIView
@@ -185,6 +186,20 @@ public extension UIView {
     var asSwiftUIView: some View {
         SwiftUIViewWrapper(view: self)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
