@@ -16,14 +16,13 @@ open class ViewBuilder: BaseBuilder, ViewProtocol {
     public init(frame: CGRect) {
         self.view = UIView(frame: frame)
         super.init(view)
-        self.get.enableSDKLayerResize()
     }
     
     public init() {
         self.view = UIView(frame: .zero)
         super.init(view)
-        self.get.enableSDKLayerResize()
     }
+    
 
 //  MARK: - SET PROPERTIES
     

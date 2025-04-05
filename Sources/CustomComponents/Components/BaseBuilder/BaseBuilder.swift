@@ -24,7 +24,6 @@ open class BaseBuilder: NSObject {
     public init(_ view: UIView) {
         self._baseView = view
         super.init()
-        self._baseView?.enableSDKLayerResize()
     }
     
     deinit {

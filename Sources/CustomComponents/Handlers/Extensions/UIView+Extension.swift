@@ -7,8 +7,6 @@ import SwiftUI
 
 //  MARK: - PREVIEW UIVIEW ON SWIFTUI
 
-private var shouldTriggerResizeKey: UInt8 = 0
-
 public extension UIView {
     
     func add(insideTo element: UIView) {
@@ -98,7 +96,9 @@ public extension UIView {
         return self
     }
     
+    
 //  MARK: - SHADOWS
+    
     func removeShadowByID(_ id: String) {
         if let layerToRemove = self.layer.sublayers?.filter({ $0.name == id }) {
             layerToRemove.forEach({ $0.removeFromSuperlayer()})
@@ -118,6 +118,7 @@ public extension UIView {
     
     
 //  MARK: - GRADIENT
+    
     func removeGradientByID(_ id: String) {
         if let gradientLayer = self.layer.sublayers?.first(where: { $0.name == id }) {
             gradientLayer.removeFromSuperlayer()
@@ -126,6 +127,7 @@ public extension UIView {
     
     
 //  MARK: - NEUMORPHISM
+    
     func removeNeumorphism() {
         self.removeShadowByID(K.Neumorphism.Identifiers.darkShadowID.rawValue)
         self.removeShadowByID(K.Neumorphism.Identifiers.lightShadowID.rawValue)
@@ -138,6 +140,7 @@ public extension UIView {
 
     
 //  MARK: - RESIZE
+    
     func layersResizeIfNeeded() {
         self.layer.sublayers?.forEach({ layer in
             if layer.shadowOpacity > 0 {
@@ -162,6 +165,7 @@ public extension UIView {
     
     
 //  MARK: - PRIVATE AREA
+    
     func setBackgroundColorLayer(_ color: UIColor) {
         let layer = CAShapeLayer()
         layer.frame = self.bounds
@@ -187,60 +191,4 @@ public extension UIView {
         SwiftUIViewWrapper(view: self)
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//  MARK: - SWIZZLING
-    private static let swizzleLayoutSubviewsImplementation: Void = {
-        let originalSelector = #selector(UIView.layoutSubviews)
-        let swizzledSelector = #selector(UIView.swizzled_layoutSubviews)
-        
-        guard
-            let originalMethod = class_getInstanceMethod(UIView.self, originalSelector),
-            let swizzledMethod = class_getInstanceMethod(UIView.self, swizzledSelector)
-        else { return }
-        
-        method_exchangeImplementations(originalMethod, swizzledMethod)
-    }()
-    
-    @objc private func swizzled_layoutSubviews() {
-        self.swizzled_layoutSubviews()  // Chama o layoutSubviews original (troca por causa do swizzling)
-        
-        if shouldTriggerSDKLayerUpdate {
-            self.layersResizeIfNeeded()
-        }
-    }
-
-    // MARK: - Public Enable
-    
-    func enableSDKLayerResize() {
-        UIView.swizzleLayoutSubviewsImplementation
-        objc_setAssociatedObject(self, &shouldTriggerResizeKey, true, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-    }
-    
-
-    // MARK: - Utils
-    
-    private var shouldTriggerSDKLayerUpdate: Bool {
-        return objc_getAssociatedObject(self, &shouldTriggerResizeKey) as? Bool ?? false
-    }
-    
-    private struct AssociatedKeys {
-        static var shouldTriggerResize = "shouldTriggerResize"
-    }
-
 }
-
