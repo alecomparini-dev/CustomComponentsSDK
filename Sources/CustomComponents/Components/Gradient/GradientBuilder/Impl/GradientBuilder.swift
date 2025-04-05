@@ -94,6 +94,7 @@ open class GradientBuilder: Gradient {
     
     
 //  MARK: - APPLY GRADIENT
+    
     @discardableResult
     public func apply() -> Self {
         removeGradient()
@@ -117,7 +118,9 @@ open class GradientBuilder: Gradient {
         }
     }
     
+    
 //  MARK: - REMOVE GRADIENT
+    
     public func removeGradient() {
         if let gradientName = gradient.name {
             component?.removeGradientByID(gradientName)
