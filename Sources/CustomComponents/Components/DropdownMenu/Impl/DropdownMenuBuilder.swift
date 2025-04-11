@@ -98,23 +98,33 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     public func show() {
         if isVisible {return}
-        isVisible = true
+        
         applyOnce()
+        
         events?.willAppearDropdownMenu()
+        
         showAnimation { [weak self] in
-            guard let self else {return }
+            guard let self else { return }
+            
+            isVisible = true
+            
             events?.didAppearDropdownMenu()
         }
     }
     
     public func hide() {
         if !isVisible {return}
-        isVisible = false
+        
         events?.willDisappearDropdownMenu()
+        
         hideAnimation { [weak self] in
             guard let self else {return }
             dropdownMenu.setHidden(true)
+            
             overlay?.setHidden(true)
+            
+            isVisible = false
+            
             events?.didDisappearDropdownMenu()
         }
         
@@ -283,27 +293,28 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     
 //  MARK: - ANIMATIONS AREA
+    
     private func showAnimation(_ completion: (() -> Void)? = nil) {
         configStartAnimation()
         
-        UIView.animate(withDuration: animationDuration, delay: 0, options: .curveLinear, animations: { [weak self] in
-            guard let self else {return}
-            dropdownMenu.setAlpha(1)
-            overlay?.setAlpha(1)
-        }){ bool in
-            if bool {
-                completion?()
-            }
-        }
+//        UIView.animate(withDuration: animationDuration, delay: 0, options: .curveLinear, animations: { [weak self] in
+//            guard let self else {return}
+//            dropdownMenu.setAlpha(1)
+//            overlay?.setAlpha(1)
+//        }){ bool in
+//            if bool {
+//                completion?()
+//            }
+//        }
         
     }
     
     private func configStartAnimation() {
-        dropdownMenu.setAlpha(0)
-        dropdownMenu.setHidden(false)
+//        dropdownMenu.setAlpha(0)
+        dropdownMenu.setHidden(false, animated: true, 3)
 
-        overlay?.setAlpha(0)
-        overlay?.setHidden(false)
+//        overlay?.setAlpha(0)
+        overlay?.setHidden(false, animated: true, 3)
     }
     
     private func hideAnimation(_ completion: (() -> Void)? = nil) {
