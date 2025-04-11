@@ -100,7 +100,11 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         if isVisible {return}
         isVisible = true
         applyOnce()
-        showAnimation()
+        events?.willAppearDropdownMenu()
+        showAnimation { [weak self] in
+            guard let self else {return }
+            events?.didAppearDropdownMenu()
+        }
     }
     
     public func hide() {
@@ -118,6 +122,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     
 //  MARK: - PRIVATE AREA
+    
     private func configure() {
         setOverlay(style: .dark, opacity: 0)
     }
@@ -279,35 +284,33 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
 //  MARK: - ANIMATIONS AREA
     private func showAnimation(_ completion: (() -> Void)? = nil) {
-        events?.willAppearDropdownMenu()
         configStartAnimation()
-        UIView.animate(withDuration: animationDuration) { [weak self] in
+        
+        UIView.animate(withDuration: animationDuration, delay: 0, options: .curveLinear, animations: { [weak self] in
             guard let self else {return}
             dropdownMenu.setAlpha(1)
             overlay?.setAlpha(1)
-            dropdownMenu.get.layoutIfNeeded()
-            overlay?.get.layoutIfNeeded()
-        } completion: { [weak self] bool in
-            guard let self else {return}
+        }){ bool in
             if bool {
                 completion?()
-                events?.didAppearDropdownMenu()
             }
         }
+        
     }
     
     private func configStartAnimation() {
         dropdownMenu.setAlpha(0)
-        overlay?.setAlpha(0)
         dropdownMenu.setHidden(false)
+
+        overlay?.setAlpha(0)
         overlay?.setHidden(false)
     }
     
     private func hideAnimation(_ completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: animationDuration) { [weak self] in
             guard let self else {return}
-            dropdownMenu.get.alpha = 0
-            overlay?.get.alpha = 0
+            dropdownMenu.setAlpha(0)
+            overlay?.setAlpha(0)
         } completion: { bool in
             if bool {
                 completion?()
