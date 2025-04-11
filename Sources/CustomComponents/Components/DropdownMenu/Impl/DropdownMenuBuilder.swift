@@ -163,6 +163,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         guard let superview = getSuperview() else {return}
         
         self.overlay?
+            .setHidden(true)
             .setAutoLayout { build in
                 build
                     .pin.equalToSuperview()
@@ -250,7 +251,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func configDelegateList() {
         _dropdownMenuList?.setDelegate(self)
     }
-
     
     private func configFooterView() {
         let dropdownMenuFooterView = createDropdownMenuFooterView()
