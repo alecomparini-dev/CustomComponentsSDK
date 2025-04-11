@@ -283,8 +283,10 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         configStartAnimation()
         UIView.animate(withDuration: animationDuration) { [weak self] in
             guard let self else {return}
-            dropdownMenu.get.alpha = 1
-            overlay?.get.alpha = 1
+            dropdownMenu.setAlpha(1)
+            overlay?.setAlpha(1)
+            dropdownMenu.get.layoutIfNeeded()
+            overlay?.get.layoutIfNeeded()
         } completion: { [weak self] bool in
             guard let self else {return}
             if bool {
