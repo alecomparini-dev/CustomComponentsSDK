@@ -295,7 +295,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         dropdownMenu.setHidden(false, animated: true, animationDuration)
         overlay?.setHidden(false, animated: true, animationDuration)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration + 0.1, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration, execute: {
             completion?()
         })
         
@@ -305,7 +305,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         dropdownMenu.setHidden(true, animated: true, animationDuration)
         overlay?.setHidden(true, animated: true, animationDuration)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration + 0.1, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration, execute: {
             completion?()
         })
     }
