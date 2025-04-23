@@ -294,23 +294,20 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private func showAnimation(_ completion: (() -> Void)? = nil) {
         dropdownMenu.setHidden(false, animated: true, animationDuration)
         overlay?.setHidden(false, animated: true, animationDuration)
-        UIView.animate(withDuration: animationDuration) {
-        } completion: { bool in
-            if bool {
-                completion?()
-            }
-        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration + 0.1, execute: {
+            completion?()
+        })
+        
     }
     
     private func hideAnimation(_ completion: (() -> Void)? = nil) {
         dropdownMenu.setHidden(true, animated: true, animationDuration)
         overlay?.setHidden(true, animated: true, animationDuration)
-        UIView.animate(withDuration: animationDuration) {
-        } completion: { bool in
-            if bool {
-                completion?()
-            }
-        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration + 0.1, execute: {
+            completion?()
+        })
     }
     
 }
