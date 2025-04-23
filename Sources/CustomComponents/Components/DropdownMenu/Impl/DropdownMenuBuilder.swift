@@ -106,9 +106,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         showAnimation { [weak self] in
             guard let self else { return }
             
-            isVisible = true
-            
             events?.didAppearDropdownMenu()
+            
+            isVisible = true
         }
     }
     
@@ -120,9 +120,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         hideAnimation { [weak self] in
             guard let self else {return }
         
-            isVisible = false
-
             events?.didDisappearDropdownMenu()
+
+            isVisible = false
         }
         
     }
