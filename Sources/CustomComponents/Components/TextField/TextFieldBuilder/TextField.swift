@@ -16,7 +16,7 @@ public protocol TextField {
 
     func setPlaceHolderSize(_ size: CGFloat?) -> Self
     
-    func setAttributedPlaceHolder(_ attributes: NSMutableAttributedString?) -> Self
+    func setAttributedPlaceHolder(_ attributes: NSAttributedString?) -> Self
 
     func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self
     
