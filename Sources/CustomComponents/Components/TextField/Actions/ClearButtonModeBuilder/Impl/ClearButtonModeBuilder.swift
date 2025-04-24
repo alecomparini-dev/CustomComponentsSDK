@@ -40,7 +40,6 @@ open class ClearButtonModeBuilder: ClearButtonMode {
         return self
     }
     
-    
     @discardableResult
     public func setCompletion(_ completion: @escaping () -> Void) -> Self {
         self.completion = completion
@@ -49,6 +48,7 @@ open class ClearButtonModeBuilder: ClearButtonMode {
     
     
 //  MARK: - APPLY
+    
     public func apply() -> Self {
         textFieldBuilder?.setPadding(createClearButtonView(size, systemName), position, .whileEditing)
         return self
@@ -56,6 +56,7 @@ open class ClearButtonModeBuilder: ClearButtonMode {
     
     
 //  MARK: - PRIVATE AREA
+    
     private func createClearButtonView(_ size: CGSize, _ imgSystemName: String) -> ViewBuilder {
         let frame = CGRect(x: 0, y: 0, width: size.width + 16, height: size.height)
         
@@ -68,6 +69,7 @@ open class ClearButtonModeBuilder: ClearButtonMode {
         let clearButton = ButtonImageBuilder()
             .setImageButton(img)
             .setFrame(CGRect(origin: calculateCenter(view.get), size: size ))
+            .setIsUserInteractionEnabled(true)
 
         clearButton.get.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         
@@ -82,6 +84,7 @@ open class ClearButtonModeBuilder: ClearButtonMode {
     
     
 //  MARK: - @OBJC FUNCTION AREA
+    
     @objc private func clearButtonTapped() {
         textFieldBuilder?.setText("")
         completion?()

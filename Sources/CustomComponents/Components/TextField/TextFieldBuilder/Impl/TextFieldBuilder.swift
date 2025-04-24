@@ -53,41 +53,52 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     @discardableResult
     public func setPlaceHolderColor(_ color: UIColor?) -> Self {
         guard let color else {return self}
-        self.attributesPlaceholder.updateValue(color, forKey: .foregroundColor)
+        attributesPlaceholder.updateValue(color, forKey: .foregroundColor)
+        
         textField.attributedPlaceholder = NSAttributedString (
             string: textField.placeholder ?? K.Strings.empty ,
             attributes: self.attributesPlaceholder)
+        
         return self
     }
     
     @discardableResult
     public func setPlaceHolderColor(hexColor color: String?) -> Self {
         guard let color, color.isHexColor() else {return self}
+        
         setPlaceHolderColor(UIColor.HEX(color))
+        
         return self
     }
     
     @discardableResult
     public func setPlaceHolderColor(named color: String?) -> Self {
         guard let color, let namedColor = UIColor(named: color) else {return self}
+        
         setPlaceHolderColor(namedColor)
+        
         return self
     }
     
     @discardableResult
     public func setPlaceHolderSize(_ size: CGFloat?) -> Self {
         guard let size else {return self}
-        self.attributesPlaceholder.updateValue(UIFont.systemFont(ofSize: size), forKey: .font)
+        
+        attributesPlaceholder.updateValue(UIFont.systemFont(ofSize: size), forKey: .font)
+        
         textField.attributedPlaceholder = NSAttributedString (
             string: textField.placeholder ?? K.Strings.empty ,
             attributes: self.attributesPlaceholder)
+        
         return self
     }
 
     @discardableResult
     public func setAttributedPlaceHolder(_ attributes: NSAttributedString?) -> Self {
         guard let attributes else {return self}
+        
         textField.attributedPlaceholder = attributes
+        
         return self
     }
     
