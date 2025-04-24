@@ -7,7 +7,6 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     public typealias T = UIImage
     public typealias C = UIColor
 
-    
     private var attributes: [NSAttributedString.Key : Any] = [:]
     private let attrText: NSMutableAttributedString
     private var text: String
