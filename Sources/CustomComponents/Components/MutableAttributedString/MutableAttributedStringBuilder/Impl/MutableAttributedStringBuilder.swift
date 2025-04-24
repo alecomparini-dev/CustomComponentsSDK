@@ -9,6 +9,8 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
 
     public var get: NSAttributedString { attrText }
     
+    public var getMutableAttStr: NSMutableAttributedString { attrText }
+    
     private var attributes: [NSAttributedString.Key : Any] = [:]
     private let attrText: NSMutableAttributedString
     private var text: String
