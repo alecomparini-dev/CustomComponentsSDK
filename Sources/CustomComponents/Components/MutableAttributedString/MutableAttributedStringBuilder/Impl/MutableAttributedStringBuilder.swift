@@ -7,9 +7,6 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
     public typealias T = UIImage
     public typealias C = UIColor
 
-    public var get: NSAttributedString { attrText }
-    
-    public var getMutableAttStr: NSMutableAttributedString { attrText }
     
     private var attributes: [NSAttributedString.Key : Any] = [:]
     private let attrText: NSMutableAttributedString
@@ -19,6 +16,13 @@ open class MutableAttributedStringBuilder: MutableAttributedString {
         self.attrText = NSMutableAttributedString()
         self.text = ""
     }
+
+//  MARK: - GET PROPERTIES AREA
+
+    public var get: NSAttributedString { attrText }
+    
+    
+//  MARK: - SET PROPERTIES AREA
     
     @discardableResult
     public func setText(text: String) -> Self {

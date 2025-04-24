@@ -85,7 +85,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setAttributedPlaceHolder(_ attributes: NSMutableAttributedString?) -> Self {
+    public func setAttributedPlaceHolder(_ attributes: NSAttributedString?) -> Self {
         guard let attributes else {return self}
         textField.attributedPlaceholder = attributes
         return self

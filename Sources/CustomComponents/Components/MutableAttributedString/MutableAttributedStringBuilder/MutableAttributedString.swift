@@ -9,7 +9,6 @@ public protocol MutableAttributedString {
     associatedtype C
     
     var get: NSAttributedString { get }
-    var getMutableAttStr: NSMutableAttributedString { get }
     
     @discardableResult
     func setText(text: String) -> Self
