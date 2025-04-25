@@ -19,7 +19,7 @@ public extension UIView {
     }
     
     func hideKeyboardWhenViewTapped() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIView.endEditing(_:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         tap.cancelsTouchesInView = false
         self.addGestureRecognizer(tap)
     }
@@ -34,6 +34,13 @@ public extension UIView {
                                                              height: replicateHeight)),
                             byRoundingCorners: self.layer.maskedCorners.toRectCorner ,
                             cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
+    }
+    
+    @objc
+    func hideKeyboard() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+            self?.endEditing(true)
+        })
     }
     
     
