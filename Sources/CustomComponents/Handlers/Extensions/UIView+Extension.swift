@@ -36,13 +36,6 @@ public extension UIView {
                             cornerRadii: CGSize(width: replicateCornerRadius, height: replicateCornerRadius))
     }
     
-    @objc
-    func hideKeyboard() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
-            self?.endEditing(true)
-        })
-    }
-    
     
 //  MARK: - GET PROPERTIES
     
@@ -186,6 +179,13 @@ public extension UIView {
     
     
 //  MARK: - PREVIEW SWIFTUI
+    @objc
+    private func hideKeyboard() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: { [weak self] in
+            self?.endEditing(true)
+        })
+    }
+
     private struct SwiftUIViewWrapper: UIViewRepresentable {
         let view: UIView
         
