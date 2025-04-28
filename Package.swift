@@ -11,8 +11,8 @@ let package = Package(
     ],
     
     products: [
-        .library(name: "UICustomComponentsSDK", targets: ["UIComponents"]),
-        .library(name: "SystemCustomComponentsSDK", targets: ["SystemCustomComponents"]),
+        .library(name: "UICustomComponentsSDK", targets: ["UICustomComponentsSDK"]),
+        .library(name: "SystemCustomComponentsSDK", targets: ["SystemCustomComponentsSDK"]),
     ],
     
     dependencies: [
@@ -21,14 +21,14 @@ let package = Package(
     targets: [
         
         .target(
-            name: "UIComponents",
+            name: "UICustomComponentsSDK",
             dependencies: [
             ],
             path: "Sources/CustomComponents/UIComponents"
         ),
         
         .target(
-            name: "SystemCustomComponents",
+            name: "SystemCustomComponentsSDK",
             dependencies: [
             ],
             path: "Sources/CustomComponents/SystemComponents"
