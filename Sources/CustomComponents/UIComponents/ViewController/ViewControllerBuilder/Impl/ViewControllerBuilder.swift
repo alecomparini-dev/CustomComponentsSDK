@@ -6,6 +6,7 @@ import UIKit
 @MainActor
 open class ViewControllerBuilder: ViewController {
     public typealias T = UIViewController
+    
     public var get: T { self.viewController }
     
     private var viewController: UIViewController
