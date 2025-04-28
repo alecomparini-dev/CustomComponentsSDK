@@ -11,7 +11,8 @@ let package = Package(
     ],
     
     products: [
-        .library(name: "CustomComponentsSDK", targets: ["CustomComponentsSDK"]),
+        .library(name: "UICustomComponentsSDK", targets: ["UIComponents"]),
+        .library(name: "SystemCustomComponentsSDK", targets: ["SystemCustomComponents"]),
     ],
     
     dependencies: [
@@ -20,15 +21,19 @@ let package = Package(
     targets: [
         
         .target(
-            name: "CustomComponentsSDK",
+            name: "UIComponents",
             dependencies: [
             ],
-            path: "Sources/CustomComponents",
-            swiftSettings: [
-                .unsafeFlags(["-enable-library-evolution"], .when(configuration: .release))
-            ]
+            path: "Sources/CustomComponents/UIComponents"
         ),
         
+        .target(
+            name: "SystemCustomComponents",
+            dependencies: [
+            ],
+            path: "Sources/CustomComponents/SystemComponents"
+        ),
+    
     ]
     
 )

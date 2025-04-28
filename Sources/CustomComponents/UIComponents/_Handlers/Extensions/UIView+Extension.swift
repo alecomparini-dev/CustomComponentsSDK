@@ -3,6 +3,7 @@
 
 import UIKit
 import SwiftUI
+import UIComponents
 
 
 //  MARK: - PREVIEW UIVIEW ON SWIFTUI
