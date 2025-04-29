@@ -18,7 +18,7 @@ public protocol ButtonImage {
     func setImageColor(named color: String?) -> Self
     
     @discardableResult
-    func setImageWeight(_ weight: K.Weight) -> Self
+    func setImageWeight(_ weight: UIK.Weight) -> Self
     
     @discardableResult
     func setImageSize( _ size: CGFloat? ) -> Self

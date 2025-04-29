@@ -60,7 +60,7 @@ public protocol Map {
     func setAnnotationPin(coordinate: (lat: Double, lon: Double), title: String?, subTitle: String?, centerView: Bool?, autoSelect: Bool?) -> Self
         
     @discardableResult
-    func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self
+    func setUserTrackingMode(_ mode: UIK.Map.UserTrackingMode) -> Self
     
     
 //  MARK: - FUNCTIONS

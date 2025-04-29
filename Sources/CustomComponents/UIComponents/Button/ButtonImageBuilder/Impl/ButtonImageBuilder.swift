@@ -71,7 +71,7 @@ open class ButtonImageBuilder: ButtonBuilder, ButtonImage {
     }
     
     @discardableResult
-    public func setImageWeight(_ weight: K.Weight) -> Self {
+    public func setImageWeight(_ weight: UIK.Weight) -> Self {
         var img: ImageViewBuilder = ImageViewBuilder()
         if #available(iOS 15.0, *) {
             img = ImageViewBuilder(super.get.configuration?.image).setWeight(weight)

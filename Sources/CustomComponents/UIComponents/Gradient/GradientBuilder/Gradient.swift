@@ -16,7 +16,7 @@ public protocol Gradient {
     func setReferenceColor(referenceHexColor: String, percentageGradient: CGFloat) -> Self
     
     @discardableResult
-    func setAxialGradient(_ direction: K.Gradient.Direction ) -> Self
+    func setAxialGradient(_ direction: UIK.Gradient.Direction ) -> Self
     
     @discardableResult
     func setConicGradient(_ startPoint: CGPoint) -> Self

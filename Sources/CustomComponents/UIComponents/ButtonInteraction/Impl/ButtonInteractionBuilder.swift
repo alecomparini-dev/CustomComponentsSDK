@@ -6,7 +6,7 @@ import UIKit
 @MainActor
 open class ButtonInteractionBuilder: NSObject, ButtonInteraction {
     private let identifier = String(describing: ButtonInteractionBuilder.self)
-    private let shadowOpacityProperty = K.Button.Interaction.shadowOpacityProperty
+    private let shadowOpacityProperty = UIK.Button.Interaction.shadowOpacityProperty
     
     private var duration: Double = 0.2
     private var shadowTapped: ShadowBuilder?

@@ -56,7 +56,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         attributesPlaceholder.updateValue(color, forKey: .foregroundColor)
         
         textField.attributedPlaceholder = NSAttributedString (
-            string: textField.placeholder ?? K.Strings.empty ,
+            string: textField.placeholder ?? UIK.Strings.empty ,
             attributes: self.attributesPlaceholder)
         
         return self
@@ -87,7 +87,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         attributesPlaceholder.updateValue(UIFont.systemFont(ofSize: size), forKey: .font)
         
         textField.attributedPlaceholder = NSAttributedString (
-            string: textField.placeholder ?? K.Strings.empty ,
+            string: textField.placeholder ?? UIK.Strings.empty ,
             attributes: self.attributesPlaceholder)
         
         return self
@@ -103,7 +103,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     @discardableResult
-    public func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self {
+    public func setTextContentType(_ textContentType: UIK.Keyboard.ContentType) -> Self {
         textField.textContentType = textContentType.toUITextContextType()
         return self
     }
@@ -137,7 +137,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self {
+    public func setTextAlignment(_ textAlignment: UIK.Text.Alignment?) -> Self {
         guard let textAlignment else {return self}
         textField.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .left
         return self
@@ -156,13 +156,13 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
 
     @discardableResult
-    public func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType) -> Self {
+    public func setAutoCapitalization(_ autoCapitalizationType: UIK.Text.AutocapitalizationType) -> Self {
         textField.autocapitalizationType = UITextAutocapitalizationType.init(rawValue: autoCapitalizationType.rawValue) ?? .none
         return self
     }
 
     @discardableResult
-    public func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType) -> Self {
+    public func setAutoCorrectionType(_ autoCorrectionType: UIK.Text.AutocorrectionType) -> Self {
         textField.autocorrectionType = UITextAutocorrectionType.init(rawValue: autoCorrectionType.rawValue) ?? .default
         return self
     }
@@ -215,7 +215,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     @discardableResult
     public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
         guard let fontFamily else {return self}
-        if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
+        if let font = UIFont(name: fontFamily, size: fontSize ?? UIK.Default.fontSize) {
             textField.font = font
         }
         return self
@@ -233,7 +233,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 // MARK: - PADDING
     
     @discardableResult
-    public func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal? = nil) -> Self {
+    public func setPadding(_ padding: CGFloat?, _ position: UIK.Position.Horizontal? = nil) -> Self {
         guard let padding else {return self}
         let paddingView = ViewBuilder(frame: CGRect(x: .zero, y: .zero, width: padding, height: .zero))
         setPadding(paddingView, position)
@@ -241,7 +241,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     @discardableResult
-    public func setPadding(_ paddingView: BaseBuilder?, _ position: K.Position.Horizontal? = nil, _ mode: K.TextField.ViewMode = .always ) -> Self {
+    public func setPadding(_ paddingView: BaseBuilder?, _ position: UIK.Position.Horizontal? = nil, _ mode: UIK.TextField.ViewMode = .always ) -> Self {
         guard let paddingView else {return self}
         if let position {
             addPaddingToTextField(paddingView, position, mode)
@@ -295,7 +295,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     }
     
     private func configure() {
-        setPadding(K.Default.padding)
+        setPadding(UIK.Default.padding)
         
         configDelegate()
         
@@ -308,7 +308,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
         textField.delegate = self
     }
     
-    private func addPaddingToTextField(_ paddingView: BaseBuilder, _ position: K.Position.Horizontal, _ mode: K.TextField.ViewMode = .always ) {
+    private func addPaddingToTextField(_ paddingView: BaseBuilder, _ position: UIK.Position.Horizontal, _ mode: UIK.TextField.ViewMode = .always ) {
         switch position {
             case .left:
                 textField.leftView = paddingView.baseView
@@ -327,7 +327,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
     private func validateKeyboardDecimal(_ character: String) -> Bool {
         guard let text = textField.text else { return true}
         
-        let separators: [String] = [K.Strings.dot, K.Strings.comma]
+        let separators: [String] = [UIK.Strings.dot, UIK.Strings.comma]
         
         if separators.contains(character) {
             return !separators.contains { separator in
@@ -354,7 +354,7 @@ open class TextFieldBuilder: BaseBuilder, TextField {
 
 //  MARK: - EXTENSION
 
-extension K.Keyboard.ContentType {
+extension UIK.Keyboard.ContentType {
     
     func toUITextContextType() -> UITextContentType {
         switch self {

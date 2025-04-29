@@ -20,7 +20,7 @@ open class BottomSheetBuilder: NSObject, BottomSheet {
     
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setDetents(_ detents: [K.SheetPresentationController.Detent]) -> Self {
+    public func setDetents(_ detents: [UIK.SheetPresentationController.Detent]) -> Self {
         sheet?.detents = detents.map({ detent in
             switch detent {
             case .medium:
@@ -51,7 +51,7 @@ open class BottomSheetBuilder: NSObject, BottomSheet {
     }
     
     @discardableResult
-    public func setLargestUndimmedDetentIdentifier(_ detent: K.SheetPresentationController.Detent?) -> Self {
+    public func setLargestUndimmedDetentIdentifier(_ detent: UIK.SheetPresentationController.Detent?) -> Self {
         switch detent {
             case .medium:
                 sheet?.largestUndimmedDetentIdentifier = .medium

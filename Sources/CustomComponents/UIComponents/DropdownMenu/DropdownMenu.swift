@@ -26,7 +26,7 @@ public protocol DropdownMenu {
 //  MARK: - CONFIG LIST
     
     @discardableResult
-    func setConfigList(style: K.List.Style, _ build: (_ build: ListBuilder) -> ListBuilder) -> Self
+    func setConfigList(style: UIK.List.Style, _ build: (_ build: ListBuilder) -> ListBuilder) -> Self
     
     
 //  MARK: - POPULATE DATA

@@ -10,13 +10,13 @@ public protocol TextFieldImage {
     
     var imageViewRight: ImageViewBuilder? { get }
     
-    func setImage(_ image: ImageViewBuilder, _ position: K.Position.Horizontal, _ margin: CGFloat) -> Self
+    func setImage(_ image: ImageViewBuilder, _ position: UIK.Position.Horizontal, _ margin: CGFloat) -> Self
     
-    func setImageSize(_ size: CGFloat?, _ weight: K.Weight?) -> Self
+    func setImageSize(_ size: CGFloat?, _ weight: UIK.Weight?) -> Self
     
-    func setIsHideImage(_ hide: Bool, position: K.Position.Horizontal) -> Self
+    func setIsHideImage(_ hide: Bool, position: UIK.Position.Horizontal) -> Self
     
-    func setImageColor(hexColor: String?, position: K.Position.Horizontal) -> Self
+    func setImageColor(hexColor: String?, position: UIK.Position.Horizontal) -> Self
     
     @discardableResult
     func setActions(textFieldImage action: (_ build: TextFieldImageActionBuilder) -> TextFieldImageActionBuilder) -> Self 

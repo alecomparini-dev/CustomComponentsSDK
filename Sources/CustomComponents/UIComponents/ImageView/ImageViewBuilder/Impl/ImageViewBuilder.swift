@@ -62,7 +62,7 @@ open class ImageViewBuilder: BaseBuilder, ImageView {
     }
         
     @discardableResult
-    public func setContentMode(_ contentMode: K.ContentMode) -> Self {
+    public func setContentMode(_ contentMode: UIK.ContentMode) -> Self {
         imageView.contentMode = UIView.ContentMode.init(rawValue: contentMode.rawValue) ?? .scaleAspectFill
         return self
     }
@@ -97,7 +97,7 @@ open class ImageViewBuilder: BaseBuilder, ImageView {
     }
     
     @discardableResult
-    public func setWeight(_ weight: K.Weight) -> Self {
+    public func setWeight(_ weight: UIK.Weight) -> Self {
         let weight = UIImage.SymbolWeight.init(rawValue: weight.rawValue) ?? .regular
         imageView.image = imageView.image?.applyingSymbolConfiguration(UIImage.SymbolConfiguration(weight: weight))
         return self

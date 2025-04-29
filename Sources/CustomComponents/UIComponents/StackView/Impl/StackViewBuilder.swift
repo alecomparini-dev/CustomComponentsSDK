@@ -20,19 +20,19 @@ open class StackViewBuilder: BaseBuilder, StackView {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setDistribution(_ distribution: K.StackView.Distribution) -> Self {
+    public func setDistribution(_ distribution: UIK.StackView.Distribution) -> Self {
         stackView.distribution = UIStackView.Distribution(rawValue: distribution.rawValue) ?? .fillEqually
         return self
     }
     
     @discardableResult
-    public func setAxis(_ axis: K.Axis) -> Self {
+    public func setAxis(_ axis: UIK.Axis) -> Self {
         stackView.axis = NSLayoutConstraint.Axis(rawValue: axis.rawValue) ?? .horizontal
         return self
     }
     
     @discardableResult
-    public func setAlignment(_ alignment: K.StackView.Alignment) -> Self {
+    public func setAlignment(_ alignment: UIK.StackView.Alignment) -> Self {
         switch alignment {
             case .top:
                 stackView.alignment = .top

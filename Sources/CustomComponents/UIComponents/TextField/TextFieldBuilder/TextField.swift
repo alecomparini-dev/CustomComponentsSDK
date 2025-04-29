@@ -18,7 +18,7 @@ public protocol TextField {
     
     func setAttributedPlaceHolder(_ attributes: NSAttributedString?) -> Self
 
-    func setTextContentType(_ textContentType: K.Keyboard.ContentType) -> Self
+    func setTextContentType(_ textContentType: UIK.Keyboard.ContentType) -> Self
     
     func setText(_ text: String?) -> Self
 
@@ -26,23 +26,23 @@ public protocol TextField {
     
     func setTextColor(named color: String?) -> Self
 
-    func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
+    func setTextAlignment(_ textAlignment: UIK.Text.Alignment?) -> Self
 
     func setIsSecureText(_ flag: Bool) -> Self
     
     func setReadOnly(_ flag: Bool) -> Self
 
-    func setAutoCapitalization(_ autoCapitalizationType: K.Text.AutocapitalizationType) -> Self
+    func setAutoCapitalization(_ autoCapitalizationType: UIK.Text.AutocapitalizationType) -> Self
 
-    func setAutoCorrectionType(_ autoCorrectionType: K.Text.AutocorrectionType) -> Self
+    func setAutoCorrectionType(_ autoCorrectionType: UIK.Text.AutocorrectionType) -> Self
 
     func setTintColor(hexColor color: String?) -> Self
     
     func setTintColor(named color: String?) -> Self
     
-    func setPadding(_ padding: CGFloat?, _ position: K.Position.Horizontal?) -> Self
+    func setPadding(_ padding: CGFloat?, _ position: UIK.Position.Horizontal?) -> Self
     
-    func setPadding(_ paddingView: BaseBuilder?, _ position: K.Position.Horizontal?, _ mode: K.TextField.ViewMode ) -> Self
+    func setPadding(_ paddingView: BaseBuilder?, _ position: UIK.Position.Horizontal?, _ mode: UIK.TextField.ViewMode ) -> Self
     
     func setFocus() -> Self
 

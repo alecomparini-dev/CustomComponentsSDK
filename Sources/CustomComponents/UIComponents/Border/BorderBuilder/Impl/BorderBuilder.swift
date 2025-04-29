@@ -63,7 +63,7 @@ open class BorderBuilder: Border {
     }
      
     @discardableResult
-    public func setRoundedCorners(_ cornes: [K.Corner]) -> Self {
+    public func setRoundedCorners(_ cornes: [UIK.Corner]) -> Self {
         component?.layer.maskedCorners = selectCorners(cornes)
         return self
     }
@@ -71,7 +71,7 @@ open class BorderBuilder: Border {
     
 //  MARK: - PRIVATE AREA
     
-    private func selectCorners(_ cornes: [K.Corner]) -> CACornerMask {
+    private func selectCorners(_ cornes: [UIK.Corner]) -> CACornerMask {
         var selection: CACornerMask = []
         cornes.forEach { corner in
             switch corner {

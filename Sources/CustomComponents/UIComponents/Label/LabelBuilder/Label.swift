@@ -28,7 +28,7 @@ public protocol Label: AnyObject {
     func setColor(named: String?) -> Self
 
     @discardableResult
-    func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
+    func setTextAlignment(_ textAlignment: UIK.Text.Alignment?) -> Self
     
     @discardableResult
     func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self
@@ -40,7 +40,7 @@ public protocol Label: AnyObject {
     func setSize(_ fontSize: CGFloat? ) -> Self
     
     @discardableResult
-    func setWeight(_ weight: K.Weight? ) -> Self
+    func setWeight(_ weight: UIK.Weight? ) -> Self
     
     @discardableResult
     func setAdjustsFontSizeToFitWidth(_ minimumScaleFactor: CGFloat ) -> Self

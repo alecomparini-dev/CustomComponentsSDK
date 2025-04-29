@@ -32,7 +32,7 @@ public class LoadingBuilder: BaseBuilder , Loading {
     }
     
     @discardableResult
-    public func setStyle(_ style: K.ActivityIndicator.Style) -> Self {
+    public func setStyle(_ style: UIK.ActivityIndicator.Style) -> Self {
         loading.style = UIActivityIndicatorView.Style(rawValue: style.rawValue) ?? .medium
         return self
     }

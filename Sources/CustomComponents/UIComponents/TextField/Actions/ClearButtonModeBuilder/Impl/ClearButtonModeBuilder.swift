@@ -8,8 +8,8 @@ open class ClearButtonModeBuilder: ClearButtonMode {
     
     private var completion: (() -> Void)?
     private var size: CGSize = CGSize(width: 25, height: 25)
-    private var systemName: String = K.Images.xCircleFill
-    private var position: K.Position.Horizontal = .right
+    private var systemName: String = UIK.Images.xCircleFill
+    private var position: UIK.Position.Horizontal = .right
     
     
 //  MARK: - INITIALIAZERS
@@ -23,7 +23,7 @@ open class ClearButtonModeBuilder: ClearButtonMode {
     
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setPosition(_ position: K.Position.Horizontal) -> Self {
+    public func setPosition(_ position: UIK.Position.Horizontal) -> Self {
         self.position = position
         return self
     }

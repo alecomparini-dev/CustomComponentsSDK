@@ -64,7 +64,7 @@ public protocol List {
     func setAutoScrollPosition() -> Self
     
     @discardableResult
-    func setSeparatorStyle(_ separatorStyle: K.SeparatorStyle) -> Self 
+    func setSeparatorStyle(_ separatorStyle: UIK.SeparatorStyle) -> Self 
     
     @discardableResult
     func setPadding(top: CGFloat?, left: CGFloat?, bottom: CGFloat?, right: CGFloat?) -> Self
@@ -76,7 +76,7 @@ public protocol List {
     func setHeaderView(_ headerView: ViewBuilder) -> Self
     
     @discardableResult
-    func setShowsScroll(_ flag: Bool, _ showsScroll: K.ShowsScroll) -> Self
+    func setShowsScroll(_ flag: Bool, _ showsScroll: UIK.ShowsScroll) -> Self
     
     @discardableResult
     func setCalculateRowHeight(completion: @escaping (_ list: ListBuilder, _ section: Int, _ row: Int) -> CGFloat) -> Self

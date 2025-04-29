@@ -56,7 +56,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
 //  MARK: - SET PROPERTIES
 
     @discardableResult
-    public func setShape(_ shape: K.Neumorphism.Shape) -> Self {
+    public func setShape(_ shape: UIK.Neumorphism.Shape) -> Self {
         strokeModel.shape = shape
         return self
     }
@@ -81,7 +81,7 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     }
     
     @discardableResult
-    public func setLightPosition(_ position: K.Neumorphism.LightPosition) -> Self {
+    public func setLightPosition(_ position: UIK.Neumorphism.LightPosition) -> Self {
         strokeModel.lightPosition = position
         return self
     }

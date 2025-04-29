@@ -8,7 +8,7 @@ public protocol Skeleton {
     typealias completion = () -> Void
     
     @discardableResult
-    func setSpeedAnimation(_ speed: K.Skeleton.SpeedAnimation) -> Self
+    func setSpeedAnimation(_ speed: UIK.Skeleton.SpeedAnimation) -> Self
     
     @discardableResult
     func setColorSkeleton(hexColor: String?) -> Self

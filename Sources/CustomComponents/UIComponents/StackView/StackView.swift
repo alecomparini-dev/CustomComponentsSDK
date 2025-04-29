@@ -9,13 +9,13 @@ public protocol StackView {
     var get: T { get }
     
     @discardableResult
-    func setDistribution(_ distribution: K.StackView.Distribution) -> Self
+    func setDistribution(_ distribution: UIK.StackView.Distribution) -> Self
 
     @discardableResult
-    func setAxis(_ axis: K.Axis) -> Self
+    func setAxis(_ axis: UIK.Axis) -> Self
 
     @discardableResult
-    func setAlignment(_ alignment: K.StackView.Alignment) -> Self
+    func setAlignment(_ alignment: UIK.StackView.Alignment) -> Self
     
     @discardableResult
     func setSpacing(_ spacing: CGFloat) -> Self

@@ -130,13 +130,13 @@ open class ListBuilder: BaseBuilder, List {
     }
     
     @discardableResult
-    public func setSeparatorStyle(_ separatorStyle: K.SeparatorStyle) -> Self {
+    public func setSeparatorStyle(_ separatorStyle: UIK.SeparatorStyle) -> Self {
         list.separatorStyle = UITableViewCell.SeparatorStyle.init(rawValue: separatorStyle.rawValue) ?? .none
         return self
     }
     
     @discardableResult
-    public func setShowsScroll(_ flag: Bool, _ showsScroll: K.ShowsScroll) -> Self {
+    public func setShowsScroll(_ flag: Bool, _ showsScroll: UIK.ShowsScroll) -> Self {
         switch showsScroll {
             case .horizontal:
                 list.showsHorizontalScrollIndicator = flag

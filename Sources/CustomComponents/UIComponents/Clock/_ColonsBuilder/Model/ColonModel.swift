@@ -9,16 +9,16 @@ public struct ColonModel {
     public var isShadow: Bool
     public var shadowDistance: CGFloat
     public var shadowHexColor: String
-    public var lightPosition: K.Neumorphism.LightPosition
-    public var shape: K.Neumorphism.Shape
+    public var lightPosition: UIK.Neumorphism.LightPosition
+    public var shape: UIK.Neumorphism.Shape
     
     public init(radius: CGFloat = 5,
                 hexColor: String = "#00e0c6",
                 isShadow: Bool = true,
                 shadowDistance: CGFloat = 6,
                 shadowHexColor: String = "#282828",
-                lightPosition: K.Neumorphism.LightPosition = .leftTop,
-                shape: K.Neumorphism.Shape = .flat) {
+                lightPosition: UIK.Neumorphism.LightPosition = .leftTop,
+                shape: UIK.Neumorphism.Shape = .flat) {
         self.radius = radius
         self.hexColor = hexColor
         self.isShadow = isShadow

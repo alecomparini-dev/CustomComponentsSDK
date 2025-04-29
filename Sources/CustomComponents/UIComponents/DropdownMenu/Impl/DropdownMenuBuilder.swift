@@ -14,7 +14,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var isApplyOnce = false
     private var isVisible = false
     private var autoCloseEnabled = false
-    private var zPosition: CGFloat = K.Dropdown.zPosition
+    private var zPosition: CGFloat = UIK.Dropdown.zPosition
     
     private var excludeComponents = [BaseBuilder]()
     private var overlay: BlurBuilder?
@@ -71,7 +71,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
 //  MARK: - CONFIG LIST
     @discardableResult
-    public func setConfigList(style: K.List.Style = .grouped, _ build: (_ build: ListBuilder) -> ListBuilder) -> Self {
+    public func setConfigList(style: UIK.List.Style = .grouped, _ build: (_ build: ListBuilder) -> ListBuilder) -> Self {
         _dropdownMenuList = build(ListBuilder(style: UITableView.Style(rawValue: style.rawValue) ?? .grouped  ))
         return self
     }

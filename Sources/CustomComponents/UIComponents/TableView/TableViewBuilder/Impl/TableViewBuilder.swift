@@ -23,13 +23,13 @@ open class TableViewBuilder: BaseBuilder, TableView {
 //  MARK: - SET PROPERTIES
 
     @discardableResult
-    public func setSeparatorStyle(_ separatorStyle: K.SeparatorStyle) -> Self {
+    public func setSeparatorStyle(_ separatorStyle: UIK.SeparatorStyle) -> Self {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.init(rawValue: separatorStyle.rawValue) ?? .none
         return self
     }
     
     @discardableResult
-    public func setShowsScroll(_ flag: Bool, _ showsScroll: K.ShowsScroll) -> Self {
+    public func setShowsScroll(_ flag: Bool, _ showsScroll: UIK.ShowsScroll) -> Self {
         switch showsScroll {
             case .horizontal:
                 tableView.showsHorizontalScrollIndicator = flag

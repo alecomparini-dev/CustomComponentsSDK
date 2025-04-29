@@ -12,7 +12,7 @@ public protocol Loading {
     func setColor(hexColor: String?) -> Self
     
     @discardableResult
-    func setStyle(_ style: K.ActivityIndicator.Style) -> Self
+    func setStyle(_ style: UIK.ActivityIndicator.Style) -> Self
     
     @discardableResult
     func setHideWhenStopped(_ hide: Bool) -> Self

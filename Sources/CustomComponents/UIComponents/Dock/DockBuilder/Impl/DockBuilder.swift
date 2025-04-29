@@ -20,7 +20,7 @@ open class DockBuilder: BaseBuilder, Dock {
     private var alreadyApplied = false
     private var isShow = false
     private var customItemSize: [Int:CGSize] = [:]
-    private var cellSize = K.Dock.Default.cellSize
+    private var cellSize = UIK.Dock.Default.cellSize
     private var _id: String = ""
     
     
@@ -193,7 +193,7 @@ open class DockBuilder: BaseBuilder, Dock {
         _collection.reloadData()
     }
     
-    public func selectItem(_ index: Int, at: K.Dock.ScrollPosition = .centeredHorizontally) {
+    public func selectItem(_ index: Int, at: UIK.Dock.ScrollPosition = .centeredHorizontally) {
         if isDisableUserInteraction(index) { return }
         
         let indexPath = IndexPath(row: index, section: 0)
