@@ -23,4 +23,6 @@ public protocol HapticFeedback {
     func vibrateTwice(delayRepeat: Double)
     
     func vibrate(times: Int, delayRepeat: Double)
+    
+    func stopEngine()
 }
