@@ -18,9 +18,9 @@ public protocol HapticFeedback {
     @discardableResult
     func setHapticEventParameter(eventParameter: SystemK.Haptic.Event.Parameters, value: Float) -> Self
     
-    func vibrateOnce(delayStart: Double?)
+    func vibrateOnce()
     
-    func vibrateTwice(delayStart: Double?, delayRepeat: Double)
+    func vibrateTwice(delayRepeat: Double)
     
-    func vibrate(times: Int, delayStart: Double?, delayRepeat: Double)
+    func vibrate(times: Int, delayRepeat: Double)
 }
