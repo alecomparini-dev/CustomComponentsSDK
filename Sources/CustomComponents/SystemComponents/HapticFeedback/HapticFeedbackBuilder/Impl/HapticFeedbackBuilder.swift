@@ -60,9 +60,7 @@ open class HapticFeedbackBuilder: HapticFeedback {
 //  MARK: - PUBLIC AREA
     
     public func vibrateOnce() {
-        engine?.start { error in
-            self.playHaptic()
-        }
+        playHaptic()
     }
     
     public func vibrateTwice(delayRepeat: Double = 0.15) {
@@ -96,7 +94,10 @@ open class HapticFeedbackBuilder: HapticFeedback {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         do {
             engine = try CHHapticEngine()
-//            try engine?.start()
+            
+            restartEngineHandler()
+            
+            try engine?.start()
         } catch {
             debugPrint("Error initializing the haptics engine: \(error.localizedDescription)")
         }
@@ -118,10 +119,6 @@ open class HapticFeedbackBuilder: HapticFeedback {
             
             try player.start(atTime: CHHapticTimeImmediate)
             
-            engine.notifyWhenPlayersFinished { error in
-                .stopEngine
-            }
-            
         } catch {
             print("Erro ao tocar haptic: \(error.localizedDescription)")
             startEngineHandlers()
@@ -132,22 +129,23 @@ open class HapticFeedbackBuilder: HapticFeedback {
         DispatchQueue.main.async { [weak self ] in
             do {
                 try self?.engine?.start()
-                print("Motor háptico reiniciado após parada do sistema.")
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
                     self?.playHaptic()
                 })
             } catch {
-                print("Erro ao reiniciar o motor: \(error)")
+                debugPrint("Error restart the haptics engine: \(error)")
             }
         }
 
+    }
+    
+    private func restartEngineHandler() {
         engine?.resetHandler = {
-            print("Motor háptico resetado. Tentando reiniciar...")
             do {
                 try self.engine?.start()
             } catch {
-                print("Erro ao reiniciar após reset: \(error)")
+                debugPrint("Error restart the haptics engine after reset: \(error)")
             }
         }
     }
