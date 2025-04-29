@@ -59,30 +59,38 @@ open class HapticFeedbackBuilder: HapticFeedback {
     
 //  MARK: - PUBLIC AREA
     
-    public func vibrateOnce(delayStart: Double? = 0) {
-        playHaptic(delayStart)
+    public func vibrateOnce() {
+        startEngine()
+        playHaptic()
+        stopEngine()
     }
     
-    public func vibrateTwice(delayStart: Double? = 0, delayRepeat: Double = 0.15) {
-        playHaptic(delayStart)
+    public func vibrateTwice(delayRepeat: Double = 0.15) {
+        startEngine()
+        
+        playHaptic()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delayRepeat, execute: { [weak self] in
-            self?.playHaptic(delayStart)
+            self?.playHaptic()
+            
+            self?.stopEngine()
         })
     }
     
-    public func vibrate(times: Int, delayStart: Double? = 0, delayRepeat: Double = 0.15) {
-        if times < 1 { return }
+    public func vibrate(times: Int, delayRepeat: Double = 0.15) {
+        startEngine()
+        
+        if times < 1 { return stopEngine() }
         
         let remainingTimes = times - 1
         
-        playHaptic(delayStart)
+        playHaptic()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delayRepeat, execute: { [weak self] in
-            self?.vibrate(times: remainingTimes, delayStart: 0, delayRepeat: delayRepeat)
+            self?.vibrate(times: remainingTimes, delayRepeat: delayRepeat)
         })
     }
- 
+    
     
 //  MARK: - PRIVATE AREA
     
@@ -90,33 +98,43 @@ open class HapticFeedbackBuilder: HapticFeedback {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         do {
             engine = try CHHapticEngine()
-            try engine?.start()
         } catch {
             debugPrint("Error initializing the haptics engine: \(error.localizedDescription)")
         }
     }
     
-    private func playHaptic(_ delayStart: Double?) {
+    private func playHaptic() {
         guard let engine = engine else { return }
 
         let event = CHHapticEvent(
             eventType: .hapticTransient,
             parameters: Array(eventParameters),
-            relativeTime: delayStart ?? 0
+            relativeTime: 0
         )
 
         do {
+            let pattern = try CHHapticPattern(events: [event], parameters: [])
             
-            try engine.start()
+            let player = try engine.makePlayer(with: pattern)
             
-//            let pattern = try CHHapticPattern(events: [event], parameters: [])
-//            
-//            let player = try engine.makePlayer(with: pattern)
-//            
-//            try player.start(atTime: 0)
+            try player.start(atTime: 0)
         } catch {
             print("Erro ao tocar haptic: \(error.localizedDescription)")
         }
     }
+    
+    private func startEngine() {
+        do {
+            try engine?.start()
+        } catch {
+            debugPrint("Error initializing the haptics engine: \(error.localizedDescription)")
+            return
+        }
+    }
+    
+    private func stopEngine() {
+        engine?.stop()
+    }
+
     
 }
