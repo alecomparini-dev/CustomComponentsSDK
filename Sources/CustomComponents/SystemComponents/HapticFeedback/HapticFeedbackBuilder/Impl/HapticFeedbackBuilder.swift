@@ -102,13 +102,18 @@ open class HapticFeedbackBuilder: HapticFeedback {
         let event = CHHapticEvent(
             eventType: .hapticTransient,
             parameters: Array(eventParameters),
-            relativeTime: 0
+            relativeTime: delayStart ?? 0
         )
 
         do {
-            let pattern = try CHHapticPattern(events: [event], parameters: [])
-            let player = try engine.makePlayer(with: pattern)
-            try player.start(atTime: delayStart ?? 0)
+            
+            try engine.start()
+            
+//            let pattern = try CHHapticPattern(events: [event], parameters: [])
+//            
+//            let player = try engine.makePlayer(with: pattern)
+//            
+//            try player.start(atTime: 0)
         } catch {
             print("Erro ao tocar haptic: \(error.localizedDescription)")
         }
