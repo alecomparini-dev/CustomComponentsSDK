@@ -90,7 +90,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setTitleAlignment(_ textAlignment: K.Text.ContentHorizontalAlignment?) -> Self {
+    public func setTitleAlignment(_ textAlignment: UIK.Text.ContentHorizontalAlignment?) -> Self {
         guard let textAlignment else {return self}
         button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment(rawValue: textAlignment.rawValue) ?? .center
         return self
@@ -103,7 +103,7 @@ open class ButtonBuilder: BaseBuilder, Button {
             setTitleFontFamily(fontFamily, fontSize)
             return self
         }
-        if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
+        if let font = UIFont(name: fontFamily, size: fontSize ?? UIK.Default.fontSize) {
             button.titleLabel?.font = font
         }
         return self
@@ -114,7 +114,7 @@ open class ButtonBuilder: BaseBuilder, Button {
         if let currentFont = button.titleLabel?.font {
             let descriptor = currentFont.fontDescriptor
             let descriptorWithTraits = descriptor.withSymbolicTraits([.traitBold, .traitItalic])!
-            button.titleLabel?.font = UIFont(descriptor: descriptorWithTraits, size: button.titleLabel?.font.pointSize ?? K.Default.fontSize)
+            button.titleLabel?.font = UIFont(descriptor: descriptorWithTraits, size: button.titleLabel?.font.pointSize ?? UIK.Default.fontSize)
         }
         return self
     }
@@ -133,7 +133,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     @discardableResult
-    public func setTitleWeight(_ weight: K.Weight?) -> Self {
+    public func setTitleWeight(_ weight: UIK.Weight?) -> Self {
         guard let weight else {return self}
         self.titleWeight = weight.toFontWeight()
         if #available(iOS 15.0, *) {
@@ -147,7 +147,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
 
     @discardableResult
-    public func setShowLoadingIndicator(_ styleIndicator: K.ActivityIndicator.Style = .medium) -> Self {
+    public func setShowLoadingIndicator(_ styleIndicator: UIK.ActivityIndicator.Style = .medium) -> Self {
         self.loading = LoadingBuilder()
             .setStyle(styleIndicator)
             .setColor(.darkGray)
@@ -182,7 +182,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     
     @discardableResult
     public func setFloatButton() -> Self {
-        self.button.layer.zPosition = K.Button.zPosition
+        self.button.layer.zPosition = UIK.Button.zPosition
         bringToFront()
         return self
     }
@@ -250,7 +250,7 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
 
     @available(iOS 15.0, *)
-    private func setTitleWeight(configuration weight: K.Weight?) {
+    private func setTitleWeight(configuration weight: UIK.Weight?) {
         let fontSize = self.button.titleLabel?.font.pointSize
         button.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { [weak self] attrTransformer in
             var attr = attrTransformer
@@ -264,7 +264,7 @@ open class ButtonBuilder: BaseBuilder, Button {
         button.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { attrTransformer in
             var attr = attrTransformer
             guard let fontFamily else {return attr}
-            if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
+            if let font = UIFont(name: fontFamily, size: fontSize ?? UIK.Default.fontSize) {
                 attr.font = font
             }
             return attr

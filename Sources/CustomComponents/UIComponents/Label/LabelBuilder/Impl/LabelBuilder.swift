@@ -35,7 +35,7 @@ open class LabelBuilder: BaseBuilder, Label {
         setColor(hexColor: hexColor)
     }
     
-    public convenience init(_ text: String?, _ hexColor: String, _ aligment: K.Text.Alignment) {
+    public convenience init(_ text: String?, _ hexColor: String, _ aligment: UIK.Text.Alignment) {
         self.init(text, hexColor)
         setTextAlignment(aligment)
     }
@@ -90,7 +90,7 @@ open class LabelBuilder: BaseBuilder, Label {
     }
     
     @discardableResult
-    public func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self {
+    public func setTextAlignment(_ textAlignment: UIK.Text.Alignment?) -> Self {
         guard let textAlignment else {return self}
         label.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .natural
         return self
@@ -99,7 +99,7 @@ open class LabelBuilder: BaseBuilder, Label {
     @discardableResult
     public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
         guard let fontFamily else {return self}
-        if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
+        if let font = UIFont(name: fontFamily, size: fontSize ?? UIK.Default.fontSize) {
             label.font = font
         }
         return self
@@ -123,7 +123,7 @@ open class LabelBuilder: BaseBuilder, Label {
     }
     
     @discardableResult
-    public func setWeight(_ weight: K.Weight?) -> Self {
+    public func setWeight(_ weight: UIK.Weight?) -> Self {
         guard let weight else {return self}
         label.font = UIFont.systemFont(ofSize: label.font.pointSize, weight: weight.toFontWeight() )
         return self
@@ -162,7 +162,7 @@ open class LabelBuilder: BaseBuilder, Label {
 
 
 //  MARK: - EXTENSION WEIGHT
-public extension K.Weight {
+public extension UIK.Weight {
     
     func toFontWeight() -> UIFont.Weight {
         switch self {

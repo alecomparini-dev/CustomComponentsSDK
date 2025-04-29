@@ -4,13 +4,13 @@
 import Foundation
 
 
-public struct K {
+public struct UIK {
     
     public struct Default {
         public static let backgroundColor: String = "#ffffff"
         public static let padding: CGFloat = 8
         public static let paddingWithImage: CGFloat = 8
-        public static let weight: K.Weight = .medium
+        public static let weight: UIK.Weight = .medium
         public static let fontSize: CGFloat = 14
         public static let imageSize: CGFloat = 14
     }
@@ -20,7 +20,7 @@ public struct K {
 
 //  MARK: - EXTENSION - Images
 
-extension K {
+extension UIK {
     public struct Images {
         public static let eye = "eye"
         public static let eyeSlash = "eye.slash"
@@ -34,7 +34,7 @@ extension K {
 
 //  MARK: - EXTENSION - Strings
 
-extension K {
+extension UIK {
     public struct Strings {
         public static let empty = ""
         public static let done = "Done"
@@ -46,7 +46,7 @@ extension K {
 
 //  MARK: - EXTENSION - Appearance
 
-extension K {
+extension UIK {
     public enum Appearance: Int {
         case `default` = 0
         case dark = 1
@@ -57,7 +57,7 @@ extension K {
 
 //  MARK: - EXTENSION - Axis
 
-extension K {
+extension UIK {
     public enum Axis: Int {
         case horizontal = 0
         case vertical = 1
@@ -67,7 +67,7 @@ extension K {
 
 //  MARK: - EXTENSION - Weight
 
-extension K {
+extension UIK {
     public enum Weight: Int {
         case bold = 0
         case semibold = 1
@@ -84,7 +84,7 @@ extension K {
 
 //  MARK: - EXTENSION - ContentMode
 
-extension K {
+extension UIK {
     public enum ContentMode: Int {
         case scaleToFill = 0
         case scaleAspectFit = 1
@@ -105,7 +105,7 @@ extension K {
 
 //  MARK: - EXTENSION - Position
 
-extension K {
+extension UIK {
     public enum Position {
         case top
         case bottom
@@ -128,7 +128,7 @@ extension K {
 
 //  MARK: - EXTENSION - Text
 
-extension K {
+extension UIK {
     public struct TextField {
         public enum ViewMode: Int{
             case never = 0
@@ -141,7 +141,7 @@ extension K {
         
 //  MARK: - EXTENSION - Text
 
-extension K {
+extension UIK {
     public struct Text {
         public enum Alignment: Int {
             case left = 0
@@ -179,7 +179,7 @@ extension K {
 
 //  MARK: - EXTENSION - Corner
 
-extension K {
+extension UIK {
     public enum Corner {
         case leftTop
         case rightTop
@@ -197,7 +197,7 @@ extension K {
 
 //  MARK: - EXTENSION - Shows Scroll
 
-extension K {
+extension UIK {
     public enum ShowsScroll {
         case horizontal
         case vertical
@@ -208,7 +208,7 @@ extension K {
 
 //  MARK: - EXTENSION - SeparatorStyle
 
-extension K {
+extension UIK {
     public enum SeparatorStyle: Int {
         case none = 0
         case singleLine = 1
@@ -217,7 +217,7 @@ extension K {
 
 
 //  MARK: - EXTENSION - Keyboard
-extension K {
+extension UIK {
     public struct Keyboard {
         public enum `Types`: Int {
             case `default` = 0
@@ -312,7 +312,7 @@ extension K {
 
 //  MARK: - EXTENSION - ActivityIndicator
 
-extension K {
+extension UIK {
     public struct ActivityIndicator {
         public enum Style: Int {
             case medium = 100
@@ -322,9 +322,9 @@ extension K {
 }
 
 
-//  MARK: - EXTENSION - UISheetPresentationController
+//  MARK: - EXTENSION - SheetPresentationController
 
-extension K {
+extension UIK {
     public struct SheetPresentationController {
         public enum Detent {
             case medium
@@ -336,7 +336,7 @@ extension K {
 
 //  MARK: - EXTENSION - Gradient
 
-extension K {
+extension UIK {
     
     public struct Gradient {
         
@@ -359,7 +359,8 @@ extension K {
 }
 
 //  MARK: - EXTENSION - Skeleton
-extension K {
+
+extension UIK {
     public struct Skeleton {
         public enum SpeedAnimation {
             case slow
@@ -370,9 +371,9 @@ extension K {
 }
 
 
+//  MARK: - EXTENSION - StackView
 
-//  MARK: - EXTENSION - Skeleton
-extension K {
+extension UIK {
     public struct StackView {
         public enum Distribution : Int {
             case fill = 0
@@ -395,8 +396,10 @@ extension K {
     }
 }
 
+
 //  MARK: - EXTENSION - Neumorphism
-extension K {
+
+extension UIK {
     public struct Neumorphism {
     
         public struct Strings {
@@ -442,7 +445,8 @@ extension K {
 }
 
 //  MARK: - EXTENSION - Button
-extension K {
+
+extension UIK {
     public struct Button {
         
         public static let zPosition: CGFloat = 1000
@@ -455,7 +459,7 @@ extension K {
 
 //  MARK: - EXTENSION - Dropdown
 
-extension K {
+extension UIK {
     public struct Dropdown {
         public static let zPosition: CGFloat = 1000
     }
@@ -464,7 +468,7 @@ extension K {
 
 //  MARK: - EXTENSION - Modal
 
-extension K {
+extension UIK {
     public struct Modal {
         public static let zPosition: CGFloat = 1100
     }
@@ -472,7 +476,8 @@ extension K {
 
 
 //  MARK: - EXTENSION - Dock
-extension K {
+
+extension UIK {
     public struct Dock {
         
         public struct Default {
@@ -492,7 +497,8 @@ extension K {
 }
 
 //  MARK: - EXTENSION - Map
-extension K {
+
+extension UIK {
     public struct Map {
         
         public enum UserTrackingMode: Int {
@@ -506,7 +512,8 @@ extension K {
 
 
 //  MARK: - EXTENSION - List
-extension K {
+
+extension UIK {
     public struct List {
         
         public enum Style : Int {

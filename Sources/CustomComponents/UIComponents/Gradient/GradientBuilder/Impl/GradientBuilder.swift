@@ -12,7 +12,7 @@ open class GradientBuilder: Gradient {
     
     private var isAxial = false
     private let gradient: CAGradientLayer
-    private let gradientID = K.Gradient.Identifiers.gradientID.rawValue
+    private let gradientID = UIK.Gradient.Identifiers.gradientID.rawValue
     
     private weak var component: UIView?
     
@@ -58,7 +58,7 @@ open class GradientBuilder: Gradient {
     }
     
     @discardableResult
-    public func setAxialGradient(_ direction: K.Gradient.Direction) -> Self {
+    public func setAxialGradient(_ direction: UIK.Gradient.Direction) -> Self {
         setGradientDirection(direction)
         setType(.axial)
         isAxial = true
@@ -132,7 +132,7 @@ open class GradientBuilder: Gradient {
     
     private func configure() {
         configInitial()
-        setGradientDirection(K.Gradient.Direction.leftToRight)
+        setGradientDirection(UIK.Gradient.Direction.leftToRight)
         setType(.axial)
         setID(gradientID)
     }
@@ -143,7 +143,7 @@ open class GradientBuilder: Gradient {
         gradient.backgroundColor = .none
     }
 
-    private func setGradientDirection(_ direction: K.Gradient.Direction) {
+    private func setGradientDirection(_ direction: UIK.Gradient.Direction) {
         switch direction {
             case .leftToRight:
                 setStartPoint(0.0, 0.5)

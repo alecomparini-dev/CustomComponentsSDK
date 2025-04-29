@@ -11,7 +11,7 @@ open class SkeletonBuilder: Skeleton {
     
     private var padding:(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = (top: 0, left: 0, bottom: 0 , right: 0)
     private var transitionDuration: CGFloat?
-    private var speed: K.Skeleton.SpeedAnimation?
+    private var speed: UIK.Skeleton.SpeedAnimation?
     private var color: UIColor?
     private var radius: CGFloat?
     private var widthComponent: CGFloat?
@@ -46,7 +46,7 @@ open class SkeletonBuilder: Skeleton {
     //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setSpeedAnimation(_ speed: K.Skeleton.SpeedAnimation) -> Self {
+    public func setSpeedAnimation(_ speed: UIK.Skeleton.SpeedAnimation) -> Self {
         self.speed = speed
         return self
     }

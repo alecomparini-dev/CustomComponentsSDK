@@ -19,7 +19,7 @@ public class ColonsStyleBuilder {
 //  MARK: - SET PROPERTIES
 
     @discardableResult
-    public func setShape(_ shape: K.Neumorphism.Shape) -> Self {
+    public func setShape(_ shape: UIK.Neumorphism.Shape) -> Self {
         colon.shape = shape
         return self
     }
@@ -50,7 +50,7 @@ public class ColonsStyleBuilder {
     }
     
     @discardableResult
-    public func setLightPosition(_ position: K.Neumorphism.LightPosition) -> Self {
+    public func setLightPosition(_ position: UIK.Neumorphism.LightPosition) -> Self {
         colon.lightPosition = position
         return self
     }

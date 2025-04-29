@@ -87,7 +87,7 @@ public protocol Dock: AnyObject {
     
     func reload()
         
-    func selectItem(_ index: Int, at: K.Dock.ScrollPosition)
+    func selectItem(_ index: Int, at: UIK.Dock.ScrollPosition)
     
     func deselect(_ index: Int)
     

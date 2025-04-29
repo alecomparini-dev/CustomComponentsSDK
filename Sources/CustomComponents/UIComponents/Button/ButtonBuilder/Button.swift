@@ -24,7 +24,7 @@ public protocol Button {
     func setTintColor(named color: String?) -> Self
     
     @discardableResult
-    func setTitleAlignment(_ textAlignment: K.Text.ContentHorizontalAlignment?) -> Self
+    func setTitleAlignment(_ textAlignment: UIK.Text.ContentHorizontalAlignment?) -> Self
     
     @discardableResult
     func setTitleSize(_ fontSize: CGFloat? ) -> Self
@@ -36,7 +36,7 @@ public protocol Button {
     func setItalicFont() -> Self
         
     @discardableResult
-    func setTitleWeight(_ weight: K.Weight? ) -> Self
+    func setTitleWeight(_ weight: UIK.Weight? ) -> Self
     
     @discardableResult
     func setFloatButton() -> Self 
@@ -54,7 +54,7 @@ public protocol Button {
     func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self
     
     @discardableResult
-    func setShowLoadingIndicator(_ styleIndicator: K.ActivityIndicator.Style) -> Self
+    func setShowLoadingIndicator(_ styleIndicator: UIK.ActivityIndicator.Style) -> Self
     
     @discardableResult
     func setHideLoadingIndicator() -> Self

@@ -35,7 +35,7 @@ open class TextViewBuilder: BaseBuilder, TextView {
     }
     
     @discardableResult
-    public func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self {
+    public func setTextAlignment(_ textAlignment: UIK.Text.Alignment?) -> Self {
         guard let textAlignment else {return self}
         textView.textAlignment = NSTextAlignment.init(rawValue: textAlignment.rawValue) ?? .left
         return self
@@ -58,7 +58,7 @@ open class TextViewBuilder: BaseBuilder, TextView {
     @discardableResult
     public func setFontFamily(_ fontFamily: String?, _ fontSize: CGFloat?) -> Self {
         guard let fontFamily else {return self}
-        if let font = UIFont(name: fontFamily, size: fontSize ?? K.Default.fontSize) {
+        if let font = UIFont(name: fontFamily, size: fontSize ?? UIK.Default.fontSize) {
             textView.font = font
         }
         return self
@@ -121,7 +121,7 @@ open class TextViewBuilder: BaseBuilder, TextView {
     
 //  MARK: - PRIVATE AREA
     private func configure() {
-        setBackgroundColor(hexColor: K.Default.backgroundColor)
+        setBackgroundColor(hexColor: UIK.Default.backgroundColor)
         setLineSpacing(5)
         setPadding(top: 12)
     }

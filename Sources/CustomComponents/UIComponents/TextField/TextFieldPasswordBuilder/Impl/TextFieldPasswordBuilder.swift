@@ -11,7 +11,7 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder, TextFieldPassword {
     
 //  MARK: - INITIALIZERS
 
-    public init(paddingRightImage: CGFloat = K.Default.paddingWithImage) {
+    public init(paddingRightImage: CGFloat = UIK.Default.paddingWithImage) {
         self.paddingRightImage = paddingRightImage
         super.init("")
         configure()
@@ -46,7 +46,7 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder, TextFieldPassword {
     private func configure() {
         self
             .setIsSecureText(true)
-            .setImage(ImageViewBuilder(systemName: K.Images.eyeSlash), .right, paddingRightImage)
+            .setImage(ImageViewBuilder(systemName: UIK.Images.eyeSlash), .right, paddingRightImage)
             .setPlaceHolderColor(UIColor.systemGray)
             .setTextColor(.black)
             .setTintColor(.black)
@@ -68,12 +68,12 @@ open class TextFieldPasswordBuilder: TextFieldImageBuilder, TextFieldPassword {
     }
     
     private func openEye() {
-        setImage(ImageViewBuilder(systemName: K.Images.eye), .right, paddingRightImage)
+        setImage(ImageViewBuilder(systemName: UIK.Images.eye), .right, paddingRightImage)
         setIsSecureText(false)
     }
     
     private func closeEye() {
-        setImage(ImageViewBuilder(systemName: K.Images.eyeSlash), .right, paddingRightImage)
+        setImage(ImageViewBuilder(systemName: UIK.Images.eyeSlash), .right, paddingRightImage)
         setIsSecureText(true)
     }
     

@@ -12,7 +12,7 @@ public protocol TextView {
     func setInsertText(_ text: String?) -> Self
     
     @discardableResult
-    func setTextAlignment(_ textAlignment: K.Text.Alignment?) -> Self
+    func setTextAlignment(_ textAlignment: UIK.Text.Alignment?) -> Self
     
     @discardableResult
     func setTextColor(hexColor color: String?) -> Self

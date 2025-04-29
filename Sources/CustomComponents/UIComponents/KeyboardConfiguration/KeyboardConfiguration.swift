@@ -10,7 +10,7 @@ public protocol KeyboardConfiguration {
     typealias CompletionKeyboardAlias = (_ textField: TextFieldBuilder) -> Void
     
     @discardableResult
-    func setKeyboardType(_ keyboardType: K.Keyboard.Types) -> Self
+    func setKeyboardType(_ keyboardType: UIK.Keyboard.Types) -> Self
     
     @discardableResult
     func setDoneButton(title: String, _ completion: @escaping CompletionKeyboardAlias) -> Self
@@ -22,13 +22,13 @@ public protocol KeyboardConfiguration {
     func setNavigationButtonTextField(_ callBackListTextFields: @escaping CallBackListTextFieldsAlias ) -> Self
 
     @discardableResult
-    func setKeyboardAppearance(_ appearance: K.Appearance) -> Self
+    func setKeyboardAppearance(_ appearance: UIK.Appearance) -> Self
     
     @discardableResult
     func setHideKeyboard(_ hide: Bool) -> Self
     
     @discardableResult
-    func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias?) -> Self
+    func setReturnKeyType(_ returnKey: UIK.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias?) -> Self
     
     @discardableResult
     func setTintColor(hexColor: String?) -> Self

@@ -13,10 +13,10 @@ public protocol TableView {
     func reload()
     
     @discardableResult
-    func setSeparatorStyle( _ separatorStyle: K.SeparatorStyle) -> Self
+    func setSeparatorStyle( _ separatorStyle: UIK.SeparatorStyle) -> Self
     
     @discardableResult
-    func setShowsScroll(_ flag: Bool, _ showsScroll: K.ShowsScroll) -> Self 
+    func setShowsScroll(_ flag: Bool, _ showsScroll: UIK.ShowsScroll) -> Self 
     
     @discardableResult
     func setScrollEnabled(_ flag: Bool) -> Self

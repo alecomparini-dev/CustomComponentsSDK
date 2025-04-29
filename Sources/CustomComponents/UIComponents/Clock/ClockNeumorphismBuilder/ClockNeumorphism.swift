@@ -24,9 +24,9 @@ public protocol ClockNeumorphism {
     
     func setShadowDistance(_ distance: CGFloat) -> Self
     
-    func setLightPosition(_ position: K.Neumorphism.LightPosition) -> Self
+    func setLightPosition(_ position: UIK.Neumorphism.LightPosition) -> Self
     
-    func setShape(_ shape: K.Neumorphism.Shape) -> Self
+    func setShape(_ shape: UIK.Neumorphism.Shape) -> Self
     
     func setColonsStyle(_ build: (_ build: ColonsStyleBuilder) -> ColonsStyleBuilder) -> Self
 

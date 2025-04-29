@@ -6,7 +6,7 @@ import Foundation
 @MainActor
 public protocol BottomSheet {
     
-    func setDetents(_ detents: [K.SheetPresentationController.Detent]) -> Self
+    func setDetents(_ detents: [UIK.SheetPresentationController.Detent]) -> Self
     
     func setScrollingExpandsWhenScrolledToEdge(_ flag: Bool) -> Self
     
@@ -14,7 +14,7 @@ public protocol BottomSheet {
     
     func setCornerRadius(_ radius: CGFloat) -> Self
     
-    func setLargestUndimmedDetentIdentifier(_ detent: K.SheetPresentationController.Detent?) -> Self
+    func setLargestUndimmedDetentIdentifier(_ detent: UIK.SheetPresentationController.Detent?) -> Self
     
 }
 

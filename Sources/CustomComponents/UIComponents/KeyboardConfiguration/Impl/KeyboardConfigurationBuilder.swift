@@ -27,7 +27,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
 //  MARK: - SET PROPERTIES
     @discardableResult
-    public func setKeyboardType(_ keyboardType: K.Keyboard.Types) -> Self {
+    public func setKeyboardType(_ keyboardType: UIK.Keyboard.Types) -> Self {
         textFieldBuilder?.get.keyboardType = UIKeyboardType.init(rawValue: keyboardType.rawValue ) ?? .default
         if completionDoneKeyboard == nil {
             addAutomaticButtonOk()
@@ -36,7 +36,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setDoneButton(title: String = K.Strings.done ,_ completion: @escaping CompletionKeyboardAlias) -> Self {
+    public func setDoneButton(title: String = UIK.Strings.done ,_ completion: @escaping CompletionKeyboardAlias) -> Self {
         completionDoneKeyboard = completion
         if isDoneButtonAlreadyIncluded {
             barButtonDone?.title = title
@@ -67,7 +67,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setKeyboardAppearance(_ appearance: K.Appearance) -> Self {
+    public func setKeyboardAppearance(_ appearance: UIK.Appearance) -> Self {
         textFieldBuilder?.get.keyboardAppearance = UIKeyboardAppearance.init(rawValue: appearance.rawValue) ?? .default
         return self
     }
@@ -83,7 +83,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     }
     
     @discardableResult
-    public func setReturnKeyType(_ returnKey: K.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias? = nil) -> Self {
+    public func setReturnKeyType(_ returnKey: UIK.Keyboard.ReturnKeyType, _ completion: CompletionKeyboardAlias? = nil) -> Self {
         if let completion {
             completionReturnType = completion
         }
@@ -116,19 +116,19 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     private func createEraseImage() -> UIImage {
         let img = ImageViewBuilder()
-            .setImage(systemName: K.Images.eraser)
+            .setImage(systemName: UIK.Images.eraser)
         return img.get.image ?? UIImage()
     }
     
     private func createClearButtonItem() -> UIBarButtonItem {
-        let img = createEraseImage().applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: K.Default.imageSize))
+        let img = createEraseImage().applyingSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: UIK.Default.imageSize))
         return UIBarButtonItem(image: img, style: .plain, target: self, action: #selector(clearButtonTapped))
     }
     
     private func addNavigationsButtons() {
-        let imgPrevious = UIImage(systemName: K.Images.chevronBackward)
+        let imgPrevious = UIImage(systemName: UIK.Images.chevronBackward)
         let previous = UIBarButtonItem(image: imgPrevious, style: .plain, target: self, action: #selector(navigationPreviousButtonTapped))
-        let imgNext = UIImage(systemName: K.Images.chevronForward)
+        let imgNext = UIImage(systemName: UIK.Images.chevronForward)
         let next = UIBarButtonItem(image: imgNext, style: .plain, target: self, action: #selector(navigationNextButtonTapped))
         addButtonItemToToolbar(previous)
         addButtonItemToToolbar(createFixedSpace(10))

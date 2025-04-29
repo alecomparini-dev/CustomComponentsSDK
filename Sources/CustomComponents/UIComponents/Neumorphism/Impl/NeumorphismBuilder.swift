@@ -8,14 +8,14 @@ open class NeumorphismBuilder: Neumorphism {
     
     private var applyOnce = false
     
-    private let darkShadowID: String = K.Neumorphism.Identifiers.darkShadowID.rawValue
-    private let lightShadowID: String = K.Neumorphism.Identifiers.lightShadowID.rawValue
-    private let shapeID: String = K.Neumorphism.Identifiers.shapeID.rawValue
+    private let darkShadowID: String = UIK.Neumorphism.Identifiers.darkShadowID.rawValue
+    private let lightShadowID: String = UIK.Neumorphism.Identifiers.lightShadowID.rawValue
+    private let shapeID: String = UIK.Neumorphism.Identifiers.shapeID.rawValue
     
-    private let lightShadowColorPercentage: CGFloat = K.Neumorphism.Percentage.lightShadowColor.rawValue
-    private let darkShadowColorPercentage: CGFloat = K.Neumorphism.Percentage.darkShadowColor.rawValue
-    private let lightShapeColorByColorReferencePercentage: CGFloat = K.Neumorphism.Percentage.lightShapeColorByColorReference.rawValue
-    private let darkShapeColorByColorReferencePercentage: CGFloat = K.Neumorphism.Percentage.darkShapeColorByColorReference.rawValue
+    private let lightShadowColorPercentage: CGFloat = UIK.Neumorphism.Percentage.lightShadowColor.rawValue
+    private let darkShadowColorPercentage: CGFloat = UIK.Neumorphism.Percentage.darkShadowColor.rawValue
+    private let lightShapeColorByColorReferencePercentage: CGFloat = UIK.Neumorphism.Percentage.lightShapeColorByColorReference.rawValue
+    private let darkShapeColorByColorReferencePercentage: CGFloat = UIK.Neumorphism.Percentage.darkShapeColorByColorReference.rawValue
     
     private var referenceColor: UIColor?
     private var lightShadowColor: UIColor?
@@ -26,8 +26,8 @@ open class NeumorphismBuilder: Neumorphism {
     private var darkShadowBlur: CGFloat = .zero
     private var lightShadowIntensity: Float = .zero
     private var darkShadowIntensity: Float = .zero
-    private var shape: K.Neumorphism.Shape = .flat
-    private var lightPosition: K.Neumorphism.LightPosition = .leftTop
+    private var shape: UIK.Neumorphism.Shape = .flat
+    private var lightPosition: UIK.Neumorphism.LightPosition = .leftTop
     
     private weak var component: UIView?
     
@@ -56,7 +56,7 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     @discardableResult
-    public func setShadowColor(to shadow: K.Neumorphism.Shadow, color: UIColor) -> Self {
+    public func setShadowColor(to shadow: UIK.Neumorphism.Shadow, color: UIColor) -> Self {
         switch shadow {
             case .light:
                 lightShadowColor = color
@@ -67,7 +67,7 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     @discardableResult
-    public func setShadowColor(to shadow: K.Neumorphism.Shadow, hexColor: String) -> Self {
+    public func setShadowColor(to shadow: UIK.Neumorphism.Shadow, hexColor: String) -> Self {
         guard hexColor.isHexColor() else {return self}
         setShadowColor(to: shadow, color: UIColor.HEX(hexColor))
         return self
@@ -89,7 +89,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     @discardableResult
     public func setDistance(percent distance: CGFloat) -> Self {
-        if !validatePercent(K.Neumorphism.Strings.distance, distance, 10) { return self}
+        if !validatePercent(UIK.Neumorphism.Strings.distance, distance, 10) { return self}
         let distance = calculateRatioPercent(50, distance)
         lightShadowDistance = distance
         darkShadowDistance = distance
@@ -97,8 +97,8 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     @discardableResult
-    public func setDistance(to: K.Neumorphism.Shadow, percent distance: CGFloat) -> Self {
-        if !validatePercent(K.Neumorphism.Strings.distance, distance, 10) { return self }
+    public func setDistance(to: UIK.Neumorphism.Shadow, percent distance: CGFloat) -> Self {
+        if !validatePercent(UIK.Neumorphism.Strings.distance, distance, 10) { return self }
         let percentDistance = calculateRatioPercent(50, distance)
         switch to {
             case .light:
@@ -111,7 +111,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     @discardableResult
     public func setBlur(percent blur: CGFloat) -> Self {
-        if !validatePercent(K.Neumorphism.Strings.blur, blur, 10) { return self}
+        if !validatePercent(UIK.Neumorphism.Strings.blur, blur, 10) { return self}
         let percentBlur = calculateRatioPercent(50, blur)
         lightShadowBlur = percentBlur
         darkShadowBlur = percentBlur
@@ -119,8 +119,8 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     @discardableResult
-    public func setBlur(to: K.Neumorphism.Shadow, percent blur: CGFloat) -> Self {
-        if !validatePercent(K.Neumorphism.Strings.blur, blur, 10) { return self }
+    public func setBlur(to: UIK.Neumorphism.Shadow, percent blur: CGFloat) -> Self {
+        if !validatePercent(UIK.Neumorphism.Strings.blur, blur, 10) { return self }
         let percentBlur = calculateRatioPercent(50, blur)
         switch to {
             case .light:
@@ -133,7 +133,7 @@ open class NeumorphismBuilder: Neumorphism {
     
     @discardableResult
     public func setIntensity(percent intensity: CGFloat) -> Self {
-        if !validatePercent(K.Neumorphism.Strings.intensity, intensity, 100) { return self }
+        if !validatePercent(UIK.Neumorphism.Strings.intensity, intensity, 100) { return self }
         let percentIntensity =  Float(calculateRatioPercent(100, intensity)) / 100
         darkShadowIntensity = percentIntensity
         lightShadowIntensity = percentIntensity
@@ -141,8 +141,8 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     @discardableResult
-    public func setIntensity(to: K.Neumorphism.Shadow, percent intensity: CGFloat) -> Self {
-        if !validatePercent(K.Neumorphism.Strings.intensity, intensity, 100) { return self }
+    public func setIntensity(to: UIK.Neumorphism.Shadow, percent intensity: CGFloat) -> Self {
+        if !validatePercent(UIK.Neumorphism.Strings.intensity, intensity, 100) { return self }
         let percentIntensity = Float(calculateRatioPercent(100, intensity)) / 100
         switch to {
             case .light:
@@ -154,13 +154,13 @@ open class NeumorphismBuilder: Neumorphism {
     }
     
     @discardableResult
-    public func setShape(_ shape: K.Neumorphism.Shape) -> Self {
+    public func setShape(_ shape: UIK.Neumorphism.Shape) -> Self {
         self.shape = shape
         return self
     }
     
     @discardableResult
-    public func setLightPosition(_ lightPosition: K.Neumorphism.LightPosition) -> Self {
+    public func setLightPosition(_ lightPosition: UIK.Neumorphism.LightPosition) -> Self {
         self.lightPosition = lightPosition
         return self
     }
@@ -324,7 +324,7 @@ open class NeumorphismBuilder: Neumorphism {
             .apply()        
     }
     
-    private func calculateGradientDirection() -> K.Gradient.Direction {
+    private func calculateGradientDirection() -> UIK.Gradient.Direction {
         switch lightPosition {
             case .leftTop:
                 return .leftTopToRightBottom

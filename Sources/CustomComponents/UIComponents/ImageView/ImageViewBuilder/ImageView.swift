@@ -14,7 +14,7 @@ public protocol ImageView {
     
     func setImage(named: String) -> Self
     
-    func setContentMode(_ contentMode: K.ContentMode) -> Self
+    func setContentMode(_ contentMode: UIK.ContentMode) -> Self
     
     func setTintColor(hexColor color: String?) -> Self
     
@@ -22,6 +22,6 @@ public protocol ImageView {
     
     func setSize(_ size: CGFloat) -> Self
     
-    func setWeight(_ weight: K.Weight) -> Self
+    func setWeight(_ weight: UIK.Weight) -> Self
     
 }

@@ -109,7 +109,7 @@ public class MapBuilder: BaseBuilder, Map {
     }
     
     @discardableResult
-    public func setUserTrackingMode(_ mode: K.Map.UserTrackingMode) -> Self {
+    public func setUserTrackingMode(_ mode: UIK.Map.UserTrackingMode) -> Self {
         mapView.setUserTrackingMode(MKUserTrackingMode(rawValue: mode.rawValue) ?? .none, animated: true)
         return self
     }

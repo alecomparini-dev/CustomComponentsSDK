@@ -9,7 +9,7 @@ public protocol Neumorphism {
     func setReferenceColor(hexColor: String?) -> Self
 
     @discardableResult
-    func setShadowColor(to shadow: K.Neumorphism.Shadow, hexColor: String) -> Self
+    func setShadowColor(to shadow: UIK.Neumorphism.Shadow, hexColor: String) -> Self
 
     @discardableResult
     func setShadowColor(hexColor: String?) -> Self
@@ -18,25 +18,25 @@ public protocol Neumorphism {
     func setDistance(percent distance: CGFloat) -> Self
 
     @discardableResult
-    func setDistance(to: K.Neumorphism.Shadow, percent distance: CGFloat) -> Self
+    func setDistance(to: UIK.Neumorphism.Shadow, percent distance: CGFloat) -> Self
 
     @discardableResult
     func setBlur(percent blur: CGFloat) -> Self
     
     @discardableResult
-    func setBlur(to: K.Neumorphism.Shadow, percent blur: CGFloat) -> Self
+    func setBlur(to: UIK.Neumorphism.Shadow, percent blur: CGFloat) -> Self
     
     @discardableResult
     func setIntensity(percent intensity: CGFloat) -> Self
 
     @discardableResult
-    func setIntensity(to: K.Neumorphism.Shadow, percent intensity: CGFloat) -> Self
+    func setIntensity(to: UIK.Neumorphism.Shadow, percent intensity: CGFloat) -> Self
     
     @discardableResult
-    func setShape(_ shape: K.Neumorphism.Shape) -> Self
+    func setShape(_ shape: UIK.Neumorphism.Shape) -> Self
 
     @discardableResult
-    func setLightPosition(_ lightPosition: K.Neumorphism.LightPosition) -> Self
+    func setLightPosition(_ lightPosition: UIK.Neumorphism.LightPosition) -> Self
     
 //  MARK: - APPLY Neumorphis
     func apply() -> Self

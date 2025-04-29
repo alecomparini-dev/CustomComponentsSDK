@@ -130,13 +130,13 @@ public extension UIView {
 //  MARK: - NEUMORPHISM
     
     func removeNeumorphism() {
-        self.removeShadowByID(K.Neumorphism.Identifiers.darkShadowID.rawValue)
-        self.removeShadowByID(K.Neumorphism.Identifiers.lightShadowID.rawValue)
-        self.removeGradientByID(K.Neumorphism.Identifiers.shapeID.rawValue)
+        self.removeShadowByID(UIK.Neumorphism.Identifiers.darkShadowID.rawValue)
+        self.removeShadowByID(UIK.Neumorphism.Identifiers.lightShadowID.rawValue)
+        self.removeGradientByID(UIK.Neumorphism.Identifiers.shapeID.rawValue)
     }
     
     func hasNeumorphism() -> Bool {
-        return self.layer.sublayers?.first(where: { $0.name == K.Neumorphism.Identifiers.darkShadowID.rawValue }) != nil
+        return self.layer.sublayers?.first(where: { $0.name == UIK.Neumorphism.Identifiers.darkShadowID.rawValue }) != nil
     }
 
     
