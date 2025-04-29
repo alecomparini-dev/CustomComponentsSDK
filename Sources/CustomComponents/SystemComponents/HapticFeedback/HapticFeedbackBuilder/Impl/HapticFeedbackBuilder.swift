@@ -60,7 +60,9 @@ open class HapticFeedbackBuilder: HapticFeedback {
 //  MARK: - PUBLIC AREA
     
     public func vibrateOnce() {
-        playHaptic()
+        engine?.start { error in
+            self.playHaptic()
+        }
     }
     
     public func vibrateTwice(delayRepeat: Double = 0.15) {
@@ -94,8 +96,7 @@ open class HapticFeedbackBuilder: HapticFeedback {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         do {
             engine = try CHHapticEngine()
-            
-            try engine?.start()
+//            try engine?.start()
         } catch {
             debugPrint("Error initializing the haptics engine: \(error.localizedDescription)")
         }
@@ -116,6 +117,10 @@ open class HapticFeedbackBuilder: HapticFeedback {
             let player = try engine.makePlayer(with: pattern)
             
             try player.start(atTime: CHHapticTimeImmediate)
+            
+            engine.notifyWhenPlayersFinished { error in
+                .stopEngine
+            }
             
         } catch {
             print("Erro ao tocar haptic: \(error.localizedDescription)")
