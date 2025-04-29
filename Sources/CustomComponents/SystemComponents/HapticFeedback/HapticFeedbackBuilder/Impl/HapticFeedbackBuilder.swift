@@ -114,9 +114,8 @@ open class HapticFeedbackBuilder: HapticFeedback {
             
             let player = try engine.makePlayer(with: pattern)
             
-            DispatchQueue.main.async {
-                try? player.start(atTime: CHHapticTimeImmediate)
-            }
+            try player.start(atTime: CHHapticTimeImmediate)
+            
         } catch {
             print("Erro ao tocar haptic: \(error.localizedDescription)")
             startEngineHandlers()
@@ -124,10 +123,14 @@ open class HapticFeedbackBuilder: HapticFeedback {
     }
     
     private func startEngineHandlers() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self ] in
             do {
-                try self.engine?.start()
+                try self?.engine?.start()
                 print("Motor háptico reiniciado após parada do sistema.")
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+                    self?.playHaptic()
+                })
             } catch {
                 print("Erro ao reiniciar o motor: \(error)")
             }
