@@ -94,7 +94,7 @@ open class HapticFeedbackBuilder: HapticFeedback {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         do {
             engine = try CHHapticEngine()
-            
+            setupEngineHandlers()
             try engine?.start()
         } catch {
             debugPrint("Error initializing the haptics engine: \(error.localizedDescription)")
@@ -115,11 +115,39 @@ open class HapticFeedbackBuilder: HapticFeedback {
             
             let player = try engine.makePlayer(with: pattern)
             
-            try player.start(atTime: 0)
+            DispatchQueue.main.async {
+                try? player.start(atTime: CHHapticTimeImmediate)
+            }
         } catch {
             print("Erro ao tocar haptic: \(error.localizedDescription)")
         }
     }
     
-    
+    private func setupEngineHandlers() {
+        
+        engine?.stoppedHandler = { reason in
+            print("Motor háptico parado: \(reason.rawValue)")
+            // Tenta reiniciar o motor, se necessário
+            if reason == .applicationSuspended {
+                DispatchQueue.main.async {
+                    do {
+                        try self.engine?.start()
+                        print("Motor háptico reiniciado após parada do sistema.")
+                    } catch {
+                        print("Erro ao reiniciar o motor: \(error)")
+                    }
+                }
+            }
+        }
+        
+        // Configura o manipulador de reset (caso o motor precise ser recriado)
+        engine?.resetHandler = {
+            print("Motor háptico resetado. Tentando reiniciar...")
+            do {
+                try self.engine?.start()
+            } catch {
+                print("Erro ao reiniciar após reset: \(error)")
+            }
+        }
+    }
 }
