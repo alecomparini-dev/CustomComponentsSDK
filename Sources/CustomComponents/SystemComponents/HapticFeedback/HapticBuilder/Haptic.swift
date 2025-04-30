@@ -4,7 +4,7 @@
 import Foundation
 
 
-public protocol HapticFeedback {
+public protocol Haptic {
     
     @discardableResult
     func setHapticMode(mode: HapticMode) -> Self
