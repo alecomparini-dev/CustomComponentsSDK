@@ -4,7 +4,7 @@
 import Foundation
 import CoreHaptics
 
-open class HapticFeedbackBuilder: HapticFeedback {
+open class HapticBuilder: Haptic {
     private var eventParameters = Set<CHHapticEventParameter>()
     private var engine: CHHapticEngine?
     
