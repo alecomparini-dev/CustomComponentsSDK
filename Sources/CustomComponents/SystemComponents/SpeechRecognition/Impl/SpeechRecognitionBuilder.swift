@@ -119,7 +119,7 @@ final class SpeechRecognitionBuilder: SpeechRecognition {
                 
                 let textFiltered = transpcriptFilterApply(text)
                 
-                delegate?.output(speechText: text)
+                delegate?.output(speechText: textFiltered)
             }
             
             if error != nil || (result?.isFinal ?? false) {
