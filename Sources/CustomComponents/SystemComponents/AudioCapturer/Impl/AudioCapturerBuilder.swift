@@ -77,4 +77,22 @@ final class AudioCapturerBuilder: AudioCapturer {
             self?.delegate?.outputAudioCapture(buffer: buffer)
         }
     }
+    
+    private func checkAndRequestPermission(completion: @escaping (Bool) -> Void) {
+        let permission = AVAudioSession.sharedInstance().recordPermission
+        
+        switch permission {
+            case .granted:
+                completion(true)
+                
+            case .denied, .undetermined:
+                AVAudioSession.sharedInstance().requestRecordPermission { granted in
+                    print("Microphone access (< iOS 17): \(granted)")
+                    completion(granted)
+                }
+            @unknown default:
+                completion(false)
+        }
+    }
+    
 }
