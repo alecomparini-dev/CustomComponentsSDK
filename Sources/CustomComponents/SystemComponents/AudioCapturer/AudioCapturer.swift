@@ -9,11 +9,10 @@ public protocol AudioCapturer {
     
     func setAudioSessionCategory(_ category: AVAudioSession.Category,
                                  mode: AVAudioSession.Mode,
-                                 options: AVAudioSession.CategoryOptions) throws
+                                 options: AVAudioSession.CategoryOptions)
     
-    func setAudioSessionActivate(_: Bool,
-                                 options: AVAudioSession.SetActiveOptions) throws
-        
+    func setActiveOptions(activeOptions: AVAudioSession.SetActiveOptions)
+
     func startAudioCapture() throws
     
     func stopAudioCapture()
