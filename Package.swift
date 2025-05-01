@@ -6,7 +6,7 @@ let package = Package(
     name: "CustomComponentsSDK",
     
     platforms: [
-        .iOS(.v14),
+        .iOS(.v16),
         .macOS(.v10_15)
     ],
     
