@@ -69,7 +69,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     public func stopRecognition() {
         resetRecognitionTask()
-        request.endAudio()
+        resetRequest()
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
@@ -106,10 +106,14 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     private func resetRecognitionTask() {
         recognitionTask?.cancel()
-        
         recognitionTask = nil
     }
     
+    private func resetRequest() {
+        request.endAudio()
+        recognizer = nil
+    }
+
     private func configRecognitionTask() {
         recognitionTask = recognizer?.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }

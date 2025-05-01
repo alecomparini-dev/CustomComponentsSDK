@@ -6,32 +6,40 @@ import AVFoundation
 final public class AudioCapturerBuilder: AudioCapturer {
     weak public var delegate: AudioCapturerDelegate?
     
+    private var category: AVAudioSession.Category = .record
+    private var mode: AVAudioSession.Mode = .measurement
+    private var options: AVAudioSession.CategoryOptions = [.duckOthers]
+    private var activeOptions: AVAudioSession.SetActiveOptions = [.notifyOthersOnDeactivation]
+    
     private let audioEngine = AVAudioEngine()
     private let audioSession = AVAudioSession.sharedInstance()
     
-    public init() {
-        configure()
-    }
+    public init() {}
     
     
 //  MARK: - SET PROPERTIES
         
     public func setAudioSessionCategory(_ category: AVAudioSession.Category = .record,
                                  mode: AVAudioSession.Mode = .measurement,
-                                 options: AVAudioSession.CategoryOptions = [.duckOthers]) throws {
-        try audioSession.setCategory(category, mode: mode, options: options)
+                                 options: AVAudioSession.CategoryOptions = [.duckOthers]) {
+        self.category = category
+        self.mode = mode
+        self.options = options
     }
     
     
-    public func setAudioSessionActivate(_ activate: Bool,
-                                 options: AVAudioSession.SetActiveOptions = .notifyOthersOnDeactivation) throws {
-        try audioSession.setActive(activate, options: options)
+    public func setActiveOptions(activeOptions: AVAudioSession.SetActiveOptions = .notifyOthersOnDeactivation) {
+        self.activeOptions = activeOptions
     }
     
     
 //  MARK: - PUBLIC AREA
     
     public func startAudioCapture() throws {
+        try configCategory()
+        
+        try activeAudioSession(true)
+        
         installTap()
         
         audioEngine.prepare()
@@ -45,7 +53,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         audioEngine.inputNode.removeTap(onBus: 0)
         
         do {
-            try setAudioSessionActivate(false)
+            try activeAudioSession(false)
         } catch let error {
             debugPrint("Error disabling audio session: \(error.localizedDescription)")
         }
@@ -54,18 +62,12 @@ final public class AudioCapturerBuilder: AudioCapturer {
     
 //  MARK: - PRIVATE AREA
     
-    private func configure() {
-        defaultConfiguration()
+    private func configCategory() throws {
+        try audioSession.setCategory(category, mode: mode, options: options)
     }
     
-    private func defaultConfiguration() {
-        do {
-            try setAudioSessionCategory()
-            
-            try setAudioSessionActivate(true)
-        } catch let error {
-            debugPrint("Error creating defaultConfiguration Audio Session", error.localizedDescription)
-        }
+    private func activeAudioSession(_ activate: Bool) throws {
+        try audioSession.setActive(activate, options: activeOptions)
     }
     
     private func installTap() {
