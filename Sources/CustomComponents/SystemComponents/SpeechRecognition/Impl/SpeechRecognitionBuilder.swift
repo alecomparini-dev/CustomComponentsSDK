@@ -3,8 +3,8 @@
 
 import Speech
 
-final class SpeechRecognitionBuilder: SpeechRecognition {
-    weak var delegate: SpeechRecognitionDelegate?
+final public class SpeechRecognitionBuilder: SpeechRecognition {
+    public weak var delegate: SpeechRecognitionDelegate?
     
     private var defaultTaskHint: SFSpeechRecognitionTaskHint?
     private var shouldReportPartialResults: Bool = true
@@ -30,26 +30,26 @@ final class SpeechRecognitionBuilder: SpeechRecognition {
 //  MARK: - SER PROPERTIES
     
     @discardableResult
-    func setSpeechLocale(locale: Locale) -> Self {
+    public func setSpeechLocale(locale: Locale) -> Self {
         recognizer = SFSpeechRecognizer(locale: locale)
         setDefaultTaskHint(taskHint: defaultTaskHint ?? .dictation)
         return self
     }
     
     @discardableResult
-    func setShouldReportPartialResults(_ flag: Bool) -> Self {
+    public func setShouldReportPartialResults(_ flag: Bool) -> Self {
         shouldReportPartialResults = flag
         return self
     }
     
     @discardableResult
-    func setDefaultTaskHint(taskHint: SFSpeechRecognitionTaskHint) -> Self {
+    public func setDefaultTaskHint(taskHint: SFSpeechRecognitionTaskHint) -> Self {
         defaultTaskHint = taskHint
         return self
     }
 
     @discardableResult
-    func setWordsToClean(words: [String]) -> Self {
+    public func setWordsToClean(words: [String]) -> Self {
         wordsToClean = words
         return self
     }
@@ -57,7 +57,7 @@ final class SpeechRecognitionBuilder: SpeechRecognition {
     
 //  MARK: - PUBLIC AREA
     
-    func startRecognition() throws {
+    public func startRecognition() throws {
         resetRecognitionTask()
         
         configShouldReportPartialResults()
@@ -67,12 +67,12 @@ final class SpeechRecognitionBuilder: SpeechRecognition {
         configRecognitionTask()
     }
     
-    func stopRecognition() {
+    public func stopRecognition() {
         resetRecognitionTask()
         request.endAudio()
     }
     
-    func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
+    public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
         request.append(buffer)
     }
     
