@@ -3,8 +3,8 @@
 
 import AVFoundation
 
-final class AudioCapturerBuilder: AudioCapturer {
-    weak var delegate: AudioCapturerDelegate?
+final public class AudioCapturerBuilder: AudioCapturer {
+    weak public var delegate: AudioCapturerDelegate?
     
     private let audioEngine = AVAudioEngine()
     private let audioSession = AVAudioSession.sharedInstance()
@@ -16,14 +16,14 @@ final class AudioCapturerBuilder: AudioCapturer {
     
 //  MARK: - SET PROPERTIES
         
-    func setAudioSessionCategory(_ category: AVAudioSession.Category = .record,
+    public func setAudioSessionCategory(_ category: AVAudioSession.Category = .record,
                                  mode: AVAudioSession.Mode = .measurement,
                                  options: AVAudioSession.CategoryOptions = [.duckOthers]) throws {
         try audioSession.setCategory(category, mode: mode, options: options)
     }
     
     
-    func setAudioSessionActivate(_ activate: Bool,
+    public func setAudioSessionActivate(_ activate: Bool,
                                  options: AVAudioSession.SetActiveOptions = .notifyOthersOnDeactivation) throws {
         try audioSession.setActive(activate, options: options)
     }
@@ -31,7 +31,7 @@ final class AudioCapturerBuilder: AudioCapturer {
     
 //  MARK: - PUBLIC AREA
     
-    func startAudioCapture() throws {
+    public func startAudioCapture() throws {
         installTap()
         
         audioEngine.prepare()
@@ -39,7 +39,7 @@ final class AudioCapturerBuilder: AudioCapturer {
         try audioEngine.start()
     }
     
-    func stopAudioCapture() {
+    public func stopAudioCapture() {
         audioEngine.stop()
         
         audioEngine.inputNode.removeTap(onBus: 0)
