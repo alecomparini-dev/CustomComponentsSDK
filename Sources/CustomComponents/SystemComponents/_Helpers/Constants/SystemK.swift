@@ -16,10 +16,9 @@ public struct SystemK {
 //  MARK: - EXTENSION - Haptic
 
 extension SystemK {
+    
     public struct Haptic {
-        
         public struct Event {
-            
             public enum Parameters {
                 case hapticIntensity
                 case hapticSharpness
