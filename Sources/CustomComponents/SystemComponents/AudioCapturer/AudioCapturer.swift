@@ -7,6 +7,10 @@ import AVFoundation
 public protocol AudioCapturer {
     var delegate: AudioCapturerDelegate? { get set }
     
+    func initiateEngine()
+    
+    func finalizeEngine()
+    
     func setAudioSessionCategory(_ category: AVAudioSession.Category,
                                  mode: AVAudioSession.Mode,
                                  options: AVAudioSession.CategoryOptions)
