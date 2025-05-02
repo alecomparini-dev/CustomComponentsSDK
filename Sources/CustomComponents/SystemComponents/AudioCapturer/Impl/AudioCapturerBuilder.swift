@@ -74,7 +74,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func stopAudioCapture(_ completion: (() -> Void)? = nil) {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
             guard let self else {return}
             
             isAudioCaptureEnable = false
@@ -106,7 +106,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             if !isAudioCaptureEnable { return }
             
-            DispatchQueue.main.async(execute: { [weak self] in 
+            DispatchQueue.main.async(execute: { [weak self] in
                 self?.delegate?.outputAudioCapture(buffer: buffer)
             })
         }
