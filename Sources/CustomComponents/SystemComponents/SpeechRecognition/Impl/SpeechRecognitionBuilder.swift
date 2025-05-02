@@ -58,7 +58,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
 //  MARK: - PUBLIC AREA
     
     public func startRecognition() {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now(), execute: { [weak self] in
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             guard let self else {return}
             
             resetRecognitionTask()
@@ -132,7 +132,11 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 
                 let textFiltered = transpcriptFilterApply(text)
                 
-                delegate?.output(speechText: textFiltered)
+                Task {
+                    await MainActor.run { [weak self] in
+                        self?.delegate?.output(speechText: textFiltered)
+                    }
+                }
             }
             
             if error != nil || (result?.isFinal ?? false) {

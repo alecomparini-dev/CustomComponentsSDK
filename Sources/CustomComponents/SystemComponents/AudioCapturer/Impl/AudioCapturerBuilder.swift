@@ -36,7 +36,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
 //  MARK: - PUBLIC AREA
     
     public func startAudioCapture() {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now(), execute: { [weak self] in
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             guard let self else {return}
             
             try? configCategory()
@@ -52,7 +52,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func stopAudioCapture() {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             guard let self else {return}
             
             audioEngine.stop()
@@ -83,8 +83,13 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         let format = inputNode.outputFormat(forBus: 0)
         
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
-            self?.delegate?.outputAudioCapture(buffer: buffer)
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in
+            Task {
+                await MainActor.run { [weak self] in
+                    self?.delegate?.outputAudioCapture(buffer: buffer)
+                }
+            }
+            
         }
     }
     
