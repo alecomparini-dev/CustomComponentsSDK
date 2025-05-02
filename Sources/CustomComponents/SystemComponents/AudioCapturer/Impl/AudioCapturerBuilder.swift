@@ -58,8 +58,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func startAudioCapture() {
-//        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
-//            guard let self else {return}
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
+            guard let self else {return}
             
             isAudioCaptureEnable = true
             
@@ -70,17 +70,19 @@ final public class AudioCapturerBuilder: AudioCapturer {
             if !audioEngine.isRunning {
                 try? audioEngine.start()
             }
-//        })
+        })
     }
     
-    public func stopAudioCapture() {
-//        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-//            guard let self else {return}
+    public func stopAudioCapture(_ completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            guard let self else {return}
             
             isAudioCaptureEnable = false
             
             try? activeAudioSession(false)
-//        })
+            
+            completion?()
+        })
     }
     
     
@@ -104,11 +106,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             if !isAudioCaptureEnable { return }
             
-            Task {
-                await MainActor.run { [weak self] in
-                    self?.delegate?.outputAudioCapture(buffer: buffer)
-                }
-            }
+            DispatchQueue.main.async(execute: { [weak self] in 
+                self?.delegate?.outputAudioCapture(buffer: buffer)
+            })
         }
         
         audioEngine.prepare()

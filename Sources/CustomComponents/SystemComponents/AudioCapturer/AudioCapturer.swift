@@ -19,5 +19,5 @@ public protocol AudioCapturer {
 
     func startAudioCapture()
     
-    func stopAudioCapture()
+    func stopAudioCapture(_ completion: (() -> Void)?)
 }
