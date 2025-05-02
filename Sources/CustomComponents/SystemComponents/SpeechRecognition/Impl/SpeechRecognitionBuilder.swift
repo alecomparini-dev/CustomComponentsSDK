@@ -8,6 +8,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     private var defaultTaskHint: SFSpeechRecognitionTaskHint?
     private var shouldReportPartialResults: Bool = true
+    private var locale = Locale(identifier: "pt-BR")
     private var transpcriptFilter: [TranscriptFilter]
     private var wordsToClean = [String]()
     
@@ -30,8 +31,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     @discardableResult
     public func setSpeechLocale(locale: Locale) -> Self {
-        recognizer = SFSpeechRecognizer(locale: locale)
-        setDefaultTaskHint(taskHint: defaultTaskHint ?? .dictation)
+        self.locale = locale
         return self
     }
     
@@ -108,11 +108,11 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             guard let self else {return}
             
             resetRecognitionTask()
-            
-            setSpeechLocale(locale: Locale(identifier: "pt-BR"))
-            
+
             request = SFSpeechAudioBufferRecognitionRequest()
             
+            configRecognizer()
+
             configShouldReportPartialResults()
 
             configDefaultTaskHint()
@@ -148,6 +148,10 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         setShouldReportPartialResults(false)
         
         setDefaultTaskHint(taskHint: .dictation)
+    }
+    
+    private func configRecognizer() {
+        recognizer = SFSpeechRecognizer(locale: locale)        
     }
     
     private func configShouldReportPartialResults() {
