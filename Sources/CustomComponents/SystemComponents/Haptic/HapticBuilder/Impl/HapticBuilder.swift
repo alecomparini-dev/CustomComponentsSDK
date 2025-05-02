@@ -106,23 +106,26 @@ open class HapticBuilder: Haptic {
     private func playHaptic() {
         guard let engine = engine else { return }
 
-        let event = CHHapticEvent(
-            eventType: .hapticTransient,
-            parameters: Array(eventParameters),
-            relativeTime: 0
-        )
+        DispatchQueue.main.sync(execute: {
+            let event = CHHapticEvent(
+                eventType: .hapticTransient,
+                parameters: Array(eventParameters),
+                relativeTime: 0
+            )
 
-        do {
-            let pattern = try CHHapticPattern(events: [event], parameters: [])
-            
-            let player = try engine.makePlayer(with: pattern)
-            
-            try player.start(atTime: CHHapticTimeImmediate)
-            
-        } catch {
-            print("Erro ao tocar haptic: \(error.localizedDescription)")
-            startEngineHandlers()
-        }
+            do {
+                let pattern = try CHHapticPattern(events: [event], parameters: [])
+                
+                let player = try engine.makePlayer(with: pattern)
+                
+                try player.start(atTime: CHHapticTimeImmediate)
+                
+            } catch {
+                print("Erro ao tocar haptic: \(error.localizedDescription)")
+                startEngineHandlers()
+            }
+        })
+        
     }
     
     private func startEngineHandlers() {
