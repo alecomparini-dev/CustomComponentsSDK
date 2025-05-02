@@ -72,7 +72,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
             guard let self else {return}
             resetRecognitionTask()
             recognizer = nil

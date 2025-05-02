@@ -52,7 +52,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func stopAudioCapture() {
-        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             guard let self else {return}
             
             audioEngine.stop()
