@@ -109,7 +109,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             
             resetRecognitionTask()
             
-            setSpeechLocale(locale: .current)
+            setSpeechLocale(locale: Locale(identifier: "pt-BR"))
             
             request = SFSpeechAudioBufferRecognitionRequest()
             
