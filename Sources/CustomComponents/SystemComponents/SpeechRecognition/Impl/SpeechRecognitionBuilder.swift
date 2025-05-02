@@ -58,11 +58,52 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
 //  MARK: - PUBLIC AREA
     
     public func checkPermission() {
+        let permission: SpeechRecognitionPermission = checkPermission()
         
+        switch permission {
+            case .ok:
+                delegate?.permissionGranted()
+            case .requestPermission:
+                delegate?.requestPermission()
+            case .notWork:
+                delegate?.speechRecognitionNotWork()
+        }
+    }
+    
+    public func requestPermission()  {
+        SFSpeechRecognizer.requestAuthorization { [weak self] authStatus in
+            guard let self else {return}
+            
+            if authStatus != .authorized {
+                delegate?.permissionGranted()
+                return
+            }
+            
+            delegate?.permissionDenied()
+        }
     }
     
     public func startRecognition() {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        let permission: SpeechRecognitionPermission = checkPermission()
+        
+        if permission == .notWork {
+            delegate?.speechRecognitionNotWork()
+            return
+        }
+            
+        if permission != .ok {
+            SFSpeechRecognizer.requestAuthorization { [weak self] authStatus in
+                guard let self else {return}
+                
+                if authStatus != .authorized { return initiateRecognition() }
+                
+                delegate?.permissionDenied()
+            }
+        }
+    }
+    
+    private func initiateRecognition() {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self else {return}
             
             resetRecognitionTask()
@@ -76,9 +117,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        request?.endAudio()
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             guard let self else {return}
+            request?.endAudio()
             resetRecognitionTask()
             recognizer = nil
             request = nil
@@ -156,21 +197,19 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         }
     }
     
-    private func requestPermissions() {
+    private func checkPermission() -> SpeechRecognitionPermission {
+        let permission = SFSpeechRecognizer.authorizationStatus()
         
-        SFSpeechRecognizer.requestAuthorization { status in
-            
+        return switch permission {
+            case .denied, .notDetermined:
+                .requestPermission
+            case .authorized:
+                .ok
+        case .restricted:
+                .notWork
+        @unknown default:
+                .requestPermission
         }
-        
-        
-        
-        AVAudioSession.sharedInstance().requestRecordPermission { granted in
-            DispatchQueue.main.async {
-                
-            }
-        }
-        
-        
         
         
     }
