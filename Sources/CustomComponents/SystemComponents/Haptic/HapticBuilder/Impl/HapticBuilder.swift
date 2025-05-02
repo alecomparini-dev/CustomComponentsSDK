@@ -63,7 +63,7 @@ open class HapticBuilder: Haptic {
         playHaptic()
     }
     
-    public func vibrateTwice(delayRepeat: Double = 0.15) {
+    public func vibrateTwice(delayRepeat: Double = 0.1) {
         playHaptic()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delayRepeat, execute: { [weak self] in

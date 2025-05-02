@@ -81,7 +81,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             try? activeAudioSession(false)
             
-            completion?()
+            DispatchQueue.main.async(execute: {
+                completion?()                
+            })
         })
     }
     
