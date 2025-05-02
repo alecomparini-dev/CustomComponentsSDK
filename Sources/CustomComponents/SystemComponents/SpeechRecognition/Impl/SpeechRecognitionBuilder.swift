@@ -100,6 +100,8 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 delegate?.speechPermissionDenied()
             }
         }
+        
+        initiateRecognition()
     }
     
     private func initiateRecognition() {
