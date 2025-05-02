@@ -71,7 +71,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             case .requestPermission:
                 AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
                     guard let self else {return}
-                    if !granted {
+                    if granted {
                         installTap()
                         return
                     }
