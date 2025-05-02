@@ -62,11 +62,11 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         
         switch permission {
             case .ok:
-                delegate?.permissionGranted()
+                delegate?.speechPermissionGranted()
             case .requestPermission:
-                delegate?.requestPermission()
+                delegate?.requestSpeechPermission()
             case .notWork:
-                delegate?.speechRecognitionNotWork()
+                delegate?.speechPermissionNotWork()
         }
     }
     
@@ -74,12 +74,12 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         SFSpeechRecognizer.requestAuthorization { [weak self] authStatus in
             guard let self else {return}
             
-            if authStatus != .authorized {
-                delegate?.permissionGranted()
+            if authStatus == .authorized {
+                delegate?.speechPermissionGranted()
                 return
             }
             
-            delegate?.permissionDenied()
+            delegate?.speechPermissionDenied()
         }
     }
     
@@ -87,7 +87,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         let permission: SpeechRecognitionPermission = checkPermission()
         
         if permission == .notWork {
-            delegate?.speechRecognitionNotWork()
+            delegate?.speechPermissionNotWork()
             return
         }
             
@@ -97,7 +97,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 
                 if authStatus != .authorized { return initiateRecognition() }
                 
-                delegate?.permissionDenied()
+                delegate?.speechPermissionDenied()
             }
         }
     }
