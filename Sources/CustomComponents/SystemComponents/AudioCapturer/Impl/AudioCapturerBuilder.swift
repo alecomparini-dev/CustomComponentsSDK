@@ -32,7 +32,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
         self.options = options
     }
     
-    
     public func setActiveOptions(activeOptions: AVAudioSession.SetActiveOptions = .notifyOthersOnDeactivation) {
         self.activeOptions = activeOptions
     }
@@ -40,8 +39,46 @@ final public class AudioCapturerBuilder: AudioCapturer {
     
 //  MARK: - PUBLIC AREA
     
+    public func checkPermission() {
+        let permission: AudioCapturerPermission = checkPermission()
+        
+        switch permission {
+            case .ok:
+                delegate?.permissionGranted()
+            case .requestPermission:
+                delegate?.requestPermission()
+        }
+    }
+    
+    public func requestPermission()  {
+        AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
+            guard let self else {return}
+            if !granted {
+                delegate?.permissionGranted()
+                return
+            }
+            
+            delegate?.permissionDenied()
+        }
+    }
+    
     public func initiateEngine() {
-        installTap()
+        let permission: AudioCapturerPermission = checkPermission()
+        
+        switch permission {
+            case .ok:
+                installTap()
+            case .requestPermission:
+                AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
+                    guard let self else {return}
+                    if !granted {
+                        installTap()
+                        return
+                    }
+                    delegate?.permissionDenied()
+                }
+                return
+        }
     }
     
     public func finalizeEngine() {
@@ -82,7 +119,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             try? activeAudioSession(false)
             
             DispatchQueue.main.async(execute: {
-                completion?()                
+                completion?()
             })
         })
     }
@@ -116,20 +153,32 @@ final public class AudioCapturerBuilder: AudioCapturer {
         audioEngine.prepare()
     }
     
-    private func checkAndRequestPermission(completion: @escaping (Bool) -> Void) {
+    private func checkPermission() -> AudioCapturerPermission {
+        if #available(iOS 17.0, *) { return checkPermissionTarget17More() }
+        
         let permission = AVAudioSession.sharedInstance().recordPermission
         
-        switch permission {
-            case .granted:
-                completion(true)
-                
+        return switch permission {
             case .denied, .undetermined:
-                AVAudioSession.sharedInstance().requestRecordPermission { granted in
-                    print("Microphone access (< iOS 17): \(granted)")
-                    completion(granted)
-                }
+                .requestPermission
+            case .granted:
+                .ok
             @unknown default:
-                completion(false)
+                .requestPermission
+        }
+    }
+    
+    @available(iOS 17.0, *)
+    private func checkPermissionTarget17More() -> AudioCapturerPermission  {
+        let permission = AVAudioApplication.shared.recordPermission
+        
+        return switch permission {
+            case .denied, .undetermined:
+                .requestPermission
+            case .granted:
+                .ok
+            @unknown default:
+                .requestPermission
         }
     }
     

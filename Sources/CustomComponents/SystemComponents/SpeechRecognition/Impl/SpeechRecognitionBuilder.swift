@@ -16,7 +16,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     private var request: SFSpeechAudioBufferRecognitionRequest?
     
     public init(transpcriptFilter: [TranscriptFilter]) {
-        recognizer = SFSpeechRecognizer(locale: Locale(identifier: "pt-BR"))
+        recognizer = SFSpeechRecognizer(locale: .current)
         request = SFSpeechAudioBufferRecognitionRequest()
         self.transpcriptFilter = transpcriptFilter
         configure()
@@ -56,6 +56,10 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     
 //  MARK: - PUBLIC AREA
+    
+    public func checkPermission() {
+        
+    }
     
     public func startRecognition() {
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
@@ -153,9 +157,22 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     private func requestPermissions() {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            print("Speech auth status: \(authStatus)")
+        
+        SFSpeechRecognizer.requestAuthorization { status in
+            
         }
+        
+        
+        
+        AVAudioSession.sharedInstance().requestRecordPermission { granted in
+            DispatchQueue.main.async {
+                
+            }
+        }
+        
+        
+        
+        
     }
     
 }
