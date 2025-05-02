@@ -103,7 +103,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     private func initiateRecognition() {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now(), execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self else {return}
             
             resetRecognitionTask()
@@ -117,7 +117,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             guard let self else {return}
             request?.endAudio()
             resetRecognitionTask()
@@ -168,7 +168,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     private func configRecognitionTask() {
         
         guard let request else { return }
-        
+                
         recognitionTask = recognizer?.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }
             
@@ -177,11 +177,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 
                 let textFiltered = transpcriptFilterApply(text)
                 
-                Task {
-                    await MainActor.run { [weak self] in
-                        self?.delegate?.output(speechText: textFiltered)
-                    }
-                }
+                DispatchQueue.main.async(execute: { [weak self] in
+                    self?.delegate?.output(speechText: textFiltered)
+                })
             }
             
             if error != nil || (result?.isFinal ?? false) {
