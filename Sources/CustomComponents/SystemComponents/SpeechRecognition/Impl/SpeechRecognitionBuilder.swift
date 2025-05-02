@@ -95,7 +95,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             SFSpeechRecognizer.requestAuthorization { [weak self] authStatus in
                 guard let self else {return}
                 
-                if authStatus != .authorized { return initiateRecognition() }
+                if authStatus == .authorized { return initiateRecognition() }
                 
                 delegate?.speechPermissionDenied()
             }
@@ -205,9 +205,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 .requestPermission
             case .authorized:
                 .ok
-        case .restricted:
+            case .restricted:
                 .notWork
-        @unknown default:
+            @unknown default:
                 .requestPermission
         }
         
