@@ -17,7 +17,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     public init(transpcriptFilter: [TranscriptFilter]) {
         recognizer = SFSpeechRecognizer(locale: .current)
-        request = SFSpeechAudioBufferRecognitionRequest()
         self.transpcriptFilter = transpcriptFilter
         configure()
     }
@@ -109,6 +108,10 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             guard let self else {return}
             
             resetRecognitionTask()
+            
+            setSpeechLocale(locale: .current)
+            
+            request = SFSpeechAudioBufferRecognitionRequest()
             
             configShouldReportPartialResults()
 
