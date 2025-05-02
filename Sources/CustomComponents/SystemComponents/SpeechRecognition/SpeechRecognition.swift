@@ -21,7 +21,7 @@ public protocol SpeechRecognition {
     
     func appendAudioCapturer(buffer: AVAudioPCMBuffer)
     
-    func startRecognition() throws
+    func startRecognition()
     
     func stopRecognition()
 }

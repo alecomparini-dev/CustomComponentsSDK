@@ -35,28 +35,36 @@ final public class AudioCapturerBuilder: AudioCapturer {
     
 //  MARK: - PUBLIC AREA
     
-    public func startAudioCapture() throws {
-        try configCategory()
-        
-        try activeAudioSession(true)
-        
-        installTap()
-        
-        audioEngine.prepare()
-        
-        try audioEngine.start()
+    public func startAudioCapture() {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now(), execute: { [weak self] in
+            guard let self else {return}
+            
+            try? configCategory()
+            
+            try? activeAudioSession(true)
+            
+            installTap()
+            
+            audioEngine.prepare()
+            
+            try? audioEngine.start()
+        })
     }
     
     public func stopAudioCapture() {
-        audioEngine.stop()
-        
-        audioEngine.inputNode.removeTap(onBus: 0)
-        
-        do {
-            try activeAudioSession(false)
-        } catch let error {
-            debugPrint("Error disabling audio session: \(error.localizedDescription)")
-        }
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            guard let self else {return}
+            
+            audioEngine.stop()
+            
+            audioEngine.inputNode.removeTap(onBus: 0)
+            
+            do {
+                try activeAudioSession(false)
+            } catch let error {
+                debugPrint("Error disabling audio session: \(error.localizedDescription)")
+            }
+        })
     }
     
     

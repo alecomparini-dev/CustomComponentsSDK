@@ -13,7 +13,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     private var recognitionTask: SFSpeechRecognitionTask?
     private var recognizer: SFSpeechRecognizer?
-    private let request: SFSpeechAudioBufferRecognitionRequest
+    private var request: SFSpeechAudioBufferRecognitionRequest?
     
     public init(transpcriptFilter: [TranscriptFilter]) {
         recognizer = SFSpeechRecognizer(locale: Locale(identifier: "pt-BR"))
@@ -57,23 +57,31 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
 //  MARK: - PUBLIC AREA
     
-    public func startRecognition() throws {
-        resetRecognitionTask()
-        
-        configShouldReportPartialResults()
+    public func startRecognition() {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now(), execute: { [weak self] in
+            guard let self else {return}
+            
+            resetRecognitionTask()
+            
+            configShouldReportPartialResults()
 
-        configDefaultTaskHint()
-        
-        configRecognitionTask()
+            configDefaultTaskHint()
+            
+            configRecognitionTask()
+        })
     }
     
     public func stopRecognition() {
-        resetRecognitionTask()
-        resetRequest()
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
+            guard let self else {return}
+            resetRecognitionTask()
+            recognizer = nil
+            request = nil
+        })
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
-        request.append(buffer)
+        request?.append(buffer)
     }
     
     
@@ -92,7 +100,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     private func configShouldReportPartialResults() {
-        request.shouldReportPartialResults = shouldReportPartialResults
+        request?.shouldReportPartialResults = shouldReportPartialResults
     }
     
     private func configTranscriptionCleanerCents() {
@@ -106,15 +114,15 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     private func resetRecognitionTask() {
         recognitionTask?.cancel()
+        
         recognitionTask = nil
     }
     
-    private func resetRequest() {
-        request.endAudio()
-        recognizer = nil
-    }
 
     private func configRecognitionTask() {
+        
+        guard let request else { return }
+        
         recognitionTask = recognizer?.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }
             
