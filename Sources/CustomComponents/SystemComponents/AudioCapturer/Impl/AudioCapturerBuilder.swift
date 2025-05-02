@@ -58,8 +58,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func startAudioCapture() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
-            guard let self else {return}
+//        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
+//            guard let self else {return}
             
             isAudioCaptureEnable = true
             
@@ -70,17 +70,17 @@ final public class AudioCapturerBuilder: AudioCapturer {
             if !audioEngine.isRunning {
                 try? audioEngine.start()
             }
-        })
+//        })
     }
     
     public func stopAudioCapture() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-            guard let self else {return}
+//        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+//            guard let self else {return}
             
             isAudioCaptureEnable = false
             
-//            try? activeAudioSession(false)
-        })
+            try? activeAudioSession(false)
+//        })
     }
     
     
