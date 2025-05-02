@@ -60,14 +60,19 @@ open class HapticBuilder: Haptic {
 //  MARK: - PUBLIC AREA
     
     public func vibrateOnce() {
-        playHaptic()
+        DispatchQueue.main.async(execute: { [weak self] in
+            self?.playHaptic()
+        })
     }
     
     public func vibrateTwice(delayRepeat: Double = 0.1) {
-        playHaptic()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + delayRepeat, execute: { [weak self] in
-            self?.playHaptic()
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self else {return}
+            playHaptic()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayRepeat, execute: { [weak self] in
+                self?.playHaptic()
+            })
         })
     }
     
@@ -105,28 +110,25 @@ open class HapticBuilder: Haptic {
     }
     
     private func playHaptic() {
-        DispatchQueue.main.async(execute: { [weak self] in
-            
-            guard let self, let engine else { return }
-            
-            let event = CHHapticEvent(
-                eventType: .hapticTransient,
-                parameters: Array(eventParameters),
-                relativeTime: 0
-            )
+        guard let engine else { return }
+        
+        let event = CHHapticEvent(
+            eventType: .hapticTransient,
+            parameters: Array(eventParameters),
+            relativeTime: 0
+        )
 
-            do {
-                let pattern = try CHHapticPattern(events: [event], parameters: [])
-                
-                let player = try engine.makePlayer(with: pattern)
-                
-                try player.start(atTime: CHHapticTimeImmediate)
-                
-            } catch {
-                debugPrint("Error starting Haptic: \(error.localizedDescription)")
-                startEngineHandlers()
-            }
-        })
+        do {
+            let pattern = try CHHapticPattern(events: [event], parameters: [])
+            
+            let player = try engine.makePlayer(with: pattern)
+            
+            try player.start(atTime: CHHapticTimeImmediate)
+            
+        } catch {
+            debugPrint("Error starting Haptic: \(error.localizedDescription)")
+            startEngineHandlers()
+        }
         
     }
     
