@@ -13,7 +13,7 @@ public protocol AudioCapturer {
     
     func setActiveOptions(activeOptions: AVAudioSession.SetActiveOptions)
 
-    func startAudioCapture() throws
+    func startAudioCapture()
     
     func stopAudioCapture()
 }
