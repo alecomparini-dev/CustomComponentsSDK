@@ -103,32 +103,11 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         initiateRecognition()
     }
     
-    private func initiateRecognition() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
-            guard let self else {return}
-            
-            resetRecognitionTask()
-
-            request = SFSpeechAudioBufferRecognitionRequest()
-            
-            configRecognizer()
-
-            configShouldReportPartialResults()
-
-            configDefaultTaskHint()
-            
-            configRecognitionTask()
-        })
-    }
-    
     public func stopRecognition() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
-            guard let self else {return}
-            request?.endAudio()
-            resetRecognitionTask()
-            recognizer = nil
-            request = nil
-        })
+        request?.endAudio()
+        resetRecognitionTask()
+        recognizer = nil
+        request = nil
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
@@ -173,29 +152,41 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         recognitionTask = nil
     }
     
-
-    private func configRecognitionTask() {
+    private func initiateRecognition() {
+        resetRecognitionTask()
         
-        guard let request else { return }
-                
-        recognitionTask = recognizer?.recognitionTask(with: request) { [weak self] result, error in
-            guard let self else { return }
+        request = SFSpeechAudioBufferRecognitionRequest()
+        
+        configRecognizer()
+        
+        configShouldReportPartialResults()
+        
+        configDefaultTaskHint()
+        
+        configRecognitionTask()
+    }
+    
+    private func configRecognitionTask() {
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self, let request else { return }
             
-            if let result {
-                let text = result.bestTranscription.formattedString
+            recognitionTask = recognizer?.recognitionTask(with: request) { [weak self] result, error in
+                guard let self else { return }
                 
-                let textFiltered = transpcriptFilterApply(text)
+                if let result {
+                    let text = result.bestTranscription.formattedString
+                    
+                    let textFiltered = transpcriptFilterApply(text)
+                    
+                    delegate?.output(speechText: textFiltered)
+                }
                 
-                DispatchQueue.main.async(execute: { [weak self] in
-                    self?.delegate?.output(speechText: textFiltered)
-                })
+                if error != nil || (result?.isFinal ?? false) {
+                    stopRecognition()
+                    
+                }
             }
-            
-            if error != nil || (result?.isFinal ?? false) {
-                stopRecognition()
-                
-            }
-        }
+        })
     }
     
     private func transpcriptFilterApply(_ text: String) -> String {
