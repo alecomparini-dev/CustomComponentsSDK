@@ -104,9 +104,9 @@ open class HapticBuilder: Haptic {
     }
     
     private func playHaptic() {
-        guard let engine = engine else { return }
-
-        DispatchQueue.main.sync(execute: {
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self, let engine = engine else { return }
+            
             let event = CHHapticEvent(
                 eventType: .hapticTransient,
                 parameters: Array(eventParameters),
