@@ -122,7 +122,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self else {return}
             request?.endAudio()
             resetRecognitionTask()
@@ -151,7 +151,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     private func configRecognizer() {
-        recognizer = SFSpeechRecognizer(locale: locale)        
+        recognizer = SFSpeechRecognizer(locale: locale)
     }
     
     private func configShouldReportPartialResults() {
