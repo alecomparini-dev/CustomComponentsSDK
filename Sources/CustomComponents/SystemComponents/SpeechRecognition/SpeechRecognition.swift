@@ -19,6 +19,9 @@ public protocol SpeechRecognition {
     @discardableResult
     func setWordsToClean(words: [String]) -> Self
     
+    
+    
+    
     func appendAudioCapturer(buffer: AVAudioPCMBuffer)
     
     func startRecognition()

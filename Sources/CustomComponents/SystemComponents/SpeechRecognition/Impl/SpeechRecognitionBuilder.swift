@@ -8,6 +8,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     private var defaultTaskHint: SFSpeechRecognitionTaskHint?
     private var shouldReportPartialResults: Bool = true
+    private var locale = Locale(identifier: "pt-BR")
     private var transpcriptFilter: [TranscriptFilter]
     private var wordsToClean = [String]()
     
@@ -16,8 +17,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     private var request: SFSpeechAudioBufferRecognitionRequest?
     
     public init(transpcriptFilter: [TranscriptFilter]) {
-        recognizer = SFSpeechRecognizer(locale: Locale(identifier: "pt-BR"))
-        request = SFSpeechAudioBufferRecognitionRequest()
+        recognizer = SFSpeechRecognizer(locale: .current)
         self.transpcriptFilter = transpcriptFilter
         configure()
     }
@@ -31,8 +31,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     @discardableResult
     public func setSpeechLocale(locale: Locale) -> Self {
-        recognizer = SFSpeechRecognizer(locale: locale)
-        setDefaultTaskHint(taskHint: defaultTaskHint ?? .dictation)
+        self.locale = locale
         return self
     }
     
@@ -57,12 +56,63 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
 //  MARK: - PUBLIC AREA
     
+    public func checkPermission() {
+        let permission: SpeechRecognitionPermission = checkPermission()
+        
+        switch permission {
+            case .ok:
+                delegate?.speechPermissionGranted()
+            case .requestPermission:
+                delegate?.requestSpeechPermission()
+            case .notWork:
+                delegate?.speechPermissionNotWork()
+        }
+    }
+    
+    public func requestPermission()  {
+        SFSpeechRecognizer.requestAuthorization { [weak self] authStatus in
+            guard let self else {return}
+            
+            if authStatus == .authorized {
+                delegate?.speechPermissionGranted()
+                return
+            }
+            
+            delegate?.speechPermissionDenied()
+        }
+    }
+    
     public func startRecognition() {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        let permission: SpeechRecognitionPermission = checkPermission()
+        
+        if permission == .notWork {
+            delegate?.speechPermissionNotWork()
+            return
+        }
+            
+        if permission != .ok {
+            SFSpeechRecognizer.requestAuthorization { [weak self] authStatus in
+                guard let self else {return}
+                
+                if authStatus == .authorized { return initiateRecognition() }
+                
+                delegate?.speechPermissionDenied()
+            }
+        }
+        
+        initiateRecognition()
+    }
+    
+    private func initiateRecognition() {
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self else {return}
             
             resetRecognitionTask()
+
+            request = SFSpeechAudioBufferRecognitionRequest()
             
+            configRecognizer()
+
             configShouldReportPartialResults()
 
             configDefaultTaskHint()
@@ -72,9 +122,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        request?.endAudio()
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             guard let self else {return}
+            request?.endAudio()
             resetRecognitionTask()
             recognizer = nil
             request = nil
@@ -100,6 +150,10 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         setDefaultTaskHint(taskHint: .dictation)
     }
     
+    private func configRecognizer() {
+        recognizer = SFSpeechRecognizer(locale: locale)        
+    }
+    
     private func configShouldReportPartialResults() {
         request?.shouldReportPartialResults = shouldReportPartialResults
     }
@@ -123,7 +177,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     private func configRecognitionTask() {
         
         guard let request else { return }
-        
+                
         recognitionTask = recognizer?.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }
             
@@ -132,11 +186,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 
                 let textFiltered = transpcriptFilterApply(text)
                 
-                Task {
-                    await MainActor.run { [weak self] in
-                        self?.delegate?.output(speechText: textFiltered)
-                    }
-                }
+                DispatchQueue.main.async(execute: { [weak self] in
+                    self?.delegate?.output(speechText: textFiltered)
+                })
             }
             
             if error != nil || (result?.isFinal ?? false) {
@@ -152,10 +204,21 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         }
     }
     
-    private func requestPermissions() {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            print("Speech auth status: \(authStatus)")
+    private func checkPermission() -> SpeechRecognitionPermission {
+        let permission = SFSpeechRecognizer.authorizationStatus()
+        
+        return switch permission {
+            case .denied, .notDetermined:
+                .requestPermission
+            case .authorized:
+                .ok
+            case .restricted:
+                .notWork
+            @unknown default:
+                .requestPermission
         }
+        
+        
     }
     
 }
