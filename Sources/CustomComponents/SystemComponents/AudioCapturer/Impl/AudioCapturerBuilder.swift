@@ -68,6 +68,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         switch permission {
             case .ok:
                 installTap()
+            
             case .requestPermission:
                 AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
                     guard let self else {return}
@@ -95,6 +96,13 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func startAudioCapture() {
+        let permission: AudioCapturerPermission = checkPermission()
+        
+        if permission != .ok {
+            delegate?.permissionDenied()
+            return
+        }
+        
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self else {return}
             
