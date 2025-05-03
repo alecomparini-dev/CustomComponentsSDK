@@ -127,7 +127,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = false
             
-            try? activeAudioSession(false)
+//            try? activeAudioSession(false)
             
             DispatchQueue.main.async(execute: {
                 completion?()
