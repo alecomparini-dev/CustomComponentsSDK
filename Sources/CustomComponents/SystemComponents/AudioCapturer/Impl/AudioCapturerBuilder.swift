@@ -63,12 +63,15 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func initiateEngine() {
-        let permission: AudioCapturerPermission = checkPermission()
-        
-        switch permission {
+        DispatchQueue.global(qos: .background).async(execute: { [weak self] in
+            guard let self else { return }
+            
+            let permission: AudioCapturerPermission = checkPermission()
+            
+            switch permission {
             case .ok:
                 installTap()
-            
+                
             case .requestPermission:
                 AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
                     guard let self else {return}
@@ -79,11 +82,12 @@ final public class AudioCapturerBuilder: AudioCapturer {
                     delegate?.permissionDenied()
                 }
                 return
-        }
+            }
+        })
     }
     
     public func finalizeEngine() {
-        DispatchQueue.global(qos: .userInitiated).async(execute: { [weak self] in
+        DispatchQueue.global(qos: .background).async(execute: { [weak self] in
             guard let self else { return }
             
             audioEngine.stop()
@@ -106,7 +110,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             return
         }
         
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now(), execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self else {return}
             
             isAudioCaptureEnable = true
@@ -122,7 +126,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func stopAudioCapture(_ completion: (() -> Void)? = nil) {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now(), execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self else {return}
             
             isAudioCaptureEnable = false
