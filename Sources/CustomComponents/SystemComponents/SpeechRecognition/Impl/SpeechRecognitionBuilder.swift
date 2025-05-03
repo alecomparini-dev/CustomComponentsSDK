@@ -103,11 +103,32 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         initiateRecognition()
     }
     
+    private func initiateRecognition() {
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
+            guard let self else {return}
+            
+            resetRecognitionTask()
+
+            request = SFSpeechAudioBufferRecognitionRequest()
+            
+            configRecognizer()
+
+            configShouldReportPartialResults()
+
+            configDefaultTaskHint()
+            
+            configRecognitionTask()
+        })
+    }
+    
     public func stopRecognition() {
-        request?.endAudio()
-        resetRecognitionTask()
-        recognizer = nil
-        request = nil
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
+            guard let self else {return}
+            request?.endAudio()
+            resetRecognitionTask()
+            recognizer = nil
+            request = nil
+        })
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
@@ -152,22 +173,10 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         recognitionTask = nil
     }
     
-    private func initiateRecognition() {
-        resetRecognitionTask()
-        
-        request = SFSpeechAudioBufferRecognitionRequest()
-        
-        configRecognizer()
-        
-        configShouldReportPartialResults()
-        
-        configDefaultTaskHint()
-        
-        configRecognitionTask()
-    }
-    
+
     private func configRecognitionTask() {
         DispatchQueue.main.async(execute: { [weak self] in
+            
             guard let self, let request else { return }
             
             recognitionTask = recognizer?.recognitionTask(with: request) { [weak self] result, error in
@@ -178,7 +187,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                     
                     let textFiltered = transpcriptFilterApply(text)
                     
+                    
                     delegate?.output(speechText: textFiltered)
+                    
                 }
                 
                 if error != nil || (result?.isFinal ?? false) {
