@@ -90,7 +90,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = true
 
-            startEngine()
+//            startEngine()
             
             delegate?.audioCapturerStarted()
             
@@ -106,9 +106,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
 
             stopEngine()
             
-            delegate?.audioCapturerStopped()
-            
             activeAudioSession(false)
+            
+            delegate?.audioCapturerStopped()
         })
         
     }
@@ -126,15 +126,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
         }
 
         return true
-    }
-    
-    private func notificateAudioCapturerDelegate(_ audioSessionActivate: Bool) {
-        if audioSessionActivate {
-            delegate?.audioCapturerStarted()
-            return
-        }
-        
-        delegate?.audioCapturerStopped()
     }
     
     @discardableResult
