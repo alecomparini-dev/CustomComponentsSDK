@@ -92,6 +92,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             activeAudioSession(true)
             
+            startEngine()
         })
     }
     
@@ -126,22 +127,12 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private func activeAudioSession(_ activate: Bool) -> Bool {
         do {
             try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
+            delegate?.audioCapturerStarted()
         } catch let error {
             delegate?.error(type: .audioSessionActivate(error.localizedDescription))
-            delegate?.audioCapturerStoped()
             return false
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
-            guard let self else {return}
-            if !activate {
-                delegate?.audioCapturerStoped()
-                return
-            }
-            
-            delegate?.audioCapturerStarted()
-        })
-
         return true
     }
         
@@ -167,6 +158,10 @@ final public class AudioCapturerBuilder: AudioCapturer {
         isTapInstalled = true
         
         audioEngine.prepare()
+    }
+    
+    private func startEngine() {
+        if audioEngine.isRunning { return }
         
         do {
             try audioEngine.start()
@@ -175,7 +170,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
                 self?.delegate?.error(type: .audioEngineStart(error.localizedDescription))
             })
         }
-                
     }
     
     private func configAudioSession() -> Bool {
