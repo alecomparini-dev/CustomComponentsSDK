@@ -131,6 +131,16 @@ final public class AudioCapturerBuilder: AudioCapturer {
             delegate?.error(type: .audioSessionActivate(error.localizedDescription))
             return false
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+            guard let self else {return}
+            if activate {
+                delegate?.audioCapturerStarted()
+                return
+            }
+            
+            delegate?.audioCapturerFinished()
+        })
 
         return true
     }
