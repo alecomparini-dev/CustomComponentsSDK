@@ -67,7 +67,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         audioQueue.async(execute: { [weak self] in
             guard let self else { return }
             
-            audioEngine.stop()
+            stopEngine()
             
             audioEngine.inputNode.removeTap(onBus: 0)
             
@@ -101,9 +101,10 @@ final public class AudioCapturerBuilder: AudioCapturer {
             guard let self else {return}
             
             isAudioCaptureEnable = false
+
+            stopEngine()
             
-            activeAudioSession(false)
-            
+            activeAudioSession(false)            
         })
         
     }
@@ -127,7 +128,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private func activeAudioSession(_ activate: Bool) -> Bool {
         do {
             try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
-            delegate?.audioCapturerStarted()
         } catch let error {
             delegate?.error(type: .audioSessionActivate(error.localizedDescription))
             return false
@@ -165,10 +165,18 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         do {
             try audioEngine.start()
+            delegate?.audioCapturerStoped()
         } catch let error {
             DispatchQueue.main.async(execute: { [weak self] in
                 self?.delegate?.error(type: .audioEngineStart(error.localizedDescription))
             })
+        }
+    }
+    
+    private func stopEngine() {
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            delegate?.audioCapturerStoped()
         }
     }
     
