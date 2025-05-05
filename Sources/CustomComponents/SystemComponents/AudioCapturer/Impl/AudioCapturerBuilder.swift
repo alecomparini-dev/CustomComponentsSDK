@@ -90,9 +90,11 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = true
 
-//            startEngine()
+            startEngine()
             
-            delegate?.audioCapturerStarted()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                self.delegate?.audioCapturerStarted()
+            })
             
             activeAudioSession(true)
         })
