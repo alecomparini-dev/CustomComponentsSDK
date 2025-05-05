@@ -92,6 +92,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
 
             startEngine()
             
+            delegate?.audioCapturerStarted()
+            
             activeAudioSession(true)
         })
     }
@@ -103,6 +105,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
             isAudioCaptureEnable = false
 
             stopEngine()
+            
+            delegate?.audioCapturerStopped()
             
             activeAudioSession(false)
         })
@@ -130,7 +134,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             return
         }
         
-        delegate?.audioCapturerStoped()
+        delegate?.audioCapturerStopped()
     }
     
     @discardableResult
@@ -141,8 +145,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
             delegate?.error(type: .audioSessionActivate(error.localizedDescription))
             return false
         }
-        
-        notificateAudioCapturerDelegate(activate)
         
         return true
     }
