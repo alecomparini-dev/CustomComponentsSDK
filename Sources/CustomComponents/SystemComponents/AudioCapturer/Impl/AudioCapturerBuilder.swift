@@ -101,18 +101,13 @@ final public class AudioCapturerBuilder: AudioCapturer {
         audioQueue.async(execute: { [weak self] in
             guard let self else {return}
             
-            delegate?.audioCapturerStopped()
+            isAudioCaptureEnable = false
+
+            pauseEngine()
             
-            audioMainQueue.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-                guard let self else {return}
-                
-                isAudioCaptureEnable = false
-
-                pauseEngine()
-                
-                activeAudioSession(false)
-            })
-
+            activeAudioSession(false)
+            
+            delegate?.audioCapturerStopped()
         })
         
     }
