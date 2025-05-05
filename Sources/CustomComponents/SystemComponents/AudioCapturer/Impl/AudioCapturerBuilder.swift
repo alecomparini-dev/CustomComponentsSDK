@@ -128,17 +128,18 @@ final public class AudioCapturerBuilder: AudioCapturer {
             try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
         } catch let error {
             delegate?.error(type: .audioSessionActivate(error.localizedDescription))
+            delegate?.audioCapturerStoped()
             return false
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
             guard let self else {return}
-            if activate {
-                delegate?.audioCapturerStarted()
+            if !activate {
+                delegate?.audioCapturerStoped()
                 return
             }
             
-            delegate?.audioCapturerStoped()
+            delegate?.audioCapturerStarted()
         })
 
         return true
