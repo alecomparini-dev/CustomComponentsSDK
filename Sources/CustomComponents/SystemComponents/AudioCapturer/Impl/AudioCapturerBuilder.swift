@@ -96,17 +96,28 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func stopAudioCapture(_ completion: (() -> Void)? = nil) {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
-            guard let self else {return}
-            
-            isAudioCaptureEnable = false
-            
-            activeAudioSession(false)
-            
-            DispatchQueue.main.async(execute: {
+        DispatchQueue.main.async(execute: {
+            [weak self] in
+                guard let self else {return}
+                
+                isAudioCaptureEnable = false
+                
+                activeAudioSession(false)
+                
                 completion?()
-            })
         })
+        
+//        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
+//            guard let self else {return}
+//            
+//            isAudioCaptureEnable = false
+//            
+//            activeAudioSession(false)
+//            
+//            DispatchQueue.main.async(execute: {
+//                completion?()
+//            })
+//        })
     }
     
     
@@ -127,10 +138,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     @discardableResult
     private func activeAudioSession(_ activate: Bool) -> Bool {
         do {
-    
-//            try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
-            try audioSession.setActive(activate)
-            
+            try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
         } catch let error {
             delegate?.error(type: .audioSessionActivate(error.localizedDescription))
             return false
