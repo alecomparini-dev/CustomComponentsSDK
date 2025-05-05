@@ -177,7 +177,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         audioMainQueue.async { [weak self] in
             guard let self else {return}
-            pauseEngine()
             delegate?.audioCapturerStarted()
         }
     }
