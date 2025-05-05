@@ -102,7 +102,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = false
 
-            stopEngine()
+            audioEngine.pause()
             
             activeAudioSession(false)
             
@@ -165,11 +165,10 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private func startEngine() {
         if audioEngine.isRunning { return }
         
+        delegate?.audioCapturerStarted()
+        
         do {
-            self.delegate?.audioCapturerStarted()
-            
             try audioEngine.start()
-            
         } catch let error {
             DispatchQueue.main.async(execute: { [weak self] in
                 self?.delegate?.error(type: .audioEngineStart(error.localizedDescription))
