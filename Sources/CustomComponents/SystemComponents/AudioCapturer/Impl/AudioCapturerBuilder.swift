@@ -21,7 +21,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private let options: AVAudioSession.CategoryOptions
     
     public init(category: AVAudioSession.Category = .record,
-                mode: AVAudioSession.Mode = .measurement,
+                mode: AVAudioSession.Mode = .spokenAudio,
                 options: AVAudioSession.CategoryOptions = [.duckOthers]) {
         self.category = category
         self.mode = mode
