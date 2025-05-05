@@ -95,7 +95,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         })
     }
     
-    public func stopAudioCapture(_ completion: (() -> Void)? = nil) {
+    public func stopAudioCapture() {
         audioQueue.async(execute: { [weak self] in
             guard let self else {return}
             
@@ -103,7 +103,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             activeAudioSession(false)
             
-            completion?()
         })
         
     }
@@ -132,14 +131,14 @@ final public class AudioCapturerBuilder: AudioCapturer {
             return false
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
             guard let self else {return}
             if activate {
                 delegate?.audioCapturerStarted()
                 return
             }
             
-            delegate?.audioCapturerFinished()
+            delegate?.audioCapturerStoped()
         })
 
         return true
