@@ -101,7 +101,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = false
             
-//            if !activeAudioSession(false) { return }
+            activeAudioSession(false)
             
             DispatchQueue.main.async(execute: {
                 completion?()
@@ -128,7 +128,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private func activeAudioSession(_ activate: Bool) -> Bool {
         do {
     
-            try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
+//            try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
+            try audioSession.setActive(activate)
             
         } catch let error {
             delegate?.error(type: .audioSessionActivate(error.localizedDescription))
