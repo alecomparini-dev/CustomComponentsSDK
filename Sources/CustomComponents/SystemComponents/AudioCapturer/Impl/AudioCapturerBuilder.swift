@@ -127,7 +127,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
     @discardableResult
     private func activeAudioSession(_ activate: Bool) -> Bool {
         do {
-            try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
+            
+            try audioSession.setActive(activate)
+            
         } catch let error {
             delegate?.error(type: .audioSessionActivate(error.localizedDescription))
             return false
@@ -159,7 +161,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private func configAudioSession() -> Bool {
         if !configCategory() {return false}
         
-        if !activeAudioSession(true) { return false }
+//        if !activeAudioSession(true) { return false }
         
         return true
     }
