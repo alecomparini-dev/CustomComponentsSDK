@@ -21,7 +21,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private let options: AVAudioSession.CategoryOptions
     
     public init(category: AVAudioSession.Category = .record,
-                mode: AVAudioSession.Mode = .spokenAudio,
+                mode: AVAudioSession.Mode = .measurement,
                 options: AVAudioSession.CategoryOptions = [.duckOthers]) {
         self.category = category
         self.mode = mode
@@ -166,11 +166,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
         if audioEngine.isRunning { return }
         
         do {
-            try audioEngine.start()
+            self.delegate?.audioCapturerStarted()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-                self.delegate?.audioCapturerStarted()
-            })
+            try audioEngine.start()
             
         } catch let error {
             DispatchQueue.main.async(execute: { [weak self] in
