@@ -7,59 +7,42 @@ final public class AudioCapturerBuilder: AudioCapturer {
     weak public var delegate: AudioCapturerDelegate?
     
     private var isAudioCaptureEnable = false
-    private var category: AVAudioSession.Category = .record
-    private var mode: AVAudioSession.Mode = .measurement
-    private var options: AVAudioSession.CategoryOptions = [.duckOthers]
-    private var activeOptions: AVAudioSession.SetActiveOptions = [.notifyOthersOnDeactivation]
-    
     private let audioEngine = AVAudioEngine()
     private let audioSession = AVAudioSession.sharedInstance()
     
-    public init() {}
     
+//  MARK: - INITIALIZERS
+    
+    private let category: AVAudioSession.Category
+    private let mode: AVAudioSession.Mode
+    private let options: AVAudioSession.CategoryOptions
+    
+    public init(category: AVAudioSession.Category = .record,
+                mode: AVAudioSession.Mode = .measurement,
+                options: AVAudioSession.CategoryOptions = [.duckOthers]) {
+        self.category = category
+        self.mode = mode
+        self.options = options
+    }
+        
     deinit {
         finalizeEngine()
     }
     
     
-//  MARK: - SET PROPERTIES
-        
-    public func setAudioSessionCategory(_ category: AVAudioSession.Category = .record,
-                                 mode: AVAudioSession.Mode = .measurement,
-                                 options: AVAudioSession.CategoryOptions = [.duckOthers]) {
-        self.category = category
-        self.mode = mode
-        self.options = options
-    }
-    
-    public func setActiveOptions(activeOptions: AVAudioSession.SetActiveOptions = .notifyOthersOnDeactivation) {
-        self.activeOptions = activeOptions
-    }
-    
-    
 //  MARK: - PUBLIC AREA
     
-    public func checkPermission() {
-        let permission: AudioCapturerPermission = checkPermission()
-        
-        switch permission {
-            case .ok:
-                delegate?.permissionGranted()
-            case .requestPermission:
-                delegate?.requestPermission()
-        }
-    }
-    
-    public func requestPermission()  {
-        AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
-            guard let self else {return}
-            if !granted {
-                delegate?.permissionGranted()
-                return
+    public func requestPermission() async -> RequestPermissionStatus {
+        return await withCheckedContinuation { continuation in
+            
+            AVAudioSession.sharedInstance().requestRecordPermission { granted in
+                if !granted { return continuation.resume(returning: .denied)  }
+                
+                continuation.resume(returning: .granted)
             }
             
-            delegate?.permissionDenied()
         }
+        
     }
     
     public func initiateEngine() {
@@ -69,19 +52,12 @@ final public class AudioCapturerBuilder: AudioCapturer {
             let permission: AudioCapturerPermission = checkPermission()
             
             switch permission {
-            case .ok:
-                installTap()
-                
-            case .requestPermission:
-                AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
-                    guard let self else {return}
-                    if granted {
-                        installTap()
-                        return
-                    }
-                    delegate?.permissionDenied()
-                }
-                return
+                case .ok:
+                    installTap()
+                    
+                case .requestPermission:
+                    delegate?.requestPermission()
+                    return
             }
         })
     }
@@ -94,11 +70,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             audioEngine.inputNode.removeTap(onBus: 0)
             
-            do {
-                try activeAudioSession(false)
-            } catch let error {
-                debugPrint("Error disabling audio session: \(error.localizedDescription)")
-            }
+            activeAudioSession(false)
         })
     }
     
@@ -106,7 +78,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         let permission: AudioCapturerPermission = checkPermission()
         
         if permission != .ok {
-            delegate?.permissionDenied()
+            delegate?.requestPermission()
             return
         }
         
@@ -115,9 +87,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = true
             
-            try? configCategory()
-            
-            try? activeAudioSession(true)
+            activeAudioSession(true)
             
             if !audioEngine.isRunning {
                 try? audioEngine.start()
@@ -131,7 +101,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = false
             
-            try? activeAudioSession(false)
+            if !activeAudioSession(false) { return }
             
             DispatchQueue.main.async(execute: {
                 completion?()
@@ -142,15 +112,33 @@ final public class AudioCapturerBuilder: AudioCapturer {
     
 //  MARK: - PRIVATE AREA
     
-    private func configCategory() throws {
-        try audioSession.setCategory(category, mode: mode, options: options)
+    @discardableResult
+    private func configCategory() -> Bool {
+        do {
+            try audioSession.setCategory(category, mode: mode, options: options)
+        } catch let error {
+            delegate?.error(type: .audioSessionCategory(error.localizedDescription))
+            return false
+        }
+
+        return true
     }
     
-    private func activeAudioSession(_ activate: Bool) throws {
-        try audioSession.setActive(activate, options: activeOptions)
+    @discardableResult
+    private func activeAudioSession(_ activate: Bool) -> Bool {
+        do {
+            try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
+        } catch let error {
+            delegate?.error(type: .audioSessionActivate(error.localizedDescription))
+            return false
+        }
+
+        return true
     }
-    
+        
     private func installTap() {
+        if !configAudioSession() { return }
+        
         let inputNode = audioEngine.inputNode
         
         let format = inputNode.outputFormat(forBus: 0)
@@ -166,6 +154,14 @@ final public class AudioCapturerBuilder: AudioCapturer {
         }
         
         audioEngine.prepare()
+    }
+    
+    private func configAudioSession() -> Bool {
+        if !configCategory() {return false}
+        
+        if !activeAudioSession(true) { return false }
+        
+        return true
     }
     
     private func checkPermission() -> AudioCapturerPermission {
