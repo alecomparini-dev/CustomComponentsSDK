@@ -152,7 +152,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             if !isAudioCaptureEnable { return }
             
-            DispatchQueue.main.async(execute: { [weak self] in
+            audioQueue.async(execute: { [weak self] in
                 self?.delegate?.outputAudioCapture(buffer: buffer)
             })
         }
