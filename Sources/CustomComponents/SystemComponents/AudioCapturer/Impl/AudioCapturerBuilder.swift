@@ -92,9 +92,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             activeAudioSession(true)
             
-            if !audioEngine.isRunning {
-                try? audioEngine.start()
-            }
         })
     }
     
@@ -157,15 +154,22 @@ final public class AudioCapturerBuilder: AudioCapturer {
             })
         }
         
+        isTapInstalled = true
+        
         audioEngine.prepare()
         
-        isTapInstalled = true
+        do {
+            try audioEngine.start()
+        } catch let error {
+            DispatchQueue.main.async(execute: { [weak self] in
+                self?.delegate?.error(type: .audioEngineStart(error.localizedDescription))
+            })
+        }
+                
     }
     
     private func configAudioSession() -> Bool {
         if !configCategory() {return false}
-        
-//        if !activeAudioSession(true) { return false }
         
         return true
     }
