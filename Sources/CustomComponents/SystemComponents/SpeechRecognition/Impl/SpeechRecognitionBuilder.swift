@@ -6,6 +6,9 @@ import Speech
 final public class SpeechRecognitionBuilder: SpeechRecognition {
     public weak var delegate: SpeechRecognitionDelegate?
     
+    private let speechQueue = DispatchQueue(label: "speech-queue")
+    private let speechMainQueue = DispatchQueue(label: "speech-main-queue", qos: .userInteractive)
+    
     private var defaultTaskHint: SFSpeechRecognitionTaskHint?
     private var shouldReportPartialResults: Bool = true
     private var locale = Locale(identifier: "pt-BR")
@@ -104,7 +107,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     private func initiateRecognition() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
+        speechQueue.async(execute: { [weak self] in
             guard let self else {return}
             
             resetRecognitionTask()
@@ -122,7 +125,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
+        speechQueue.async(execute: { [weak self] in
             guard let self else {return}
             request?.endAudio()
             resetRecognitionTask()
@@ -132,7 +135,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
-        request?.append(buffer)
+        speechMainQueue.async { [weak self] in
+            self?.request?.append(buffer)
+        }
     }
     
     
@@ -175,7 +180,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
 
     private func configRecognitionTask() {
-        DispatchQueue.main.async(execute: { [weak self] in
+        speechMainQueue.async(execute: { [weak self] in
             
             guard let self, let request else { return }
             
@@ -187,14 +192,11 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                     
                     let textFiltered = transpcriptFilterApply(text)
                     
-                    
                     delegate?.output(speechText: textFiltered)
-                    
                 }
                 
                 if error != nil || (result?.isFinal ?? false) {
                     stopRecognition()
-                    
                 }
             }
         })
