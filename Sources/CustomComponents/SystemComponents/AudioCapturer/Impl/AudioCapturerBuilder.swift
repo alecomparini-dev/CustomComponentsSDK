@@ -92,10 +92,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
 
             startEngine()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-                self.delegate?.audioCapturerStarted()
-            })
-            
             activeAudioSession(true)
         })
     }
@@ -171,6 +167,11 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         do {
             try audioEngine.start()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                self.delegate?.audioCapturerStarted()
+            })
+            
         } catch let error {
             DispatchQueue.main.async(execute: { [weak self] in
                 self?.delegate?.error(type: .audioEngineStart(error.localizedDescription))
