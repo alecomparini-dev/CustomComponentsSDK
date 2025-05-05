@@ -150,7 +150,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         let format = inputNode.outputFormat(forBus: 0)
         
-        inputNode.installTap(onBus: 0, bufferSize: 512, format: format) { [weak self] buffer, _ in
+        inputNode.installTap(onBus: 0, bufferSize: 2048, format: format) { [weak self] buffer, _ in
             guard let self else {return}
             
             if !isAudioCaptureEnable { return }
