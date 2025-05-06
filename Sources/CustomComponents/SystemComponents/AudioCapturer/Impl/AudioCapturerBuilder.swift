@@ -22,7 +22,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private let options: AVAudioSession.CategoryOptions
     
     public init(category: AVAudioSession.Category = .record,
-                mode: AVAudioSession.Mode = .measurement,
+                mode: AVAudioSession.Mode = .default,
                 options: AVAudioSession.CategoryOptions = [.duckOthers]) {
         self.category = category
         self.mode = mode
@@ -150,7 +150,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         let format = inputNode.outputFormat(forBus: 0)
         
-        inputNode.installTap(onBus: 0, bufferSize: 2048, format: format) { [weak self] buffer, _ in
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
             guard let self else {return}
             
             if !isAudioCaptureEnable { return }
@@ -193,6 +193,18 @@ final public class AudioCapturerBuilder: AudioCapturer {
     
     private func configAudioSession() -> Bool {
         if !configCategory() {return false}
+        
+        do {
+            try audioSession.setPreferredSampleRate(44_100)
+        } catch let error {
+            debugPrint("", error.localizedDescription)
+        }
+        
+        do {
+            try audioSession.setPreferredIOBufferDuration(0.005)
+        } catch let error as NSError {
+            print("Unable to set preferred I/O buffer duration:  \(error.localizedDescription)")
+        }
         
         return true
     }

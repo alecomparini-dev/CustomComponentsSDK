@@ -196,7 +196,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 }
                 
                 if error != nil || (result?.isFinal ?? false) {
-                    print("STOP SOZINHO !!!!")
                     stopRecognition()
                 }
             }
