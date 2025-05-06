@@ -92,9 +92,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
                         
             isAudioCaptureEnable = true
             
-            startEngine()
-            
             activeAudioSession(true)
+            
+            startEngine()
         })
     }
     
@@ -104,9 +104,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = false
 
-            pauseEngine()
-            
             activeAudioSession(false)
+            
+            pauseEngine()
             
             delegate?.audioCapturerStopped()
         })
@@ -148,7 +148,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
         let inputNode = audioEngine.inputNode
         
         let format = inputNode.inputFormat(forBus: 0)
-//        let format = inputNode.outputFormat(forBus: 0)
 
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
             guard let self else {return}
