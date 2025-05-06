@@ -96,6 +96,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
     public func stopAudioCapture() {
         pauseEngine()
         
+        activeAudioSession(false)
+        
         audioMainQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
             guard let self else {return}
             delegate?.audioCapturerStopped()
@@ -106,7 +108,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = false
             
-            activeAudioSession(false)
+            
         })
         
         
@@ -169,7 +171,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
             if !isAudioCaptureEnable { return }
             
             audioMainQueue.async(execute: { [weak self] in
-                print("buffer dentro do installTap")
                 self?.delegate?.outputAudioCapture(buffer: buffer)
             })
         }
