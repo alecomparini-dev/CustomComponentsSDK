@@ -91,11 +91,11 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = true
 
+            delegate?.audioCapturerStarted()
+
             startEngine()
             
-            activeAudioSession(true)
-            
-            delegate?.audioCapturerStarted()
+            activeAudioSession(true)            
         })
     }
     
