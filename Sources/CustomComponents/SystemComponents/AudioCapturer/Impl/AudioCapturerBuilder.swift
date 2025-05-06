@@ -147,8 +147,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         let inputNode = audioEngine.inputNode
         
-        let format = inputNode.outputFormat(forBus: 0)
-        
+        let format = inputNode.inputFormat(forBus: 0)
+
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
             guard let self else {return}
             
@@ -189,13 +189,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     
     private func configAudioSession() -> Bool {
         if !configCategory() {return false}
-        
-        do {
-            try audioSession.setPreferredSampleRate(44_100)
-        } catch let error {
-            debugPrint("Error set preferred Sample Rate", error.localizedDescription)
-        }
-        
+                
         do {
             try audioSession.setPreferredIOBufferDuration(0.005)
         } catch let error as NSError {

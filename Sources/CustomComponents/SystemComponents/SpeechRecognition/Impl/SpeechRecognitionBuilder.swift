@@ -85,8 +85,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         }
     }
     
-    
-    
     public func startRecognition() {
         let permission: SpeechRecognitionPermission = checkPermission()
         
@@ -189,17 +187,24 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             recognitionTask = recognizer?.recognitionTask(with: request) { [weak self] result, error in
                 guard let self else { return }
                 
+                if error != nil { return stopRecognition() }
+                
+                var textFiltered = ""
+                
                 if let result {
                     let text = result.bestTranscription.formattedString
                     
-                    let textFiltered = transpcriptFilterApply(text)
+                     textFiltered = transpcriptFilterApply(text)
                     
                     delegate?.output(speechText: textFiltered)
                 }
                 
-                if error != nil || (result?.isFinal ?? false) {
+                if (result?.isFinal) ?? false {
                     stopRecognition()
+                    
+                    delegate?.output(speechText: textFiltered)
                 }
+                
             }
         })
     }
@@ -223,8 +228,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             @unknown default:
                 .requestPermission
         }
-        
-        
     }
     
 }
