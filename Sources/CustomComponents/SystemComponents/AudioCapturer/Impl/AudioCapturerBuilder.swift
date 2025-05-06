@@ -197,11 +197,11 @@ final public class AudioCapturerBuilder: AudioCapturer {
         do {
             try audioSession.setPreferredSampleRate(44_100)
         } catch let error {
-            debugPrint("", error.localizedDescription)
+            debugPrint("Error set preferred Sample Rate", error.localizedDescription)
         }
         
         do {
-            try audioSession.setPreferredIOBufferDuration(0.5)
+            try audioSession.setPreferredIOBufferDuration(0.005)
         } catch let error as NSError {
             print("Unable to set preferred I/O buffer duration:  \(error.localizedDescription)")
         }
