@@ -190,12 +190,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private func configAudioSession() -> Bool {
         if !configCategory() {return false}
                 
-        do {
-            try audioSession.setPreferredIOBufferDuration(0.005)
-        } catch let error as NSError {
-            print("Unable to set preferred I/O buffer duration:  \(error.localizedDescription)")
-        }
-        
         return true
     }
     
