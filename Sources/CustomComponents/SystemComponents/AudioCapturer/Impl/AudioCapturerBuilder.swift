@@ -22,7 +22,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private let options: AVAudioSession.CategoryOptions
     
     public init(category: AVAudioSession.Category = .record,
-                mode: AVAudioSession.Mode = .default,
+                mode: AVAudioSession.Mode = .measurement,
                 options: AVAudioSession.CategoryOptions = [.duckOthers]) {
         self.category = category
         self.mode = mode
@@ -78,11 +78,11 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func startAudioCapture() {
-        audioMainQueue.async(execute: { [weak self] in
+        delegate?.audioCapturerStarted()
+        
+        audioMainQueue.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
             guard let self else {return}
-            
-            delegate?.audioCapturerStarted()
-            
+                
             let permission: AudioCapturerPermission = checkPermission()
             
             if permission != .ok {
@@ -92,9 +92,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
                         
             isAudioCaptureEnable = true
             
-            activeAudioSession(true)
-            
             startEngine()
+            
+            activeAudioSession(true)
         })
     }
     
@@ -104,9 +104,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             isAudioCaptureEnable = false
 
-            activeAudioSession(false)
-            
             pauseEngine()
+            
+            activeAudioSession(false)
             
             delegate?.audioCapturerStopped()
         })
