@@ -44,7 +44,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
                 continuation.resume(returning: .granted)
             }
         }
-        
     }
     
     public func initiateEngine() {
@@ -81,6 +80,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
     public func startAudioCapture() {
         audioMainQueue.async(execute: { [weak self] in
             guard let self else {return}
+            
+            delegate?.audioCapturerStarted()
+            
             let permission: AudioCapturerPermission = checkPermission()
             
             if permission != .ok {
@@ -89,8 +91,6 @@ final public class AudioCapturerBuilder: AudioCapturer {
             }
                         
             isAudioCaptureEnable = true
-            
-            delegate?.audioCapturerStarted()
             
             startEngine()
             
@@ -170,10 +170,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         do {
             try audioEngine.start()
         } catch let error {
-            audioMainQueue.async(execute: { [weak self] in
-                self?.delegate?.error(type: .audioEngineStart(error.localizedDescription))
-            })
-            return
+            delegate?.error(type: .audioEngineStart(error.localizedDescription))
         }
         
     }
