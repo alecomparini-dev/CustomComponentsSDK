@@ -103,9 +103,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         audioQueue.async(execute: { [weak self] in
             guard let self else {return}
             
-            audioMainQueue.asyncAfter(deadline: .now() + 0.8, execute: { [weak self] in
-                self?.isAudioCaptureEnable = false
-            })
+            isAudioCaptureEnable = false
 
             pauseEngine()
             
@@ -203,7 +201,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         }
         
         do {
-            try audioSession.setPreferredIOBufferDuration(0.005)
+            try audioSession.setPreferredIOBufferDuration(0.5)
         } catch let error as NSError {
             print("Unable to set preferred I/O buffer duration:  \(error.localizedDescription)")
         }
