@@ -181,28 +181,31 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
 
     private func configRecognitionTask() {
         speechMainQueue.async(execute: { [weak self] in
+            guard let self, let recognizer, let request else { return }
             
-            guard let self, let request else { return }
-            
-            recognitionTask = recognizer?.recognitionTask(with: request) { [weak self] result, error in
+            recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
                 guard let self else { return }
                 
-                if error != nil { return stopRecognition() }
+                if error != nil {
+                    stopRecognition()
+                    debugPrint("Error recognition task:", error?.localizedDescription ?? "")
+                    return
+                }
                 
                 var textFiltered = ""
                 
                 if let result {
                     let text = result.bestTranscription.formattedString
                     
-                     textFiltered = transpcriptFilterApply(text)
+                    textFiltered = transpcriptFilterApply(text)
                     
                     delegate?.output(speechText: textFiltered)
                 }
                 
                 if (result?.isFinal) ?? false {
-                    stopRecognition()
-                    
                     delegate?.output(speechText: textFiltered)
+                    
+                    stopRecognition()
                 }
                 
             }
