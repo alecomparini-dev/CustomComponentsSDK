@@ -78,14 +78,18 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func startAudioCapture() {
-        delegate?.audioCapturerStarted()
-                                    
-        isAudioCaptureEnable = true
-        
-        startEngine()
-        
-        activeAudioSession(true)
-
+        audioMainQueue.async { [weak self] in
+            self?.delegate?.audioCapturerStarted()
+        }
+                  
+        audioQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+            guard let self else {return}
+            isAudioCaptureEnable = true
+            
+            startEngine()
+            
+            activeAudioSession(true)
+        })
     }
     
     public func stopAudioCapture() {
