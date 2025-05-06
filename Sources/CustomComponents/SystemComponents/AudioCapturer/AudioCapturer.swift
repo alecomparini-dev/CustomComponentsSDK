@@ -7,21 +7,13 @@ import AVFoundation
 public protocol AudioCapturer {
     var delegate: AudioCapturerDelegate? { get set }
     
-    func checkPermission()
-    
-    func requestPermission()
+    func requestPermission() async -> RequestPermissionStatus
     
     func initiateEngine()
     
     func finalizeEngine()
     
-    func setAudioSessionCategory(_ category: AVAudioSession.Category,
-                                 mode: AVAudioSession.Mode,
-                                 options: AVAudioSession.CategoryOptions)
-    
-    func setActiveOptions(activeOptions: AVAudioSession.SetActiveOptions)
-
     func startAudioCapture()
     
-    func stopAudioCapture(_ completion: (() -> Void)?)
+    func stopAudioCapture()
 }

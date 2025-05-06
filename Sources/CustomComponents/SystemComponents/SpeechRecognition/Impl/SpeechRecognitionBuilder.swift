@@ -6,6 +6,9 @@ import Speech
 final public class SpeechRecognitionBuilder: SpeechRecognition {
     public weak var delegate: SpeechRecognitionDelegate?
     
+    private let speechQueue = DispatchQueue(label: "speech-queue")
+    private let speechMainQueue = DispatchQueue(label: "speech-main-queue", qos: .userInteractive)
+    
     private var defaultTaskHint: SFSpeechRecognitionTaskHint?
     private var shouldReportPartialResults: Bool = true
     private var locale = Locale(identifier: "pt-BR")
@@ -82,6 +85,8 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         }
     }
     
+    
+    
     public func startRecognition() {
         let permission: SpeechRecognitionPermission = checkPermission()
         
@@ -103,8 +108,33 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         initiateRecognition()
     }
     
+    public func stopRecognition() {
+        speechQueue.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
+            guard let self else {return}
+            request?.endAudio()
+            resetRecognitionTask()
+            recognizer = nil
+            request = nil
+        })
+    }
+    
+    public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
+        speechMainQueue.async { [weak self] in
+            self?.request?.append(buffer)
+        }
+    }
+    
+    
+//  MARK: - PRIVATE AREA
+    
+    private func configure() {
+        configDefaultSpeech()
+        
+        configTranscriptionCleanerCents()
+    }
+    
     private func initiateRecognition() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
+        speechQueue.async(execute: { [weak self] in
             guard let self else {return}
             
             resetRecognitionTask()
@@ -119,29 +149,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             
             configRecognitionTask()
         })
-    }
-    
-    public func stopRecognition() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now(), execute: { [weak self] in
-            guard let self else {return}
-            request?.endAudio()
-            resetRecognitionTask()
-            recognizer = nil
-            request = nil
-        })
-    }
-    
-    public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
-        request?.append(buffer)
-    }
-    
-    
-//  MARK: - PRIVATE AREA
-    
-    private func configure() {
-        configDefaultSpeech()
-        
-        configTranscriptionCleanerCents()
     }
     
     private func configDefaultSpeech() {
@@ -175,7 +182,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
 
     private func configRecognitionTask() {
-        DispatchQueue.main.async(execute: { [weak self] in
+        speechMainQueue.async(execute: { [weak self] in
             
             guard let self, let request else { return }
             
@@ -187,14 +194,11 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                     
                     let textFiltered = transpcriptFilterApply(text)
                     
-                    
                     delegate?.output(speechText: textFiltered)
-                    
                 }
                 
                 if error != nil || (result?.isFinal ?? false) {
                     stopRecognition()
-                    
                 }
             }
         })
