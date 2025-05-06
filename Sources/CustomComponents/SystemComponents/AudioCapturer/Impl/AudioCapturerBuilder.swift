@@ -82,7 +82,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             self?.delegate?.audioCapturerStarted()
         }
                   
-        audioQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+        audioMainQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
             guard let self else {return}
             isAudioCaptureEnable = true
             
@@ -95,13 +95,16 @@ final public class AudioCapturerBuilder: AudioCapturer {
     public func stopAudioCapture() {
         pauseEngine()
         
-        activeAudioSession(false)
+        audioMainQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+            guard let self else {return}
+            delegate?.audioCapturerStopped()
+        })
         
-        delegate?.audioCapturerStopped()
-        
-        audioMainQueue.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
+        audioQueue.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
             guard let self else {return}
             isAudioCaptureEnable = false
+            
+            activeAudioSession(false)
         })
         
         
@@ -161,7 +164,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
             
             if !isAudioCaptureEnable { return }
             
-            audioQueue.async(execute: { [weak self] in
+            audioMainQueue.async(execute: { [weak self] in
                 self?.delegate?.outputAudioCapture(buffer: buffer)
             })
         }
