@@ -79,24 +79,22 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func startAudioCapture() {
-        let permission: AudioCapturerPermission = checkPermission()
-        
-        if permission != .ok {
-            delegate?.requestPermission()
-            return
-        }
-        
         audioMainQueue.async(execute: { [weak self] in
             guard let self else {return}
+            let permission: AudioCapturerPermission = checkPermission()
             
+            if permission != .ok {
+                delegate?.requestPermission()
+                return
+            }
+                        
             isAudioCaptureEnable = true
-
-
+            
+            delegate?.audioCapturerStarted()
+            
             startEngine()
             
             activeAudioSession(true)
-            
-            delegate?.audioCapturerStarted()
         })
     }
     
