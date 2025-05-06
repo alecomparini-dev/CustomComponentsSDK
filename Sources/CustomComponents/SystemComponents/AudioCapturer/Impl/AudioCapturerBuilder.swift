@@ -99,7 +99,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func stopAudioCapture() {
-        audioQueue.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
+        audioQueue.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             guard let self else {return}
             
             isAudioCaptureEnable = false
