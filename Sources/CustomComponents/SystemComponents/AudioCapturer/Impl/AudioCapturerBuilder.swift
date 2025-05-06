@@ -148,6 +148,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         let inputNode = audioEngine.inputNode
         
         let format = inputNode.inputFormat(forBus: 0)
+//        let format = inputNode.outputFormat(forBus: 0)
 
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
             guard let self else {return}
@@ -189,7 +190,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
     
     private func configAudioSession() -> Bool {
         if !configCategory() {return false}
-                
+        
+        if !activeAudioSession(true) { return false }
+        
         return true
     }
     
