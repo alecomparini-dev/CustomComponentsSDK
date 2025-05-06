@@ -84,6 +84,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
                   
         audioMainQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
             guard let self else {return}
+            
             isAudioCaptureEnable = true
             
             startEngine()
@@ -102,6 +103,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         audioQueue.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
             guard let self else {return}
+            
             isAudioCaptureEnable = false
             
             activeAudioSession(false)
@@ -155,6 +157,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         if !configAudioSession() { return }
         
+        print("AUDIO SESSION CONFIGURADO")
+        
         let inputNode = audioEngine.inputNode
         
         let format = inputNode.inputFormat(forBus: 0)
@@ -165,11 +169,14 @@ final public class AudioCapturerBuilder: AudioCapturer {
             if !isAudioCaptureEnable { return }
             
             audioMainQueue.async(execute: { [weak self] in
+                print("buffer dentro do installTap")
                 self?.delegate?.outputAudioCapture(buffer: buffer)
             })
         }
         
         isTapInstalled = true
+        
+        print("installTap INSTALADO")
         
         audioEngine.prepare()
     }
