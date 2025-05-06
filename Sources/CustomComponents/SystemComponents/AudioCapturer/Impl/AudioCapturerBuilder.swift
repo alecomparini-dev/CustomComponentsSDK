@@ -36,6 +36,16 @@ final public class AudioCapturerBuilder: AudioCapturer {
     
 //  MARK: - PUBLIC AREA
     
+    public func checkPermission() -> AudioCapturerPermission {
+        let permission: AudioCapturerPermission = audioCapturerPermission()
+        
+        if permission != .ok {
+            return .requestPermission
+        }
+        
+        return .ok
+    }
+    
     public func requestPermission() async -> RequestPermissionStatus {
         return await withCheckedContinuation { continuation in
             AVAudioSession.sharedInstance().requestRecordPermission { granted in
@@ -49,17 +59,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
     public func initiateEngine() {
         audioQueue.async(execute: { [weak self] in
             guard let self else { return }
-            
-            let permission: AudioCapturerPermission = checkPermission()
-            
-            switch permission {
-                case .ok:
-                    installTap()
-                    
-                case .requestPermission:
-                    delegate?.requestPermission()
-                    return
-            }
+            installTap()
         })
     }
     
@@ -80,16 +80,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
     public func startAudioCapture() {
         delegate?.audioCapturerStarted()
         
-        audioMainQueue.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
+        audioMainQueue.async(execute: { [weak self] in
             guard let self else {return}
-                
-            let permission: AudioCapturerPermission = checkPermission()
-            
-            if permission != .ok {
-                delegate?.requestPermission()
-                return
-            }
-                        
+                                        
             isAudioCaptureEnable = true
             
             startEngine()
@@ -195,7 +188,7 @@ final public class AudioCapturerBuilder: AudioCapturer {
         return true
     }
     
-    private func checkPermission() -> AudioCapturerPermission {
+    private func audioCapturerPermission() -> AudioCapturerPermission {
         if #available(iOS 17.0, *) { return checkPermissionTarget17More() }
         
         let permission = AVAudioSession.sharedInstance().recordPermission
