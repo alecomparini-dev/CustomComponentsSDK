@@ -85,6 +85,8 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         }
     }
     
+    
+    
     public func startRecognition() {
         let permission: SpeechRecognitionPermission = checkPermission()
         
@@ -106,26 +108,8 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         initiateRecognition()
     }
     
-    private func initiateRecognition() {
-        speechQueue.async(execute: { [weak self] in
-            guard let self else {return}
-            
-            resetRecognitionTask()
-
-            request = SFSpeechAudioBufferRecognitionRequest()
-            
-            configRecognizer()
-
-            configShouldReportPartialResults()
-
-            configDefaultTaskHint()
-            
-            configRecognitionTask()
-        })
-    }
-    
     public func stopRecognition() {
-        speechQueue.async(execute: { [weak self] in
+        speechQueue.asyncAfter(deadline: .now() + 1.5, execute: { [weak self] in
             guard let self else {return}
             request?.endAudio()
             resetRecognitionTask()
@@ -147,6 +131,24 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         configDefaultSpeech()
         
         configTranscriptionCleanerCents()
+    }
+    
+    private func initiateRecognition() {
+        speechQueue.async(execute: { [weak self] in
+            guard let self else {return}
+            
+            resetRecognitionTask()
+
+            request = SFSpeechAudioBufferRecognitionRequest()
+            
+            configRecognizer()
+
+            configShouldReportPartialResults()
+
+            configDefaultTaskHint()
+            
+            configRecognitionTask()
+        })
     }
     
     private func configDefaultSpeech() {
