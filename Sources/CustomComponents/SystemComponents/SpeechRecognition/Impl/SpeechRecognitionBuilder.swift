@@ -186,12 +186,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
                 guard let self else { return }
                 
-                if error != nil {
-                    stopRecognition()
-                    debugPrint("Error recognition task:", error?.localizedDescription ?? "")
-                    return
-                }
-                
                 var textFiltered = ""
                 
                 if let result {
@@ -206,6 +200,12 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                     delegate?.output(speechText: textFiltered)
                     
                     stopRecognition()
+                }
+                
+                if error != nil {
+                    stopRecognition()
+                    debugPrint("Error recognition task:", error?.localizedDescription ?? "")
+                    return
                 }
                 
             }
