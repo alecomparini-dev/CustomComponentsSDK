@@ -6,7 +6,7 @@ import AVFoundation
 final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     weak public var delegate: AudioCapturerDelegate?
     
-    let count = 0
+    var count = 0
     
     private var isTapInstalled = false
     private var isAudioCaptureEnable = false
@@ -131,7 +131,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
             guard let self else {return}
             
-            print("ta chamando", count + 1)
+            print("ta chamando", count += 1)
             
             outputAudioCapture(buffer)
         }
