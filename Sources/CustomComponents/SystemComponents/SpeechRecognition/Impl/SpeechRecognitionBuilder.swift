@@ -150,7 +150,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 
                 if result.isFinal {
                     print("IS FINALLLLLLLLLLLLL")
+                    return
                 }
+                print("RECOGNITION ->", textFiltered)
             }
             
             if error != nil {
