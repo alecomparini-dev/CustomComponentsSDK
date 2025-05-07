@@ -139,6 +139,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }
             
+            
             if let result {
                 let text = result.bestTranscription.formattedString
                 
@@ -152,6 +153,8 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             if error != nil {
                 stopRecognition()
             }
+            
+            print("task atras de task", result?.bestTranscription ?? "")
         }
     }
     

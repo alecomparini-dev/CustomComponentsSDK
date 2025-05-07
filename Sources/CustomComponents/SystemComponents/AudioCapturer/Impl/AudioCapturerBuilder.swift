@@ -9,7 +9,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     var count = 0
     
     private var isTapInstalled = false
-    private var isAudioCaptureEnable = false
     
     private let audioEngine = AVAudioEngine()
     private let audioSession = AVAudioSession.sharedInstance()
@@ -82,8 +81,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
             DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
                 guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
-                
-                isAudioCaptureEnable = true
                 
                 do {
                     try startEngine()
