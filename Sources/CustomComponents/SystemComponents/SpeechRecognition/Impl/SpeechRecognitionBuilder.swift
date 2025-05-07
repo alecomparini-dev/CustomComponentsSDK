@@ -104,7 +104,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         request?.requiresOnDeviceRecognition = true
     }
 
-    
     private func configDefaultSpeech() {
         setShouldReportPartialResults(false)
         
@@ -139,7 +138,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }
             
-            
             if let result {
                 let text = result.bestTranscription.formattedString
                 
@@ -154,7 +152,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 stopRecognition()
             }
             
-            print("task atras de task", result?.bestTranscription ?? "")
+            print("task atras de task", result?.bestTranscription.formattedString ?? "")
         }
     }
     
