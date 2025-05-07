@@ -85,6 +85,8 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
         if stopRecognitionAppend { return }
         
+        print("append funfando")
+        
         request?.append(buffer)
     }
     
