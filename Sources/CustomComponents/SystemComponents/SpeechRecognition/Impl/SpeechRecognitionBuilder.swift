@@ -74,10 +74,13 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        stopRecognitionAppend = true
-        resetRecognitionTask()
-        request?.endAudio()
-        request = nil
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1, execute: { [weak self] in
+            guard let self else {return}
+            stopRecognitionAppend = true
+            resetRecognitionTask()
+            request?.endAudio()
+            request = nil
+        })
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
@@ -150,8 +153,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             
             if (result?.isFinal) ?? false {
                 output(textFiltered)
-                
+                print("é o result final devia sair")
                 stopRecognition()
+                return
             }
             
             
