@@ -16,15 +16,15 @@ public protocol SpeechRecognition {
     @discardableResult
     func setSpeechLocale(locale: Locale) -> Self
     
-    @discardableResult
-    func setWordsToClean(words: [String]) -> Self
+    func checkPermission() -> SFSpeechRecognizerAuthorizationStatus
     
+    func requestPermission() async -> SFSpeechRecognizerAuthorizationStatus
     
-    
-    
-    func appendAudioCapturer(buffer: AVAudioPCMBuffer)
+    func initiateSpeechRecognition()
     
     func startRecognition()
     
     func stopRecognition()
+    
+    func appendAudioCapturer(buffer: AVAudioPCMBuffer)
 }

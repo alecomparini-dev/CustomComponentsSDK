@@ -10,8 +10,9 @@ public protocol SpeechRecognitionDelegate: AnyObject {
     func speechPermissionDenied()
 }
 
-enum SpeechRecognitionPermission {
-    case ok
-    case notWork
+public enum SpeechRecognitionPermission {
     case requestPermission
+    case denied
+    case authorized
+    case unavailable
 }
