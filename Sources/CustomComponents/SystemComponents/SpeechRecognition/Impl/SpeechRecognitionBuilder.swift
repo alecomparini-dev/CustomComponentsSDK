@@ -155,7 +155,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             
             if error != nil {
                 stopRecognition()
-                print("error", error?.localizedDescription ?? "")
+                print("ERROUUU::", error?.localizedDescription ?? "")
             }
         }
     }
