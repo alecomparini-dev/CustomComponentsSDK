@@ -6,7 +6,7 @@ import AVFoundation
 final public class AudioCapturerBuilder: AudioCapturer {
     weak public var delegate: AudioCapturerDelegate?
     
-    private let audioQueue = DispatchQueue(label: "audio-capturer-queue")
+    private let audioQueue = DispatchQueue(label: "audio-capturer-queue", qos: .background)
     private let audioMainQueue = DispatchQueue(label: "audio-capturer-main-queue", qos: .userInteractive)
     
     private var isTapInstalled = false
@@ -57,24 +57,19 @@ final public class AudioCapturerBuilder: AudioCapturer {
     }
     
     public func initiateEngine() {
-        audioQueue.async(execute: { [weak self] in
-            guard let self else { return }
-            installTap()
-        })
+        if !configAudioSession() { return }
+        
+        installTap()
     }
     
     public func finalizeEngine() {
-        audioQueue.async(execute: { [weak self] in
-            guard let self else { return }
-            
-            stopEngine()
-            
-            audioEngine.inputNode.removeTap(onBus: 0)
-            
-            activeAudioSession(false)
-            
-            isTapInstalled = false
-        })
+        stopEngine()
+        
+        audioEngine.inputNode.removeTap(onBus: 0)
+        
+        activeAudioSession(false)
+        
+        isTapInstalled = false
     }
     
     public func startAudioCapture() {
@@ -82,8 +77,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
             self?.delegate?.audioCapturerStarted()
         }
                   
-        audioMainQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+        audioQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
             guard let self else {return}
+            
             isAudioCaptureEnable = true
             
             startEngine()
@@ -95,6 +91,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
     public func stopAudioCapture() {
         pauseEngine()
         
+        activeAudioSession(false)
+        
         audioMainQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
             guard let self else {return}
             delegate?.audioCapturerStopped()
@@ -102,9 +100,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
         
         audioQueue.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
             guard let self else {return}
-            isAudioCaptureEnable = false
             
-            activeAudioSession(false)
+            isAudioCaptureEnable = false  
         })
         
         
@@ -153,11 +150,9 @@ final public class AudioCapturerBuilder: AudioCapturer {
     private func installTap() {
         if isTapInstalled { return }
         
-        if !configAudioSession() { return }
-        
         let inputNode = audioEngine.inputNode
         
-        let format = inputNode.inputFormat(forBus: 0)
+        let format = inputNode.outputFormat(forBus: 0)
 
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
             guard let self else {return}
@@ -170,6 +165,8 @@ final public class AudioCapturerBuilder: AudioCapturer {
         }
         
         isTapInstalled = true
+        
+        print("installTap INSTALADO")
         
         audioEngine.prepare()
     }

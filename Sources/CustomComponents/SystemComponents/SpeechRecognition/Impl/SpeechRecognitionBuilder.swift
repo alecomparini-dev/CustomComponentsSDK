@@ -107,7 +107,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        speechQueue.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
+        speechQueue.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
             guard let self else {return}
             request?.endAudio()
             resetRecognitionTask()
@@ -134,8 +134,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     private func initiateRecognition() {
         speechQueue.async(execute: { [weak self] in
             guard let self else {return}
-            
-            resetRecognitionTask()
 
             request = SFSpeechAudioBufferRecognitionRequest()
             
