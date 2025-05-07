@@ -7,7 +7,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     public weak var delegate: SpeechRecognitionDelegate?
     
-    private var stopRecognitionAppend = true
+    private var recognitionStopped = true
     
     private var defaultTaskHint: SFSpeechRecognitionTaskHint?
     private var shouldReportPartialResults: Bool = true
@@ -70,12 +70,13 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         
         setRecognitionTask()
         
-        stopRecognitionAppend = false
+        recognitionStopped = false
     }
     
     public func stopRecognition() {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1.5, execute: { [weak self] in
             guard let self else {return}
+            recognitionStopped = true
             resetRecognitionTask()
             request?.endAudio()
             request = nil
@@ -83,6 +84,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
+        if recognitionStopped { return debugPrint("PAROUUU O APPEND") }
         request?.append(buffer)
     }
     
@@ -137,6 +139,8 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         
         recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }
+            
+            if recognitionStopped {return}
             
             var textFiltered = ""
             
