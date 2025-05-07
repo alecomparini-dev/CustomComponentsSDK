@@ -74,13 +74,10 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1, execute: { [weak self] in
-            guard let self else {return}
-            recognitionStopped = true
-            resetRecognitionTask()
-            request?.endAudio()
-            request = nil
-        })
+        recognitionStopped = true
+        resetRecognitionTask()
+        request?.endAudio()
+        request = nil
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
