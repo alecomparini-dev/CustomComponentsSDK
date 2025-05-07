@@ -149,15 +149,14 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 textFiltered = transpcriptFilterApply(text)
                 
                 output(textFiltered)
-            }
-            
-            if (result?.isFinal) ?? false {
-                output(textFiltered)
-                print("é o result final devia sair")
-                stopRecognition()
+                
+                if (result.isFinal) {
+                    output(textFiltered)
+                    print("é o result final devia sair")
+                    stopRecognition()
+                }
                 return
             }
-            
             
             if error != nil {
                 stopRecognition()
