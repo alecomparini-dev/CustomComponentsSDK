@@ -131,7 +131,8 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
             guard let self else {return}
             
-            print("ta chamando", count += 1)
+            count += 1
+            print("ta chamando", count )
             
             outputAudioCapture(buffer)
         }
