@@ -76,7 +76,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     public func stopRecognition() {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1.5, execute: { [weak self] in
             guard let self else {return}
-            stopRecognitionAppend = true
             resetRecognitionTask()
             request?.endAudio()
             request = nil
@@ -84,13 +83,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
-        if stopRecognitionAppend {
-            print("PAROU DE APPEND")
-            return
-        }
-        
-        print("appende no request")
-        
         request?.append(buffer)
     }
     
