@@ -143,6 +143,10 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 if result.isFinal { stopRecognition() }
                 
                 output(textFiltered)
+                
+                if result.isFinal {
+                    print("chegou ao fim, pode pedir pro usuario tirar o dedo")
+                }
             }
             
             if error != nil {
