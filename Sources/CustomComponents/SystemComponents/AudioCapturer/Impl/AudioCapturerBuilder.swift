@@ -78,7 +78,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         })
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
-            DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
                 guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
                 
                 isAudioCaptureEnable = true
@@ -102,7 +102,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
             self?.delegate?.audioCapturerStopped()
         })
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1, execute: { [weak self] in
             self?.isAudioCaptureEnable = false
         })
     }
