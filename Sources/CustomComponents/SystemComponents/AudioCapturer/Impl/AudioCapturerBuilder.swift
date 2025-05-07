@@ -80,14 +80,20 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
             DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
-                guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
-                
-                do {
-                    try startEngine()
+                Task { [weak self] in
                     
-                    continuation.resume()
-                } catch let error {
-                    return continuation.resume(throwing: AudioCapturerError.audioEngineStartError(error.localizedDescription))
+                    guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
+                    
+                    do {
+                        try startEngine()
+                    
+                        try await activeAudioSession(true)
+                        
+                        continuation.resume()
+                    } catch let error {
+                        return continuation.resume(throwing: AudioCapturerError.audioEngineStartError(error.localizedDescription))
+                    }
+                    
                 }
                 
             })
@@ -98,9 +104,13 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
             self?.pauseEngine()
             
-            DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
-                self?.delegate?.audioCapturerStopped()
-            })
+            Task {
+                try? await self?.activeAudioSession(false)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
+                    self?.delegate?.audioCapturerStopped()
+                })
+            }
         })
     }
     
@@ -113,7 +123,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     
     private func activeAudioSession(_ activate: Bool) async throws {
         try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
-        
     }
         
     private func installTap() {
@@ -124,12 +133,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         let format = inputNode.outputFormat(forBus: 0)
 
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
-            guard let self else {return}
-            
-            count += 1
-            print("ta chamando", count )
-            
-            outputAudioCapture(buffer)
+            self?.outputAudioCapture(buffer)
         }
         
         isTapInstalled = true
@@ -146,9 +150,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     private func stopEngine() {
-        if audioEngine.isRunning {
-            audioEngine.stop()
-        }
+        audioEngine.stop()
     }
     
     private func pauseEngine() {
@@ -160,7 +162,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private func configAudioSession() async throws {
         try await configCategory()
         
-        try await activeAudioSession(true)
+        try await activeAudioSession(false)
     }
     
     private func audioCapturerPermission() -> AudioCapturerPermission {
