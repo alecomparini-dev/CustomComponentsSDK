@@ -101,7 +101,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.4, execute: { [weak self] in
             self?.pauseEngine()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
                 self?.delegate?.audioCapturerStopped()
             })
         })
