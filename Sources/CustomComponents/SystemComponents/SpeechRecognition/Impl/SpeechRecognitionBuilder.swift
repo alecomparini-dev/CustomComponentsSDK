@@ -135,19 +135,13 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     private func setRecognitionTask() {
         guard let recognizer, let request else { return }
         
-        print("iniciando set recognitionTask")
-        
         recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }
-            
-            print("dentro da task")
             
             var textFiltered = ""
             
             if let result {
                 let text = result.bestTranscription.formattedString
-            
-                print("RESULT:", text )
                 
                 textFiltered = transpcriptFilterApply(text)
                 
@@ -159,6 +153,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 
                 stopRecognition()
             }
+            
             
             if error != nil {
                 stopRecognition()
