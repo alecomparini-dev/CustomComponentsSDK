@@ -150,9 +150,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             
             if error != nil {
                 stopRecognition()
-            }
-            
-            print("task atras de task", result?.bestTranscription.formattedString ?? "")
+            }            
         }
     }
     
