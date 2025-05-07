@@ -138,6 +138,10 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
             if let result {
                 let text = result.bestTranscription.formattedString
                 
+                if text.isEmpty {
+                    print("não tem nada !! poderia falar que já terminou")
+                }
+                
                 let textFiltered = transpcriptFilterApply(text)
                 
                 if result.isFinal { stopRecognition() }
@@ -145,13 +149,14 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
                 output(textFiltered)
                 
                 if result.isFinal {
-                    print("chegou ao fim, pode pedir pro usuario tirar o dedo")
+                    print("IS FINALLLLLLLLLLLLL")
                 }
             }
             
             if error != nil {
                 stopRecognition()
-            }            
+                print("error", error?.localizedDescription ?? "")
+            }
         }
     }
     
