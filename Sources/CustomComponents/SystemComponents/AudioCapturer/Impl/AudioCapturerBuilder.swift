@@ -98,7 +98,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     public func stopAudioCapture() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.4, execute: { [weak self] in
             self?.pauseEngine()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
