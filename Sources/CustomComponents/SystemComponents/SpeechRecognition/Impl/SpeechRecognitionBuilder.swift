@@ -7,9 +7,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     
     public weak var delegate: SpeechRecognitionDelegate?
     
-    private let speechQueue = DispatchQueue(label: "speech-queue")
-    private let speechMainQueue = DispatchQueue(label: "speech-main-queue", qos: .userInteractive)
-    
     private var stopRecognitionAppend = true
     
     private var defaultTaskHint: SFSpeechRecognitionTaskHint?
@@ -79,10 +76,10 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
+        stopRecognitionAppend = true
         resetRecognitionTask()
         request?.endAudio()
         request = nil
-        stopRecognitionAppend = true
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
@@ -99,8 +96,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         
         configTranscriptionCleanerCents()
     }
-    
-    
     
     private func configRequest() {
         request = SFSpeechAudioBufferRecognitionRequest()
@@ -142,9 +137,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     private func setRecognitionTask() {
         guard let recognizer, let request else { return }
         
-        let teste = request.nativeAudioFormat
-        print(teste.settings)
-        
         recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }
             
@@ -174,7 +166,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     private func output(_ text: String) {
-        speechMainQueue.async(execute: { [weak self] in
+        DispatchQueue.main.async(execute: { [weak self] in
             self?.delegate?.output(speechText: text)
         })
     }
