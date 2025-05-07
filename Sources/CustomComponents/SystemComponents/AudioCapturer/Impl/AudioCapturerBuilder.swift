@@ -193,7 +193,12 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
 
     private func outputAudioCapture(_ buffer: AVAudioPCMBuffer) {
-        if !isAudioCaptureEnable { return }
+        if !isAudioCaptureEnable {
+            print("parou de mandar bufefer")
+            return
+        }
+        
+        print("mandando buffer")
         
         DispatchQueue.main.async(execute: { [weak self] in
             self?.delegate?.outputAudioCapture(buffer: buffer)
