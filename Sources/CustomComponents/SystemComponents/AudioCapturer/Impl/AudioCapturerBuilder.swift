@@ -76,7 +76,9 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     public func startAudioCapture() async throws {
-        delegate?.audioCapturerStarted()
+        DispatchQueue.main.async(execute: { [weak self] in
+            self?.delegate?.audioCapturerStarted()
+        })
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
             audioQueue.asyncAfter(deadline: .now(), execute: { [weak self] in
