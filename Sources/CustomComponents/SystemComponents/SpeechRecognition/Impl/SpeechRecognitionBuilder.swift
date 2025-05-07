@@ -74,7 +74,7 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func stopRecognition() {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1.5, execute: { [weak self] in
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1, execute: { [weak self] in
             guard let self else {return}
             recognitionStopped = true
             resetRecognitionTask()
@@ -84,7 +84,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
-        if recognitionStopped { return debugPrint("PAROUUU O APPEND") }
         request?.append(buffer)
     }
     
@@ -140,31 +139,19 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
             guard let self else { return }
             
-            if recognitionStopped {return}
-            
-            var textFiltered = ""
-            
             if let result {
                 let text = result.bestTranscription.formattedString
                 
-                textFiltered = transpcriptFilterApply(text)
+                let textFiltered = transpcriptFilterApply(text)
+                
+                if result.isFinal { stopRecognition() }
                 
                 output(textFiltered)
-                
-                if (result.isFinal) {
-                    output(textFiltered)
-                    print("é o result final devia sair")
-                    stopRecognition()
-                }
-                return
             }
             
             if error != nil {
                 stopRecognition()
-                debugPrint("Error recognition task:", error?.localizedDescription ?? "")
-                return
             }
-            
         }
     }
     
