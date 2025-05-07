@@ -78,13 +78,10 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     public func startAudioCapture() async throws {
         delegate?.audioCapturerStarted()
         
-        weak var weakSelf = self
-        
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
-            let selfRef = weakSelf
             
-            audioQueue.asyncAfter(deadline: .now() + 0.2, execute: { [selfRef] in
-                guard let self = selfRef else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
+            audioQueue.asyncAfter(deadline: .now(), execute: { [weak self] in
+                guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
                 
                 self.isAudioCaptureEnable = true
                 
