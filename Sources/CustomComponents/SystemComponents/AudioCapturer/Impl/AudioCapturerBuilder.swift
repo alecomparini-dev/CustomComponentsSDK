@@ -194,7 +194,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
 
     private func outputAudioCapture(_ buffer: AVAudioPCMBuffer) {
         if !isAudioCaptureEnable {
-            print("parou de mandar bufefer")
+            print("parou de mandar buffer")
             return
         }
         
