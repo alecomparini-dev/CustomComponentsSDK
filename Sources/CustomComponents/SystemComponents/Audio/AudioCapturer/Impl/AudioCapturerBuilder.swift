@@ -93,7 +93,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
                     } catch let error {
                         return continuation.resume(throwing: AudioCapturerError.audioEngineStartError(error.localizedDescription))
                     }
-                    
                 }
                 
             })
