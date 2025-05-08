@@ -4,10 +4,7 @@
 import Speech
 
 final public class SpeechRecognitionBuilder: SpeechRecognition {
-    
     public weak var delegate: SpeechRecognitionDelegate?
-    
-    private var recognitionStopped = true
     
     private var defaultTaskHint: SFSpeechRecognitionTaskHint?
     private var shouldReportPartialResults: Bool = true
@@ -69,12 +66,9 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
         configRequest()
         
         setRecognitionTask()
-        
-        recognitionStopped = false
     }
     
     public func stopRecognition() {
-        recognitionStopped = true
         resetRecognitionTask()
         request?.endAudio()
         request = nil
