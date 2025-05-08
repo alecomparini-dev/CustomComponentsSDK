@@ -6,16 +6,16 @@ import AVFoundation
 
 public protocol AudioCapturer {
     var delegate: AudioCapturerDelegate? { get set }
-    
     func checkPermission() -> AudioCapturerPermission
     
     func requestPermission() async -> RequestPermissionStatus
     
-    func initiateEngine()
+    func initiateEngine() async throws
     
-    func finalizeEngine()
+    func finalizeEngine() async throws
     
-    func startAudioCapture()
+    func startAudioCapture() async throws
     
     func stopAudioCapture()
+
 }

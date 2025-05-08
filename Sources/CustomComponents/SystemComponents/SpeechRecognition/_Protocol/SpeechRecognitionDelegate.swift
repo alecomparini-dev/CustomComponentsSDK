@@ -3,15 +3,11 @@
 
 public protocol SpeechRecognitionDelegate: AnyObject {
     func output(speechText: String)
-    
-    func requestSpeechPermission()
-    func speechPermissionGranted()
-    func speechPermissionNotWork()
-    func speechPermissionDenied()
 }
 
-enum SpeechRecognitionPermission {
-    case ok
-    case notWork
+public enum SpeechRecognitionPermission {
     case requestPermission
+    case denied
+    case authorized
+    case unavailable
 }
