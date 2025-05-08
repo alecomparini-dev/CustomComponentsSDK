@@ -52,6 +52,8 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     public func initiateEngine() async throws {
+        if checkPermission() != .ok { throw AudioCapturerError.audioCapturerMustBePermission }
+        
         try await configAudioSession()
         
         installTap()
@@ -74,6 +76,8 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     public func startAudioCapture() async throws {
+        if checkPermission() != .ok { throw AudioCapturerError.audioCapturerMustBePermission }
+        
         DispatchQueue.main.async(execute: { [weak self] in
             self?.delegate?.audioCapturerStarted()
         })
