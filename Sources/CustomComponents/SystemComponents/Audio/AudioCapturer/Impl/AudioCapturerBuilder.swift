@@ -164,7 +164,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private func configAudioSession() async throws {
         try await configCategory()
         
-        try await activeAudioSession(false)
+        try await activeAudioSession(true)
     }
     
     private func audioCapturerPermission() -> AudioCapturerPermission {
