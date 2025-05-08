@@ -76,7 +76,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     public func startAudioCapture() async throws {
-        if checkPermission() != .ok { throw AudioCapturerError.audioCapturerMustBePermission }
+        if checkPermission() != .ok { return }
         
         DispatchQueue.main.async(execute: { [weak self] in
             self?.delegate?.audioCapturerStarted()
@@ -164,7 +164,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private func configAudioSession() async throws {
         try await configCategory()
         
-        try await activeAudioSession(false)
+        try await activeAudioSession(true)
     }
     
     private func audioCapturerPermission() -> AudioCapturerPermission {
