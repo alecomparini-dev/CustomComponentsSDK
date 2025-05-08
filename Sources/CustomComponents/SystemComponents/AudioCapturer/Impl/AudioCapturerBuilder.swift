@@ -132,7 +132,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         let format = inputNode.outputFormat(forBus: 0)
 
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
-            print("começou BUFFER")
             self?.outputAudioCapture(buffer)
         }
         

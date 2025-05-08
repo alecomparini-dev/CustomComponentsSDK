@@ -75,7 +75,6 @@ final public class SpeechRecognitionBuilder: SpeechRecognition {
     }
     
     public func appendAudioCapturer(buffer: AVAudioPCMBuffer) {
-        print("está appendando")
         request?.append(buffer)
     }
     
