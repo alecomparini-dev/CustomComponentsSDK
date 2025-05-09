@@ -52,11 +52,10 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     public func initiateEngine() {
-            
-            if checkPermission() != .ok {
-                delegate?.requestPermission()
-                return
-            }
+        if checkPermission() != .ok {
+            delegate?.requestPermission()
+            return
+        }
         
         queueBackground.async(execute: { [weak self] in
             guard let self else { return }
