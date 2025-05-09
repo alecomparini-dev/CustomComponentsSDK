@@ -78,32 +78,23 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
             self?.delegate?.audioCapturerStarted()
         })
         
-        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
-            guard let self else { return }
-            
-            try? startEngine()
-            
-            try? activeAudioSession(true)
-        })
-            
-//        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
-            
-//            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
-//                Task { [weak self] in
-//                    guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
-//                    
-//                    do {
-//                        try startEngine()
-//                    
-//                        try? await activeAudioSession(true)
-//                        
-//                        continuation.resume()
-//                    } catch let error {
-//                        return continuation.resume(throwing: AudioCapturerError.audioEngineStartError(error.localizedDescription))
-//                    }
-//                }
-//            })
-//        }
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+                Task { [weak self] in
+                    guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
+                    
+                    do {
+                        try startEngine()
+                        
+                        try? activeAudioSession(true)
+                        
+                        continuation.resume()
+                    } catch let error {
+                        return continuation.resume(throwing: AudioCapturerError.audioEngineStartError(error.localizedDescription))
+                    }
+                }
+            })
+        }
     }
     
     public func stopAudioCapture() {
