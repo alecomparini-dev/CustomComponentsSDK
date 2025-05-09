@@ -6,7 +6,7 @@ import AVFoundation
 final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     weak public var delegate: AudioCapturerDelegate?
     
-    var count = 0
+    private let queueBackground = DispatchQueue(label: "audio-capturer-background-queue", qos: .background)
     
     private var isTapInstalled = false
     
@@ -51,14 +51,27 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         }
     }
     
-    public func initiateEngine() throws {
-        if checkPermission() != .ok { throw AudioCapturerError.audioCapturerMustBePermission }
+    public func initiateEngine() {
+            
+            if checkPermission() != .ok {
+                delegate?.requestPermission()
+                return
+            }
         
-        try configAudioSession()
+        queueBackground.async(execute: { [weak self] in
+            guard let self else { return }
+            
+            do {
+                try configAudioSession()
+            } catch let error {
+                debugPrint("error config audio session", error.localizedDescription)
+            }
+            
+            installTap()
+            
+            audioEngine.prepare()
+        })
         
-        installTap()
-        
-        audioEngine.prepare()
     }
     
     public func finalizeEngine() throws {
@@ -192,7 +205,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         DispatchQueue.main.async(execute: { [weak self] in
             self?.delegate?.outputAudioCapture(buffer: buffer)
         })
-//        delegate?.outputAudioCapture(buffer: buffer)
     }
     
 }

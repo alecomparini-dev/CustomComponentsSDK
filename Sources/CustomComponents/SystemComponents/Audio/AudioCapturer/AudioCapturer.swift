@@ -10,9 +10,9 @@ public protocol AudioCapturer {
     
     func requestPermission() async -> RequestPermissionStatus
     
-    func initiateEngine() async throws
+    func initiateEngine() 
     
-    func finalizeEngine() async throws
+    func finalizeEngine() throws
     
     func startAudioCapture() async throws
     
