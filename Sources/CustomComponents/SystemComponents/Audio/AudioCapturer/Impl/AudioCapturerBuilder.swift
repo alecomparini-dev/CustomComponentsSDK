@@ -64,13 +64,13 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     public func finalizeEngine() async throws {
         stopEngine()
         
-        audioEngine.inputNode.removeTap(onBus: 0)
-        
         do {
             try await activeAudioSession(false)
         } catch let error {
             throw AudioCapturerError.audioSessionFinalizeEngineError(error.localizedDescription)
         }
+        
+        audioEngine.inputNode.removeTap(onBus: 0)
         
         isTapInstalled = false
     }
@@ -83,30 +83,29 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         })
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
-            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
+            
+            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
                 Task { [weak self] in
-                    
                     guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
                     
                     do {
                         try startEngine()
                     
-                        try await activeAudioSession(true)
+                        try? await activeAudioSession(true)
                         
                         continuation.resume()
                     } catch let error {
                         return continuation.resume(throwing: AudioCapturerError.audioEngineStartError(error.localizedDescription))
                     }
                 }
-                
             })
         }
     }
     
     public func stopAudioCapture() {
-        pauseEngine()
-        
         Task {
+            pauseEngine()
+            
             try? await activeAudioSession(false)
             
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
@@ -197,9 +196,10 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
 
     private func outputAudioCapture(_ buffer: AVAudioPCMBuffer) {
-        DispatchQueue.main.async(execute: { [weak self] in
-            self?.delegate?.outputAudioCapture(buffer: buffer)
-        })
+//        DispatchQueue.main.async(execute: { [weak self] in
+//            self?.delegate?.outputAudioCapture(buffer: buffer)
+//        })
+        delegate?.outputAudioCapture(buffer: buffer)
     }
     
 }
