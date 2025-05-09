@@ -51,24 +51,20 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         }
     }
     
-    public func initiateEngine() async throws {
+    public func initiateEngine() throws {
         if checkPermission() != .ok { throw AudioCapturerError.audioCapturerMustBePermission }
         
-        try await configAudioSession()
+        try configAudioSession()
         
         installTap()
         
         audioEngine.prepare()
     }
     
-    public func finalizeEngine() async throws {
+    public func finalizeEngine() throws {
         stopEngine()
         
-        do {
-            try await activeAudioSession(false)
-        } catch let error {
-            throw AudioCapturerError.audioSessionFinalizeEngineError(error.localizedDescription)
-        }
+        try? activeAudioSession(false)
         
         audioEngine.inputNode.removeTap(onBus: 0)
         
@@ -82,31 +78,39 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
             self?.delegate?.audioCapturerStarted()
         })
         
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
+            guard let self else { return }
             
-            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
-                Task { [weak self] in
-                    guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
-                    
-                    do {
-                        try startEngine()
-                    
-                        try? await activeAudioSession(true)
-                        
-                        continuation.resume()
-                    } catch let error {
-                        return continuation.resume(throwing: AudioCapturerError.audioEngineStartError(error.localizedDescription))
-                    }
-                }
-            })
-        }
+            try? startEngine()
+            
+            try? activeAudioSession(true)
+        })
+            
+//        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
+            
+//            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
+//                Task { [weak self] in
+//                    guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
+//                    
+//                    do {
+//                        try startEngine()
+//                    
+//                        try? await activeAudioSession(true)
+//                        
+//                        continuation.resume()
+//                    } catch let error {
+//                        return continuation.resume(throwing: AudioCapturerError.audioEngineStartError(error.localizedDescription))
+//                    }
+//                }
+//            })
+//        }
     }
     
     public func stopAudioCapture() {
         Task {
             pauseEngine()
             
-            try? await activeAudioSession(false)
+            try? activeAudioSession(false)
             
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: { [weak self] in
                 self?.delegate?.audioCapturerStopped()
@@ -118,11 +122,11 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     
 //  MARK: - PRIVATE AREA
     
-    private func configCategory() async throws {
+    private func configCategory() throws {
         try audioSession.setCategory(category, mode: mode, options: options)
     }
     
-    private func activeAudioSession(_ activate: Bool) async throws {
+    private func activeAudioSession(_ activate: Bool) throws {
         try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
     }
         
@@ -160,10 +164,10 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         }
     }
     
-    private func configAudioSession() async throws {
-        try await configCategory()
+    private func configAudioSession() throws {
+        try configCategory()
         
-        try await activeAudioSession(true)
+        try activeAudioSession(true)
     }
     
     private func audioCapturerPermission() -> AudioCapturerPermission {
@@ -196,10 +200,10 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
 
     private func outputAudioCapture(_ buffer: AVAudioPCMBuffer) {
-//        DispatchQueue.main.async(execute: { [weak self] in
-//            self?.delegate?.outputAudioCapture(buffer: buffer)
-//        })
-        delegate?.outputAudioCapture(buffer: buffer)
+        DispatchQueue.main.async(execute: { [weak self] in
+            self?.delegate?.outputAudioCapture(buffer: buffer)
+        })
+//        delegate?.outputAudioCapture(buffer: buffer)
     }
     
 }
