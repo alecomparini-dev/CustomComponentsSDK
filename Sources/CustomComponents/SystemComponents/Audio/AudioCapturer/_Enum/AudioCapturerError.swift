@@ -6,4 +6,5 @@ public enum AudioCapturerError: Error {
     case audioSessionFinalizeEngineError(_ error: String)
     case startAudioCaptureError(_ error: String)
     case audioEngineStartError(_ error: String)
+    case audioCapturerMustBePermission
 }

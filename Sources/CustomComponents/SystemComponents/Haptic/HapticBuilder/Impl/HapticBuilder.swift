@@ -126,7 +126,6 @@ open class HapticBuilder: Haptic {
             try player.start(atTime: CHHapticTimeImmediate)
             
         } catch {
-            debugPrint("Error starting Haptic: \(error.localizedDescription)")
             startEngineHandlers()
         }
         

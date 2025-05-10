@@ -6,6 +6,7 @@ import AVFoundation
 public protocol AudioCapturerDelegate: AnyObject {
     func audioCapturerStarted()
     func audioCapturerStopped()
+    func requestPermission()
     func outputAudioCapture(buffer: AVAudioPCMBuffer)
     func error(_ error: AudioCapturerError )
 }
