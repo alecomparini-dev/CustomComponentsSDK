@@ -1,0 +1,99 @@
+//  Created by Alessandro Comparini on 10/05/25.
+//
+
+import UIKit
+
+@MainActor
+final public class PulseAnimationBuilder: PulseAnimation {
+    private var _isAnimating: Bool = false
+    private var duration: TimeInterval = 0.6
+    private var delay: TimeInterval = .zero
+    private var options: UIView.AnimationOptions = [.allowUserInteraction]
+    private var scale: (scaleX: CGFloat, y: CGFloat) = (1.2, 1.2)
+    
+    private let component: BaseBuilder
+    
+    public init(component: BaseBuilder) {
+        self.component = component
+        configure()
+    }
+    
+    
+//  MARK: - GET PROPERTIES
+
+    public var isAnimating: Bool { _isAnimating }
+    
+    
+//  MARK: - SET PROPERTIES
+    
+    @discardableResult
+    public func setScalePulse(scaleX: CGFloat, y: CGFloat) -> Self {
+        return self
+    }
+    
+    @discardableResult
+    public func setAnimate(duration: TimeInterval) -> Self {
+        self.duration = duration
+        return self
+    }
+    
+    @discardableResult
+    public func setAnimate(delay: TimeInterval) -> Self {
+        self.delay = delay
+        return self
+    }
+    
+    @discardableResult
+    public func setAnimate(options: UIView.AnimationOptions) -> Self {
+        self.options.insert(options)
+        return self
+    }
+    
+    public func startAnimation(_ completion: (() -> Void)?) {
+        _isAnimating = true
+        
+        component.setHidden(true, animated: true)
+        
+        UIView.animate(withDuration: duration,
+                       delay: delay,
+                       options: options,
+                       animations: { [weak self] in
+            guard let self else { return }
+            
+            component.baseView.transform = CGAffineTransform(scaleX: scale.scaleX,
+                                                             y: scale.y)
+            
+        }, completion: { bool in
+            if bool {
+                completion?()
+            }
+        })
+    }
+    
+    public func stopAnimation(_ after : TimeInterval = .zero,
+                              _ shouldHide: Bool = false,
+                              _ completion: (() -> Void)? = nil) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: { [weak self] in
+            guard let self else { return }
+            
+            stopAnimation()
+            
+            component.setHidden(true, animated: true)
+            
+            _isAnimating = false
+            
+            completion?()
+        })
+        
+        
+    }
+    
+//  MARK: - PRIVATE AREA
+    
+    private func configure() {
+        setAnimate(options: .repeat)
+        setAnimate(options: .autoreverse)
+    }
+        
+}
