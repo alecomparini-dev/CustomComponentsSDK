@@ -49,7 +49,7 @@ final public class PulseAnimationBuilder: PulseAnimation {
         return self
     }
     
-    public func startAnimation(_ completion: (() -> Void)?) {
+    public func startAnimation(_ completion: (() -> Void)? = nil) {
         _isAnimating = true
         
         component.setHidden(true, animated: true)
