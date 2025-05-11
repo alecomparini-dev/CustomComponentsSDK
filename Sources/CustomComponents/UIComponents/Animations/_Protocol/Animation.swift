@@ -6,7 +6,10 @@ import UIKit
 @MainActor
 public protocol Animation {
     var isAnimating: Bool { get }
-        
+    
+    @discardableResult
+    func setRepeatCount(_ count: Float) -> Self
+    
     @discardableResult
     func setAnimate(duration: TimeInterval) -> Self
     
@@ -14,11 +17,15 @@ public protocol Animation {
     func setAnimate(delay: TimeInterval) -> Self
     
     @discardableResult
-    func setAnimate(options: UIView.AnimationOptions) -> Self
+    func setAnimate(autoReverse: Bool) -> Self
+    
+    @discardableResult
+    func setTimingFunction(name: CAMediaTimingFunctionName) -> Self
     
     func startAnimation(_ completion: (() -> Void)?)
-    
-    func stopAnimation(after: TimeInterval,
+       
+    func stopAnimation(delay: TimeInterval,
                        shouldHide: Bool,
                        completion: (() -> Void)?)
+    
 }

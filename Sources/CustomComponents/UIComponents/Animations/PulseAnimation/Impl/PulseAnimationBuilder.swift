@@ -5,17 +5,22 @@ import UIKit
 
 @MainActor
 final public class PulseAnimationBuilder: PulseAnimation {
+    private let pulse = CABasicAnimation(keyPath: "transform.scale")
+    private let animationKey = "pulseAnimation"
+    
     private var _isAnimating: Bool = false
+    
     private var duration: TimeInterval = 0.6
     private var delay: TimeInterval = .zero
-    private var options: UIView.AnimationOptions = [.allowUserInteraction]
-    private var scale: (scaleX: CGFloat, y: CGFloat) = (1.2, 1.2)
+    private var autoReverse: Bool = true
+    private var scale: CGFloat = 1.2
+    private var repeatCount: Float = .infinity
+    private var timingFunction = CAMediaTimingFunction(name: .linear)
     
     private weak var component: BaseBuilder?
     
     public init(component: BaseBuilder) {
         self.component = component
-        configure()
     }
     
     
@@ -27,9 +32,14 @@ final public class PulseAnimationBuilder: PulseAnimation {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
-    public func setScalePulse(scaleX: CGFloat, y: CGFloat) -> Self {
-        scale.scaleX = scaleX
-        scale.y = y
+    public func setScale(_ scale: CGFloat) -> Self {
+        self.scale = scale
+        return self
+    }
+    
+    @discardableResult
+    public func setRepeatCount(_ count: Float) -> Self {
+        repeatCount = count
         return self
     }
     
@@ -46,57 +56,62 @@ final public class PulseAnimationBuilder: PulseAnimation {
     }
     
     @discardableResult
-    public func setAnimate(options: UIView.AnimationOptions) -> Self {
-        self.options.insert(options)
+    public func setAnimate(autoReverse: Bool) -> Self {
+        self.autoReverse = autoReverse
         return self
     }
     
+    @discardableResult
+    public func setTimingFunction(name: CAMediaTimingFunctionName) -> Self {
+        timingFunction = CAMediaTimingFunction(name: name)
+        return self
+    }
+        
     public func startAnimation(_ completion: (() -> Void)? = nil) {
+        component?.setHidden(false, animated: true)
+ 
+        setStartAnimation()
+        
+        component?.baseView.layer.add(pulse, forKey: animationKey)
+        
         _isAnimating = true
         
-        component?.setHidden(false, animated: true)
-        
-        UIView.animate(withDuration: duration,
-                       delay: delay,
-                       options: options,
-                       animations: { [weak self] in
-            guard let self else { return }
-            
-            component?.baseView.transform = CGAffineTransform(scaleX: scale.scaleX,
-                                                             y: scale.y)
-            
-        }, completion: { [weak self] bool in
-            if bool {
-                completion?()
-                self?.component?.baseView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
-        })
+        completion?()
     }
     
-    public func stopAnimation(after : TimeInterval = .zero,
+    public func stopAnimation(delay: TimeInterval = .zero,
                               shouldHide: Bool = false,
                               completion: (() -> Void)? = nil) {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { [weak self] in
             guard let self else { return }
             
             component?.setHidden(shouldHide, animated: true)
-            
-            component?.baseView.layer.removeAllAnimations()
+        
+            component?.baseView.layer.removeAnimation(forKey: animationKey)
             
             _isAnimating = false
             
             completion?()
         })
         
-        
     }
+    
+    
     
 //  MARK: - PRIVATE AREA
     
-    private func configure() {
-        setAnimate(options: .repeat)
-        setAnimate(options: .autoreverse)
+    private func setStartAnimation() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { [weak self] in
+            guard let self else { return }
+            pulse.fromValue = 1.0
+            pulse.toValue = scale
+            pulse.duration = duration
+            pulse.autoreverses = autoReverse
+            pulse.repeatCount = repeatCount
+            pulse.timingFunction = timingFunction
+        })
     }
+
         
 }
