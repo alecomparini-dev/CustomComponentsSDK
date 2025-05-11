@@ -13,7 +13,7 @@ final public class PulseAnimationBuilder: PulseAnimation {
     private var duration: TimeInterval = 0.5
     private var delay: TimeInterval = .zero
     private var autoReverse: Bool = true
-    private var scale: CGFloat = 1.2
+    private var scale: CGFloat = 1.4
     private var repeatCount: Float = .infinity
     private var timingFunction = CAMediaTimingFunction(name: .linear)
     
