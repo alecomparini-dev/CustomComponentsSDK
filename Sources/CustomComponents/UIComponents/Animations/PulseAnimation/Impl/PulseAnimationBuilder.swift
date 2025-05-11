@@ -102,7 +102,6 @@ final public class PulseAnimationBuilder: PulseAnimation {
 //  MARK: - PRIVATE AREA
     
     private func setStartAnimation() {
-        guard let self else { return }
         pulse.fromValue = 1.0
         pulse.toValue = scale
         pulse.duration = duration
