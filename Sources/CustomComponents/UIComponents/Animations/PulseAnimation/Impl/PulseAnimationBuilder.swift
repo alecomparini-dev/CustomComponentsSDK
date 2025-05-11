@@ -11,7 +11,7 @@ final public class PulseAnimationBuilder: PulseAnimation {
     private var options: UIView.AnimationOptions = [.allowUserInteraction]
     private var scale: (scaleX: CGFloat, y: CGFloat) = (1.2, 1.2)
     
-    private let component: BaseBuilder
+    private weak var component: BaseBuilder?
     
     public init(component: BaseBuilder) {
         self.component = component
@@ -54,7 +54,7 @@ final public class PulseAnimationBuilder: PulseAnimation {
     public func startAnimation(_ completion: (() -> Void)? = nil) {
         _isAnimating = true
         
-        component.setHidden(false, animated: true)
+        component?.setHidden(false, animated: true)
         
         UIView.animate(withDuration: duration,
                        delay: delay,
@@ -62,13 +62,13 @@ final public class PulseAnimationBuilder: PulseAnimation {
                        animations: { [weak self] in
             guard let self else { return }
             
-            component.baseView.transform = CGAffineTransform(scaleX: scale.scaleX,
+            component?.baseView.transform = CGAffineTransform(scaleX: scale.scaleX,
                                                              y: scale.y)
             
         }, completion: { [weak self] bool in
             if bool {
                 completion?()
-                self?.component.baseView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self?.component?.baseView.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
         })
     }
@@ -80,9 +80,9 @@ final public class PulseAnimationBuilder: PulseAnimation {
         DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: { [weak self] in
             guard let self else { return }
             
-            component.baseView.layer.removeAllAnimations()
+            component?.setHidden(shouldHide, animated: true)
             
-            component.setHidden(shouldHide, animated: true)
+            component?.baseView.layer.removeAllAnimations()
             
             _isAnimating = false
             
