@@ -10,7 +10,7 @@ final public class PulseAnimationBuilder: PulseAnimation {
     
     private var _isAnimating: Bool = false
     
-    private var duration: TimeInterval = 0.6
+    private var duration: TimeInterval = 0.5
     private var delay: TimeInterval = .zero
     private var autoReverse: Bool = true
     private var scale: CGFloat = 1.2
@@ -69,6 +69,8 @@ final public class PulseAnimationBuilder: PulseAnimation {
         
     public func startAnimation(_ completion: (() -> Void)? = nil) {
         component?.setHidden(false, animated: true)
+        
+        if isAnimating { return }
  
         setStartAnimation()
         
