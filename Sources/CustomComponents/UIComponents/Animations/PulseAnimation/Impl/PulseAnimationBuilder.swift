@@ -79,9 +79,9 @@ final public class PulseAnimationBuilder: PulseAnimation {
         DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: { [weak self] in
             guard let self else { return }
             
-            stopAnimation()
+            component.baseView.layer.removeAllAnimations()
             
-            component.setHidden(true, animated: true)
+            component.setHidden(shouldHide, animated: true)
             
             _isAnimating = false
             
