@@ -28,6 +28,8 @@ final public class PulseAnimationBuilder: PulseAnimation {
     
     @discardableResult
     public func setScalePulse(scaleX: CGFloat, y: CGFloat) -> Self {
+        scale.scaleX = scaleX
+        scale.y = y
         return self
     }
     
