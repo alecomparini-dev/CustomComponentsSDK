@@ -52,7 +52,7 @@ final public class PulseAnimationBuilder: PulseAnimation {
     public func startAnimation(_ completion: (() -> Void)? = nil) {
         _isAnimating = true
         
-        component.setHidden(true, animated: true)
+        component.setHidden(false, animated: true)
         
         UIView.animate(withDuration: duration,
                        delay: delay,
