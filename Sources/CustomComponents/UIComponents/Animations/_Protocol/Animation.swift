@@ -18,7 +18,7 @@ public protocol Animation {
     
     func startAnimation(_ completion: (() -> Void)?)
     
-    func stopAnimation(_ after: TimeInterval,
-                       _ shouldHide: Bool,
-                       _ completion: (() -> Void)?)
+    func stopAnimation(after: TimeInterval,
+                       shouldHide: Bool,
+                       completion: (() -> Void)?)
 }

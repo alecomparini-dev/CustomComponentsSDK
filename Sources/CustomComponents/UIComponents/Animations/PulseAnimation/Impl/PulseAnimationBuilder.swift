@@ -70,9 +70,9 @@ final public class PulseAnimationBuilder: PulseAnimation {
         })
     }
     
-    public func stopAnimation(_ after : TimeInterval = .zero,
-                              _ shouldHide: Bool = false,
-                              _ completion: (() -> Void)? = nil) {
+    public func stopAnimation(after : TimeInterval = .zero,
+                              shouldHide: Bool = false,
+                              completion: (() -> Void)? = nil) {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: { [weak self] in
             guard let self else { return }
