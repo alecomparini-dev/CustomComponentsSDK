@@ -65,9 +65,10 @@ final public class PulseAnimationBuilder: PulseAnimation {
             component.baseView.transform = CGAffineTransform(scaleX: scale.scaleX,
                                                              y: scale.y)
             
-        }, completion: { bool in
+        }, completion: { [weak self] bool in
             if bool {
                 completion?()
+                self?.component.baseView.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
         })
     }
