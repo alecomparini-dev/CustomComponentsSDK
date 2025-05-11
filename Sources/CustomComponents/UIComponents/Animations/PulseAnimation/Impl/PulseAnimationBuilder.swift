@@ -102,15 +102,13 @@ final public class PulseAnimationBuilder: PulseAnimation {
 //  MARK: - PRIVATE AREA
     
     private func setStartAnimation() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { [weak self] in
-            guard let self else { return }
-            pulse.fromValue = 1.0
-            pulse.toValue = scale
-            pulse.duration = duration
-            pulse.autoreverses = autoReverse
-            pulse.repeatCount = repeatCount
-            pulse.timingFunction = timingFunction
-        })
+        guard let self else { return }
+        pulse.fromValue = 1.0
+        pulse.toValue = scale
+        pulse.duration = duration
+        pulse.autoreverses = autoReverse
+        pulse.repeatCount = repeatCount
+        pulse.timingFunction = timingFunction
     }
 
         
