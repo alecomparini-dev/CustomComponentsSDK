@@ -207,7 +207,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     
     private func outputBuffer(_ buffer: AVAudioPCMBuffer) {
         DispatchQueue.main.async(execute: { [weak self] in
-            self?.delegate?.outputAudioCapture(buffer: buffer)
+            self?.delegate?.outputBuffer(buffer: buffer)
         })
     }
     
