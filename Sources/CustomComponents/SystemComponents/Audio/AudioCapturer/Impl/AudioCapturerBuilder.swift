@@ -3,8 +3,11 @@
 
 import AVFoundation
 
+
 final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     weak public var delegate: AudioCapturerDelegate?
+    
+    private var audioCapturerState: AudioCapturerState = .none
     
     private let queueBackground = DispatchQueue(label: "audio-capturer-background-queue", qos: .background)
     
@@ -69,26 +72,34 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
             installTap()
             
             audioEngine.prepare()
+            
+            audioCapturerState = .initiate
         })
         
     }
     
     public func finalizeEngine() throws {
-        stopEngine()
+        audioCapturerState = .finalized
         
-        try? activeAudioSession(false)
-        
-        audioEngine.inputNode.removeTap(onBus: 0)
-        
-        isTapInstalled = false
+        queueBackground.async(execute: { [weak self] in
+            guard let self else {return}
+            
+            stopEngine()
+            
+            try? activeAudioSession(false)
+            
+            audioEngine.inputNode.removeTap(onBus: 0)
+            
+            isTapInstalled = false
+        })
     }
     
     public func startAudioCapture() async throws {
         if checkPermission() != .ok { return }
         
-        DispatchQueue.main.async(execute: { [weak self] in
-            self?.delegate?.audioCapturerStarted()
-        })
+        audioCapturerState = .willStartCapture
+        
+        audioCapturerWillStart()
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
             DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
@@ -110,14 +121,13 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     public func stopAudioCapture() {
+        audioCapturerState = .stopped
+        
         pauseEngine()
         
         try? activeAudioSession(false)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
-            self?.delegate?.audioCapturerStopped()
-        })
-
+        audioCapturerDidStop()
     }
     
     
@@ -139,7 +149,8 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         let format = inputNode.outputFormat(forBus: 0)
 
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
-            self?.outputAudioCapture(buffer)
+            self?.outputBuffer(buffer)
+            self?.audioCapturerDidStartCapturing()
         }
         
         isTapInstalled = true
@@ -160,9 +171,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     private func pauseEngine() {
-        if audioEngine.isRunning {
-            audioEngine.pause()
-        }
+        audioEngine.pause()
     }
     
     private func configAudioSession() throws {
@@ -200,9 +209,36 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         }
     }
 
-    private func outputAudioCapture(_ buffer: AVAudioPCMBuffer) {
+    
+//  MARK: - NOTIFY DELEGATES AREA
+    
+    private func outputBuffer(_ buffer: AVAudioPCMBuffer) {
         DispatchQueue.main.async(execute: { [weak self] in
-            self?.delegate?.outputAudioCapture(buffer: buffer)
+            self?.delegate?.outputBuffer(buffer: buffer)
+        })
+    }
+    
+    private func audioCapturerWillStart() {
+        DispatchQueue.main.async(execute: { [weak self] in
+            self?.delegate?.audioCapturerWillStart()
+        })
+    }
+    
+    private func audioCapturerDidStartCapturing() {
+        if audioCapturerState == .capturing { return }
+        
+        if audioCapturerState == .stopped { return pauseEngine() }
+        
+        DispatchQueue.main.async(execute: { [weak self] in
+            self?.delegate?.audioCapturerDidStartCapturing()
+        })
+        
+        audioCapturerState = .capturing
+    }
+    
+    private func audioCapturerDidStop() {
+        DispatchQueue.main.async(execute: { [weak self] in
+            self?.delegate?.audioCapturerDidStop()
         })
     }
     
