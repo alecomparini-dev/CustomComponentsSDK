@@ -101,14 +101,14 @@ public class WaveAnimationBuilder: UIView, WaveAnimation {
     }
     
     public func stopAnimation() {
-        isAnimating = false
-        
         alphaAnimation(hide: true) { [weak self] in
             guard let self else { return }
             
             displayLink?.invalidate()
             
             displayLink = nil
+            
+            isAnimating = false
         }
     }
     
