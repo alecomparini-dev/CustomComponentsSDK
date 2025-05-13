@@ -235,7 +235,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private func audioCapturerDidStartCapturing() {
         if audioCapturerState == .capturing { return }
         
-        if audioCapturerState == .stopped { return stopAudioCapture() }
+        if audioCapturerState == .stopped { return pauseEngine() }
         
         DispatchQueue.main.async(execute: { [weak self] in
             self?.delegate?.audioCapturerDidStartCapturing()
