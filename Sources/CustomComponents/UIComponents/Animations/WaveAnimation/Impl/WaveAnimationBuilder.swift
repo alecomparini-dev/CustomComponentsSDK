@@ -119,7 +119,7 @@ public class WaveAnimationBuilder: UIView, WaveAnimation {
 
         for x in stride(from: 0, through: bounds.width, by: 1) {
             let relativeX = x / wavelength
-            let y = centerY + amplitude * sin(relativeX * .pi * 2 + phase)
+            let y = centerY + amplitude * sin(relativeX * .pi * 0.5 + phase)
         
             if x == 0 {
                 path.move(to: CGPoint(x: x, y: y))
