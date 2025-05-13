@@ -3,14 +3,6 @@
 
 import AVFoundation
 
-enum AudioCapturerState {
-    case none
-    case initiate
-    case willStartCapture
-    case capturing
-    case stopped
-    case finalized
-}
 
 final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     weak public var delegate: AudioCapturerDelegate?
@@ -88,6 +80,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     
     public func finalizeEngine() throws {
         audioCapturerState = .finalized
+        
         queueBackground.async(execute: { [weak self] in
             guard let self else {return}
             
@@ -99,11 +92,12 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
             
             isTapInstalled = false
         })
-        
     }
     
     public func startAudioCapture() async throws {
         if checkPermission() != .ok { return }
+        
+        audioCapturerState = .willStartCapture
         
         audioCapturerWillStart()
         
@@ -225,8 +219,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     private func audioCapturerWillStart() {
-        audioCapturerState = .willStartCapture
-        
         DispatchQueue.main.async(execute: { [weak self] in
             self?.delegate?.audioCapturerWillStart()
         })
