@@ -9,5 +9,5 @@ public enum VelocityWave: CGFloat {
     case slow = 0.15
     case normal = 0.2
     case mediumFast = 0.25
-    case fast = 0.3
+    case fast = 0.35
 }
