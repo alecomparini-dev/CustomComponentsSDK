@@ -140,6 +140,8 @@ public class WaveAnimationBuilder: UIView, WaveAnimation {
     
     private func configure() {
         alpha = 0
+        backgroundColor = .clear
+        isOpaque = false
     }
     
     private func alphaAnimation(hide: Bool, _ completion: (() -> Void)? = nil) {
