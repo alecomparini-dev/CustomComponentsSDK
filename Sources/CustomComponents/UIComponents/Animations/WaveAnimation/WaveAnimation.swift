@@ -14,6 +14,9 @@ public protocol WaveAnimation {
     func setWave(maxAmplitude: CGFloat) -> Self
     
     @discardableResult
+    func setWave(length: Wavelength) -> Self
+    
+    @discardableResult
     func setLine(width: CGFloat) -> Self
     
     @discardableResult

@@ -13,6 +13,7 @@ public class WaveAnimationBuilder: UIView, WaveAnimation {
     private var isAnimating: Bool = false
     
     private var velocity: VelocityWave = .normal
+    private var wavelength: Wavelength = .medium
     private var maxAmplitude: CGFloat = 24
     private var width: CGFloat = 2
     private var color: UIColor = .systemGray6
@@ -41,6 +42,12 @@ public class WaveAnimationBuilder: UIView, WaveAnimation {
     @discardableResult
     public func setWave(maxAmplitude: CGFloat) -> Self {
         self.maxAmplitude = maxAmplitude
+        return self
+    }
+    
+    @discardableResult
+    public func setWave(length: Wavelength) -> Self {
+        self.wavelength = length
         return self
     }
     
@@ -115,11 +122,12 @@ public class WaveAnimationBuilder: UIView, WaveAnimation {
         
         let centerY = bounds.midY
         
-        let wavelength: CGFloat = bounds.width / 2.0
+        let waveWidth: CGFloat = bounds.width / 2.0
 
         for x in stride(from: 0, through: bounds.width, by: 1) {
-            let relativeX = x / wavelength
-            let y = centerY + amplitude * sin(relativeX * .pi * 4 + phase)
+            let relativeX = x / waveWidth
+            
+            let y = centerY + amplitude * sin(relativeX * .pi * wavelength.rawValue + phase)
         
             if x == 0 {
                 path.move(to: CGPoint(x: x, y: y))
