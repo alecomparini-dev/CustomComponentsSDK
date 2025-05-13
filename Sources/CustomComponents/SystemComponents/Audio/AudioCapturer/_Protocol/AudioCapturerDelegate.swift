@@ -8,6 +8,6 @@ public protocol AudioCapturerDelegate: AnyObject {
     func audioCapturerDidStartCapturing()
     func audioCapturerDidStop()
     func requestPermission()
-    func outputAudioCapture(buffer: AVAudioPCMBuffer)
+    func outputBuffer(buffer: AVAudioPCMBuffer)
     func error(_ error: AudioCapturerError )
 }
