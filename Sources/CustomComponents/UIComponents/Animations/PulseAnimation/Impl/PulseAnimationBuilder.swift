@@ -107,6 +107,7 @@ final public class PulseAnimationBuilder: PulseAnimation {
         pulse.fromValue = 1.0
         pulse.toValue = scale
         pulse.duration = duration
+        
         pulse.autoreverses = autoReverse
         pulse.repeatCount = repeatCount
         pulse.timingFunction = timingFunction
