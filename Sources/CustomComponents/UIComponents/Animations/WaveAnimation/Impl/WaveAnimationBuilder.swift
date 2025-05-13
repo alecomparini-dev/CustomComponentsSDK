@@ -39,8 +39,8 @@ public class WaveAnimationBuilder: UIView, WaveAnimation {
     }
     
     @discardableResult
-    public func setWave(maxHeight amplitude: CGFloat) -> Self {
-        self.maxAmplitude = amplitude
+    public func setWave(maxAmplitude: CGFloat) -> Self {
+        self.maxAmplitude = maxAmplitude
         return self
     }
     
@@ -94,14 +94,14 @@ public class WaveAnimationBuilder: UIView, WaveAnimation {
     }
     
     public func stopAnimation() {
+        isAnimating = false
+        
         alphaAnimation(hide: true) { [weak self] in
             guard let self else { return }
             
             displayLink?.invalidate()
             
             displayLink = nil
-            
-            isAnimating = false
         }
     }
     
@@ -119,7 +119,7 @@ public class WaveAnimationBuilder: UIView, WaveAnimation {
 
         for x in stride(from: 0, through: bounds.width, by: 1) {
             let relativeX = x / wavelength
-            let y = centerY + amplitude * sin(relativeX * .pi * 2 + phase)
+            let y = centerY + amplitude * sin(relativeX * .pi * 1.6 + phase)
         
             if x == 0 {
                 path.move(to: CGPoint(x: x, y: y))
