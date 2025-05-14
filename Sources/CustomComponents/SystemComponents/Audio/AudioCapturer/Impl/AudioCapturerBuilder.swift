@@ -122,7 +122,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     public func stopAudioCapture() {
         audioCapturerState = .stopped
         
-        pauseEngine()
+        stopEngine()
         
         try? activeAudioSession(false)
         
@@ -170,10 +170,8 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     
     private func stopEngine() {
         audioEngine.stop()
-    }
-    
-    private func pauseEngine() {
-        audioEngine.pause()
+        audioEngine.reset()
+        audioEngine.prepare()
     }
     
     private func configAudioSession() throws {
@@ -229,7 +227,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private func audioCapturerDidStartCapturing() {
         if audioCapturerState == .capturing { return }
         
-        if audioCapturerState == .stopped { return pauseEngine() }
+        if audioCapturerState == .stopped { return stopEngine() }
         
         DispatchQueue.main.async(execute: { [weak self] in
             self?.delegate?.audioCapturerDidStartCapturing()
