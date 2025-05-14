@@ -245,34 +245,60 @@ open class BaseBuilder: NSObject {
     }
     
 //  MARK: - PRIVATE AREA
-    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval) {
-        if hide {
-            if baseView.isHidden {return}
-            baseView.alpha = 1
-            baseView.isHidden = false
-            UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
-                guard let self else {return}
-                baseView.alpha = 0
-            }) { [weak self] bool in
-                guard let self else {return}
-                if bool {
-                    baseView.isHidden = hide
-                }
+    
+    private func invisible(_ duration: TimeInterval) {
+        UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
+            self?.baseView.alpha = 0
+        }){ [weak self] bool in
+            if bool {
+                self?.baseView.isHidden = true
             }
-            return
         }
-        if !baseView.isHidden {return}
+    }
+    
+    private func visible(_ duration: TimeInterval) {
         baseView.alpha = 0
         baseView.isHidden = false
+        
         UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
-            guard let self else {return}
-            baseView.alpha = 1
-        }) { [weak self] bool in
-            guard let self else {return}
-            if bool {
-                baseView.isHidden = hide
-            }
-        }
+            self?.baseView.alpha = 1
+        })
+    }
+    
+    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval) {
+        if hide { return visible(duration) }
+        
+        invisible(duration)
+        
+//        
+//        
+//        if hide {
+//            if baseView.isHidden {return}
+//            baseView.alpha = 1
+//            baseView.isHidden = false
+//            UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
+//                guard let self else {return}
+//                baseView.alpha = 0
+//            }) { [weak self] bool in
+//                guard let self else {return}
+//                if bool {
+//                    baseView.isHidden = hide
+//                }
+//            }
+//            return
+//        }
+//        if !baseView.isHidden {return}
+//        baseView.alpha = 0
+//        baseView.isHidden = false
+//        UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
+//            guard let self else {return}
+//            baseView.alpha = 1
+//        }) { [weak self] bool in
+//            guard let self else {return}
+//            if bool {
+//                baseView.isHidden = hide
+//            }
+//        }
         
     }
     
