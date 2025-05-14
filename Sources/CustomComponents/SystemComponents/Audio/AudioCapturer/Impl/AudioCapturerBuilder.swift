@@ -12,7 +12,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private let queueBackground = DispatchQueue(label: "audio-capturer-background-queue", qos: .background)
     
     private var isTapInstalled = false
-    private var clearBuffer = false
     
     private let audioEngine = AVAudioEngine()
     private let audioSession = AVAudioSession.sharedInstance()
@@ -103,7 +102,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         try? activeAudioSession(true)
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
-            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
+            queueBackground.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
                 Task { [weak self] in
                     guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
                     
@@ -150,12 +149,8 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
 
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
             guard let self else { return }
-            
-            var myBuffer = buffer
-            
-            if !clearBuffer { myBuffer = AVAudioPCMBuffer()}
-            
-            outputBuffer(myBuffer)
+                        
+            outputBuffer(buffer)
             
             audioCapturerDidStartCapturing()
         }
@@ -166,8 +161,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     }
     
     private func startEngine() throws {
-        if audioEngine.isRunning { return }
-        
         do {
             try audioEngine.start()
         } catch let error {
