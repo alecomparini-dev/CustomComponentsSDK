@@ -245,35 +245,40 @@ open class BaseBuilder: NSObject {
     }
     
 //  MARK: - PRIVATE AREA
-    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval) {
-        if hide {
-            if baseView.isHidden {return}
-            baseView.alpha = 1
-            baseView.isHidden = false
+    
+    private func invisible(_ duration: TimeInterval) {
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self else {return}
+        
             UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
-                guard let self else {return}
-                baseView.alpha = 0
-            }) { [weak self] bool in
-                guard let self else {return}
+                self?.baseView.alpha = 0
+            }){ [weak self] bool in
                 if bool {
-                    baseView.isHidden = hide
+                    self?.baseView.isHidden = true
                 }
             }
-            return
-        }
-        if !baseView.isHidden {return}
-        baseView.alpha = 0
-        baseView.isHidden = false
-        UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
+        })
+    }
+    
+    private func visible(_ duration: TimeInterval) {
+        DispatchQueue.main.async(execute: { [weak self] in
             guard let self else {return}
-            baseView.alpha = 1
-        }) { [weak self] bool in
-            guard let self else {return}
-            if bool {
-                baseView.isHidden = hide
-            }
-        }
+            
+            baseView.alpha = 0
+            
+            baseView.isHidden = false
+            
+            UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
+                self?.baseView.alpha = 1
+            })
+        })
         
+    }
+    
+    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval) {
+        if hide { return invisible(duration) }
+        
+        visible(duration)
     }
     
 }
