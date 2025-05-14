@@ -105,11 +105,8 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
             queueBackground.asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
                 Task { [weak self] in
                     guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
-                    
                     do {
-                        
                         try startEngine()
-                        
                         continuation.resume()
                     } catch let error {
                         return continuation.resume(throwing: AudioCapturerError.audioEngineStartError(error.localizedDescription))
@@ -171,7 +168,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private func stopEngine() {
         audioEngine.stop()
         audioEngine.reset()
-        audioEngine.prepare()
     }
     
     private func configAudioSession() throws {
