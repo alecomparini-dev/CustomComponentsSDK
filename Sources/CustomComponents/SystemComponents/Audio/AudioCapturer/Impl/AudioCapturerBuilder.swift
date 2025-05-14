@@ -153,7 +153,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
             
             var myBuffer = buffer
             
-            if clearBuffer { myBuffer = AVAudioPCMBuffer()}
+            if !clearBuffer { myBuffer = AVAudioPCMBuffer()}
             
             outputBuffer(myBuffer)
             
