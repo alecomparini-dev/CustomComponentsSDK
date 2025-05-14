@@ -266,9 +266,10 @@ open class BaseBuilder: NSObject {
     }
     
     private func animatedHidden(_ hide: Bool, _ duration: TimeInterval) {
-        if hide { return visible(duration) }
+        if hide { return invisible(duration) }
         
-        invisible(duration)
+        visible(duration)
+        
         
 //        
 //        
