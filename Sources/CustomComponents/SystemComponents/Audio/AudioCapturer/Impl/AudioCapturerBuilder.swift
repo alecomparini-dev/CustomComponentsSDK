@@ -71,8 +71,6 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
             
             installTap()
             
-            audioEngine.prepare()
-            
             audioCapturerState = .initiate
         })
         
@@ -100,6 +98,8 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         audioCapturerState = .willStartCapture
         
         audioCapturerWillStart()
+        
+        audioEngine.prepare()
         
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
             DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
