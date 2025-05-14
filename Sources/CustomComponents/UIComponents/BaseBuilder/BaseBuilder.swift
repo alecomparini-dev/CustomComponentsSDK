@@ -247,22 +247,34 @@ open class BaseBuilder: NSObject {
 //  MARK: - PRIVATE AREA
     
     private func invisible(_ duration: TimeInterval) {
-        UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
-            self?.baseView.alpha = 0
-        }){ [weak self] bool in
-            if bool {
-                self?.baseView.isHidden = true
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self else {return}
+        
+            UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
+                self?.baseView.alpha = 0
+            }){ [weak self] bool in
+                if bool {
+                    print("SUMIUUUUUU")
+                    self?.baseView.isHidden = true
+                }
             }
-        }
+        })
+        
     }
     
     private func visible(_ duration: TimeInterval) {
-        baseView.alpha = 0
-        baseView.isHidden = false
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self else {return}
         
-        UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
-            self?.baseView.alpha = 1
+            baseView.alpha = 0
+            baseView.isHidden = false
+            
+            UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
+                print("visible, será que perdi o self")
+                self?.baseView.alpha = 1
+            })
         })
+        
     }
     
     private func animatedHidden(_ hide: Bool, _ duration: TimeInterval) {
