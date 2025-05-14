@@ -99,14 +99,14 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         
         audioCapturerWillStart()
         
-        audioEngine.prepare()
-        
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>)  in
             DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.2, execute: { [weak self] in
                 Task { [weak self] in
                     guard let self else { return continuation.resume(throwing: AudioCapturerError.startAudioCaptureError("Error startAudioCapturer"))}
                     
                     do {
+                        audioEngine.prepare()
+                        
                         try startEngine()
                         
                         try? activeAudioSession(true)
@@ -123,7 +123,8 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     public func stopAudioCapture() {
         audioCapturerState = .stopped
         
-        pauseEngine()
+//        pauseEngine()
+        stopEngine()
         
         try? activeAudioSession(false)
         
