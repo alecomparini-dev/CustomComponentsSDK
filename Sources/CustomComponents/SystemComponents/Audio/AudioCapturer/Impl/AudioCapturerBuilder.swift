@@ -17,7 +17,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private let audioSession = AVAudioSession.sharedInstance()
     
     
-//  MARK: - INITIALIZERS
+    //  MARK: - INITIALIZERS
     
     private let category: AVAudioSession.Category
     private let mode: AVAudioSession.Mode
@@ -30,9 +30,9 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         self.mode = mode
         self.options = options
     }
-        
     
-//  MARK: - PUBLIC AREA
+    
+    //  MARK: - PUBLIC AREA
     
     public func checkPermission() -> AudioCapturerPermission {
         let permission: AudioCapturerPermission = audioCapturerPermission()
@@ -121,13 +121,15 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         
         stopEngine()
         
+        resetEngine()
+        
         try? activeAudioSession(false)
         
         audioCapturerDidStop()
     }
     
     
-//  MARK: - PRIVATE AREA
+    //  MARK: - PRIVATE AREA
     
     private func configCategory() throws {
         try audioSession.setCategory(category, mode: mode, options: options)
@@ -136,17 +138,17 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private func activeAudioSession(_ activate: Bool) throws {
         try audioSession.setActive(activate, options: .notifyOthersOnDeactivation)
     }
-        
+    
     private func installTap() {
         if isTapInstalled { return }
         
         let inputNode = audioEngine.inputNode
         
         let format = inputNode.outputFormat(forBus: 0)
-
+        
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
             guard let self else { return }
-                        
+            
             outputBuffer(buffer)
             
             audioCapturerDidStartCapturing()
@@ -167,7 +169,11 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     
     private func stopEngine() {
         audioEngine.stop()
+    }
+    
+    private func resetEngine() {
         audioEngine.reset()
+        audioEngine.prepare()
     }
     
     private func configAudioSession() throws {
