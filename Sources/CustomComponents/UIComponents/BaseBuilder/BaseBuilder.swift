@@ -251,14 +251,14 @@ open class BaseBuilder: NSObject {
             self?.baseView.alpha = 0
         }){ [weak self] bool in
             if bool {
-                self?.baseView.isHidden = true
+//                self?.baseView.isHidden = true
             }
         }
     }
     
     private func visible(_ duration: TimeInterval) {
         baseView.alpha = 0
-        baseView.isHidden = false
+//        baseView.isHidden = false
         
         UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
             self?.baseView.alpha = 1
