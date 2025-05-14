@@ -12,6 +12,7 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     private let queueBackground = DispatchQueue(label: "audio-capturer-background-queue", qos: .background)
     
     private var isTapInstalled = false
+    private var clearBuffer = false
     
     private let audioEngine = AVAudioEngine()
     private let audioSession = AVAudioSession.sharedInstance()
@@ -148,17 +149,24 @@ final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
         let format = inputNode.outputFormat(forBus: 0)
 
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
-            self?.outputBuffer(buffer)
-            self?.audioCapturerDidStartCapturing()
+            guard let self else { return }
+            
+            var myBuffer = buffer
+            
+            if clearBuffer { myBuffer = AVAudioPCMBuffer()}
+            
+            outputBuffer(myBuffer)
+            
+            audioCapturerDidStartCapturing()
         }
+        
+        audioEngine.prepare()
         
         isTapInstalled = true
     }
     
     private func startEngine() throws {
         if audioEngine.isRunning { return }
-        
-        audioEngine.prepare()
         
         do {
             try audioEngine.start()
