@@ -124,13 +124,14 @@ open class BaseBuilder: NSObject {
     }
    
     @discardableResult
-    public func setHidden(_ hide: Bool, animated: Bool = false, _ duration: TimeInterval = 0.3) -> Self {
+    public func setHidden(_ hide: Bool, animated: Bool = false, _ duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) -> Self {
         if !animated {
             baseView.isHidden = hide
             baseView.setAlpha(1)
+            completion?()
             return self
         }
-        animatedHidden(hide, duration)
+        animatedHidden(hide, duration, completion)
         return self
     }
 
@@ -246,7 +247,7 @@ open class BaseBuilder: NSObject {
     
 //  MARK: - PRIVATE AREA
     
-    private func invisible(_ duration: TimeInterval) {
+    private func invisible(_ duration: TimeInterval, _ completion: (() -> Void)?) {
         DispatchQueue.main.async(execute: { [weak self] in
             guard let self else {return}
         
@@ -255,12 +256,13 @@ open class BaseBuilder: NSObject {
             }){ [weak self] bool in
                 if bool {
                     self?.baseView.isHidden = true
+                    completion?()
                 }
             }
         })
     }
     
-    private func visible(_ duration: TimeInterval) {
+    private func visible(_ duration: TimeInterval, _ completion: (() -> Void)?) {
         DispatchQueue.main.async(execute: { [weak self] in
             guard let self else {return}
             
@@ -270,15 +272,19 @@ open class BaseBuilder: NSObject {
             
             UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
                 self?.baseView.alpha = 1
-            })
+            }){ bool in
+                if bool {
+                    completion?()
+                }
+            }
         })
         
     }
     
-    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval) {
-        if hide { return invisible(duration) }
+    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval, _ completion: (() -> Void)?) {
+        if hide { return invisible(duration, completion) }
         
-        visible(duration)
+        visible(duration, completion)
     }
     
 }

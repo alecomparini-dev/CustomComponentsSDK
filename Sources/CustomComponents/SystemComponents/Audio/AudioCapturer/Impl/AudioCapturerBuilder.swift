@@ -6,15 +6,13 @@ import AVFoundation
 
 final public class AudioCapturerBuilder: @unchecked Sendable, AudioCapturer  {
     weak public var delegate: AudioCapturerDelegate?
-    
-    private var audioCapturerState: AudioCapturerState = .none
-    
+
     private let queueBackground = DispatchQueue(label: "audio-capturer-background-queue", qos: .background)
-    
-    private var isTapInstalled = false
-    
     private let audioEngine = AVAudioEngine()
     private let audioSession = AVAudioSession.sharedInstance()
+    
+    private var audioCapturerState: AudioCapturerState = .none
+    private var isTapInstalled = false
     
     
     //  MARK: - INITIALIZERS
