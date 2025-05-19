@@ -247,6 +247,12 @@ open class BaseBuilder: NSObject {
     
 //  MARK: - PRIVATE AREA
     
+    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval, _ completion: (() -> Void)?) {
+        if hide { return invisible(duration, completion) }
+        
+        visible(duration, completion)
+    }
+    
     private func invisible(_ duration: TimeInterval, _ completion: (() -> Void)?) {
         DispatchQueue.main.async(execute: { [weak self] in
             guard let self else {return}
@@ -283,12 +289,6 @@ open class BaseBuilder: NSObject {
             }
         })
         
-    }
-    
-    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval, _ completion: (() -> Void)?) {
-        if hide { return invisible(duration, completion) }
-        
-        visible(duration, completion)
     }
     
 }
