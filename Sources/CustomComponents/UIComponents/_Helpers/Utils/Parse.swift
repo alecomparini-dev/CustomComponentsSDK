@@ -674,7 +674,6 @@ Informação que precisa ser analisadas:
 */
 
 
-
 import Foundation
 
 enum TextToDecimalParserError: Error, CustomStringConvertible {
@@ -696,15 +695,30 @@ class TextoParaValorParser {
         "zero": 0, "um": 1, "uma": 1, "dois": 2, "duas": 2, "três": 3, "tres": 3,
         "quatro": 4, "cinco": 5, "seis": 6, "sete": 7, "oito": 8, "nove": 9
     ]
+    
+    static let UNIDADE_REVERSE: [String: String] = [
+        "0": "zero" , "1": "um" , "2": "dois", "3": "três", "4": "quatro",
+        "5": "cinco", "6": "seis", "7": "sete", "8": "oito", "9": "nove"
+    ]
 
     static let DEZENA_COMPOSTA: [String: Int] = [
         "dez": 10, "onze": 11, "doze": 12, "treze": 13, "quatorze": 14, "catorze": 14,
         "quinze": 15, "dezesseis": 16, "dezessete": 17, "dezoito": 18, "dezenove": 19
     ]
     
+    static let DEZENA_COMPOSTA_REVERSE: [String: String] = [
+        "10": "dez", "11": "onze", "12": "doze", "13": "treze", "14": "quatorze", "15": "quinze",
+        "16": "dezesseis", "17": "dezessete", "18": "dezoito", "19": "dezenove"
+    ]
+    
     static let DEZENA: [String: Int] = [
         "vinte": 20, "trinta": 30, "quarenta": 40, "cinquenta": 50,
         "sessenta": 60, "setenta": 70, "oitenta": 80, "noventa": 90
+    ]
+    
+    static let DEZENA_REVERSE: [String: String] = [
+        "20": "vinte", "30": "trinta", "40": "quarenta", "50": "cinquenta",
+        "60": "sessenta", "70": "setenta", "80": "oitenta", "90": "noventa"
     ]
     
     static let CENTENA: [String: Int] = [
@@ -713,9 +727,39 @@ class TextoParaValorParser {
         "setecentos": 700, "oitocentos": 800, "novecentos": 900
     ]
     
+    static let CENTENA_REVERSE: [String: String] = [
+        "100": "cento",
+        "200": "duzentos", "300": "trezentos", "400": "quatrocentos",
+        "500": "quinhentos", "600": "seiscentos", "700": "setecentos",
+        "800": "oitocentos", "900": "novecentos"
+    ]
+    
+    static func updateWords(_ words: [String]) -> [String] {
+        var updatedWords: [String] = []
+        
+        for word in words {
+            if let number = Int(word) {
+                var extenso = extenso(number).components(separatedBy: " ")
+                extenso.removeAll { $0 == "e" }
+                updatedWords.append(contentsOf: extenso)
+            } else {
+                updatedWords.append(word)
+            }
+        }
+        
+        return updatedWords
+    }
+
+    
     static func parse(_ text: String) throws -> Decimal {
+        if let number = Double(text) {
+            return (Decimal(string: text) ?? 0)
+        }
+        
         var words = text.lowercased().components(separatedBy: " ")
         words.removeAll { $0 == "e" }
+        
+        words = updateWords(words)
         
         let hasReais = words.contains(where: { $0 == "real" || $0 == "reais" })
         let hasCents = words.contains(where: { $0 == "centavo" || $0 == "centavos" })
@@ -738,6 +782,43 @@ class TextoParaValorParser {
         return .zero
     }
     
+    static func extenso(_ numero: Int) -> String {
+        guard numero >= 0 && numero <= 999 else { return "fora do intervalo" }
+
+        if numero < 10 {
+            return UNIDADE_REVERSE["\(numero)"]!
+        }
+
+        if numero < 20 {
+            return DEZENA_COMPOSTA_REVERSE["\(numero)"]!
+        }
+
+        if numero < 100 {
+            let dezena = (numero / 10) * 10
+            let unidade = numero % 10
+            if unidade == 0 {
+                return DEZENA_REVERSE["\(dezena)"]!
+            }
+            return "\(DEZENA_REVERSE["\(dezena)"]!) e \(UNIDADE_REVERSE["\(unidade)"]!)"
+        }
+
+        if numero == 100 {
+            return "\(CENTENA_REVERSE["\(numero)"]!)"
+        }
+
+        let centena = (numero / 100) * 100
+        
+        let resto = numero % 100
+
+        var texto = centena == 100 ? "cento" : CENTENA_REVERSE["\(centena)"]!
+
+        if resto == 0 {
+            return texto
+        }
+
+        return "\(texto) e \(extenso(resto))"
+    }
+    
     private static func hasNextIndex(_ index: Int , _ words: [String]) -> Bool { index < words.count - 1 }
     
     private static func cenarioSoTemCentavo(_ words: [String]) -> Decimal {
@@ -749,7 +830,6 @@ class TextoParaValorParser {
         var numbers = [Int]()
         
         for (index, word) in words.enumerated().reversed() {
-            print(index)
             
             let number = converterTextToNumber(word)
             
