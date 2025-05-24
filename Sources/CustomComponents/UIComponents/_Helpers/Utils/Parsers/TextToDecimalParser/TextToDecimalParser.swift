@@ -1,8 +1,8 @@
 import Foundation
 
-final class TextToDecimalParser {
+final public class TextToDecimalParser {
     
-    static func parse(_ text: String) throws -> Decimal? {
+    public static func parse(_ text: String) throws -> Decimal? {
         if let _ = Double(text.trimmingCharacters(in: .whitespacesAndNewlines)) {
             return (Decimal(string: text.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0)
         }
