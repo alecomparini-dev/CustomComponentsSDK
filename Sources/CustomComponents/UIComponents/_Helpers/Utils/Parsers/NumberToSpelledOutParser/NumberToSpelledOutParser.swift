@@ -3,7 +3,7 @@
 
 final public class NumberToSpelledOutParser {
     
-    static func parse(_ number: Int) throws -> String {
+    public static func parse(_ number: Int) throws -> String {
         guard number >= 0 && number <= 999 else { throw NumberToSpelledOutParserError.outOfRange }
         
         if number < 10 {
