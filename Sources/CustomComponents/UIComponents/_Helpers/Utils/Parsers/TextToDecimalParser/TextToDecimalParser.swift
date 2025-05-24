@@ -2,7 +2,7 @@ import Foundation
 
 final class TextToDecimalParser {
     
-    static func parse(_ text: String) throws -> Decimal {
+    static func parse(_ text: String) throws -> Decimal? {
         if let _ = Double(text.trimmingCharacters(in: .whitespacesAndNewlines)) {
             return (Decimal(string: text.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0)
         }
@@ -62,7 +62,7 @@ final class TextToDecimalParser {
     
     private static func hasNextIndex(_ index: Int , _ words: [String]) -> Bool { index < words.count - 1 }
     
-    private static func convertTextToNumber(_ text: String) -> (type: NumberPartType, value: Int) {
+    private static func convertTextToNumber(_ text: String) -> (type: NumberPartType, value: Int)? {
         let text = text.lowercased()
         
         if let number = UNIT[text]  { return (.unit, number) }
@@ -73,21 +73,21 @@ final class TextToDecimalParser {
         
         if let number = HUNDRED[text] { return (.hundred, number) }
         
-        return (.none, 0)
+        return nil
     }
     
-    private static func sumRealAndCents(_ indexReal: Int , _ text: [String]) -> Decimal {
+    private static func sumRealAndCents(_ indexReal: Int , _ text: [String]) -> Decimal? {
         let realWords = Array(text[0..<indexReal+1])
         
         let centavoWords = Array( text[(indexReal+1)..<text.endIndex])
         
         let sumReal = realWords.reduce(0) { partialResult, text in
-            let number = convertTextToNumber(text)
+            guard let number = convertTextToNumber(text) else { return 0 }
             return partialResult + number.value
         }
         
         let sumCents = centavoWords.reduce(0) { partialResult, text in
-            let number = convertTextToNumber(text)
+            guard let number = convertTextToNumber(text) else { return 0 }
             return partialResult + number.value
         }
         
@@ -96,7 +96,7 @@ final class TextToDecimalParser {
     
 //  MARK: - HAS REAL FLOW
     
-    private static func hasRealFlow(_ text: [String]) throws -> Decimal {
+    private static func hasRealFlow(_ text: [String]) throws -> Decimal? {
         var text = text
         
         guard let indexReal = text.firstIndex(where: { $0 == "real" || $0 == "reais" }) else {
@@ -112,7 +112,7 @@ final class TextToDecimalParser {
     
 //  MARK: - HAS ONLY CENTS FLOW
     
-    private static func hasOnlyCentsFlow(_ words: [String]) -> Decimal {
+    private static func hasOnlyCentsFlow(_ words: [String]) -> Decimal? {
         var words = words
         
         words.removeAll { TextToDecimalK.Strings.cents.contains($0) }
@@ -121,14 +121,14 @@ final class TextToDecimalParser {
         
         for (index, word) in words.enumerated().reversed() {
             
-            let number = convertTextToNumber(word)
+            guard let number = convertTextToNumber(word) else { return 0}
             
             numbers.append(number.value)
             
             if number.type == .unit {
                 if index == 0 { return (Decimal(string: "\(number.value)") ?? 0) / 100}
                 
-                let beforeNumber = convertTextToNumber(words[index-1])
+                guard let beforeNumber = convertTextToNumber(words[index-1]) else { return nil }
                 
                 numbers.append(beforeNumber.value)
                 
@@ -146,18 +146,18 @@ final class TextToDecimalParser {
             }
         }
         
-        return .zero
+        return nil
     }
     
     
 //  MARK: - HAS NO REAL OR CENTS FLOW
     
-    private static func hasNoRealOrCentsFlow(_ words: [String]) -> Decimal {
+    private static func hasNoRealOrCentsFlow(_ words: [String]) -> Decimal? {
         var numbers = [Int]()
         
         for (index, text) in words.enumerated() {
             
-            let number = convertTextToNumber(text)
+            guard let number = convertTextToNumber(text) else { return nil }
             
             numbers.append(number.value)
             
@@ -171,7 +171,7 @@ final class TextToDecimalParser {
                     return (Decimal(string: "\(total)") ?? 0)
                 }
                 
-                let nextNumber = convertTextToNumber(words[index + 1])
+                guard let nextNumber = convertTextToNumber(words[index + 1]) else { return nil }
                 
                 if nextNumber.type == .ten || nextNumber.type == .compoundTen {
                     return sumRealAndCents(index, words)
@@ -190,7 +190,7 @@ final class TextToDecimalParser {
             }
         }
         
-        return 0
+        return nil
     }
     
     
