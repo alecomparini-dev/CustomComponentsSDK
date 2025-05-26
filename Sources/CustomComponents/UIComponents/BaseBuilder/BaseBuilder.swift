@@ -254,13 +254,13 @@ open class BaseBuilder: NSObject {
     }
     
     private func invisible(_ duration: TimeInterval, _ completion: (() -> Void)?) {
+        if baseView.isHidden { return }
+        
         DispatchQueue.main.async(execute: { [weak self] in
             guard let self else {return}
         
             baseView.alpha = 1
-            
-            baseView.isHidden = false
-            
+                        
             UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
                 self?.baseView.alpha = 0
             }){ [weak self] bool in
@@ -273,6 +273,8 @@ open class BaseBuilder: NSObject {
     }
     
     private func visible(_ duration: TimeInterval, _ completion: (() -> Void)?) {
+        if !baseView.isHidden { return }
+        
         DispatchQueue.main.async(execute: { [weak self] in
             guard let self else {return}
             
