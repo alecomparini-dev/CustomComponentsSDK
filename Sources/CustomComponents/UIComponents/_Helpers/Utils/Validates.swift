@@ -2,6 +2,7 @@
 //
 
 import Foundation
+import UIKit
 
 public struct Validates {
     
@@ -10,6 +11,12 @@ public struct Validates {
             return false
         }
         return true
+    }
+    
+    static func isValidIndexPath(_ indexPath: IndexPath, _ tableView: UITableView) -> Bool {
+        if indexPath.section < tableView.numberOfSections { return false }
+        
+        return indexPath.row < tableView.numberOfRows(inSection: indexPath.section)
     }
     
 }

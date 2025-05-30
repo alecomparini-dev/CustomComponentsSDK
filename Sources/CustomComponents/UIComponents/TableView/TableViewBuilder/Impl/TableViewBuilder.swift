@@ -53,7 +53,11 @@ open class TableViewBuilder: BaseBuilder, TableView {
     @discardableResult
     public func setScrollToItem(section: Int = 0, row: Int,  scrollPosition: UITableView.ScrollPosition = .middle) -> Self {
         let indexPath = IndexPath(item: row, section: section)
+        
+        if !Validates.isValidIndexPath(indexPath, tableView) { return self }
+        
         tableView.scrollToRow(at: indexPath, at: scrollPosition, animated: true)
+        
         return self
     }
     
