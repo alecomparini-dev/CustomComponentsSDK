@@ -152,19 +152,25 @@ open class ButtonBuilder: BaseBuilder, Button {
             .setStyle(styleIndicator)
             .setColor(.darkGray)
             .setHideWhenStopped(true)
+        
         configLoadingIndicator()
+        
         return self
     }
 
     @discardableResult
     public func setShowLoadingIndicator(_ build: (_ build: LoadingBuilder) -> LoadingBuilder) -> Self {
         self.loading = build(LoadingBuilder())
+        
         configLoadingIndicator()
+        
         return self
     }
     
     @discardableResult
     public func setHideLoadingIndicator() -> Self {
+        button.isUserInteractionEnabled = true
+        
         if let loading {
             loading.setStopAnimating()
             button.setTitle(buttonTitle, for: .normal)
@@ -212,6 +218,8 @@ open class ButtonBuilder: BaseBuilder, Button {
     }
     
     private func configLoadingIndicator() {
+        button.isUserInteractionEnabled = false
+        
         if let loading {
             loading.add(insideTo: button)
             loading.setConstraints { build in
@@ -231,7 +239,6 @@ open class ButtonBuilder: BaseBuilder, Button {
             
             button.setTitle("", for: .normal)
             button.setImage(nil, for: .normal)
-        
         }
     }
 
