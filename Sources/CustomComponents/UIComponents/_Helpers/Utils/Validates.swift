@@ -14,7 +14,7 @@ public struct Validates {
     }
     
     static func isValidIndexPath(_ indexPath: IndexPath, _ tableView: UITableView) -> Bool {
-        if indexPath.section < tableView.numberOfSections { return false }
+        guard indexPath.section < tableView.numberOfSections else { return false }
         
         return indexPath.row < tableView.numberOfRows(inSection: indexPath.section)
     }
