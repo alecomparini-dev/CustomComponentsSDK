@@ -240,7 +240,7 @@ open class ListBuilder: BaseBuilder, List {
     public func gotoRow(section: Int, row: Int, scrollPosition: UITableView.ScrollPosition = .top) {
         let indexPath = IndexPath(row: row, section: section)
 
-        if isValidIndexPath(indexPath) {
+        if Validates.isValidIndexPath(indexPath, list) {
             list.scrollToRow(at: indexPath, at: scrollPosition, animated: true)
         }
     }
@@ -288,16 +288,6 @@ open class ListBuilder: BaseBuilder, List {
         if !autoScrollPosition { return }
         
         list.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
-    }
-    
-    private func isValidIndexPath(_ indexPath: IndexPath) -> Bool {
-        let sections = list.numberOfSections
-        
-        guard indexPath.section < sections else { return false }
-        
-        let rows = list.numberOfRows(inSection: indexPath.section)
-        
-        return indexPath.row < rows
     }
         
 }
