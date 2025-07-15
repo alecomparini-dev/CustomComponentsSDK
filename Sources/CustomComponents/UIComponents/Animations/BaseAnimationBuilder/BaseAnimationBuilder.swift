@@ -99,7 +99,6 @@ open class BaseAnimationBuilder: Animation {
     
     private func configure() {
         basicAnimation = CABasicAnimation(keyPath: keyPathCABasicAnimation)
-        
     }
     
     private func setStartAnimation() {
