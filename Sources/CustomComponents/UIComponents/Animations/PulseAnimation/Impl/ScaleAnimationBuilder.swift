@@ -18,8 +18,8 @@ final public class ScaleAnimationBuilder: BaseAnimationBuilder, ScaleAnimation {
     
     @discardableResult
     public func setScale(_ scale: CGFloat) -> Self {
-        super.baseParameters.fromValue = scale
-        super.baseParameters.toValue = 1
+        super.baseParameters.fromValue = 1
+        super.baseParameters.toValue = scale
         return self
     }
 
