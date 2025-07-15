@@ -27,9 +27,6 @@ open class BaseBuilder: NSObject {
     }
     
     deinit {
-//        baseView.gestureRecognizers?.forEach({ gesture in
-//            baseView.removeGestureRecognizer(gesture)
-//        })
         constraintsFlow = nil
         autoLayout = nil
         _skeleton = nil
@@ -254,7 +251,6 @@ open class BaseBuilder: NSObject {
     }
     
     private func invisible(_ duration: TimeInterval, _ completion: (() -> Void)?) {
-//        if baseView.isHidden { return }
         
         DispatchQueue.main.async(execute: { [weak self] in
             guard let self else { return }
@@ -275,7 +271,6 @@ open class BaseBuilder: NSObject {
     }
     
     private func visible(_ duration: TimeInterval, _ completion: (() -> Void)?) {
-//        if !baseView.isHidden { return }
         
         DispatchQueue.main.async(execute: { [weak self] in
             guard let self else {return}

@@ -6,21 +6,19 @@ import UIKit
 @MainActor
 public protocol Animation {
     var isAnimating: Bool { get }
+    var component: BaseBuilder? { get }
     
     @discardableResult
     func setRepeatCount(_ count: Float) -> Self
     
     @discardableResult
-    func setAnimate(duration: TimeInterval) -> Self
+    func setDuration(_ duration: TimeInterval) -> Self
     
     @discardableResult
-    func setAnimate(delay: TimeInterval) -> Self
+    func setAutoReverse(_ autoReverse: Bool) -> Self
     
     @discardableResult
-    func setAnimate(autoReverse: Bool) -> Self
-    
-    @discardableResult
-    func setTimingFunction(name: CAMediaTimingFunctionName) -> Self
+    func setTimingFunction(_ timingFunctionName: CAMediaTimingFunctionName) -> Self
     
     func startAnimation(_ completion: (() -> Void)?)
        
