@@ -106,7 +106,9 @@ open class BaseAnimationBuilder: Animation {
         basicAnimation.toValue = baseParameters.toValue
         basicAnimation.duration = baseParameters.duration
         basicAnimation.autoreverses = baseParameters.autoReverse
-        basicAnimation.repeatCount = baseParameters.repeatCount
+        if let repeatCount = baseParameters.repeatCount {
+            basicAnimation.repeatCount = repeatCount
+        }
         basicAnimation.timingFunction = baseParameters.timingFunction
     }
     
