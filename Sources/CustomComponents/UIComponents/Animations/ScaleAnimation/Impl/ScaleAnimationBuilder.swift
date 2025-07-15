@@ -23,5 +23,11 @@ final public class ScaleAnimationBuilder: BaseAnimationBuilder, ScaleAnimation {
         super.baseParameters.toValue = scale
         return self
     }
+    
+    public override func startAnimation(_ completion: (() -> Void)? = nil) {
+        component?.setHidden(false, animated: true)
+        
+        super.startAnimation(completion)
+    }
 
 }

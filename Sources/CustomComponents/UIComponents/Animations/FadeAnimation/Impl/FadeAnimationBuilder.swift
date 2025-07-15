@@ -39,4 +39,10 @@ final public class FadeAnimationBuilder: BaseAnimationBuilder, FadeAnimation {
         return self
     }
     
+    public override func startAnimation(_ completion: (() -> Void)? = nil) {
+        component?.setHidden(false)
+        
+        super.startAnimation(completion)
+    }
+    
 }

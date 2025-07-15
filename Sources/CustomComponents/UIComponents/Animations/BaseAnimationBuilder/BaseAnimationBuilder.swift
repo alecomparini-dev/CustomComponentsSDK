@@ -64,8 +64,6 @@ open class BaseAnimationBuilder: Animation {
 //  MARK: - CONTROL ANIMATION
     
     public func startAnimation(_ completion: (() -> Void)? = nil) {
-        component?.setHidden(false, animated: true)
-        
         if _isAnimating { return }
  
         setStartAnimation()
