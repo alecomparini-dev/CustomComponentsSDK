@@ -6,11 +6,11 @@ import UIKit
 @MainActor
 final public class ScaleAnimationBuilder: BaseAnimationBuilder, ScaleAnimation {
     
-    private let transformScale = "transform.scale"
+    private let keyPath = "transform.scale"
     
     public init(component: BaseBuilder) {
         super.init(component: component,
-                   keyPathCABasicAnimation: transformScale)
+                   keyPathCABasicAnimation: keyPath)
         
     }
 
