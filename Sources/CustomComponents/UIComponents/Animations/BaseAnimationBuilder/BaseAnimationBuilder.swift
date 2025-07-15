@@ -77,7 +77,7 @@ open class BaseAnimationBuilder: Animation {
         completion?()
     }
     
-    public func stopAnimation(delay: TimeInterval,
+    public func stopAnimation(delay: TimeInterval = .zero,
                               shouldHide: Bool = false,
                               completion: (() -> Void)? = nil) {
         
