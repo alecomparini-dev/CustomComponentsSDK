@@ -63,7 +63,7 @@ open class BaseAnimationBuilder: Animation {
     
 //  MARK: - CONTROL ANIMATION
     
-    public func startAnimation(_ completion: (() -> Void)?) {
+    public func startAnimation(_ completion: (() -> Void)? = nil) {
         component?.setHidden(false, animated: true)
         
         if _isAnimating { return }
@@ -78,8 +78,8 @@ open class BaseAnimationBuilder: Animation {
     }
     
     public func stopAnimation(delay: TimeInterval,
-                              shouldHide: Bool,
-                              completion: (() -> Void)?) {
+                              shouldHide: Bool = false,
+                              completion: (() -> Void)? = nil) {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { [weak self] in
             guard let self else { return }
