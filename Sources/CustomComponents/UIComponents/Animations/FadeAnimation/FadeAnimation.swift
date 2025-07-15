@@ -3,8 +3,7 @@
 
 import Foundation
 
+@MainActor
 public protocol FadeAnimation: Animation {
-    func setIn(_ value: CGFloat)
-    
-    func setOut(_ value: CGFloat)
+    func setFade(in: CGFloat, out: CGFloat)
 }
