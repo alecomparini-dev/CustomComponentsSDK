@@ -11,6 +11,7 @@ final public class ScaleAnimationBuilder: BaseAnimationBuilder, ScaleAnimation {
     public init(component: BaseBuilder) {
         super.init(component: component,
                    keyPathCABasicAnimation: transformScale)
+        
     }
 
     
