@@ -5,5 +5,13 @@ import Foundation
 
 @MainActor
 public protocol FadeAnimation: Animation {
-    func setFade(in: CGFloat, out: CGFloat)
+    
+    @discardableResult
+    func setFade(in value: CGFloat, out: CGFloat) -> Self
+    
+    @discardableResult
+    func setFadeIn() -> Self
+
+    @discardableResult
+    func setFadeOut() -> Self
 }
