@@ -9,12 +9,14 @@ open class BorderBuilder: Border {
     
     
 //  MARK: - Initializers
+    
     public init(_ component: UIView) {
         self.component = component
     }
     
 
 //  MARK: - SET PROPERTIES
+    
     @discardableResult
     public func setWidth(_ width: CGFloat) -> Self {
         component.layer.borderWidth = width

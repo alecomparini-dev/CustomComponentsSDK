@@ -4,6 +4,6 @@
 import Foundation
 
 @MainActor
-public protocol PulseAnimation: Animation {
+public protocol ScaleAnimation {
     func setScale(_ scale: CGFloat) -> Self
 }
