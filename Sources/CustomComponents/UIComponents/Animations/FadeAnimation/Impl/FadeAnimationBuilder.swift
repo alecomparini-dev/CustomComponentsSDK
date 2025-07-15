@@ -17,7 +17,7 @@ final public class FadeAnimationBuilder: BaseAnimationBuilder, FadeAnimation {
     
     @discardableResult
     public func setFade(in value: CGFloat, out: CGFloat) -> Self {
-        super.component?.setAlpha(out)
+        super.component?.setOpacity(out)
         super.baseParameters.fromValue = out
         super.baseParameters.toValue = value
         return self
@@ -25,7 +25,7 @@ final public class FadeAnimationBuilder: BaseAnimationBuilder, FadeAnimation {
     
     @discardableResult
     public func setFadeIn() -> Self {
-        super.component?.setAlpha(0)
+        super.component?.setOpacity(0)
         super.baseParameters.fromValue = 0
         super.baseParameters.toValue = 1
         return self
@@ -33,7 +33,7 @@ final public class FadeAnimationBuilder: BaseAnimationBuilder, FadeAnimation {
     
     @discardableResult
     public func setFadeOut() -> Self {
-        super.component?.setAlpha(1)
+        super.component?.setOpacity(1)
         super.baseParameters.fromValue = 1
         super.baseParameters.toValue = 0
         return self
