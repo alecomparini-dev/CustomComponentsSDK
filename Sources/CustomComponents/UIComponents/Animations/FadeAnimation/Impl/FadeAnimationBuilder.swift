@@ -16,6 +16,13 @@ final public class FadeAnimationBuilder: BaseAnimationBuilder, FadeAnimation {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
+    public func setFade(in value: CGFloat, out: CGFloat) -> Self {
+        super.baseParameters.fromValue = out
+        super.baseParameters.toValue = value
+        return self
+    }
+    
+    @discardableResult
     public func setFadeIn() -> Self {
         super.baseParameters.fromValue = 0
         super.baseParameters.toValue = 1

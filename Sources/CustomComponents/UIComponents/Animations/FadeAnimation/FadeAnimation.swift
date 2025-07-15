@@ -7,6 +7,9 @@ import Foundation
 public protocol FadeAnimation: Animation {
     
     @discardableResult
+    func setFade(in value: CGFloat, out: CGFloat) -> Self
+    
+    @discardableResult
     func setFadeIn() -> Self
 
     @discardableResult
