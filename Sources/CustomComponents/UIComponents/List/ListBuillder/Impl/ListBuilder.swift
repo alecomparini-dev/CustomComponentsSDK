@@ -3,20 +3,19 @@
 
 import UIKit
 
-@MainActor
-public protocol ListDelegate: AnyObject {
-    //REQUIRED
-    func numberOfSections(_ list: ListBuilder) -> Int
-    func numberOfRows(_ list: ListBuilder, section: Int) -> Int
-    func sectionViewCallback(_ list: ListBuilder, section: Int) -> UIView?
-    func rowViewCallBack(_ list: ListBuilder, section: Int, row: Int) -> Any
+
+struct IndexesSelected: Hashable {
+    var section: Int
+    var row: Int
     
-    //OPTIONAL
-    func shouldSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int) -> Bool
-    func didSelectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int)
-    func didDeselectItemAt(_ list: ListBuilder, _ section: Int, _ row: Int)
-    func scrollViewDidScroll(_ list: ListBuilder, _ scrollView: UIScrollView)
-    func scrollViewWillBeginDragging(_ list: ListBuilder, _ scrollView: UIScrollView)
+    static func == (lhs: IndexesSelected, rhs: IndexesSelected) -> Bool {
+        return lhs.section == rhs.section && lhs.row == rhs.row
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(section)
+        hasher.combine(row)
+    }
 }
 
 @MainActor
@@ -28,11 +27,8 @@ open class ListBuilder: BaseBuilder, List {
     private weak var delegate: ListDelegate?
     private var view: UIView?
     
-    public var get: UITableView { list }
-    
     private var rowsHeight: [Int : CGFloat] = [:]
     private var alreadyApplied = false
-    
     private var completionCalculateRowHeight: ((ListBuilder, Int, Int) -> CGFloat)?
     private var customSectionHeaderHeight: [Int : CGFloat] = [:]
     private var customSectionFooterHeight: [Int : CGFloat] = [:]
@@ -61,13 +57,15 @@ open class ListBuilder: BaseBuilder, List {
     
 //  MARK: - GET AREA
 
+    public var get: UITableView { list }
+    
     public var isShowing: Bool { !list.isHidden }
     
     public func getRowSelected() -> C? {
         guard let indexSelected = getIndexSelected() else {return nil}
-        if let cell = getRowByIndex(indexSelected.section, indexSelected.row ) {
-            return cell
-        }
+        
+        if let cell = getRowByIndex(indexSelected.section, indexSelected.row ) { return cell }
+        
         return nil
     }
     
@@ -75,6 +73,7 @@ open class ListBuilder: BaseBuilder, List {
         if let selectedIndexPath = list.indexPathForSelectedRow {
             return (section: selectedIndexPath.section, row: selectedIndexPath.row)
         }
+        
         return nil
     }
     
@@ -87,9 +86,7 @@ open class ListBuilder: BaseBuilder, List {
         
         let indexPath = IndexPath(row: row, section: section ?? 0)
         
-        if let selectedRow = list.cellForRow(at: indexPath) {
-            return selectedRow
-        }
+        if let selectedRow = list.cellForRow(at: indexPath) { return selectedRow }
         
         return nil
     }
@@ -160,6 +157,7 @@ open class ListBuilder: BaseBuilder, List {
                 list.showsVerticalScrollIndicator = flag
                 list.showsHorizontalScrollIndicator = flag
         }
+        
         return self
     }
     
@@ -240,7 +238,7 @@ open class ListBuilder: BaseBuilder, List {
         
         if !(delegate?.shouldSelectItemAt(self, section ?? 0, row) ?? true) { return }
         
-        if let indexSelect = getIndexSelected() { delegate?.didDeselectItemAt(self, indexSelect.section , indexSelect.row) }
+        if let indexSelect = getIndexSelected() { deselect(indexSelect.section , indexSelect.row) }
         
         let indexPath = IndexPath(row: row, section: section ?? 0)
         
@@ -259,12 +257,15 @@ open class ListBuilder: BaseBuilder, List {
     
     public func deselect(_ section: Int = 0, _ row: Int) {
         let indexPath = IndexPath(row: row, section: section)
+        
         list.deselectRow(at: indexPath, animated: true)
+        
         delegate?.didDeselectItemAt(self, section, row)
     }
     
 
 //  MARK: - PRIVATE AREA
+    
     private func configure() {
         setSeparatorStyle(.none)
         setBackgroundColor(.clear)
@@ -290,7 +291,7 @@ open class ListBuilder: BaseBuilder, List {
         
         list.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
     }
-        
+            
 }
 
 
@@ -302,6 +303,7 @@ extension ListBuilder: UITableViewDataSource {
         guard let delegate else {
             fatalError("List delegate has not been implemented")
         }
+        
         return delegate.numberOfSections(self)
     }
 
@@ -309,19 +311,24 @@ extension ListBuilder: UITableViewDataSource {
         guard let delegate else {
             fatalError("List delegate has not been implemented")
         }
+        
         return delegate.numberOfRows(self, section: section)
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
+        
         view.setBackgroundColor(.clear)
+        
         return view
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let view = delegate?.sectionViewCallback(self, section: section) {
             let cell = ListCell()
+            
             cell.setupCell(view)
+            
             return cell
         }
         

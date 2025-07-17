@@ -47,6 +47,7 @@ open class DockBuilder: BaseBuilder, Dock {
     public var isShowing: Bool { isShow }
     
     public func getIndexSelected() -> Int? {
+    
         //TODO: PREPARED TO MULTI SELECTED
         return Array(indexesSelected).first
     }
@@ -210,6 +211,7 @@ open class DockBuilder: BaseBuilder, Dock {
         if !(delegate?.shouldSelectItemAt(self, index) ?? true) { return }
         
         _collection.selectItem(at: indexPath, animated: true, scrollPosition: scrollPosition)
+        
         _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
@@ -227,8 +229,11 @@ open class DockBuilder: BaseBuilder, Dock {
         if isDisableUserInteraction(index) { return }
 
         let indexPath = IndexPath(row: index, section: 0)
+        
         _collection.deselectItem(at: indexPath, animated: true)
+        
         _collection.reloadItems(at: [indexPath])
+        
         delegate?.didDeselectItemAt(self, index)
     }
     
