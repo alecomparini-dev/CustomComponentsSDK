@@ -87,6 +87,7 @@ public protocol List {
     
     
 //  MARK: - DELEGATE
+    
     @discardableResult
     func setDelegate(_ delegate: ListDelegate) -> Self
 }

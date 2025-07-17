@@ -375,6 +375,9 @@ extension ListBuilder: UITableViewDelegate {
         selectItem(indexPath.section, indexPath.row)
     }
     
+    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        deselect(indexPath.section, indexPath.row)
+    }
 }
 
 
