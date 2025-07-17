@@ -17,8 +17,9 @@ public protocol List {
 
     func isSelected(_ section: Int?, _ row: Int) -> Bool
     
+    func getRowByIndex(_ section: Int?, _ row: Int?) -> C?
+
     var isShowing: Bool { get }
-    
     
     
 //  MARK: - ACTIONS AREA
