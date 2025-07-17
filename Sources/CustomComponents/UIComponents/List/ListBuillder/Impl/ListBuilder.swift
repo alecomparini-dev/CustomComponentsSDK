@@ -63,7 +63,7 @@ open class ListBuilder: BaseBuilder, List {
 
     public var isShowing: Bool { !list.isHidden }
     
-    public func getRowSelected() -> UITableViewCell? {
+    public func getRowSelected() -> C? {
         guard let indexSelected = getIndexSelected() else {return nil}
         if let cell = getRowByIndex(indexSelected.section, indexSelected.row ) {
             return cell
@@ -82,9 +82,21 @@ open class ListBuilder: BaseBuilder, List {
         return getIndexSelected() ?? (-1,-1) == (section, row)
     }
     
-
+    public func getRowByIndex(_ section: Int? = 0, _ row: Int?) -> C? {
+        guard let row else { return nil }
+        
+        let indexPath = IndexPath(row: row, section: section ?? 0)
+        
+        if let selectedRow = list.cellForRow(at: indexPath) {
+            return selectedRow
+        }
+        
+        return nil
+    }
+    
     
 //  MARK: - SET PROPERTIES
+    
     @discardableResult
     public func setRowHeight(_ height: CGFloat) -> Self {
         list.rowHeight = height
@@ -273,17 +285,6 @@ open class ListBuilder: BaseBuilder, List {
         list.register(ListCell.self, forCellReuseIdentifier: ListCell.identifier)
     }
     
-    private func getRowByIndex(_ section: Int? = 0, _ row: Int?) -> UITableViewCell? {
-        guard let row else { return nil }
-        
-        let indexPath = IndexPath(row: row, section: section ?? 0)
-        
-        if let selectedRow = list.cellForRow(at: indexPath) {
-            return selectedRow
-        }
-        return nil
-    }
-    
     private func selectRowAnimated(_ indexPath: IndexPath) {
         if !autoScrollPosition { return }
         
@@ -294,6 +295,7 @@ open class ListBuilder: BaseBuilder, List {
 
 
 //  MARK: - Extension Data Source
+
 extension ListBuilder: UITableViewDataSource {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
