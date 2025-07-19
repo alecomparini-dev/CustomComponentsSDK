@@ -104,8 +104,7 @@ open class ToastBuilder: ViewBuilder, Toast {
             return -(frameInWindow.maxY)
 
         case .bottom:
-            let screenHeight = window.bounds.height
-            return screenHeight - frameInWindow.minY
+            return frameInWindow.origin.y - 80
         }
     }
 
@@ -136,6 +135,8 @@ open class ToastBuilder: ViewBuilder, Toast {
         }
     }
     
-    @objc private func selectorHide() { hide() }
+    @objc private func selectorHide() {
+//        hide()
+    }
     
 }
