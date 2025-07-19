@@ -118,7 +118,7 @@ open class ToastBuilder: ViewBuilder, Toast {
     private func configPositionInitial() {
         let position = getOffsetY()
         
-        self.get.frame.origin.y = position
+//        self.get.frame.origin.y = position
         
         self.get.transform = CGAffineTransform(translationX: 0, y: position)
     }
