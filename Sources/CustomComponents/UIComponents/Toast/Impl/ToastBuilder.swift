@@ -144,7 +144,7 @@ open class ToastBuilder: ViewBuilder, Toast {
             return (position == .top) ? -height.toast : height.screen + height.toast
         }
         
-        return (position == .top) ? height.toast : height.screen - height.toast
+        return (position == .top) ? 0 : height.screen - height.toast
     }
 
     
