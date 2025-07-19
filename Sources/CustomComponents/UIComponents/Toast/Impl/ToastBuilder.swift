@@ -12,7 +12,7 @@ open class ToastBuilder: ViewBuilder, Toast {
     private var disableAutoHide = false
     private var beganTouch: Double = 0
     private var position: ToastPosition = .bottom
-    private var durationAutoHide: TimeInterval = 5.0
+    private var durationAutoHide: TimeInterval = 3.0
     private var animationShow: TimeInterval = 0.5
     private var animationHide: TimeInterval = 0.3
     private var onDismiss: (() -> Void)?
