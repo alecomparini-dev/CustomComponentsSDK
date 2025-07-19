@@ -73,7 +73,7 @@ open class ToastBuilder: ViewBuilder, Toast {
         
         let targetY: CGFloat = getTargetY()
         
-        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+        UIView.animate(withDuration: 0.5, animations: { [weak self] in
             
             self?.get.frame.origin.y = targetY
             
