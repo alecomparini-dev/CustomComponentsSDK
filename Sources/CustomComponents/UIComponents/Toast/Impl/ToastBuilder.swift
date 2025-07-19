@@ -12,7 +12,9 @@ open class ToastBuilder: ViewBuilder, Toast {
     private var disableAutoHide = false
     private var beganTouch: Double = 0
     private var position: ToastPosition = .bottom
-    private var duration: TimeInterval = 3.0
+    private var durationAutoHide: TimeInterval = 5.0
+    private var animationShow: TimeInterval = 0.5
+    private var animationHide: TimeInterval = 0.3
     private var onDismiss: (() -> Void)?
     
     public override init() {
@@ -41,11 +43,23 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
     
     @discardableResult
-    public func setDuration(_ seconds: TimeInterval) -> Self {
-        duration = seconds
+    public func setDurationAutoHide(_ seconds: TimeInterval) -> Self {
+        durationAutoHide = seconds
         return self
     }
     
+    @discardableResult
+    public func setAnimationShow(_ duration: TimeInterval) -> Self {
+        animationShow = duration
+        return self
+    }
+    
+    @discardableResult
+    public func setAnimationHide(_ duration: TimeInterval) -> Self {
+        animationHide = duration
+        return self
+    }
+
     @discardableResult
     public func setOnDismiss(_ completion: @escaping () -> Void) -> Self {
         onDismiss = completion
@@ -65,12 +79,12 @@ open class ToastBuilder: ViewBuilder, Toast {
         setHidden(false)
         
         if !disableAutoHide {
-            hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)            
+            hideTimer = Timer.scheduledTimer(timeInterval: durationAutoHide, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
         }
         
         let offset: CGFloat = getOffsetY()
         
-        UIView.animate(withDuration: 0.5) { [weak self] in
+        UIView.animate(withDuration: animationShow) { [weak self] in
             guard let self else { return }
             
             self.get.alpha = 1
@@ -88,7 +102,7 @@ open class ToastBuilder: ViewBuilder, Toast {
         
         let offset: CGFloat = getOffsetY()
         
-        UIView.animate(withDuration: 0.5, animations: { [weak self] in
+        UIView.animate(withDuration: animationHide, animations: { [weak self] in
             guard let self else { return }
 
             self.get.transform = CGAffineTransform(translationX: 0, y: offset)

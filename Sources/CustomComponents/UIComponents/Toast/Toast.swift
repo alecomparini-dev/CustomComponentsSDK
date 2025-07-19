@@ -18,11 +18,17 @@ public protocol Toast {
     func setDisableAutoHide() -> Self
     
     @discardableResult
-    func setDuration(_ seconds: TimeInterval) -> Self
+    func setPosition(_ position: ToastPosition) -> Self
+
+    @discardableResult
+    func setDurationAutoHide(_ seconds: TimeInterval) -> Self
     
     @discardableResult
-    func setPosition(_ position: ToastPosition) -> Self
-        
+    func setAnimationShow(_ duration: TimeInterval) -> Self
+    
+    @discardableResult
+    func setAnimationHide(_ duration: TimeInterval) -> Self
+    
     @discardableResult
     func setOnDismiss(_ completion: @escaping () -> Void) -> Self
 
