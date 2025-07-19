@@ -63,11 +63,9 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
     
     private func configPositionInitial() {
-        let height = getHeight()
+        let position = getOffsetY()
         
-        let relativeHeight = (position == .top) ? -height.toast : height.screen + height.screen
-        
-        self.get.frame.origin.y = relativeHeight
+        self.get.frame.origin.y = position
     }
     
     private func getHeight() -> (toast: CGFloat, screen: CGFloat) {
@@ -84,10 +82,10 @@ open class ToastBuilder: ViewBuilder, Toast {
         let height = getHeight()
         
         if !isShow() {
-            return (position == .top) ? -height.toast : height.screen + height.screen
+            return (position == .top) ? -height.toast : height.screen + height.toast
         }
         
-        return (position == .top) ? height.toast : height.screen - height.screen
+        return (position == .top) ? height.toast : height.screen - height.toast
     }
     
     public func hide() {
