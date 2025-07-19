@@ -146,22 +146,20 @@ open class ToastBuilder: ViewBuilder, Toast {
         
         switch gesture.state {
         
-        case .began:
-            beganTouch = translation.y
-        
-        case .changed:
-            if position == .bottom {
-                if gestureDirection(translation.y) == .up {
-                    print("SUBINNNNDOOOOO")
+            case .began:
+                beganTouch = translation.y
+            
+            case .changed:
+                if position == .top {
+                    if gestureDirection(translation.y) != .up { return }
+                }
+                    
+                if position == .bottom {
+                    if gestureDirection(translation.y) != .down { return }
                 }
                 
-                if gestureDirection(translation.y) == .down {
-                    print("DESCENDO !!!!!!!!!!!!!!")
-                }
-            }
+                hide()
             
-//                hide()
-        
             default:
                 break
         }
