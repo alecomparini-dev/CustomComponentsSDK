@@ -44,7 +44,7 @@ open class ToastBuilder: ViewBuilder, Toast {
     public func show() {
         hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
         
-        let offset: CGFloat = position == .top ? -self.get.bounds.height : self.get.bounds.height
+        let offset: CGFloat = position == .top ? self.get.bounds.height : -self.get.bounds.height
         
         self.get.transform = CGAffineTransform(translationX: 0, y: offset)
         
@@ -77,7 +77,7 @@ open class ToastBuilder: ViewBuilder, Toast {
     
     private func configure() {
         addSwipeGesture()
-        positionToast()
+        configInitial()
     }
     
     private func addSwipeGesture() {
@@ -86,10 +86,8 @@ open class ToastBuilder: ViewBuilder, Toast {
         self.get.addGestureRecognizer(pan)
     }
 
-    private func positionToast() {
-        let targetY: CGFloat = getTargetY()
-        
-        self.get.frame.origin.y = targetY
+    private func configInitial() {
+        self.setAlpha(0)
     }
     
     private func getTargetY() -> CGFloat {
