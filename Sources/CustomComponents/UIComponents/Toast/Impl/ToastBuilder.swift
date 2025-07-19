@@ -150,10 +150,14 @@ open class ToastBuilder: ViewBuilder, Toast {
             beganTouch = translation.y
         
         case .changed:
-            let changeYTouch = translation.y
-            
             if position == .bottom {
-                print( beganTouch - changeYTouch)
+                if gestureDirection(translation.y) == .up {
+                    print("SUBINNNNDOOOOO")
+                }
+                
+                if gestureDirection(translation.y) == .down {
+                    print("DESCENDO !!!!!!!!!!!!!!")
+                }
             }
             
 //                hide()
@@ -167,4 +171,14 @@ open class ToastBuilder: ViewBuilder, Toast {
 //        hide()
     }
     
+    private func gestureDirection(_ translationY: Double) -> GestureDirection {
+        if (beganTouch - translationY) < 0 {
+            return .down
+        }
+        
+        return .up
+    }
+    
 }
+
+
