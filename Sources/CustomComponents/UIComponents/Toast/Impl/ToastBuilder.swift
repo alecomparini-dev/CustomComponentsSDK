@@ -71,11 +71,11 @@ open class ToastBuilder: ViewBuilder, Toast {
         
         hideTimer?.invalidate()
         
-        let targetY: CGFloat = getTargetY()
+        let offset: CGFloat = getOffsetY()
         
         UIView.animate(withDuration: 0.5, animations: { [weak self] in
             
-            self?.get.frame.origin.y = targetY
+            self?.get.frame.origin.y = offset
             
         }, completion: { [weak self] _ in
             guard let self else { return }
@@ -90,6 +90,7 @@ open class ToastBuilder: ViewBuilder, Toast {
     
     private func configure() {
         addSwipeGesture()
+        
         configInitial()
     }
     
