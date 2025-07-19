@@ -43,6 +43,17 @@ open class ToastBuilder: ViewBuilder, Toast {
     
     public func show() {
         hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
+        
+        let offset: CGFloat = position == .top ? -self.get.bounds.height : self.get.bounds.height
+        
+        self.get.transform = CGAffineTransform(translationX: 0, y: offset)
+        
+        self.get.alpha = 0
+        
+        UIView.animate(withDuration: 0.3) {
+            self.get.alpha = 1
+            self.get.transform = .identity
+        }
     }
     
     public func hide() {
