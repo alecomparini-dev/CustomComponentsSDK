@@ -57,8 +57,7 @@ open class ToastBuilder: ViewBuilder, Toast {
         
         let offset: CGFloat = getOffsetY()
         
-        UIView.animate(withDuration: 0.3) {
-            self.get.alpha = 1
+        UIView.animate(withDuration: 0.5) {
             self.get.frame.origin.y = offset
         }
             
@@ -157,18 +156,8 @@ open class ToastBuilder: ViewBuilder, Toast {
         
         switch gesture.state {
             case .changed:
-                let offset = translation.y
-            
-                if position == .bottom && offset > 0 {
-                    view.transform = CGAffineTransform(translationX: 0, y: offset)
-                } else if position == .top && offset < 0 {
-                    view.transform = CGAffineTransform(translationX: 0, y: offset)
-                }
-        
-            case .ended, .cancelled:
                 hide()
-
-            
+        
             default:
                 break
         }
