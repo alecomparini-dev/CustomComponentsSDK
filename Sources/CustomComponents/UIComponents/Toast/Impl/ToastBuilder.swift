@@ -47,6 +47,8 @@ open class ToastBuilder: ViewBuilder, Toast {
 //  MARK: - ACTIONS
     
     public func show() {
+        _isShow = true
+        
         hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
         
         configPositionInitial()
@@ -89,6 +91,8 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
     
     public func hide() {
+        _isShow = false
+        
         hideTimer?.invalidate()
         
         let targetY: CGFloat = getTargetY()
