@@ -104,7 +104,7 @@ open class ToastBuilder: ViewBuilder, Toast {
             return -(frameInWindow.maxY)
 
         case .bottom:
-            return frameInWindow.origin.y - 80
+            return window.bounds.height - 80
         }
     }
 
