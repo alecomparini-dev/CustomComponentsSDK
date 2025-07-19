@@ -15,6 +15,9 @@ public protocol Toast {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
+    func setDisableAutoHide() -> Self
+    
+    @discardableResult
     func setDuration(_ seconds: TimeInterval) -> Self
     
     @discardableResult

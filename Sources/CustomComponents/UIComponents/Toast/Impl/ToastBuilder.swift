@@ -7,8 +7,10 @@ import UIKit
 open class ToastBuilder: ViewBuilder, Toast {
     private var hideTimer: Timer?
 
-    private var beganTouch: Double = 0
     private var _isShow = false
+    
+    private var disableAutoHide = false
+    private var beganTouch: Double = 0
     private var position: ToastPosition = .bottom
     private var duration: TimeInterval = 3.0
     private var onDismiss: (() -> Void)?
@@ -25,6 +27,12 @@ open class ToastBuilder: ViewBuilder, Toast {
     
     
 //  MARK: - SET PROPERTIES
+    
+    @discardableResult
+    public func setDisableAutoHide() -> Self {
+        self.disableAutoHide = true
+        return self
+    }
     
     @discardableResult
     public func setPosition(_ position: ToastPosition) -> Self {
@@ -55,8 +63,10 @@ open class ToastBuilder: ViewBuilder, Toast {
         _isShow = true
         
         setHidden(false)
-                
-        hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
+        
+        if !disableAutoHide {
+            hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)            
+        }
         
         let offset: CGFloat = getOffsetY()
         
@@ -64,8 +74,6 @@ open class ToastBuilder: ViewBuilder, Toast {
             guard let self else { return }
             
             self.get.alpha = 1
-            
-//            self.get.frame.origin.y = offset
             
             self.get.transform = CGAffineTransform(translationX: 0, y: offset)
         }
@@ -83,10 +91,7 @@ open class ToastBuilder: ViewBuilder, Toast {
         UIView.animate(withDuration: 0.5, animations: { [weak self] in
             guard let self else { return }
 
-//            self.get.frame.origin.y = offset
-            
             self.get.transform = CGAffineTransform(translationX: 0, y: offset)
-            
         }, completion: { [weak self] _ in
             guard let self else { return }
             
@@ -117,8 +122,6 @@ open class ToastBuilder: ViewBuilder, Toast {
     
     private func configPositionInitial() {
         let position = getOffsetY()
-        
-//        self.get.frame.origin.y = position
         
         self.get.transform = CGAffineTransform(translationX: 0, y: position)
     }
@@ -173,7 +176,7 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
     
     @objc private func selectorHide() {
-//        hide()
+        hide()
     }
     
     private func gestureDirection(_ translationY: Double) -> GestureDirection {
