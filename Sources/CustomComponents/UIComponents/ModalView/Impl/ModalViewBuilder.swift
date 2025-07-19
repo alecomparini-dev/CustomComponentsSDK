@@ -21,7 +21,8 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
 
 //  MARK: - INITIALIZERS
     
-    public var get: ViewBuilder {modal}
+    public var get: ViewBuilder { modal }
+    
     private let modal: ViewBuilder
     
     public init() {
@@ -64,6 +65,7 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
 
     
 //  MARK: - ACTIONS
+    
     public func show() {
         if isVisible {return}
         isVisible = true
@@ -83,6 +85,7 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
     
     
 //  MARK: - PRIVATE AREA
+    
     private func applyOnce() {
         if isApplyOnce {return}
         
@@ -183,6 +186,5 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
         overlay?.setHidden(true, animated: true, animationDuration)
         modal.setHidden(true, animated: true, animationDuration)
     }
-    
-    
+
 }

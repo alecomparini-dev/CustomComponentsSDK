@@ -12,10 +12,12 @@ public protocol ModalView {
 
 
 //  MARK: - GET PROPERTIES
+    
     func isShow() -> Bool
     
 
 //  MARK: - SET PROPERTIES
+    
     @discardableResult
     func setCloseWhenTappedOut() -> Self
     
@@ -30,6 +32,7 @@ public protocol ModalView {
 
     
 //  MARK: - SHOW and HIDE
+    
     func show()
     
     func hide()

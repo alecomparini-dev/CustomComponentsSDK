@@ -49,6 +49,7 @@ open class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     
     
 //  MARK: - SET PROPERTIES
+    
     @discardableResult
     public func setNumberOfTapsRequired(_ numberOfTaps: Int) -> Self {
         self.numberOfTapsRequired = numberOfTaps
@@ -97,17 +98,20 @@ open class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     
     
 //  MARK: - PRIVATE AREA
+    
     private func enableUserInteractionComponent() {
         component?.isUserInteractionEnabled = true
     }
     
     private func addTargetOnComponent() {
         self.addTarget(self, action: #selector(objcTapGesture))
+        
         component?.addGestureRecognizer(self)
     }
     
     private func performTap(_ completion: [touchGestureAlias]) {
         setTouchPositions()
+        
         completion.forEach({ [weak self] closure in
             guard let self else {return}
             closure(self)
@@ -122,6 +126,7 @@ open class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     
     
 //  MARK: - @OBJC GESTURE
+    
     @objc private func objcTapGesture(_ gesture: UITapGestureRecognizer) {
         
         switch gesture.state {
@@ -140,6 +145,7 @@ open class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
 
 
 //  MARK: - EXTENSION - UIGestureRecognizerDelegate
+
 extension TapGestureBuilder: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer.cancelsTouchesInView
