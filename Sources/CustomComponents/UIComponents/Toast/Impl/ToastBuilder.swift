@@ -7,6 +7,7 @@ import UIKit
 open class ToastBuilder: ViewBuilder, Toast {
     private var hideTimer: Timer?
 
+    private var beganTouch: Double = 0
     private var _isShow = false
     private var position: ToastPosition = .bottom
     private var duration: TimeInterval = 3.0
@@ -50,18 +51,22 @@ open class ToastBuilder: ViewBuilder, Toast {
         if _isShow { return }
         
         configPositionInitial()
-        
+
         _isShow = true
         
+        setHidden(false)
+                
         hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
         
         let offset: CGFloat = getOffsetY()
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self else { return }
+            
             self.get.alpha = 1
+            
             self.get.frame.origin.y = offset
         }
-            
     }
     
     public func hide() {
@@ -85,7 +90,6 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
 
     
-    
 //  MARK: - PRIVATE AREA
     
     private func configure() {
@@ -101,27 +105,11 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
 
     private func configInitial() {
-        self.setAlpha(0.1)
+        setAlpha(0)
+        
+        setHidden(true)
     }
     
-    private func getTargetY() -> CGFloat {
-        let customView = self.get
-        
-        guard let window = customView.window else {
-            return 0
-        }
-        
-        let frameInWindow = customView.convert(customView.bounds, to: window)
-        
-        switch position {
-        case .top:
-            return -(frameInWindow.maxY)
-
-        case .bottom:
-            return window.bounds.height - 80
-        }
-    }
-
     private func configPositionInitial() {
         let position = getOffsetY()
         
@@ -157,8 +145,18 @@ open class ToastBuilder: ViewBuilder, Toast {
         let translation = gesture.translation(in: view)
         
         switch gesture.state {
-            case .changed:
-                hide()
+        
+        case .began:
+            beganTouch = translation.y
+        
+        case .changed:
+            let changeYTouch = translation.y
+            
+            if position == .bottom {
+                print( beganTouch - changeYTouch)
+            }
+            
+//                hide()
         
             default:
                 break
