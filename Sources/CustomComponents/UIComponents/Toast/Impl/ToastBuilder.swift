@@ -51,11 +51,7 @@ open class ToastBuilder: ViewBuilder, Toast {
         
         configPositionInitial()
         
-        self.get.transform = CGAffineTransform(translationX: 0, y: 812)
-        
         let offset: CGFloat = getOffsetY()
-        
-        self.get.alpha = 1
         
         UIView.animate(withDuration: 0.3) {
             self.get.alpha = 1
