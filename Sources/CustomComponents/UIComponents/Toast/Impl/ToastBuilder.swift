@@ -58,6 +58,7 @@ open class ToastBuilder: ViewBuilder, Toast {
         let offset: CGFloat = getOffsetY()
         
         UIView.animate(withDuration: 0.5) {
+            self.get.alpha = 1
             self.get.frame.origin.y = offset
         }
             
