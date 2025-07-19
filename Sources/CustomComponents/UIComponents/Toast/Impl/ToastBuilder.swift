@@ -65,7 +65,9 @@ open class ToastBuilder: ViewBuilder, Toast {
             
             self.get.alpha = 1
             
-            self.get.frame.origin.y = offset
+//            self.get.frame.origin.y = offset
+            
+            self.get.transform = CGAffineTransform(translationX: 0, y: offset)
         }
     }
     
@@ -79,8 +81,11 @@ open class ToastBuilder: ViewBuilder, Toast {
         let offset: CGFloat = getOffsetY()
         
         UIView.animate(withDuration: 0.5, animations: { [weak self] in
+            guard let self else { return }
+
+//            self.get.frame.origin.y = offset
             
-            self?.get.frame.origin.y = offset
+            self.get.transform = CGAffineTransform(translationX: 0, y: offset)
             
         }, completion: { [weak self] _ in
             guard let self else { return }
