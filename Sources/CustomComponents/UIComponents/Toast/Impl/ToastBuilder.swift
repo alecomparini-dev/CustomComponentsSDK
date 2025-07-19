@@ -114,6 +114,8 @@ open class ToastBuilder: ViewBuilder, Toast {
         let position = getOffsetY()
         
         self.get.frame.origin.y = position
+        
+        self.get.transform = CGAffineTransform(translationX: 0, y: position)
     }
     
     private func getHeight() -> (toast: CGFloat, screen: CGFloat) {
