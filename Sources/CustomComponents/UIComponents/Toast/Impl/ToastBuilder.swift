@@ -5,9 +5,9 @@ import UIKit
 
 @MainActor
 open class ToastBuilder: ViewBuilder, Toast {
-    
     private var hideTimer: Timer?
 
+    private var _isShow = false
     private var position: ToastPosition = .bottom
     private var duration: TimeInterval = 3.0
     private var onDismiss: (() -> Void)?
@@ -16,6 +16,11 @@ open class ToastBuilder: ViewBuilder, Toast {
         super.init()
         configure()
     }
+    
+    
+//  MARK: - GET PROPERTIES
+    
+    public func isShow() -> Bool { _isShow }
     
     
 //  MARK: - SET PROPERTIES
@@ -44,16 +49,47 @@ open class ToastBuilder: ViewBuilder, Toast {
     public func show() {
         hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
         
+        configPositionInitial()
+        
         self.get.transform = CGAffineTransform(translationX: 0, y: 812)
         
-        let offset: CGFloat = getTargetY()
+        let offset: CGFloat = getOffsetY()
         
-        self.get.alpha = 0.5
+        self.get.alpha = 1
         
         UIView.animate(withDuration: 0.3) {
             self.get.alpha = 1
             self.get.frame.origin.y = offset
         }
+            
+    }
+    
+    private func configPositionInitial() {
+        let height = getHeight()
+        
+        let relativeHeight = (position == .top) ? -height.toast : height.screen + height.screen
+        
+        self.get.frame.origin.y = relativeHeight
+    }
+    
+    private func getHeight() -> (toast: CGFloat, screen: CGFloat) {
+        let height = self.get.bounds.height
+        
+        guard let win = self.get.window else { return (0,0)}
+        
+        let screenHeight = win.bounds.height
+        
+        return (height, screenHeight)
+    }
+    
+    private func getOffsetY() -> CGFloat {
+        let height = getHeight()
+        
+        if !isShow() {
+            return (position == .top) ? -height.toast : height.screen + height.screen
+        }
+        
+        return (position == .top) ? height.toast : height.screen - height.screen
     }
     
     public func hide() {

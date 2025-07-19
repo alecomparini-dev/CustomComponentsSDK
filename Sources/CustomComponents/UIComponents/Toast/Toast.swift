@@ -6,6 +6,12 @@ import Foundation
 @MainActor
 public protocol Toast {
 
+    
+//  MARK: - GET PROPERTIES
+    
+    func isShow() -> Bool
+
+
 //  MARK: - SET PROPERTIES
     
     @discardableResult
