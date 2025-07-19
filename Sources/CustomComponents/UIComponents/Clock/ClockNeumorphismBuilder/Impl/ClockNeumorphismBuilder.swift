@@ -170,8 +170,11 @@ public class ClockNeumorphismBuilder: BaseBuilder, ClockNeumorphism {
     
     private func startTime() {
         let hours = getHour()
+        
         updateClock(hours.currentHour, hours.currentMinute)
+        
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        
         RunLoop.current.add(timer!, forMode: .common)
     }
     
