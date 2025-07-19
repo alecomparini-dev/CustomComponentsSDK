@@ -44,15 +44,15 @@ open class ToastBuilder: ViewBuilder, Toast {
     public func show() {
         hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
         
+        self.get.transform = CGAffineTransform(translationX: 0, y: 812)
+        
         let offset: CGFloat = getTargetY()
         
-        self.get.transform = CGAffineTransform(translationX: 0, y: -offset)
-        
-        self.get.alpha = 0
+        self.get.alpha = 0.5
         
         UIView.animate(withDuration: 0.3) {
             self.get.alpha = 1
-            self.get.transform = .identity
+            self.get.transform.ty = offset
         }
     }
     
@@ -87,7 +87,7 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
 
     private func configInitial() {
-        self.setAlpha(0)
+        self.setAlpha(0.3)
     }
     
     private func getTargetY() -> CGFloat {
