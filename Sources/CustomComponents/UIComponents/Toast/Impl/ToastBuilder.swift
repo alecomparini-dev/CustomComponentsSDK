@@ -52,7 +52,7 @@ open class ToastBuilder: ViewBuilder, Toast {
         
         UIView.animate(withDuration: 0.3) {
             self.get.alpha = 1
-            self.get.transform.ty = offset
+            self.get.frame.origin.y = offset
         }
     }
     
