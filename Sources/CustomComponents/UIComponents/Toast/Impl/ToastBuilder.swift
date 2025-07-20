@@ -16,6 +16,7 @@ open class ToastBuilder: ViewBuilder, Toast {
     private var animationShow: TimeInterval = 0.5
     private var animationHide: TimeInterval = 0.3
     private var onDismiss: (() -> Void)?
+    private var onShow: (() -> Void)?
     
     public override init() {
         super.init()
@@ -61,6 +62,12 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
 
     @discardableResult
+    public func setOnShow(_ completion: @escaping () -> Void) -> Self {
+        onShow = completion
+        return self
+    }
+    
+    @discardableResult
     public func setOnDismiss(_ completion: @escaping () -> Void) -> Self {
         onDismiss = completion
         return self
@@ -91,6 +98,8 @@ open class ToastBuilder: ViewBuilder, Toast {
             
             self.get.transform = CGAffineTransform(translationX: 0, y: offset)
         }
+        
+        onShow?()
     }
     
     public func hide() {

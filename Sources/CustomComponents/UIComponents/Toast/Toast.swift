@@ -30,8 +30,11 @@ public protocol Toast {
     func setAnimationHide(_ duration: TimeInterval) -> Self
     
     @discardableResult
-    func setOnDismiss(_ completion: @escaping () -> Void) -> Self
+    func setOnShow(_ completion: @escaping () -> Void) -> Self
 
+    @discardableResult
+    func setOnDismiss(_ completion: @escaping () -> Void) -> Self
+    
     
 //  MARK: - SHOW and HIDE
     
