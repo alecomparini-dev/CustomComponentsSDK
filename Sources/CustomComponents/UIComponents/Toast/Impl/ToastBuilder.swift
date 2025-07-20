@@ -5,12 +5,18 @@ import UIKit
 
 @MainActor
 open class ToastBuilder: ViewBuilder, Toast {
-    
     private var hideTimer: Timer?
 
+    private var _isShow = false
+    
+    private var disableAutoHide = false
+    private var beganTouch: Double = 0
     private var position: ToastPosition = .bottom
-    private var duration: TimeInterval = 3.0
+    private var durationAutoHide: TimeInterval = 3.0
+    private var animationShow: TimeInterval = 0.5
+    private var animationHide: TimeInterval = 0.3
     private var onDismiss: (() -> Void)?
+    private var onShow: (() -> Void)?
     
     public override init() {
         super.init()
@@ -18,7 +24,18 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
     
     
+//  MARK: - GET PROPERTIES
+    
+    public func isShow() -> Bool { _isShow }
+    
+    
 //  MARK: - SET PROPERTIES
+    
+    @discardableResult
+    public func setDisableAutoHide() -> Self {
+        self.disableAutoHide = true
+        return self
+    }
     
     @discardableResult
     public func setPosition(_ position: ToastPosition) -> Self {
@@ -27,8 +44,26 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
     
     @discardableResult
-    public func setDuration(_ seconds: TimeInterval) -> Self {
-        duration = seconds
+    public func setDurationAutoHide(_ seconds: TimeInterval) -> Self {
+        durationAutoHide = seconds
+        return self
+    }
+    
+    @discardableResult
+    public func setAnimationShow(_ duration: TimeInterval) -> Self {
+        animationShow = duration
+        return self
+    }
+    
+    @discardableResult
+    public func setAnimationHide(_ duration: TimeInterval) -> Self {
+        animationHide = duration
+        return self
+    }
+
+    @discardableResult
+    public func setOnShow(_ completion: @escaping () -> Void) -> Self {
+        onShow = completion
         return self
     }
     
@@ -42,41 +77,57 @@ open class ToastBuilder: ViewBuilder, Toast {
 //  MARK: - ACTIONS
     
     public func show() {
-        hideTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
+        if _isShow { return }
         
-        self.get.transform = CGAffineTransform(translationX: 0, y: 812)
+        configPositionInitial()
+
+        _isShow = true
         
-        let offset: CGFloat = getTargetY()
+        setHidden(false)
         
-        self.get.alpha = 0.5
-        
-        UIView.animate(withDuration: 0.3) {
-            self.get.alpha = 1
-            self.get.frame.origin.y = offset
+        if !disableAutoHide {
+            hideTimer = Timer.scheduledTimer(timeInterval: durationAutoHide, target: self, selector: #selector(selectorHide), userInfo: nil , repeats: false)
         }
+        
+        let offset: CGFloat = getOffsetY()
+        
+        UIView.animate(withDuration: animationShow) { [weak self] in
+            guard let self else { return }
+            
+            self.get.alpha = 1
+            
+            self.get.transform = CGAffineTransform(translationX: 0, y: offset)
+        }
+        
+        onShow?()
     }
     
     public func hide() {
+        if !_isShow { return }
+        
+        _isShow = false
+        
         hideTimer?.invalidate()
         
-        let targetY: CGFloat = getTargetY()
+        let offset: CGFloat = getOffsetY()
         
-        UIView.animate(withDuration: 0.3, animations: { [weak self] in
-            
-            self?.get.frame.origin.y = targetY
-            
+        UIView.animate(withDuration: animationHide, animations: { [weak self] in
+            guard let self else { return }
+
+            self.get.transform = CGAffineTransform(translationX: 0, y: offset)
         }, completion: { [weak self] _ in
             guard let self else { return }
             
             self.onDismiss?()
         })
     }
-        
+
     
 //  MARK: - PRIVATE AREA
     
     private func configure() {
         addSwipeGesture()
+        
         configInitial()
     }
     
@@ -87,25 +138,35 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
 
     private func configInitial() {
-        self.setAlpha(0.3)
+        setAlpha(0)
+        
+        setHidden(true)
     }
     
-    private func getTargetY() -> CGFloat {
-        let customView = self.get
+    private func configPositionInitial() {
+        let position = getOffsetY()
         
-        guard let window = customView.window else {
-            return 0
+        self.get.transform = CGAffineTransform(translationX: 0, y: position)
+    }
+    
+    private func getHeight() -> (toast: CGFloat, screen: CGFloat) {
+        let height = self.get.bounds.height
+        
+        guard let win = self.get.window else { return (0,0)}
+        
+        let screenHeight = win.bounds.height
+        
+        return (height, screenHeight)
+    }
+    
+    private func getOffsetY() -> CGFloat {
+        let height = getHeight()
+        
+        if !isShow() {
+            return (position == .top) ? -height.toast : height.screen + height.toast
         }
         
-        let frameInWindow = customView.convert(customView.bounds, to: window)
-        
-        switch position {
-        case .top:
-            return -(frameInWindow.maxY)
-
-        case .bottom:
-            return window.bounds.height - 80
-        }
+        return (position == .top) ? 0 : height.screen - height.toast
     }
 
     
@@ -117,18 +178,20 @@ open class ToastBuilder: ViewBuilder, Toast {
         let translation = gesture.translation(in: view)
         
         switch gesture.state {
-            case .changed:
-                let offset = translation.y
-            
-                if position == .bottom && offset > 0 {
-                    view.transform = CGAffineTransform(translationX: 0, y: offset)
-                } else if position == .top && offset < 0 {
-                    view.transform = CGAffineTransform(translationX: 0, y: offset)
-                }
         
-            case .ended, .cancelled:
+            case .began:
+                beganTouch = translation.y
+            
+            case .changed:
+                if position == .top {
+                    if gestureDirection(translation.y) != .up { return }
+                }
+                    
+                if position == .bottom {
+                    if gestureDirection(translation.y) != .down { return }
+                }
+                
                 hide()
-
             
             default:
                 break
@@ -136,7 +199,17 @@ open class ToastBuilder: ViewBuilder, Toast {
     }
     
     @objc private func selectorHide() {
-//        hide()
+        hide()
+    }
+    
+    private func gestureDirection(_ translationY: Double) -> GestureDirection {
+        if (beganTouch - translationY) < 0 {
+            return .down
+        }
+        
+        return .up
     }
     
 }
+
+
