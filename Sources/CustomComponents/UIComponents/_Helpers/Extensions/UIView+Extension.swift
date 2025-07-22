@@ -97,12 +97,12 @@ public extension UIView {
         return self
     }
     
-    @discardableResult
-    func setHidden(_ hide: Bool, animated: Bool = false, _ duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) -> Self {
-        let baseBuilder = BaseBuilder(self)
-        baseBuilder.setHidden(hide, animated: animated, duration, completion: completion)
-        return self
-    }
+//    @discardableResult
+//    func setHidden(_ hide: Bool, animated: Bool = false, _ duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) -> Self {
+//        let baseBuilder = BaseBuilder(self)
+//        baseBuilder.setHidden(hide, animated: animated, duration, completion: completion)
+//        return self
+//    }
     
     
 //  MARK: - SHADOWS

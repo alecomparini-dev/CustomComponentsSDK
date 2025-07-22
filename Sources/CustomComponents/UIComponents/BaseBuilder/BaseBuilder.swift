@@ -128,7 +128,9 @@ open class BaseBuilder: NSObject {
             completion?()
             return self
         }
+        
         animatedHidden(hide, duration, completion)
+        
         return self
     }
 
@@ -241,6 +243,7 @@ open class BaseBuilder: NSObject {
     public func add(insideTo element: BaseBuilder) {
         add(insideTo: element.baseView)
     }
+    
     
 //  MARK: - PRIVATE AREA
     
