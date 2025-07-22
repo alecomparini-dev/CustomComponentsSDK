@@ -6,6 +6,7 @@ import UIKit
 @MainActor
 public protocol Animation {
     var isAnimating: Bool { get }
+    
     var component: BaseBuilder? { get }
     
     @discardableResult

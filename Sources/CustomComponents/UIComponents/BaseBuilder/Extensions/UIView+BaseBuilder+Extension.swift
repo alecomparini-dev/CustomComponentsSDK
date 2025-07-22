@@ -62,6 +62,68 @@ extension UIView {
         return self
     }
     
+    @discardableResult
+    public func setHidden(_ hide: Bool, animated: Bool = false, _ duration: TimeInterval = 0.3, completion: (() -> Void)? = nil) -> Self {
+        if !animated {
+            self.isHidden = hide
+            self.setAlpha(1)
+            completion?()
+            return self
+        }
+        
+        animatedHidden(hide, duration, completion)
+        
+        return self
+    }
     
+    
+    
+    
+    private func animatedHidden(_ hide: Bool, _ duration: TimeInterval, _ completion: (() -> Void)?) {
+        if hide { return invisible(duration, completion) }
+        
+        visible(duration, completion)
+    }
+    
+    private func invisible(_ duration: TimeInterval, _ completion: (() -> Void)?) {
+        
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self else { return }
+        
+            if !self.isHidden {
+                self.alpha = 1
+            }
+                        
+            UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
+                self?.alpha = 0
+            }){ [weak self] bool in
+                if bool {
+                    self?.isHidden = true
+                    completion?()
+                }
+            }
+        })
+    }
+    
+    private func visible(_ duration: TimeInterval, _ completion: (() -> Void)?) {
+        
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self else {return}
+            
+            if self.isHidden {
+                self.alpha = 0
+                self.isHidden = false
+            }
+            
+            UIView.animate(withDuration: duration, delay: 0, animations: { [weak self] in
+                self?.alpha = 1
+            }){ bool in
+                if bool {
+                    completion?()
+                }
+            }
+        })
+        
+    }
 }
 
