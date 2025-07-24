@@ -6,9 +6,8 @@ import UIKit
 @MainActor
 open class BaseAnimationBuilder: Animation {
     
-    private let animationKey: String = UUID().uuidString
-    
     public var baseParameters: BaseAnimationParameters = BaseAnimationParameters()
+    private var animationKey: String = ""
     private var _isAnimating: Bool = false
     private var basicAnimation: CABasicAnimation!
     
@@ -97,6 +96,7 @@ open class BaseAnimationBuilder: Animation {
     
     private func configure() {
         basicAnimation = CABasicAnimation(keyPath: keyPathCABasicAnimation)
+        animationKey = keyPathCABasicAnimation
     }
     
     private func setStartAnimation() {
