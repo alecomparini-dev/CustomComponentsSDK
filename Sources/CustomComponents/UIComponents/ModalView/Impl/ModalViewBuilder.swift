@@ -66,14 +66,14 @@ open class ModalViewBuilder: BaseBuilder , ModalView {
     
 //  MARK: - ACTIONS
     
-    public func show() {
+    open func show() {
         if isVisible {return}
         isVisible = true
         applyOnce()
         showAnimation()
     }
     
-    public func hide() {
+    open func hide() {
         if !isVisible {return}
         isVisible = false
         hideAnimation { [weak self] in
