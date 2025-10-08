@@ -21,7 +21,15 @@ open class HapticBuilder: Haptic {
 //  MARK: - SET PROPERTIES
     
     @discardableResult
+    public func resetEventParameters() -> Self {
+        eventParameters.removeAll()
+        return self
+    }
+    
+    @discardableResult
     public func setHapticMode(mode: HapticMode) -> Self {
+        resetEventParameters()
+        
         setIntensity(intensity: mode.baseIntensity)
         
         setSharpness(sharpness: mode.baseSharpness)
@@ -32,18 +40,14 @@ open class HapticBuilder: Haptic {
     @discardableResult
     public func setIntensity(intensity value: Float) -> Self {
         let hapticEventParam = CHHapticEventParameter(parameterID: .hapticIntensity, value: value)
-        
         eventParameters.insert(hapticEventParam)
-        
         return self
     }
     
     @discardableResult
     public func setSharpness(sharpness value: Float) -> Self {
         let hapticEventParam = CHHapticEventParameter(parameterID: .hapticSharpness, value: value)
-        
         eventParameters.insert(hapticEventParam)
-        
         return self
     }
     

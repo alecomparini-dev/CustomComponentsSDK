@@ -7,6 +7,9 @@ import Foundation
 public protocol Haptic {
     
     @discardableResult
+    func resetEventParameters() -> Self
+    
+    @discardableResult
     func setHapticMode(mode: HapticMode) -> Self
     
     @discardableResult
