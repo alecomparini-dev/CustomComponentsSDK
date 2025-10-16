@@ -5,22 +5,45 @@ import CoreHaptics
 
 struct SuccessHapticEvent: HapticEvent {
     
-    func event() -> [CHHapticEvent] {
+    func _event() -> [CHHapticEvent] {
         [  CHHapticEvent(eventType: .hapticTransient,
-                          parameters: [
+                         parameters: [
                             .init(parameterID: .hapticIntensity, value: 0.5),
                             .init(parameterID: .hapticSharpness, value: 0.7)
-                          ],
-                          relativeTime: 0),
+                         ],
+                         relativeTime: 0),
            
-            CHHapticEvent(eventType: .hapticTransient,
-                          parameters: [
+           CHHapticEvent(eventType: .hapticTransient,
+                         parameters: [
                             .init(parameterID: .hapticIntensity, value: 0.8),
                             .init(parameterID: .hapticSharpness, value: 0.8)
-                          ],
-                          relativeTime: 0.15)
+                         ],
+                         relativeTime: 0.15)
         ]
     }
+    
+    
+    func event() -> [CHHapticEvent] {
+        [  CHHapticEvent(eventType: .hapticContinuous,
+                         parameters: [
+                            .init(parameterID: .hapticIntensity, value: 0.5),
+                            .init(parameterID: .hapticSharpness, value: 0.7)
+                         ],
+                         relativeTime: 0,
+                         duration: 0.2),
+           
+           CHHapticEvent(eventType: .hapticContinuous,
+                         parameters: [
+                            .init(parameterID: .hapticIntensity, value: 0.8),
+                            .init(parameterID: .hapticSharpness, value: 0.8)
+                         ],
+                         relativeTime: 0.25,
+                         duration: 0.2),
+        ]
+    }
+    
+    
+    
     
 }
 
