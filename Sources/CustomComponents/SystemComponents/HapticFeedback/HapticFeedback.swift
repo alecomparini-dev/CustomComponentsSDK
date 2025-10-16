@@ -3,7 +3,7 @@
 
 import Foundation
 
-public protocol HapticFeedback {
+public protocol HapticFeedbackProtocol {
         
     func play(_ type: HapticFeedbackType)
     
