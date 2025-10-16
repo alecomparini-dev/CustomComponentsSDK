@@ -19,11 +19,8 @@ struct WarningHapticEvent: HapticEvent {
                            .init(parameterID: .hapticIntensity, value: 0.7),
                            .init(parameterID: .hapticSharpness, value: 0.3)
                          ],
-                         relativeTime: 0.25)
+                         relativeTime: 0.1)
         ]
     }
     
 }
-
-
-
