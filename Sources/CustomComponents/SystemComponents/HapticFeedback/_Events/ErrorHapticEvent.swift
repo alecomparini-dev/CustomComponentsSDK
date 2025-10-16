@@ -17,20 +17,11 @@ struct ErrorHapticEvent: HapticEvent {
            
            CHHapticEvent(eventType: .hapticTransient,
                          parameters: [
-                            .init(parameterID: .hapticIntensity, value: 0.7),
-                            .init(parameterID: .hapticSharpness, value: 0.3)
+                            .init(parameterID: .hapticIntensity, value: 1.0),
+                            .init(parameterID: .hapticSharpness, value: 1.0)
                          ],
-                         relativeTime: 0.55),
-           
-           CHHapticEvent(eventType: .hapticTransient,
-                         parameters: [
-                            .init(parameterID: .hapticIntensity, value: 0.7),
-                            .init(parameterID: .hapticSharpness, value: 0.3)
-                         ],
-                         relativeTime: 0.65)
+                         relativeTime: 0.6),
         ]
     }
     
 }
-
-
