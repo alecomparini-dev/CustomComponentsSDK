@@ -10,7 +10,7 @@ struct CriticalErrorHapticEvent: HapticEvent {
         [  CHHapticEvent(eventType: .hapticContinuous,
                          parameters: [
                             .init(parameterID: .hapticIntensity, value: 1.0),
-                            .init(parameterID: .hapticSharpness, value: 0.2)
+                            .init(parameterID: .hapticSharpness, value: 0.4)
                          ],
                          relativeTime: 0,
                          duration: 0.4),
@@ -18,7 +18,7 @@ struct CriticalErrorHapticEvent: HapticEvent {
            CHHapticEvent(eventType: .hapticContinuous,
                          parameters: [
                             .init(parameterID: .hapticIntensity, value: 1.0),
-                            .init(parameterID: .hapticSharpness, value: 0.8)
+                            .init(parameterID: .hapticSharpness, value: 0.4)
                          ],
                          relativeTime: 0.5,
                          duration: 0.4),
