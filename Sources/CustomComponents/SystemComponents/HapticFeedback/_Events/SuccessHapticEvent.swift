@@ -12,15 +12,15 @@ struct SuccessHapticEvent: HapticEvent {
                             .init(parameterID: .hapticSharpness, value: 0.7)
                          ],
                          relativeTime: 0,
-                         duration: 0.15),
+                         duration: 0.18),
            
            CHHapticEvent(eventType: .hapticContinuous,
                          parameters: [
                             .init(parameterID: .hapticIntensity, value: 0.8),
                             .init(parameterID: .hapticSharpness, value: 0.8)
                          ],
-                         relativeTime: 0.18,
-                         duration: 0.15),
+                         relativeTime: 0.23,
+                         duration: 0.18),
         ]
     }
     
