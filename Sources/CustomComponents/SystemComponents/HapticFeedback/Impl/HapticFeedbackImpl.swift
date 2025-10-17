@@ -37,6 +37,9 @@ open class HapticFeedback: HapticFeedbackProtocol {
                 
             case .tap:
                 events = TapHapticEvent().event()
+        
+            case .criticalError:
+                events = CriticalErrorHapticEvent().event()
             
             case .impactLight:
                 return UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -46,6 +49,7 @@ open class HapticFeedback: HapticFeedbackProtocol {
                 
             case .impactHeavy:
                 return UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+        
         }
         
         playHaptic(events)
