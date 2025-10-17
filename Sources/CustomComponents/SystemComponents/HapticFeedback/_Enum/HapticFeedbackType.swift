@@ -10,4 +10,6 @@ public enum HapticFeedbackType {
     case impactLight
     case impactMedium
     case impactHeavy
+    case impactRigid
+    case impactSoft
 }
