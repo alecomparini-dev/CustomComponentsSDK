@@ -20,7 +20,7 @@ struct CriticalErrorHapticEvent: HapticEvent {
                             .init(parameterID: .hapticIntensity, value: 1.0),
                             .init(parameterID: .hapticSharpness, value: 0.2)
                          ],
-                         relativeTime: 0.9,
+                         relativeTime: 0.7,
                          duration: 0.4),
         ]
     }
