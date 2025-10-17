@@ -50,6 +50,11 @@ open class HapticFeedback: HapticFeedbackProtocol {
             case .impactHeavy:
                 return UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         
+            case .impactRigid:
+                return UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+            
+            case .impactSoft:
+                return UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         }
         
         playHaptic(events)
