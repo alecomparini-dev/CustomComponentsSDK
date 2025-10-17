@@ -19,7 +19,7 @@ struct SuccessHapticEvent: HapticEvent {
                             .init(parameterID: .hapticIntensity, value: 0.8),
                             .init(parameterID: .hapticSharpness, value: 0.8)
                          ],
-                         relativeTime: 0.15,
+                         relativeTime: 0.18,
                          duration: 0.15),
         ]
     }
