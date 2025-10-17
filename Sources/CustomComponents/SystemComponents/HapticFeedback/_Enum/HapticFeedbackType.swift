@@ -4,6 +4,7 @@
 public enum HapticFeedbackType {
     case success
     case error
+    case criticalError
     case warning
     case tap
     case impactLight
