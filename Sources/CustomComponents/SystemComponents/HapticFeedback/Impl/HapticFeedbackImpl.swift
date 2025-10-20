@@ -5,7 +5,6 @@ import CoreHaptics
 import UIKit
 
 open class HapticFeedback: HapticFeedbackProtocol {
-    private var restartEngineOnce: Bool = false
     private var typeHaptic: HapticFeedbackType!
     private var engine: CHHapticEngine?
     
@@ -100,10 +99,7 @@ open class HapticFeedback: HapticFeedbackProtocol {
     }
     
     private func restartEngine() {
-        if restartEngineOnce { return }
-        
-        restartEngineOnce = true
-        
+
         DispatchQueue.main.async { [weak self] in
             do {
                 try self?.engine?.start()
