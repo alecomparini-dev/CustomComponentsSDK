@@ -5,13 +5,11 @@ import CoreHaptics
 import UIKit
 
 open class HapticFeedback: HapticFeedbackProtocol {
-    static public let shared = HapticFeedback()
-    
     private var restartEngineOnce: Bool = false
     private var typeHaptic: HapticFeedbackType!
     private var engine: CHHapticEngine?
     
-    private init() {
+    public init() {
         prepareEngine()
     }
     
