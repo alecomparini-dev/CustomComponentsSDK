@@ -29,10 +29,10 @@ open class SkeletonBuilder: Skeleton {
         let comp = ViewBuilder()
             .setAutoLayout({ build in
                 build
-                    .top.equalTo(component ?? UIView(), .top, padding.top)
-                    .leading.equalTo(component ?? UIView(), .leading, padding.left)
-                    .trailing.equalTo(component ?? UIView(), .trailing, -padding.right)
-                    .bottom.equalTo(component ?? UIView(), .bottom, -padding.bottom)
+                    .top.equalTo(component?.baseView ?? UIView(), .top, padding.top)
+                    .leading.equalTo(component?.baseView ?? UIView(), .leading, padding.left)
+                    .trailing.equalTo(component?.baseView ?? UIView(), .trailing, -padding.right)
+                    .bottom.equalTo(component?.baseView ?? UIView(), .bottom, -padding.bottom)
             })
         return comp
     }()
