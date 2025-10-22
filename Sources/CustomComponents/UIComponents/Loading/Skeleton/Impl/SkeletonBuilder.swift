@@ -204,7 +204,7 @@ open class SkeletonBuilder: Skeleton {
     private func stopAnimation() {
         component?.setHidden(false)
         
-        configWidthSkeletonView()
+//        configWidthSkeletonView()
         
         if let transitionDuration {
             transitionDissolve(transitionDuration)
