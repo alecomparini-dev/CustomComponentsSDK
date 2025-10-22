@@ -14,9 +14,10 @@ open class SkeletonBuilder: Skeleton {
     private var speed: UIK.Skeleton.SpeedAnimation?
     private var color: UIColor?
     private var radius: CGFloat?
-    private var widthComponent: CGFloat?
+    
     
 //  MARK: - INITIALIZER
+    
     private weak var component: BaseBuilder?
     
     public init(component: BaseBuilder) {
@@ -26,13 +27,13 @@ open class SkeletonBuilder: Skeleton {
     
     private lazy var skeletonView: ViewBuilder = {
         let comp = ViewBuilder()
-            .setConstraints { build in
+            .setAutoLayout({ build in
                 build
-                    .setTop.equalTo(component?.baseView ?? UIView(), .top, padding.top)
-                    .setLeading.equalTo(component?.baseView ?? UIView(), .leading, padding.left)
-                    .setTrailing.equalTo(component?.baseView ?? UIView(), .trailing, -padding.right)
-                    .setBottom.equalTo(component?.baseView ?? UIView(), .bottom, -padding.bottom)
-            }
+                    .top.equalTo(component ?? UIView(), .top, padding.top)
+                    .leading.equalTo(component ?? UIView(), .leading, padding.left)
+                    .trailing.equalTo(component ?? UIView(), .trailing, -padding.right)
+                    .bottom.equalTo(component ?? UIView(), .bottom, -padding.bottom)
+            })
         return comp
     }()
     
@@ -52,7 +53,7 @@ open class SkeletonBuilder: Skeleton {
     }
     
     @discardableResult
-    public func setTransition(_ duration: CGFloat) -> Self {
+    public func setTransition(_ duration: CGFloat?) -> Self {
         transitionDuration = duration
         return self
     }
@@ -115,8 +116,10 @@ open class SkeletonBuilder: Skeleton {
     
     private func addSkeletonView() {
         guard let component else {return}
+        
         skeletonView.add(insideTo: component.baseView.superview ?? UIView())
-        skeletonView.applyConstraint()
+        
+        skeletonView.applyAutoLayout()
     }
     
     private func addSkeletonLayer() {
@@ -184,8 +187,11 @@ open class SkeletonBuilder: Skeleton {
         component?.setHidden(true)
         
         self.skeletonView.get.alpha = 1
+        
         skeletonView.setHidden(false)
+        
         let duration = TimeInterval(getDuration())
+        
         DispatchQueue.main.async { [weak self] in
             guard let self else {return}
             UIView.animate(withDuration: duration, delay: .zero, options: [.curveEaseInOut, .repeat], animations: { [weak self] in
@@ -197,17 +203,22 @@ open class SkeletonBuilder: Skeleton {
     
     private func stopAnimation() {
         component?.setHidden(false)
+        
         configWidthSkeletonView()
+        
         if let transitionDuration {
             transitionDissolve(transitionDuration)
             return
         }
+        
         remove()
     }
     
     private func configWidthSkeletonView() {
         guard let component else {return}
+        
         component.baseView.layoutIfNeeded()
+        
         skeletonView.get.layer.frame = CGRect(
             origin: CGPoint(
                 x: skeletonView.get.layer.frame.origin.x,
@@ -240,9 +251,9 @@ open class SkeletonBuilder: Skeleton {
     }
 
     private func remove() {
+        skeletonView.setHidden(true)
         skeletonLayer.get.layer.removeAllAnimations()
         skeletonView.get.layer.removeAllAnimations()
-        skeletonView.setHidden(true)
         freeMemory()
     }
     

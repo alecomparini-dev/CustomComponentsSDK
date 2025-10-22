@@ -17,7 +17,7 @@ public protocol Skeleton {
     func setCornerRadius(_ radius: CGFloat) -> Self
     
     @discardableResult
-    func setTransition(_ duration: CGFloat) -> Self
+    func setTransition(_ duration: CGFloat?) -> Self
     
     @discardableResult
     func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self
