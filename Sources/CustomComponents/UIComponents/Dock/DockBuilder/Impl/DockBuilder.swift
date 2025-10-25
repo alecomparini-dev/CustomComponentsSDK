@@ -129,6 +129,18 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     @discardableResult
+    public func setSectionInset(_ insets: UIEdgeInsets ) -> Self {
+        layout.sectionInset = insets
+        return self
+    }
+    
+    @discardableResult
+    public func setSectionInset(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Self {
+        layout.sectionInset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+        return self
+    }
+    
+    @discardableResult
     public func setDisableUserInteraction(_ flag: Bool) -> Self {
         isDisableUserInteraction = flag
         return self

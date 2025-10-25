@@ -47,6 +47,9 @@ public protocol Dock: AnyObject {
     func setContentInset(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self
     
     @discardableResult
+    func setSectionInset(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self
+    
+    @discardableResult
     func setPadding(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> Self
     
     @discardableResult
