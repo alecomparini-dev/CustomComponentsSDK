@@ -24,6 +24,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var footerView: BaseBuilder?
     private var heightFooterView: CGFloat = 0
     
+    private var backgroundView: ViewBuilder?
     
     
 //  MARK: - INITIALIZERS
@@ -68,8 +69,15 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         return self
     }
     
+    @discardableResult
+    public func setBackgroundView(_ view: ViewBuilder) -> Self {
+        backgroundView = view
+        return self
+    }
+    
     
 //  MARK: - CONFIG LIST
+    
     @discardableResult
     public func setConfigList(style: UIK.List.Style = .grouped, _ build: (_ build: ListBuilder) -> ListBuilder) -> Self {
         _dropdownMenuList = build(ListBuilder(style: UITableView.Style(rawValue: style.rawValue) ?? .grouped  ))
@@ -78,6 +86,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
     
 //  MARK: - POPULATE DATA
+    
     @discardableResult
     public func setPopulateItems(_ build: (_ build: DropdownMenuItemsBuilder) -> DropdownMenuItemsBuilder) -> Self {
         dropdownMenuItems = build(DropdownMenuItemsBuilder())
@@ -86,6 +95,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 
     
 //  MARK: - CONFIG FOOTER VIEW
+    
     @discardableResult
     public func setConfigFooterView(height: CGFloat, _ view: ViewBuilder) -> Self {
         footerView = view
@@ -134,8 +144,22 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         setOverlay(style: .dark, opacity: 0)
     }
     
+    private func includedBackgroundView() {
+        guard let backgroundView else { return }
+        
+        backgroundView.setAutoLayout { build in
+            build.pin.equalToSuperview()
+        }
+        
+        backgroundView.add(insideTo: dropdownMenu)
+        
+        backgroundView.applyAutoLayout()
+    }
+    
     private func applyOnce() {
-        if isApplyOnce {return}
+        if isApplyOnce { return }
+        
+        includedBackgroundView()
         
         configOverlay()
         
@@ -194,7 +218,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         guard let overlay = overlay else {return}
         if autoCloseEnabled {
             _ = TapGestureBuilder(overlay.get)
-//                .setCancelsTouchesInView(false)
                 .setCancelsTouchesInView(true)
                 .setTap({ [weak self] tapGesture in
                     self?.verifyTappedOutMenu(tapGesture)
@@ -314,7 +337,9 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 
 
 //  MARK: - EXTENSION
+
 extension DropdownMenuBuilder: ListDelegate {
+    
     public func numberOfSections(_ list: ListBuilder) -> Int {
         dropdownMenuItems?.get.count ?? 0
     }
@@ -330,6 +355,5 @@ extension DropdownMenuBuilder: ListDelegate {
     public func rowViewCallBack(_ list: ListBuilder, section: Int, row: Int) -> Any {
         return dropdownMenuItems?.get[section].rows[row] ?? UIView()
     }
-    
     
 }
