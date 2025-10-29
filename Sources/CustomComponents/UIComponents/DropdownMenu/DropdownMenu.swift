@@ -22,6 +22,9 @@ public protocol DropdownMenu {
     @discardableResult
     func setAnimation(_ duration: TimeInterval) -> Self
     
+    @discardableResult
+    func setBackgroundView(_ view: ViewBuilder) -> Self
+    
     
 //  MARK: - CONFIG LIST
     
