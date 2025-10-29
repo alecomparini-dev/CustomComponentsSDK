@@ -111,28 +111,28 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
 
         applyOnce()
         
-        events?.willAppearDropdownMenu()
+        events?.willAppearDropdownMenu(self)
         
         showAnimation { [weak self] in
             guard let self else { return }
             
             isVisible = true
             
-            events?.didAppearDropdownMenu()
+            events?.didAppearDropdownMenu(self)
         }
     }
     
     public func hide() {
         if !isVisible { return }
         
-        events?.willDisappearDropdownMenu()
+        events?.willDisappearDropdownMenu(self)
         
         hideAnimation { [weak self] in
             guard let self else {return }
         
             isVisible = false
 
-            events?.didDisappearDropdownMenu()
+            events?.didDisappearDropdownMenu(self)
         }
         
     }

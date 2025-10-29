@@ -5,15 +5,15 @@ import Foundation
 
 @MainActor
 public protocol DropdownMenuEvents: AnyObject {
-    func willAppearDropdownMenu()
-    func didAppearDropdownMenu()
-    func willDisappearDropdownMenu()
-    func didDisappearDropdownMenu()
+    func willAppearDropdownMenu(_ dropdown: DropdownMenuBuilder)
+    func didAppearDropdownMenu(_ dropdown: DropdownMenuBuilder)
+    func willDisappearDropdownMenu(_ dropdown: DropdownMenuBuilder)
+    func didDisappearDropdownMenu(_ dropdown: DropdownMenuBuilder)
 }
 
 
 //  MARK: - EXTENSION
 extension DropdownMenuEvents {
-    func willAppearDropdownMenu() {}
-    func willDisappearDropdownMenu() {}
+    func willAppearDropdownMenu(_ dropdown: DropdownMenuBuilder) {}
+    func willDisappearDropdownMenu(_ dropdown: DropdownMenuBuilder) {}
 }
