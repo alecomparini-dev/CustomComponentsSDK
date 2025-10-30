@@ -228,6 +228,12 @@ open class DockBuilder: BaseBuilder, Dock {
         let scrollPosition = configAutoScrollPosition()
         
         if isSelected(index) {
+            
+            if isSelectItemEventOnly {
+                delegate?.didSelectItemAt(self, index)
+                return
+            }
+            
             if !isEnableToggleItemSelection { return }
             
             deselect(index)
