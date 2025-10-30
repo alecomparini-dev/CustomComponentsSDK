@@ -11,7 +11,8 @@ open class DockBuilder: BaseBuilder, Dock {
     public typealias D = UICollectionViewCell
     public typealias P = UICollectionView.ScrollPosition
     
-    private var scrollPosition: UICollectionView.ScrollPosition?
+    private var autoScrollPosition: UICollectionView.ScrollPosition?
+    private var isAutoScrollItemSelected: Bool = true
     private var padding: (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = (top: 0, left: 0, bottom: 0 , right: 0)
     private var disableUserInteraction: [Int]? = []
     private var indexesSelected: Set<Int> = []
@@ -174,8 +175,14 @@ open class DockBuilder: BaseBuilder, Dock {
     }
 
     @discardableResult
-    public func setAutoScrollItemSelected(_ scrollPosition: UICollectionView.ScrollPosition) -> Self {
-        self.scrollPosition = scrollPosition
+    public func setAutoScrollItemSelected(_ autoScrollPosition: UICollectionView.ScrollPosition) -> Self {
+        self.autoScrollPosition = autoScrollPosition
+        return self
+    }
+    
+    @discardableResult
+    public func setIsAutoScrollItemSelected(_ flag: Bool) -> Self {
+        isAutoScrollItemSelected = flag
         return self
     }
     
@@ -215,16 +222,23 @@ open class DockBuilder: BaseBuilder, Dock {
         
         if isSelected(index) {
             if !isEnableToggleItemSelection { return }
+            
             deselect(index)
-            _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
+            
+            if isAutoScrollItemSelected {
+                _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
+            }
+            
             return
         }
         
         if !(delegate?.shouldSelectItemAt(self, index) ?? true) { return }
         
-        _collection.selectItem(at: indexPath, animated: true, scrollPosition: scrollPosition)
-        
-        _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
+        if isAutoScrollItemSelected {
+            _collection.selectItem(at: indexPath, animated: true, scrollPosition: scrollPosition)
+            
+            _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
+        }
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             setCustomCellActiveCallback(cell: cell)
@@ -334,7 +348,7 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     private func configAutoScrollPosition() -> UICollectionView.ScrollPosition {
-        if let scrollPosition { return scrollPosition }
+        if let autoScrollPosition { return autoScrollPosition }
         
         var position: UICollectionView.ScrollPosition = .centeredHorizontally
         if layout.scrollDirection == .vertical {
