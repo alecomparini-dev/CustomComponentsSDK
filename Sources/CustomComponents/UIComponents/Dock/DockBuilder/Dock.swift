@@ -76,6 +76,9 @@ public protocol Dock: AnyObject {
     @discardableResult
     func setAutoScrollItemSelected(_ direction: P) -> Self
     
+    @discardableResult
+    func setIsAutoScrollItemSelected(_ flag: Bool) -> Self
+    
     
 //  MARK: - DELEGATE
     @discardableResult
