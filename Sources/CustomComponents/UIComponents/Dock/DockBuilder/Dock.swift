@@ -79,8 +79,12 @@ public protocol Dock: AnyObject {
     @discardableResult
     func setIsAutoScrollItemSelected(_ flag: Bool) -> Self
     
+    @discardableResult
+    func setSelectItemEventOnly() -> Self
+    
     
 //  MARK: - DELEGATE
+    
     @discardableResult
     func setDelegate(_ delegate: DockDelegate) -> Self
     
@@ -100,7 +104,5 @@ public protocol Dock: AnyObject {
     func removeCell(_ index: Int)
     
     func insertCell(_ index: Int)
-    
-
     
 }

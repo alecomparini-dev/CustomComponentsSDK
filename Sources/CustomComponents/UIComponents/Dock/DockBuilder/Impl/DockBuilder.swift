@@ -13,6 +13,7 @@ open class DockBuilder: BaseBuilder, Dock {
     
     private var autoScrollPosition: UICollectionView.ScrollPosition?
     private var isAutoScrollItemSelected: Bool = true
+    private var isSelectItemEventOnly: Bool = false
     private var padding: (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = (top: 0, left: 0, bottom: 0 , right: 0)
     private var disableUserInteraction: [Int]? = []
     private var indexesSelected: Set<Int> = []
@@ -186,6 +187,12 @@ open class DockBuilder: BaseBuilder, Dock {
         return self
     }
     
+    @discardableResult
+    public func setSelectItemEventOnly() -> Self {
+        isSelectItemEventOnly = true
+        return self
+    }
+    
     
 //  MARK: - SET DELEGATE
     @discardableResult
@@ -225,20 +232,16 @@ open class DockBuilder: BaseBuilder, Dock {
             
             deselect(index)
             
-            if isAutoScrollItemSelected {
-                _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
-            }
+            scrollToItem(indexPath, scrollPosition)
             
             return
         }
         
         if !(delegate?.shouldSelectItemAt(self, index) ?? true) { return }
+                
+        selectItem(indexPath, scrollPosition)
         
-        if isAutoScrollItemSelected {
-            _collection.selectItem(at: indexPath, animated: true, scrollPosition: scrollPosition)
-            
-            _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
-        }
+        scrollToItem(indexPath, scrollPosition)
         
         if let cell = getCellByIndex(indexPath.row) as? DockCell {
             setCustomCellActiveCallback(cell: cell)
@@ -250,6 +253,8 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     public func deselect(_ index: Int) {
+        if isSelectItemEventOnly { return }
+        
         removeIndexSelected(index)
         
         if isDisableUserInteraction(index) { return }
@@ -326,7 +331,6 @@ open class DockBuilder: BaseBuilder, Dock {
     }
     
     private func setCustomCellActiveCallback(cell: UICollectionViewCell) {
-        
         if let cellDock = cell as? DockCell {
             if let view = delegate?.customCellActiveCallback(self, cellDock) {
                 cellDock.setupCell(view)
@@ -336,10 +340,13 @@ open class DockBuilder: BaseBuilder, Dock {
     
     private func isDisableUserInteraction(_ index: Int) -> Bool {
         if isDisableUserInteraction { return true }
+        
         return disableUserInteraction?.contains(index) ?? false
     }
     
     private func setIndexSelected(_ index: Int) {
+        if isSelectItemEventOnly { indexesSelected.removeAll() }
+        
         indexesSelected.insert(index)
     }
     
@@ -351,23 +358,34 @@ open class DockBuilder: BaseBuilder, Dock {
         if let autoScrollPosition { return autoScrollPosition }
         
         var position: UICollectionView.ScrollPosition = .centeredHorizontally
-        if layout.scrollDirection == .vertical {
-            position = .centeredVertically
-        }
+        
+        if layout.scrollDirection == .vertical { position = .centeredVertically }
         
         return position
+    }
+    
+    private func scrollToItem(_ indexPath: IndexPath, _ scrollPosition: UICollectionView.ScrollPosition) {
+        if !isAutoScrollItemSelected { return }
+        
+        _collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
+    }
+    
+    private func selectItem(_ indexPath: IndexPath, _ scrollPosition: UICollectionView.ScrollPosition) {
+        if !isAutoScrollItemSelected { return }
+        
+        _collection.selectItem(at: indexPath, animated: true, scrollPosition: scrollPosition)
     }
 
 }
 
 
-//  MARK: - Extension DataSource
+//  MARK: - Extension UICollectionViewDataSource
+
 extension DockBuilder: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let delegate else {
-            fatalError("Dock delegate has not been implemented")
-        }
+        guard let delegate else { fatalError("Dock delegate has not been implemented") }
+        
         return delegate.numberOfItemsCallback(self)
     }
     
@@ -392,7 +410,8 @@ extension DockBuilder: UICollectionViewDataSource {
 
 
 
-//  MARK: - Extension Delegate Flow Layout
+//  MARK: - Extension UICollectionViewDelegateFlowLayout
+
 extension DockBuilder: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -419,6 +438,7 @@ extension DockBuilder: UICollectionViewDelegateFlowLayout {
 
 
 //  MARK: - EXTESION DEFAULT DOCK DELEGATE
+
 public extension DockDelegate {
     func shouldSelectItemAt(_ dockBuilder: DockBuilder, _ index: Int) -> Bool { return true }
     func didSelectItemAt(_ dockBuilder: DockBuilder, _ index: Int) {}
