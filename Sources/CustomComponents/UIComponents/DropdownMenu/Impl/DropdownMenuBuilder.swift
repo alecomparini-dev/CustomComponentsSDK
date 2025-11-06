@@ -105,7 +105,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     
 //  MARK: - BUILD AREA
     
-    public func build() {
+    open func build() {
         includedBackgroundView()
         
         configOverlay()
