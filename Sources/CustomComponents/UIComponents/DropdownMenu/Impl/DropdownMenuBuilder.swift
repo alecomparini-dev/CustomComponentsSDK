@@ -119,6 +119,8 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         configFooterView()
         
         configDelegateList()
+        
+        _dropdownMenuList?.show()
     }
 
     
