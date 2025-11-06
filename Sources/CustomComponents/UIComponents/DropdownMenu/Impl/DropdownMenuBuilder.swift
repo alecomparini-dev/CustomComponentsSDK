@@ -11,7 +11,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private weak var superview: UIView?
     
     private var animationDuration: TimeInterval = 0
-    private var isApplyOnce = false
     private var isVisible = false
     private var autoCloseEnabled = false
     private var zPosition: CGFloat = UIK.Dropdown.zPosition
@@ -103,13 +102,30 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         return self
     }
 
+    
+//  MARK: - BUILD AREA
+    
+    public func build() {
+        includedBackgroundView()
+        
+        configOverlay()
+        
+        configHierarchyVisualization()
+        
+        configAutoCloseDropdownMenu()
 
+        configList()
+        
+        configFooterView()
+        
+        configDelegateList()
+    }
+
+    
 //  MARK: - SHOW and HIDE
     
     public func show() {
         if isVisible {return}
-
-        applyOnce()
         
         events?.willAppearDropdownMenu(self)
         
@@ -154,28 +170,6 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
         backgroundView.add(insideTo: dropdownMenu)
         
         backgroundView.applyAutoLayout()
-    }
-    
-    private func applyOnce() {
-        if isApplyOnce { return }
-        
-        includedBackgroundView()
-        
-        configOverlay()
-        
-        configHierarchyVisualization()
-        
-        configAutoCloseDropdownMenu()
-
-        configList()
-        
-        configFooterView()
-        
-        configDelegateList()
-        
-        _dropdownMenuList?.show()
-        
-        isApplyOnce = true
     }
     
     private func getSuperview() -> UIView? {
