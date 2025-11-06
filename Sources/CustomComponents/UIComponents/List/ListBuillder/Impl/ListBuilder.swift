@@ -351,6 +351,7 @@ extension ListBuilder: UITableViewDataSource {
         return cell
     }
     
+    
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.scrollViewDidScroll(self, scrollView)
     }
@@ -390,6 +391,7 @@ extension ListBuilder: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         deselect(indexPath.section, indexPath.row)
     }
+    
 }
 
 

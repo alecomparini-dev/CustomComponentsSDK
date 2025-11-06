@@ -43,11 +43,15 @@ public protocol DropdownMenu {
     @discardableResult
     func setConfigFooterView(height: CGFloat, _ view: ViewBuilder) -> Self
     
+
+//  MARK: - BUILD
+    
+    func build()
+
     
 //  MARK: - GET PROPERTIES
     
     func isShow() -> Bool
-    
     
 //  MARK: - SHOW and HIDE
     
