@@ -16,7 +16,7 @@ open class DropdownMenuBuilder: BaseBuilder, DropdownMenu {
     private var zPosition: CGFloat = UIK.Dropdown.zPosition
     
     private var excludeComponents = [BaseBuilder]()
-    private var overlay: BlurBuilder?
+    public var overlay: BlurBuilder?
     private var tap: TapGestureBuilder?
     private var _dropdownMenuList: ListBuilder?
     private var dropdownMenuItems: DropdownMenuItemsBuilder?
