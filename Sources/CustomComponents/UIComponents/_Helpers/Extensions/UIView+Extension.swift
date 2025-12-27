@@ -189,9 +189,16 @@ public extension UIView {
 //  MARK: - PREVIEW SWIFTUI
     @objc
     private func hideKeyboard() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: { [weak self] in
-            self?.endEditing(true)
-        })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: { [weak self] in
+//            self?.endEditing(true)
+//        })
+        
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil
+        )
     }
 
     private struct SwiftUIViewWrapper: UIViewRepresentable {
