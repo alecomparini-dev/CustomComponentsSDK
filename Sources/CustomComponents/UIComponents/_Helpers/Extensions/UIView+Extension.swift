@@ -192,13 +192,14 @@ public extension UIView {
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: { [weak self] in
 //            self?.endEditing(true)
 //        })
-        
-        UIApplication.shared.sendAction(
-            #selector(UIResponder.resignFirstResponder),
-            to: nil,
-            from: nil,
-            for: nil
-        )
+        DispatchQueue.main.async {
+                UIApplication.shared.sendAction(
+                    #selector(UIResponder.resignFirstResponder),
+                    to: nil,
+                    from: nil,
+                    for: nil
+                )
+            }
     }
 
     private struct SwiftUIViewWrapper: UIViewRepresentable {
