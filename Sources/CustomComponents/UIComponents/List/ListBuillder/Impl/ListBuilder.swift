@@ -340,10 +340,10 @@ extension ListBuilder: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier, for: indexPath) as? ListCell
-        
-        guard let cell else { return UITableViewCell() }
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier) as? ListCell else {
+            return UITableViewCell()
+        }
+                
         guard let view = delegate?.rowViewCallBack(self, section: indexPath.section, row: indexPath.row) else { return UITableViewCell()}
         
         cell.setupCell(view)
@@ -365,6 +365,7 @@ extension ListBuilder: UITableViewDataSource {
 
 
 //  MARK: - Extension Delegate
+
 extension ListBuilder: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
