@@ -278,8 +278,8 @@ open class ListBuilder: BaseBuilder, List {
     
     private func applyOnceConfig() {
         if alreadyApplied { return }
-        configureTableViewDelegate()
         registerCell()
+        configureTableViewDelegate()
     }
     
     private func registerCell() {
@@ -328,11 +328,14 @@ extension ListBuilder: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let view = delegate?.sectionViewCallback(self, section: section) {
-            let cell = ListCell()
+//            let cell = ListCell()
+//            
+//            cell.setupCell(view)
+//            
+//            return cell
             
-            cell.setupCell(view)
+            return view
             
-            return cell
         }
         
         return nil
