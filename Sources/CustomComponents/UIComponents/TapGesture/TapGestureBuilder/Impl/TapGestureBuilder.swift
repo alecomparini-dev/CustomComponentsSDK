@@ -129,6 +129,13 @@ open class TapGestureBuilder: UITapGestureRecognizer, TapGesture {
     
     @objc private func objcTapGesture(_ gesture: UITapGestureRecognizer) {
         
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil
+        )
+        
         switch gesture.state {
             case .ended:
                 performTap(tap)
