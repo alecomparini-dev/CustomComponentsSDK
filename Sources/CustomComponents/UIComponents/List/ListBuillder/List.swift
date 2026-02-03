@@ -82,9 +82,11 @@ public protocol List {
     @discardableResult
     func setCalculateRowHeight(completion: @escaping (_ list: ListBuilder, _ section: Int, _ row: Int) -> CGFloat) -> Self
     
-    @available(iOS 15.0, *)
     @discardableResult
     func setSectionHeaderTopPadding(_ padding: CGFloat) -> Self
+    
+    @discardableResult
+    func setVerticalScrollPosition(_ position: CGFloat) -> Self
     
     
 //  MARK: - DELEGATE
