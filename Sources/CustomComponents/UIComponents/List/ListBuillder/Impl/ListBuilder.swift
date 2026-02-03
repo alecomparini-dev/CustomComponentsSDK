@@ -194,10 +194,15 @@ open class ListBuilder: BaseBuilder, List {
         return self
     }
 
-    @available(iOS 15.0, *)
     @discardableResult
     public func setSectionHeaderTopPadding(_ padding: CGFloat) -> Self {
         list.sectionHeaderTopPadding = padding
+        return self
+    }
+    
+    @discardableResult
+    public func setVerticalScrollPosition(_ position: CGFloat) -> Self {
+        list.setContentOffset(CGPoint(x: 0, y: position), animated: true)
         return self
     }
 
