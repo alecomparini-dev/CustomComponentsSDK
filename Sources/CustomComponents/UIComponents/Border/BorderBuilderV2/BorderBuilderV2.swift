@@ -77,6 +77,7 @@ open class BorderBuilderV2: Border {
         BorderLayoutUpdater.attach(to: component)
 
         let renderer = BorderRendererResolver.resolve(context: context)
+        
         renderer.render(context: context)
     }
     
