@@ -27,6 +27,7 @@ open class ListBuilder: BaseBuilder, List {
     private weak var delegate: ListDelegate?
     private var view: UIView?
     
+    private var sectionFooterView: [Int : ViewBuilder] = [:]
     private var rowsHeight: [Int : CGFloat] = [:]
     private var alreadyApplied = false
     private var completionCalculateRowHeight: ((ListBuilder, Int, Int) -> CGFloat)?
@@ -164,6 +165,12 @@ open class ListBuilder: BaseBuilder, List {
     @discardableResult
     public func setFooterView(_ footerView: ViewBuilder) -> Self {
         list.tableFooterView = footerView.get
+        return self
+    }
+    
+    @discardableResult
+    public func setSectionFooterView(section: Int, _ footerView: ViewBuilder) -> Self {
+        sectionFooterView.updateValue(footerView, forKey: section)
         return self
     }
     
@@ -324,11 +331,9 @@ extension ListBuilder: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView()
+        if sectionFooterView.isEmpty { return UIView().setBackgroundColor(.clear) }
         
-        view.setBackgroundColor(.clear)
-        
-        return view
+        return sectionFooterView[section]?.get
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -389,6 +394,7 @@ extension ListBuilder: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         deselect(indexPath.section, indexPath.row)
     }
+    
     
 }
 
