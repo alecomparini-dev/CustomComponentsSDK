@@ -331,7 +331,7 @@ extension ListBuilder: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if (sectionFooterView[section] != nil) { return UIView().setBackgroundColor(.clear) }
+        if (sectionFooterView[section] == nil) { return UIView().setBackgroundColor(.clear) }
         
         return sectionFooterView[section]?.get
     }
