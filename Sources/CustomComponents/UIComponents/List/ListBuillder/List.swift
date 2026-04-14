@@ -71,7 +71,10 @@ public protocol List {
     func setPadding(top: CGFloat?, left: CGFloat?, bottom: CGFloat?, right: CGFloat?) -> Self
     
     @discardableResult
-    func setFooterView(_ footerView: ViewBuilder) -> Self 
+    func setFooterView(_ footerView: ViewBuilder) -> Self
+    
+    @discardableResult
+    func setSectionFooterView(section: Int, _ footerView: ViewBuilder) -> Self
     
     @discardableResult
     func setHeaderView(_ headerView: ViewBuilder) -> Self
