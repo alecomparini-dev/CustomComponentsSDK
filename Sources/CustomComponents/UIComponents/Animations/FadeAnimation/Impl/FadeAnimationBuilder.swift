@@ -7,7 +7,7 @@ import UIKit
 final public class FadeAnimationBuilder: BaseAnimationBuilder, FadeAnimation {
     private let keyPath = "opacity"
     
-    public init(component: BaseBuilder) {
+    public init(component: UIView) {
         super.init(component: component,
                    keyPathCABasicAnimation: keyPath)
     }

@@ -7,7 +7,7 @@ import UIKit
 public protocol Animation {
     var isAnimating: Bool { get }
     
-    var component: BaseBuilder? { get }
+    var component: UIView? { get }
     
     @discardableResult
     func setRepeatCount(_ count: Float) -> Self
