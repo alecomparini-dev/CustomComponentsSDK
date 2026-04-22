@@ -14,11 +14,11 @@ open class BaseAnimationBuilder: Animation {
     
 //  MARK: - INITIALIAZERS
     
-    private weak var _component: BaseBuilder?
+    private weak var _component: UIView?
     
     private let keyPathCABasicAnimation: String
     
-    public init(component: BaseBuilder? = nil,
+    public init(component: UIView? = nil,
                 keyPathCABasicAnimation: String) {
         self._component = component
         self.keyPathCABasicAnimation = keyPathCABasicAnimation
@@ -30,7 +30,7 @@ open class BaseAnimationBuilder: Animation {
 
     public var isAnimating: Bool { _isAnimating }
     
-    public var component: BaseBuilder? { _component }
+    public var component: UIView? { _component }
     
 
 //  MARK: - SET PROPERTIES
@@ -67,7 +67,7 @@ open class BaseAnimationBuilder: Animation {
  
         setStartAnimation()
         
-        component?.baseView.layer.add(basicAnimation, forKey: animationKey)
+        component?.layer.add(basicAnimation, forKey: animationKey)
         
         _isAnimating = true
         
@@ -83,7 +83,7 @@ open class BaseAnimationBuilder: Animation {
             
             component?.setHidden(shouldHide, animated: true)
         
-            component?.baseView.layer.removeAnimation(forKey: animationKey)
+            component?.layer.removeAnimation(forKey: animationKey)
             
             _isAnimating = false
             

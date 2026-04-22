@@ -8,7 +8,7 @@ final public class ScaleAnimationBuilder: BaseAnimationBuilder, ScaleAnimation {
     
     private let keyPath = "transform.scale"
     
-    public init(component: BaseBuilder) {
+    public init(component: UIView) {
         super.init(component: component,
                    keyPathCABasicAnimation: keyPath)
         

@@ -13,7 +13,7 @@ final class UIButtonConfigurationBorderRenderer: BorderRenderer {
         guard let button = context.modernButton else { return }
 
         var config = button.configuration!
-        var background = config.background ?? .clear()
+        var background = config.background
 
         background.cornerRadius = context.cornerRadius
         background.strokeWidth = context.borderWidth
