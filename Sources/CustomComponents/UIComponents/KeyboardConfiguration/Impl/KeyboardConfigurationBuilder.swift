@@ -141,32 +141,52 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     private func addButtonItemToToolbar(_ barButtonItem: UIBarButtonItem?) {
         guard let toolbar, let barButtonItem else {return}
-        toolbar.items?.append(barButtonItem)
+        
+        var items = toolbar.items ?? []
+        items.append(barButtonItem)
+            
+        toolbar.setItems(items, animated: false)
+        
         repositionDoneButtonToFirstPosition()
     }
     
     private func repositionDoneButtonToFirstPosition() {
-        if let indexDone = toolbar?.items?.firstIndex(where: { $0.style == .done }) {
-            let itemDone = toolbar?.items?[indexDone]
-            toolbar?.items?.remove(at: indexDone)
-            if let itemDone {toolbar?.items?.append(itemDone)}
+//        if let indexDone = toolbar?.items?.firstIndex(where: { $0.style == .done }) {
+//            let itemDone = toolbar?.items?[indexDone]
+//            toolbar?.items?.remove(at: indexDone)
+//            if let itemDone {toolbar?.items?.append(itemDone)}
+//        }
+        
+        guard let toolbar else { return }
+        
+        var items = toolbar.items ?? []
+        
+        if let index = items.firstIndex(where: { $0.style == .done }) {
+            let done = items.remove(at: index)
+            items.append(done)
+            
+            toolbar.setItems(items, animated: false)
         }
+
     }
     
     private func createToolbar() {
         if toolbar != nil {return}
-//        toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        toolbar = UIToolbar()
+        toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+//        toolbar = UIToolbar()
         configToolbar()
-        addToolbarToTextField()
         addButtonItemToToolbar(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
         toolbar?.sizeToFit()
+        addToolbarToTextField()
     }
     
     private func configToolbar() {
         toolbar?.items = []
+        toolbar?.translatesAutoresizingMaskIntoConstraints = false
         toolbar?.barStyle = .default
         toolbar?.tintColor = toolBarTintColor
+        toolbar?.setContentHuggingPriority(.required, for: .horizontal)
+        toolbar?.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
     
     private func addToolbarToTextField() {
