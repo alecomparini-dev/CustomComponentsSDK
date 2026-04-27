@@ -46,6 +46,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         createToolbar()
         barButtonDone = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(doneButtonTapped))
         addButtonItemToToolbar(barButtonDone)
+        toolbar?.sizeToFit()
         return self
     }
     
@@ -55,6 +56,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         createToolbar()
         addButtonItemToToolbar(createClearButtonItem())
         addButtonItemToToolbar(createFixedSpace(10))
+        toolbar?.sizeToFit()
         return self
     }
     
@@ -134,6 +136,7 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
         addButtonItemToToolbar(createFixedSpace(10))
         addButtonItemToToolbar(next)
         addButtonItemToToolbar(createFixedSpace(10))
+        toolbar?.sizeToFit()
     }
     
     private func addButtonItemToToolbar(_ barButtonItem: UIBarButtonItem?) {
@@ -152,16 +155,17 @@ open class KeyboardConfigurationBuilder: KeyboardConfiguration {
     
     private func createToolbar() {
         if toolbar != nil {return}
-        toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+//        toolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        toolbar = UIToolbar()
         configToolbar()
         addToolbarToTextField()
         addButtonItemToToolbar(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+        toolbar?.sizeToFit()
     }
     
     private func configToolbar() {
         toolbar?.items = []
         toolbar?.barStyle = .default
-        toolbar?.sizeToFit()
         toolbar?.tintColor = toolBarTintColor
     }
     
